@@ -1,4 +1,4 @@
-# SeeMore
+# STALK UR TEXT brought to you by: Corinne Pingul, Shanna Chau, Ashley Watkins, Michelle McCarthy
 
 ![SeeMore](http://www.theirishduck.info/wp-content/uploads/2013/06/plant.png)
 
