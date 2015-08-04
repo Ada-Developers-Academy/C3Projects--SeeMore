@@ -1,8 +1,8 @@
-module OmniAuth
-  module Strategies
-    autoload :Developer, Rails.root.join('lib', 'strategies', 'developer')
-  end
-end
+# module OmniAuth
+#   module Strategies
+#     autoload :Developer, Rails.root.join('lib', 'strategies', 'developer')
+#   end
+# end
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :developer,

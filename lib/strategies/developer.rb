@@ -1,7 +1,7 @@
-require 'omniauth'
-
-module OmniAuth
-  module Strategies
+# require 'omniauth'
+#
+# module OmniAuth
+#   module Strategies
     # The Developer strategy is a very simple strategy that can be used as a
     # placeholder in your application until a different authentication strategy
     # is swapped in. It has zero security and should *never* be used in a
@@ -30,31 +30,31 @@ module OmniAuth
     # they will be presented a form that prompts for (by default) their name
     # and email address. The auth hash will be populated with these fields and
     # the `uid` will simply be set to the provided email.
-    class Developer
-      include OmniAuth::Strategy
-
-      option :fields, [:username, :email]
-      option :uid_field, :email
-
-      def request_phase
-        form = OmniAuth::Form.new(:title => 'User Info', :url => callback_path)
-        options.fields.each do |field|
-          form.text_field field.to_s.capitalize.gsub('_', ' '), field.to_s
-        end
-        form.button 'Sign In'
-        form.to_response
-      end
-
-      uid do
-        request.params[options.uid_field.to_s]
-      end
-
-      info do
-        options.fields.inject({}) do |hash, field|
-          hash[field] = request.params[field.to_s]
-          hash
-        end
-      end
-    end
-  end
-end
+#     class Developer
+#       include OmniAuth::Strategy
+#
+#       option :fields, [:username, :email]
+#       option :uid_field, :email
+#
+#       def request_phase
+#         form = OmniAuth::Form.new(:title => 'User Info', :url => callback_path)
+#         options.fields.each do |field|
+#           form.text_field field.to_s.capitalize.gsub('_', ' '), field.to_s
+#         end
+#         form.button 'Sign In'
+#         form.to_response
+#       end
+#
+#       uid do
+#         request.params[options.uid_field.to_s]
+#       end
+#
+#       info do
+#         options.fields.inject({}) do |hash, field|
+#           hash[field] = request.params[field.to_s]
+#           hash
+#         end
+#       end
+#     end
+#   end
+# end
