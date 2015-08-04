@@ -25,6 +25,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # styling
 gem 'bootstrap-sass', '~> 3.3.5'
 
+# API assistant
+gem 'httparty'
+
 # authorization
 gem 'omniauth', '~> 1.2.2'
 gem 'omniauth-instagram', '~> 1.0.1'
