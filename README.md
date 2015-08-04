@@ -1,4 +1,4 @@
-# SeeMore
+# V-8 (Loraine, Marleigh, Amira, Lindsey) - SeeMore
 
 ![SeeMore](http://www.theirishduck.info/wp-content/uploads/2013/06/plant.png)
 
