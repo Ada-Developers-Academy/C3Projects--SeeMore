@@ -1,4 +1,5 @@
 # SeeMore
+## Alice, Brittany, Kari, Kyna = Team FeedMe
 
 ![SeeMore](http://www.theirishduck.info/wp-content/uploads/2013/06/plant.png)
 
