@@ -35,7 +35,11 @@ RSpec.configure do |config|
     # set per-provider (or default) authentication
     # hashes to return during testing.
 
-    # OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({:provider => 'github', :uid => '123545', info: {email: "a@b.com", nickname: "Ada"}})
+    OmniAuth.config.mock_auth[:developer] = OmniAuth::AuthHash.new({
+      :provider => 'developer',
+      :uid => '123545',
+      info: {email: "a@b.com", nickname: "Ada"}
+    })
   end
   
   config.include FactoryGirl::Syntax::Methods
