@@ -222,12 +222,12 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.5)
   byebug
   coffee-rails (~> 4.1.0)
-  dotenv-rails
+  dotenv-rails (~> 2.0.2)
   factory_girl_rails (~> 4.0)
   jbuilder (~> 2.0)
   jquery-rails
-  omniauth
-  omniauth-instagram
+  omniauth (~> 1.2.2)
+  omniauth-instagram (~> 1.0.1)
   pg
   pry-rails
   rails (= 4.2.3)

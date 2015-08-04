@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', '~> 2.0.2', groups: [:development, :test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
@@ -26,8 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass', '~> 3.3.5'
 
 # authorization
-gem 'omniauth'
-gem 'omniauth-instagram'
+gem 'omniauth', '~> 1.2.2'
+gem 'omniauth-instagram', '~> 1.0.1'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
