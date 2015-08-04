@@ -15,3 +15,8 @@
 /log/*
 !/log/.keep
 /tmp
+
+/config
+/coverage
+.env
+.DS_Store
