@@ -34,6 +34,25 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 
+  config.before(:suite) do
+  # Once you have enabled test mode, all requests
+  # to OmniAuth will be short circuited
+  # to use the mock authentication hash.
+  # A request to /auth/provider will redirect
+  # immediately to /auth/provider/callback.
+
+  OmniAuth.config.test_mode = true
+
+  # The mock_auth configuration allows you to
+  # set per-provider (or default) authentication
+  # hashes to return during testing.
+
+  OmniAuth.config.mock_auth[:developer] = OmniAuth::AuthHash.new({
+    :provider => 'developer',
+    :uid => 'a@b.com',
+    info: {email: "a@b.com", name: "BEAST"}})
+  end
+
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
   config.mock_with :rspec do |mocks|
