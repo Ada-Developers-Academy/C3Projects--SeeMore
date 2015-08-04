@@ -14,7 +14,7 @@ You and your team will build a feed aggregator service that allows users to logi
 
 ## Guidelines
 + Teams of four will work with a Teacher acting as a Project Manager
-+ Teams will rotate team leader and standup leader roles on a weekly bases.
++ Teams will rotate team leader and standup leader roles on a weekly basis.
 + Each team will be responsible to deliver a final product to the Product Owner (Crystal)
 + Practice TDD
 + Spend time at the beginning creating user stories and defining precise requirements.
