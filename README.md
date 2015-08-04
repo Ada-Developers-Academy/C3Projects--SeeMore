@@ -57,3 +57,24 @@ You and your team will build a feed aggregator service that allows users to logi
   - Automatically pulls in Instagram timeline feed for the authenticated user
   - Uses **cron** to periodically update feeds without duplication
   - Allows Users to share favorite stories back to social media services
+
+
+### User Stories
+
+# As a logged out user
+- I can sign up
+  - with OAuth developer
+  - with instagram
+- I can log in
+
+# As a logged in user
+- I can sign out
+
+- I can see a chronological feed of posts from users you choose to follow
+  - Instagram
+  - Twitter
+
+- I can search Instagram users
+  - and follow that user
+- I can search Twitter users
+  - and follow that user
