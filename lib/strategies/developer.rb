@@ -33,7 +33,7 @@ module OmniAuth
     class Developer
       include OmniAuth::Strategy
 
-      option :fields, [:name, :email]
+      option :fields, [:username, :email]
       option :uid_field, :email
 
       def request_phase

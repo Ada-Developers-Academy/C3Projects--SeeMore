@@ -5,5 +5,7 @@ module OmniAuth
 end
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :developer
+  provider :developer,
+    :fields => [:username, :email],
+    :uid_field => :email
 end
