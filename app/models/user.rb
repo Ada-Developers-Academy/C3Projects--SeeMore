@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
 
-
   def self.find_or_create_user(auth_hash)
     uid = auth_hash["uid"]
     provider = auth_hash["provider"]
