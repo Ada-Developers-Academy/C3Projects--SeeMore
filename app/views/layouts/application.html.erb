@@ -9,11 +9,14 @@
 <body>
   <header class="nav navbar-default">
     <h2>FriendFace</h2>
-    <%= form_for :instagram, url: results_path do |f| %>
-      <%= f.label "Search for an Instagram feed" %>
-      <%= f.text_field :query %>
+    <% if current_user %>
+      <%= form_for :instagram, url: results_path do |f| %>
+        <%= f.label "Search for an Instagram feed" %>
+        <%= f.text_field :query %>
 
-      <%= f.submit "Find something interesting!" %>
+        <%= f.submit "Find something interesting!" %>
+      <% end %>
+      <%= link_to "Sign Out", logout_path, :method => :delete %>
     <% end %>
   </header>
 

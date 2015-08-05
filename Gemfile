@@ -4,6 +4,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 gem "omniauth"
 gem "omniauth-instagram"
+gem "omniauth-vimeo"
 gem "bootstrap-sass"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
