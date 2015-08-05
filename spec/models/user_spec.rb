@@ -70,4 +70,15 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "model associations" do
+    it "a user has and belongs to an IG subscription" do
+      user = User.create(name: "user1", provider: "developer", uid: "uid1")
+      igsub = IgSubscription.create(instagram_id: "@beast")
+      igsub.users << user
+
+      expect(igsub.users.first.name).to eq "user1"
+      expect(user.ig_subscriptions.first.instagram_id).to eq "@beast"
+    end
+  end
 end
