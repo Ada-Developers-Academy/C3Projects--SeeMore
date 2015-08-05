@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
-  post "/auth/:provider/callback", to: "sessions#create"
-  #get "/auth/:provider"
+  root 'posts#index'
+
+  get "/auth/:provider/callback", to: "sessions#create"
+  post "/auth/:provider/callback", to: "sessions#create" # this is required for the OmniAuth Developer Strategy
+  # get "/auth/:provider"
 end
