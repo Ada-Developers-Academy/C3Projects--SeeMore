@@ -1,0 +1,9 @@
+<br /><br /><br /><br /><br /><br /><br /><br /><br />
+<div class="col-sm-6">
+  <%= form_for :instagram, url: results_path do |f| %>
+    <%= f.label "Search for an Instagram feed" %>
+    <%= f.text_field :query %>
+
+    <%= f.submit "Find something interesting!" %>
+  <% end %>
+</div>
