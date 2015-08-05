@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
     post "/auth/:provider/callback", to: "sessions#create"
 
+  delete '/logout', to: "sessions#destroy", as: "logout"
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
