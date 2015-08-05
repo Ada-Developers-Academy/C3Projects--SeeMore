@@ -1,0 +1,7 @@
+<h1>I can haz feedz?</h1>
+
+<%= link_to "Login", login_path, class: "btn btn-primary" %>
+<%= link_to "Logout", logout_path, method: :delete, class: "btn btn-danger" %>
+<% unless @user.nil?  %>
+  <%= @user.username %>
+<% end %>
