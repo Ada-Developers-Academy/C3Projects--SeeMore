@@ -12,8 +12,8 @@ end
 describe "POST feeds#search_redirect" do
   context "if search term is present" do
     it "redirects to the results page" do
-      params[:search_term] = "donald trump"
-      post :search_redirect
+      search_term = "donald trump"
+      post :search_redirect, search_term: search_term
       expect(response).to redirect_to(search_redirect_path)
     end
   end
