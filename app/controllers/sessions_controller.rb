@@ -19,5 +19,10 @@ class SessionsController < ApplicationController
     request.env["omniauth.auth"]
   end
 
+  def create_vimeo
+    request.env["omniauth.auth"]
+    raise
+  end
+
 
 end

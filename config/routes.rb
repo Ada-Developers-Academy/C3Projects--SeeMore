@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get "/auth/instagram/callback" => 'sessions#create_instagram'
 
+  get "/auth/vimeo/callback" => 'sessions#create_vimeo'
+
   delete "/logout", to: "sessions#destroy", as: "logout"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
