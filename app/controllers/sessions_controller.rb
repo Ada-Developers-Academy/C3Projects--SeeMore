@@ -10,9 +10,9 @@ class SessionsController < ApplicationController
     redirect_to root_path :flash => "Signed Out!"
   end
 
-  def create_instagram
-    request.env["omniauth.auth"]
-  end
+  # def create_instagram
+  #   request.env["omniauth.auth"]
+  # end
 
   def create_vimeo
     auth = request.env["omniauth.auth"]
