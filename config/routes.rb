@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   # Below allows you to login with developer.
   # Will need routes for each third party you can login through?
-  get "auth/developer" => 'sessions#create', as: 'login'
+  get "auth/:provider" => 'sessions#create', as: 'login'
 
   delete "logout" => 'sessions#destroy'
   # post is here for OmniAuth developer strategy
