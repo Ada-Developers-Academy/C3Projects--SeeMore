@@ -14,6 +14,6 @@ Rails.application.routes.draw do
 
   get '/feeds/search',         to: 'feeds#search',         as: 'search'
   post '/search_redirect',     to: 'feeds#search_redirect',as: 'search_redirect'
-  get '/feeds/search/results', to: 'feeds#search_results', as: 'search_results'
+  get '/results/:search_term', to: 'feeds#search_results', as: 'search_results'
   resources :feeds, except: [:destroy]
 end
