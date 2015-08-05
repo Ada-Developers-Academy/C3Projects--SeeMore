@@ -10,11 +10,6 @@ RSpec.describe User, type: :model do
         expect(dev_user).to be_valid
       end
 
-      it "requires an email" do
-        dev_user.email = nil
-        expect(dev_user).to be_invalid
-      end
-
       it "requires a username" do
         dev_user.username = nil
         expect(dev_user).to be_invalid
@@ -30,7 +25,6 @@ RSpec.describe User, type: :model do
         expect(dev_user).to be_invalid
       end
     end
-
 
 
     describe ".initialize_from_omniauth" do
@@ -59,11 +53,6 @@ RSpec.describe User, type: :model do
 
       it "is valid" do
         expect(ig_user).to be_valid
-      end
-
-      it "requires an email" do
-        ig_user.email = nil
-        expect(ig_user).to be_invalid
       end
 
       it "requires a username" do
