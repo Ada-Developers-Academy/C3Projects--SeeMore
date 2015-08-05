@@ -23,6 +23,20 @@ RSpec.describe SessionsController, type: :controller do
           expect(session[:user_id]).to eq assigns(:user).id
         end
       end
+
+      context "when the user has already signed up" do
+
+        before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:developer] }
+
+        let(:user) { User.find_or_create_user(OmniAuth.config.mock_auth[:developer]) }
+
+        it "doesn't create another user" do
+          get :create, provider: :developer
+
+          expect(User.count).to eq(1)
+        end
+      end
     end
+
   end
 end
