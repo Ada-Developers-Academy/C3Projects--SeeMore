@@ -30,4 +30,22 @@ class Stalker < ActiveRecord::Base
       provider: auth_hash["provider"]
     }
   end
+
+  def self.find_or_create_from_vimeo(auth_hash)
+    create_params = vimeo_create_params(auth_hash)
+    Stalker.create_with(username: create_params[:username])
+      .find_or_create_by(
+        uid: create_params[:uid],
+        provider: create_params[:provider]
+      )
+  end
+
+  def self.vimeo_create_params(auth_hash)
+    {
+      username: auth_hash["info"]["name"],
+      uid: auth_hash["uid"],
+      provider: auth_hash["provider"]
+    }
+  end
+
 end

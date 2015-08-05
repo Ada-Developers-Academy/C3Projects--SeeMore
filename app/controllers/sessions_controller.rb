@@ -7,6 +7,9 @@ class SessionsController < ApplicationController
     elsif auth_hash["provider"] == "twitter"
       @user = Stalker.find_or_create_from_twitter(auth_hash)
     elsif auth_hash["provider"] == "instagram"
+      # @user = Stalker.find_or_create_from_instagram(auth_hash)
+    elsif auth_hash["provider"] == "vimeo"
+      @user = Stalker.find_or_create_from_vimeo(auth_hash)
     else
       redirect_to root_path, notice: "Failed to authenticate"
     end
