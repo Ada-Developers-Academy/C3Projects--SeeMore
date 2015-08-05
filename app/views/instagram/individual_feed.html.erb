@@ -1,0 +1,19 @@
+<%= link_to "Subscribe", search_path, class: "btn btn-info btn-xs" %>
+<div class="row">
+  <% @posts.each_with_index do |post, index| %>
+    <% if index % 3 == 0 %>
+      </div><div class="row">
+    <% end %>
+
+    <div class="col-sm-4">
+      <%= image_tag post["images"]["low_resolution"]["url"] %>
+      <p>
+        <% if post["caption"] %>
+          <%= post["caption"]["text"] %>
+        <% else %>
+          No description provided.
+        <% end %>
+      </p>
+    </div>
+  <% end %>
+</div>
