@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
 
     user = User.where(uid: uid, provider: provider).first_or_initialize
     user.email = auth_hash[:info][:email]
-    user.username = auth_hash[:info][:username]
+    user.username = auth_hash[:info][:name]
+
     return user.save ? user : nil # don't love this nil. would be useful to see the errors. what to do if someone authenticates at github but I couldn't create a valid record?
   end
 end
