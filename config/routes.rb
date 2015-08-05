@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get    '/about',           to: 'sessions#show',    as: 'about'
   get    '/auth/:provider',  to: 'sessions#create'
+  get    '/login',           to: 'sessions#create',  as: 'login'
   delete '/logout',          to: 'sessions#destroy', as: 'logout'
 
   # TODO: brownie points - add users#show, users#update
