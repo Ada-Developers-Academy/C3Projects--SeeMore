@@ -37,11 +37,16 @@ RSpec.configure do |config|
 
     OmniAuth.config.mock_auth[:developer] = OmniAuth::AuthHash.new({
       :provider => 'developer',
-      :uid => '123545',
-      info: {email: "a@b.com", nickname: "Ada"}
+      :uid => '12345',
+      info: {email: "a@b.com", name: "Ada"}
+    })
+    OmniAuth.config.mock_auth[:instagram] = OmniAuth::AuthHash.new({
+      :provider => 'instagram',
+      :uid => '12345',
+      info: {email: "a@b.com", name: "Ada"}
     })
   end
-  
+
   config.include FactoryGirl::Syntax::Methods
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
