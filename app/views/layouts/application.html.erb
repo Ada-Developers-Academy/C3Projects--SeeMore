@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>C3ProjectsSeemore</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <header class="nav navbar-default">
-    <h2>FriendFace</h2>
-    <%= form_for :instagram, url: results_path do |f| %>
-      <%= f.label "Search for an Instagram feed" %>
-      <%= f.text_field :query %>
+  <head>
+    <title>C3ProjectsSeemore</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header id="top" class="nav navbar-default">
+      <div class="col-sm-2">
+        <h2><%= link_to "FriendFace", root_path %></h2>
+      </div>
+      <div class="col-sm-8">
+        <%= form_for :instagram, url: results_path do |f| %>
+          <div class="row">
+            <%= f.text_field :query, placeholder: "handsome_devil" %>
+            <%= f.submit "Search", class: "btn btn-success" %>
+          </div>
+          <div class="row">
+            <label>
+              Instagram
+                <%= f.radio_button :platform, "instagram" %>
+            </label>
 
-      <%= f.submit "Find something interesting!" %>
-    <% end %>
-  </header>
+            <label>
+              Vimeo
+              <%= f.radio_button :platform, "vimeo" %>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </header>
 
-<div class="container">
-  <%= yield %>
-</div>
-
-</body>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
 </html>

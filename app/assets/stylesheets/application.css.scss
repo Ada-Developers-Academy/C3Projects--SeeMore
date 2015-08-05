@@ -15,3 +15,36 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+#top.nav {
+  // padding: 5px 0;
+  padding-top: 5px;
+  margin-bottom: 5px;
+}
+
+#top.nav h2 a {
+  background-color: #080; // dark green
+  color: #fff; // white
+  border-radius: 5px;
+  margin: 2px;
+  padding: 10px;
+}
+
+#top.nav h2 {
+  padding: 0;
+  margin: 0;
+}
+
+#top.nav h2, #top.nav form {
+  display: inline-block;
+}
+
+#top.nav input[type="radio"] {
+  margin: 0 20px;
+}
+
+#top.nav input[type="text"] {
+  font-size: 18px;
+  height: 36px;
+  width: 200px;
+}
