@@ -7,11 +7,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :twitter_client
-  before_filter :load_tweets
+  #before_filter :load_tweets
 
-  def load_tweets
-    @tweets = @twitter_client.client.user_timeline[0..4] # For this demonstration lets keep the tweets limited to the first 5 available.
-  end
+  # def load_tweets
+  #   @tweets = @twitter_client.client.user_timeline[0..4] # For this demonstration lets keep the tweets limited to the first 5 available.
+  # end
 
   def twitter_client
     @twitter_client ||= TwitterClient.new
