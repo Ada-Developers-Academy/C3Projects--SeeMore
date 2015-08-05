@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   validates_presence_of :name, :uid, :provider
   validates_uniqueness_of :name, :uid
 
+  # Associations
+  has_and_belongs_to_many :ig_subscriptions
 
   def self.find_or_create_user(auth_hash)
     uid = auth_hash["uid"]
