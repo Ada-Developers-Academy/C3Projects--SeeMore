@@ -57,3 +57,56 @@ You and your team will build a feed aggregator service that allows users to logi
   - Automatically pulls in Instagram timeline feed for the authenticated user
   - Uses **cron** to periodically update feeds without duplication
   - Allows Users to share favorite stories back to social media services
+
+
+### User Stories
+
+# As a logged out user
+- I can sign up
+  - with OAuth developer
+  - with instagram
+- I can log in
+  - API CALL (OAuth)
+
+# As a logged in user
+- I can sign out
+
+- I can see a chronological feed of posts from users you choose to follow
+  - Instagram
+  - Twitter
+
+- I can search Instagram users
+  - and see list of results
+  - and follow a user
+- I can search Twitter users
+  - and see list of results
+  - and follow a user
+
+### Notes on structure
+
+Feed
+- no duplicates
+- how updated?
+  - at button click
+    - API CALL for each source
+- have add subscription button
+
+Add Subscription Page (FeedMeFollow)
+- two search forms, one for each API
+  - API CALL -- each form
+- render results below
+  - list of results
+  - button to follow after each result
+  - pull in avatar & description if possible
+
+My Subscriptions
+- list of subscriptions by source
+
+Added Fun (Nice to Have)
+
+- live stream updating
+- be able to unsubscribe
+  - from that point on, no new posts
+- Feed
+  - be able to select which source to see
+  - pagination?
