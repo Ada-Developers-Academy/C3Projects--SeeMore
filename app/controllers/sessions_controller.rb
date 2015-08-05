@@ -3,8 +3,9 @@ class SessionsController < ApplicationController
   def create
     auth_hash = request.env['omniauth.auth']
     if auth_hash["provider"] == "developer"
-      @user = User.find_or_create_from_omniauth(auth_hash)
+      @user = Stalker.find_or_create_from_omniauth(auth_hash)
     elsif auth_hash["provider"] == "twitter"
+      @user = Stalker.find_or_create_from_twitter(auth_hash)
     elsif auth_hash["provider"] == "instagram"
     else
       redirect_to root_path, notice: "Failed to authenticate"
