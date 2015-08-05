@@ -10,7 +10,7 @@ class TwitterClient
     end
   end
 
-  # def user_search(user)
-  #   # self.client.search ...
-  # end
+  def user_search(user, count=3)
+    client.user_search(user, options = {count: count})
+  end
 end
