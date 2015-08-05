@@ -8,6 +8,16 @@
 </head>
 <body>
 
+<header>
+  <nav class="navbar navbar-default">
+    <%= form_tag search_path, method: :post, class: "navbar-form navbar-left" do %>
+      <%= text_field_tag :search_twitter, params[:search_twitter], placeholder: "Search Twitter Users" %>
+      <%= submit_tag "Search", class: "btn btn-default" %>
+    <% end %>
+
+  </nav>
+</header>
+
 <%= yield %>
 
 </body>
