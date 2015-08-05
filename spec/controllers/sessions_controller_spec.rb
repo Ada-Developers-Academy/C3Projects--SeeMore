@@ -35,8 +35,54 @@ RSpec.describe SessionsController, type: :controller do
 
           expect(User.count).to eq(1)
         end
+
+        it "assigns the session[:user_id]" do
+          get :create, provider: :devloper
+          expect(session[:user_id]).to eq user.id
+        end
+      end
+
+      context "fails to authenticate developer" do
+        before { request.env["omniauth.auth"] = :invalid_credential }
+
+        it "redirect to home with flash error" do
+          get :create, provider: :developer
+          expect(response).to redirect_to root_path
+          expect(flash[:error]).to include "Failed to authenticate"
+        end
+      end
+
+      context "when failing to save the user" do
+        before {
+          request.env["omniauth.auth"] = { "uid" => "1234", "info" => {} }
+        }
+
+        it "redirect to home with flash error" do
+          get :create, provider: :developer
+          expect(response).to redirect_to root_path
+          expect(flash[:error]).to include "Failed to save the user"
+        end
       end
     end
+  end
 
+
+  describe "DELETE #destroy" do
+    before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:developer] }
+
+    let(:user) { User.find_or_create_user(OmniAuth.config.mock_auth[:developer]) }
+
+    it "destroys a session id" do
+      delete :destroy, provider: :developer
+
+      expect(session[:user_id]).to eq nil
+    end
+
+    it "removes association between session[:user_id] and user.id" do
+
+      delete :destroy, provider: :developer
+
+      expect(session[:user_id]).to_not eq user.id
+    end
   end
 end

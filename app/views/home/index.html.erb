@@ -1,6 +1,5 @@
-<h1>Hiiiii</h1>
 
+<% unless session[:user_id] %>
+  <%= link_to "Sign in Dev", "/auth/developer", class: "btn btn-default" %>
+<% end %>
 
-<%= link_to "Sign in Dev", "/auth/developer" %>
-
-<%= link_to "Log Out", logout_path, method: :delete %>

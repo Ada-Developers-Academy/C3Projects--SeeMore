@@ -10,10 +10,12 @@ skip_before_filter :verify_authenticity_token
 
         redirect_to root_path
       else
-        redirect_to root_path, notice: "Failed to save the user"
+        flash[:error] = "Failed to save the user"
+        redirect_to root_path
       end
     else
-      redirect_to root_path, notice: "Failed to authenticate"
+      flash[:error] = "Failed to authenticate"
+      redirect_to root_path
     end
   end
 
