@@ -1,7 +1,0 @@
-<% if current_user %>
-  Welcome <%= current_user.name %>
-  <%= link_to "Sign Out", logout_path, :method => :delete %>
-<% else %>
-  <%= link_to "Sign in with instagram", "/auth/instagram/" %>
-  <%= link_to "sign in with vimeo", "/auth/vimeo/" %>
-<% end %>
