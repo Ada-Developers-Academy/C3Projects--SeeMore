@@ -65,4 +65,24 @@ RSpec.describe SessionsController, type: :controller do
       end
     end
   end
+
+
+  describe "DELETE #destroy" do
+    before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:developer] }
+
+    let(:user) { User.find_or_create_user(OmniAuth.config.mock_auth[:developer]) }
+
+    it "destroys a session id" do
+      delete :destroy, provider: :developer
+
+      expect(session[:user_id]).to eq nil
+    end
+
+    it "removes association between session[:user_id] and user.id" do
+
+      delete :destroy, provider: :developer
+
+      expect(session[:user_id]).to_not eq user.id
+    end
+  end
 end
