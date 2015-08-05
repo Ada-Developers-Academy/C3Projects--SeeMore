@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  root 'sessions#login'
   post "/auth/developer/callback", to: "sessions#create"
   get "/auth/:provider/callback", to: "sessions#create"
 
+  get "/auth/instagram/callback" => 'sessions#create_instagram'
+
   delete "/logout", to: "sessions#destroy", as: "logout"
-  root 'sessions#login'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
