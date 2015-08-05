@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   post "/auth/developer/callback", to: "sessions#create"
+  get "/auth/:provider/callback", to: "sessions#create"
+
   delete "/logout", to: "sessions#destroy", as: "logout"
   root 'sessions#login'
   # The priority is based upon order of creation: first created -> highest priority.
