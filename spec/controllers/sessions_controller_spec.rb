@@ -16,4 +16,11 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
+  describe "#create_vimeo" do
+    it "returns http success" do
+      get :create_vimeo
+      expect(response).to have_http_status(:success)
+    end
+  end
+
 end
