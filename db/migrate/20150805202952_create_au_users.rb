@@ -1,6 +1,6 @@
-class CreateAuthenticatedUsers < ActiveRecord::Migration
+class CreateAuUsers < ActiveRecord::Migration
   def change
-    create_table :authenticated_users do |t|
+    create_table :au_users do |t|
       t.string :provider
       t.string :name
       t.string :uid

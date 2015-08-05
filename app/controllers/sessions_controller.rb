@@ -20,8 +20,8 @@ class SessionsController < ApplicationController
 
   def create_vimeo
     auth = request.env["omniauth.auth"]
-    authenticated_user = AuthenticatedUser.find_by_provider_and_uid(auth["provider"], auth["uid"]) || AuthenticatedUser.create_with_omniauth(auth)
-    session[:user_id] = authenticated_user.id
+    au_user = AuUser.find_by_provider_and_uid(auth["provider"], auth["uid"]) || AuUser.create_with_omniauth(auth)
+    session[:user_id] = au_user.id
     redirect_to root_url :notice => "Signed in!"
   end
 
