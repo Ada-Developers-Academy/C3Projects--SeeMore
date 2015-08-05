@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   # TODO: brownie points - add users#show, users#update
   resources :users, only: [:create, :destroy]
 
-  resources :feeds, except: [:destroy]
   get '/feeds/search',         to: 'feeds#search',         as: 'search'
+  post '/search_redirect',     to: 'feeds#search_redirect',as: 'search_redirect'
   get '/feeds/search/results', to: 'feeds#search_results', as: 'search_results'
+  resources :feeds, except: [:destroy]
 end
