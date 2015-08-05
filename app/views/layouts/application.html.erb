@@ -12,13 +12,10 @@
         <h2><%= link_to "FriendFace", root_path %></h2>
       </div>
       <% if current_user %>
-        <div class="col-sm-8">
+        <div class="col-sm-7">
           <%= form_for :instagram, url: results_path do |f| %>
             <div class="row">
               <%= f.text_field :query, placeholder: "handsome_devil" %>
-              <%= f.submit "Search", class: "btn btn-success" %>
-            </div>
-            <div class="row">
               <label>
                 Instagram
                   <%= f.radio_button :platform, "instagram" %>
@@ -28,13 +25,31 @@
                 Vimeo
                 <%= f.radio_button :platform, "vimeo" %>
               </label>
+              <%= f.submit "Search", class: "btn btn-success" %>
+            </div>
+            <div class="row">
             </div>
           <% end %>
         </div>
-        <%= link_to "Sign Out", logout_path, :method => :delete %>
+        <div class="col-sm-3">
+          Welcome, <%= current_user.name %>.
+          <%= link_to "Sign Out", logout_path, :method => :delete %>
+        </div>
       <% end %>
     </header>
     <div class="container">
+      <% if flash[:error] %>
+        <div class="alert alert-error">
+          <%= flash[:error] %>
+        </div>
+      <% end %>
+
+      <% if flash[:success] %>
+        <div class="alert alert-success">
+          <%= flash[:success] %>
+        </div>
+      <% end %>
+
       <%= yield %>
     </div>
   </body>
