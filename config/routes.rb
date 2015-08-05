@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'sessions#login'
   post "/auth/developer/callback", to: "sessions#create"
-  get "/auth/:provider/callback", to: "sessions#create"
+  # get "/auth/:provider/callback", to: "sessions#create"
 
   get "/auth/instagram/callback" => 'sessions#create_instagram'
 
