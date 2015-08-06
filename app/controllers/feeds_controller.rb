@@ -1,6 +1,4 @@
 class FeedsController < ApplicationController
-  TWITTER_URI = "https://api.twitter.com/1.1/users/search.json?q="
-
   def search; end
 
   def search_redirect
