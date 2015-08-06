@@ -7,6 +7,6 @@ Rails.application.routes.draw do
   # get "/auth/:provider"
   # get "/auth/:provider", to: "sessions#create"
 
-  post "/search", to: "searches#index"
-  get "search/:client/:search_term", to: "searches#show", as: "search_results"
+  post "/search", to: "searches#search"
+  get "search/:client/:search_term", to: "searches#index", as: "search_results"
 end
