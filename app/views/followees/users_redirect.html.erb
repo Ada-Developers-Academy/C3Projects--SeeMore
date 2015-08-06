@@ -1,7 +1,9 @@
 <h1>Matching Insta-Users</h1>
   <% @insta_users.each do |user| %>
-    <%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
-    <%= link_to "@#{user["username"]}" %>
+  <ul>
+    <li><%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
+    <%= link_to "@#{user["username"]}" %></li>
+  </ul>
 <% end %>
 <br>
 

@@ -12,12 +12,23 @@ class FolloweesController < ApplicationController
 
   # search for users by name
   def users_redirect
-    @query = params[:search]
-    response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
-    @insta_users = response["data"]
+    if params[:search] == ""
+      flash[:error] = "Please enter in a search field"
+      redirect_to :back
+    else
+      @query = params[:search]
+      response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
+      # array of hashes
+      @insta_users = response["data"]
+    end
   end
 
-  def insta_search; end
+  def insta_search
+    if params[:search] == ""
+      flash[:error] = "Please enter in a search field"
+      redirect_to :back
+    end
+  end
 
   private
 
