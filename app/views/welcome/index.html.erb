@@ -1,8 +1,5 @@
-<div class="container">
-  <% if current_user %>
-    Welcome <%= current_user.name %>
-    <%= render "feed" %>
-  <% else %>
-    <%= render "login" %>
-  <% end %>
-</div>
+<% if current_user %>
+  <%= render partial: "shared/feed", locals: { posts: Array.new, display_author: true } %>
+<% else %>
+  <%= render "login" %>
+<% end %>
