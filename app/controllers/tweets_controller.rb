@@ -1,4 +1,4 @@
-class TwittersController < ApplicationController
+class TweetsController < ApplicationController
 
   # to refactor into application controller, accepting params
   def twitter_redirect

@@ -4,7 +4,7 @@ RSpec.describe Instagram, type: :model do
   describe "model validations" do
 
       # it "requires a username" do
-      #   instagram = build :instagram, name: nil
+      #   instagram = build :instagram, username: nil
       #
       #   expect(instagram).not_to be_valid
       #   expect(instagram.errors.keys).to include(:username)

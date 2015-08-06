@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806212209) do
+ActiveRecord::Schema.define(version: 20150806214114) do
 
   create_table "instagrams", force: :cascade do |t|
     t.datetime "created_at",  null: false
@@ -20,12 +20,28 @@ ActiveRecord::Schema.define(version: 20150806212209) do
     t.string   "provider_id", null: false
   end
 
+  create_table "instagrams_users", id: false, force: :cascade do |t|
+    t.integer "instagram_id", null: false
+    t.integer "user_id",      null: false
+  end
+
+  add_index "instagrams_users", ["instagram_id"], name: "index_instagrams_users_on_instagram_id"
+  add_index "instagrams_users", ["user_id"], name: "index_instagrams_users_on_user_id"
+
   create_table "tweets", force: :cascade do |t|
     t.string   "username",    null: false
     t.string   "provider_id", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "tweets_users", id: false, force: :cascade do |t|
+    t.integer "tweet_id", null: false
+    t.integer "user_id",  null: false
+  end
+
+  add_index "tweets_users", ["tweet_id"], name: "index_tweets_users_on_tweet_id"
+  add_index "tweets_users", ["user_id"], name: "index_tweets_users_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
