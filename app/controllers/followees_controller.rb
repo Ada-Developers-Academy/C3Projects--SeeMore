@@ -1,7 +1,7 @@
 class FolloweesController < ApplicationController
   INSTA_URI = "https://api.instagram.com/v1/users/search?"
 
-  # search for single user by name
+  # search for users by name
   def insta_users
     @search = params[:search]
     response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=ACCESS-TOKEN")
