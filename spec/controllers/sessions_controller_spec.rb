@@ -25,7 +25,6 @@ RSpec.describe SessionsController, type: :controller do
           get :create, provider: :instagram
           expect(session[:user_id]).to eq assigns(:user).id
         end
-
       end # context is successful
 
       context "when the user has already signed up" do
@@ -50,13 +49,13 @@ RSpec.describe SessionsController, type: :controller do
       end #context
 
       context "fails on instagram" do
-        before { request.env["omniauth.auth"] = :invalid_credential }
+       before { request.env["omniauth.auth"] = :invalid_credential }
 
-        it "redirect to home with flash error" do
-          get :create, provider: :instagram
-          expect(response).to redirect_to root_path
-          expect(flash[:notice]).to include "Failed to authenticate"
-        end
+       it "redirect to home with flash error" do
+         get :create, provider: :instagram
+         expect(response).to redirect_to root_path
+         expect(flash[:notice]).to include "Failed to authenticate"
+       end
       end # context
 
       context "when failing to save the user" do
