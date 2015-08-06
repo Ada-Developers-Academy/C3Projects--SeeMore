@@ -6,7 +6,7 @@
     <div class="col-sm-4 search-result">
       <h3>
         <%= link_to matching_feed["username"], feed_path(matching_feed["id"]) %>
-        <%= link_to "Subscribe", search_path, class: "btn btn-info btn-xs" %>
+        <%= link_to "Subscribe", root_path, class: "btn btn-info btn-xs" %>
         <% unless matching_feed["full_name"].empty? %>
           <br />
           <small><%= matching_feed["full_name"] %></small>
