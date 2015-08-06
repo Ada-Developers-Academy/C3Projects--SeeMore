@@ -1,0 +1,9 @@
+<h1>Search</h1>
+
+<p>Search for a twitter user to follow:</p>
+
+<%= form_tag twitter_users_redirect_path do %>
+  <%= label_tag :user %>
+  <%= text_field_tag :user %>
+  <%= submit_tag 'Look up Twitter Users' %>
+<% end %>
