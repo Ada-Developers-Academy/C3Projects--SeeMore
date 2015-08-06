@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe HomeController, type: :controller do
+  let(:user) { create :user }
+  before :each do
+    session[:user_id] = user.id
+  end
 
   describe "GET #search" do
     before :each do
@@ -16,14 +20,10 @@ RSpec.describe HomeController, type: :controller do
     end
   end
 
-  describe "GET #landing_page" do
-    let(:user) { User.create(
-      uid: "kate@plate.com", provider: "developer", name: "Kate", email: "kate@plate.com"
-      ) }
+  describe "GET #newsfeed" do
 
     before :each do
-      session[:user_id] = user.id
-      get :landing_page
+      get :newsfeed
     end
 
     it "returns http success" do

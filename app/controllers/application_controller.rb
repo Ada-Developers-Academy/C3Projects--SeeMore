@@ -7,7 +7,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :twitter_client
+  helper_method :current_user
+  helper_method :require_signin
+
+  before_action :twitter_client
   # before_filter :load_tweets
 
   # def load_tweets
@@ -16,15 +19,23 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def twitter_client
-    @twitter_client ||= TwitterClient.new
-  end
-
   Instagram.configure do |config|
     config.client_id = ENV["INSTAGRAM_CLIENT_ID"]
     config.client_secret = ENV["INSTAGRAM_CLIENT_SECRET"]
   end
-  # def instagram_client
-    # @instagram_client ||= Instagram.client(:access_token => session[:access_token])
-  # end
+
+  def twitter_client
+    @twitter_client ||= TwitterClient.new
+  end
+
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
+
+  def require_signin
+    unless @current_user
+      # flash[:errors] = MESSAGES[:not_signed_in]
+      redirect_to signin_path
+    end
+  end
 end
