@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # TODO: decide which specific actions will use this filter and refactor later
   before_filter :set_twitter_client
 
   def set_twitter_client
