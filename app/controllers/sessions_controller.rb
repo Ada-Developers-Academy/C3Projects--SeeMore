@@ -19,6 +19,5 @@ class SessionsController < ApplicationController
     session[:user_id] = au_user.id
     redirect_to root_url :notice => "Signed in!"
     flash[:success] = "You've been signed in, #{ au_user.name }!"
-    redirect_to root_url
   end
 end
