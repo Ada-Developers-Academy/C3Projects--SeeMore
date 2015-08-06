@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def landing_page
-    @current_user = User.find(session[:user_id])
+    @current_user ||= User.find_by(id: session[:user_id])
   end
 
   def search
