@@ -18,7 +18,7 @@ RSpec.describe SessionsController, type: :controller do
 
         it "assigns session[:stalker_id]" do
           get :create, provider: :twitter
-          expect(assigns(:stalker)).to be_an_instance_of Stalker
+          expect(session[:stalker_id]).to eq(1)
         end
       end
 
@@ -77,7 +77,7 @@ RSpec.describe SessionsController, type: :controller do
 
         it "assigns session[:stalker_id]" do
           get :create, provider: :vimeo
-          expect(assigns(:stalker)).to be_an_instance_of Stalker
+          expect(session[:stalker_id]).to eq(1)
         end
       end
 
@@ -136,7 +136,7 @@ RSpec.describe SessionsController, type: :controller do
 
         it "assigns session[:stalker_id]" do
           get :create, provider: :instagram
-          expect(assigns(:stalker)).to be_an_instance_of Stalker
+          expect(session[:stalker_id]).to eq(1)
         end
       end
 
