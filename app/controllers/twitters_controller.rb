@@ -1,4 +1,6 @@
 require 'httparty'
+require 'twitter'
+load 'config/initializers/twitter.rb'
 
 class TwittersController < ApplicationController
 
@@ -25,7 +27,10 @@ class TwittersController < ApplicationController
   def search
     @username = params[:username]
 
-    response = HTTParty.get(TWITTER_URI + SEARCH_URI + "q=#{@username}")
+    # response = HTTParty.get(TWITTER_URI + SEARCH_URI + "q=#{@username}")
+
+    response = twitter.user_search("#{@username}")
+
     @response_hash = response
 
   end
