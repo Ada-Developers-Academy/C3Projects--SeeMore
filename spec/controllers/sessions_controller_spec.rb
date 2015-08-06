@@ -12,38 +12,38 @@ RSpec.describe SessionsController, type: :controller do
           expect(response).to redirect_to root_path
         end
 
-        it "creates a user" do
+        it "creates a stalker" do
            expect { get :create, provider: :twitter }.to change(Stalker, :count).by(1)
         end
 
-        it "assigns session[:user_id]" do
+        it "assigns session[:stalker_id]" do
           get :create, provider: :twitter
-          expect(assigns(:user)).to be_an_instance_of Stalker
+          expect(assigns(:stalker)).to be_an_instance_of Stalker
         end
       end
 
-      context "user already exists" do
+      context "stalker already exists" do
         before(:each) do
           request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
           get :create, provider: :twitter
         end
         # before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter] }
-        let(:user) { Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:twitter]) }
+        let(:stalker) { Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:twitter]) }
 
-        it "doesn't create a new user" do
+        it "doesn't create a new stalker" do
           get :create, provider: :twitter
 
           expect(Stalker.count).to eq 1
         end
 
-        it "assigns session[:user_id]" do
+        it "assigns session[:stalker_id]" do
           get :create, provider: :twitter
 
-          expect(session[:user_id]).to eq user.id
+          expect(session[:stalker_id]).to eq stalker.id
         end
       end
 
-      context "when failing to save the user" do
+      context "when failing to save the stalker" do
         let(:invalid_params) { {
           "provider" => "twitter",
           "uid" => "1234",
@@ -71,38 +71,38 @@ RSpec.describe SessionsController, type: :controller do
           expect(response).to redirect_to root_path
         end
 
-        it "creates a user" do
+        it "creates a stalker" do
            expect { get :create, provider: :vimeo }.to change(Stalker, :count).by(1)
         end
 
-        it "assigns session[:user_id]" do
+        it "assigns session[:stalker_id]" do
           get :create, provider: :vimeo
-          expect(assigns(:user)).to be_an_instance_of Stalker
+          expect(assigns(:stalker)).to be_an_instance_of Stalker
         end
       end
 
-      context "user already exists" do
+      context "stalker already exists" do
         before(:each) do
           request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:vimeo]
           get :create, provider: :vimeo
         end
         # before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:vimeo] }
-        let(:user) { Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:vimeo]) }
+        let(:stalker) { Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:vimeo]) }
 
-        it "doesn't create a new user" do
+        it "doesn't create a new stalker" do
           get :create, provider: :vimeo
 
           expect(Stalker.count).to eq 1
         end
 
-        it "assigns session[:user_id]" do
+        it "assigns session[:stalker_id]" do
           get :create, provider: :vimeo
 
-          expect(session[:user_id]).to eq user.id
+          expect(session[:stalker_id]).to eq stalker.id
         end
       end
 
-      context "when failing to save the user" do
+      context "when failing to save the stalker" do
         let(:invalid_params) { {
           "provider" => "vimeo",
           "uid" => "1234",
@@ -130,38 +130,38 @@ RSpec.describe SessionsController, type: :controller do
     #       expect(response).to redirect_to root_path
     #     end
     #
-    #     it "creates a user" do
+    #     it "creates a stalker" do
     #        expect { get :create, provider: :instagram }.to change(Stalker, :count).by(1)
     #     end
     #
-    #     it "assigns session[:user_id]" do
+    #     it "assigns session[:stalker_id]" do
     #       get :create, provider: :instagram
-    #       expect(assigns(:user)).to be_an_instance_of Stalker
+    #       expect(assigns(:stalker)).to be_an_instance_of Stalker
     #     end
     #   end
     #
-    #   context "user already exists" do
+    #   context "stalker already exists" do
     #     before(:each) do
     #       request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:instagram]
     #       get :create, provider: :instagram
     #     end
     #     # before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:instagram] }
-    #     let(:user) { Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:instagram]) }
+    #     let(:stalker) { Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:instagram]) }
     #
-    #     it "doesn't create a new user" do
+    #     it "doesn't create a new stalker" do
     #       get :create, provider: :instagram
     #
     #       expect(Stalker.count).to eq 1
     #     end
     #
-    #     it "assigns session[:user_id]" do
+    #     it "assigns session[:stalker_id]" do
     #       get :create, provider: :instagram
     #
-    #       expect(session[:user_id]).to eq user.id
+    #       expect(session[:stalker_id]).to eq stalker.id
     #     end
     #   end
     #
-    #   context "when failing to save the user" do
+    #   context "when failing to save the stalker" do
     #     let(:invalid_params) { {
     #       "provider" => "instagram",
     #       "uid" => "1234",
