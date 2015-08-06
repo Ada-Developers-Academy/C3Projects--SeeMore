@@ -16,4 +16,5 @@
 !/log/.keep
 /tmp
 /coverage
-/.env
+# Ignore .env always
+.env

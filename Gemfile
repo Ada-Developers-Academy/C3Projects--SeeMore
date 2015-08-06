@@ -6,6 +6,8 @@ gem 'omniauth'
 
 # reading APIs
 gem 'httparty'
+# Twitter API
+gem 'twitter'
 
 # styling
 gem 'bootstrap-sass'
