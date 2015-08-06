@@ -16,7 +16,7 @@ RSpec.describe SessionsController, type: :controller do
           expect { get :create, provider: :instagram }.to change(User, :count).by(1)
         end
 
-        it "assigns the @user var" do
+        it "assigns the @user variable" do
           get :create, provider: :instagram
           expect(assigns(:user)).to be_an_instance_of User
         end
@@ -29,16 +29,23 @@ RSpec.describe SessionsController, type: :controller do
       end # context is successful
 
       context "when the user has already signed up" do
-        before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:instagram] }
-        let!(:user) { User.find_or_create_from_omniauth(OmniAuth.config.mock_auth[:instagram]) }
-
-        it "doesn't create another user" do
-          expect { get :create, provider: :instagram }.to_not change(User, :count).by(1)
+        before(:each) do
+          request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:instagram]
         end
+        let!(:petunia) {
+          User.find_or_create_from_omniauth(
+            OmniAuth.config.mock_auth[:instagram]
+          )
+        }
+        # 
+        # it "doesn't create another user" do
+        #   petunia
+        #   expect{ get :create, {provider: :instagram} }.to_not change(User, :count).by(1)
+        # end
 
         it "assigns the session[:user_id]" do
           get :create, provider: :instagram
-          expect(session[:user_id]).to eq user.id
+          expect(session[:user_id]).to eq petunia.id
         end
       end #context
 
