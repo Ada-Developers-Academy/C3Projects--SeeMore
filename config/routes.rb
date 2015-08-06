@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  root 'home#landing_page'
+  root 'home#newsfeed'
+
+  get '/signin', to: 'home#signin', as: 'signin'
+
   match "auth/:provider/callback", to: "sessions#create", via: [:get, :post]
 
   get "/instagram/:user" => "followees#insta_users", as: "iusers"
