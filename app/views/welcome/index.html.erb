@@ -1,30 +1,8 @@
 <div class="container">
   <% if current_user %>
     Welcome <%= current_user.name %>
-    <% else %>
-      <!-- <div class="center-form panel"> -->
-        <div class="panel-body">
-          <h4 class="text-center">Sign up</h4>
-          <form method="post" ng-submit="signup()" name="signupForm">
-            <div class="form-group has-feedback" >
-              <input class="form-control input-lg" type="email" id="email" name="email" ng-model="email" placeholder="Email" required autofocus>
-              <span class="ion-at form-control-feedback"></span>
-            </div>
-
-            <div class="form-group has-feedback" >
-              <input class="form-control input-lg" type="password" name="password" ng-model="password" placeholder="Password" required>
-              <span class="ion-key form-control-feedback"></span>
-            </div>
-
-            <button type="submit" class="btn btn-block btn-primary">Sign up</button>
-            <br/>
-          </form>
-
-          <button type="submit" class="btn btn-block btn-success">Sign up with Instagram</button>
-          <%= link_to "sign in with vimeo", "/auth/vimeo/", class:"btn btn-block btn-danger" %>
-          <br/>
-          <p class="text-center text-muted"><small>Already have an account? <%=link_to "Log in now", sign_up_path %></small></p>
-        </div>
-      <!-- </div> -->
+    <%= render "feed" %>
+  <% else %>
+    <%= render "login" %>
   <% end %>
 </div>
