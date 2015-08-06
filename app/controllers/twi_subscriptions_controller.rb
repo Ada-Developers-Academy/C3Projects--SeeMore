@@ -1,9 +1,8 @@
 class TwiSubscriptionsController < ApplicationController
 
-  def search
-  client =  twitter_api_object
-  client.user_search(params[:])
-  
+  def index
+    client =  twitter_api_object
+    @results = client.user_search(params[:twitter_search])
   end
 
 
