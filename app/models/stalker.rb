@@ -3,6 +3,7 @@ class Stalker < ActiveRecord::Base
   validates :username, presence: true
   validates :uid, presence: true # TODO: consider customizing the error message
   validates :provider, presence: true
+  validate :unique_user_check, on: :create
 
   def self.find_or_create_from_auth_hash(auth_hash)
     create_params = create_params_by_provider(auth_hash)
@@ -19,6 +20,13 @@ class Stalker < ActiveRecord::Base
   end
 
   private
+
+  def unique_user_check
+    if Stalker.where(uid: uid, provider: provider).any?
+      errors.add(:user_not_unique, "That user already exists!")
+    end
+  end
+
   def self.create_params_by_provider(auth_hash)
     case auth_hash["provider"]
     when "developer"
