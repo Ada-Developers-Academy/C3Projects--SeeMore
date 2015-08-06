@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :twi_subscriptions, path: "twitter_results"
 
+  resources :ig_subscriptions, path: "instagram_results"
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
