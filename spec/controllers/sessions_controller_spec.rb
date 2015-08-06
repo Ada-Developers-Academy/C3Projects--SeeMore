@@ -12,6 +12,7 @@ RSpec.describe SessionsController, type: :controller do
 
         it "redirects to the homepage" do
           get :create, provider: :twitter
+
           expect(response).to redirect_to root_path
         end
 
@@ -31,7 +32,7 @@ RSpec.describe SessionsController, type: :controller do
           get :create, provider: :twitter
         end
         # before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter] }
-        let(:user) { Stalker.find_or_create_from_omniauth(OmniAuth.config.mock_auth[:twitter]) }
+        let(:user) { Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:twitter]) }
 
         it "doesn't create a new user" do
           get :create, provider: :twitter
@@ -47,16 +48,19 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       context "when failing to save the user" do
-        before { request.env["omniauth.auth"] = {
-          uid: "1234",
-          info: {}
+        let(:invalid_params) { {
+          "provider" => "twitter",
+          "uid" => "1234",
+          "info" => { "nickname" => nil}
           }
         }
+        before { request.env["omniauth.auth"] = invalid_params }
 
-       it "redirect to home with flash error" do
+       it "redirects to home with flash error" do
          get :create, provider: :twitter
+
          expect(response).to redirect_to root_path
-         expect(flash[:notice]).to include "Failed to save the user"
+         expect(flash[:error]).to_not be nil
        end
       end
     end
