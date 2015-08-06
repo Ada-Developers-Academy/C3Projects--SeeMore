@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'home#landing_page'
   match "auth/:provider/callback", to: "sessions#create", via: [:get, :post]
 
+  get '/insta_search', to: "followees#insta_search", as: "insta_search"
   get "/instagram/:user" => "followees#insta_users", as: "iusers"
   post "/instagram_users" => "followees#users_redirect", as: "iuser_search"
 
