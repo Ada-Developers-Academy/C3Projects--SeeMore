@@ -18,6 +18,7 @@ class SessionsController < ApplicationController
     auth = request.env["omniauth.auth"]
     au_user = AuUser.find_by_provider_and_uid(auth["provider"], auth["uid"]) || AuUser.create_with_omniauth(auth)
     session[:user_id] = au_user.id
+    raise
     redirect_to root_url :notice => "Signed in!"
   end
 
