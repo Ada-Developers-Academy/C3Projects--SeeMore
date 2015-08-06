@@ -2,7 +2,12 @@ class SessionsController < ApplicationController
 skip_before_filter :verify_authenticity_token
 
   def create
+
     auth_hash = request.env['omniauth.auth']
+
+    if auth_hash.credentials['token']
+      session[:access_token] = auth_hash.credentials['token']
+    end
 
     if auth_hash["uid"]
       @user = User.find_or_create_user(auth_hash)
