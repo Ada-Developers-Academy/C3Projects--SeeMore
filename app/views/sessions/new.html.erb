@@ -7,31 +7,9 @@
     <div class="center-block no-float col-sm-6">
       <!-- instagram -->
       <div class="btn-group col-sm-12" role="group">
-        <%= link_to image_tag('IG_logo', class: 'logo-instagram'), about_path, class: 'btn btn-primary instagram' %>
-        <%= link_to "Sign In with Instagram", about_path, class: 'btn btn-primary instagram' %>
+        <%= link_to image_tag('IG_logo', class: 'logo-instagram'), about_path, class: 'btn btn-primary btn-instagram' %>
+        <%= link_to "Sign In with Instagram", about_path, class: 'btn btn-primary btn-instagram' %>
       </div>
-    </div>
-
-    <br><br><br>
-    <h5 class="text-center">
-      &ndash; OR &ndash;
-    </h5>
-    <br>
-
-    <div class="center-block col-sm-6 no-float">
-      <%= form_for(:session, url: login_path) do |f| %>
-        <div class="form-group">
-          <%= f.label :username %>
-          <%= f.text_field :username, class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-          <%= f.label :password %>
-          <%= f.password_field :password, class: 'form-control' %>
-        </div>
-
-        <%= f.submit 'Login', class: 'btn btn-primary center-block' %>
-      <% end %>
     </div>
   </div>
 </div>
