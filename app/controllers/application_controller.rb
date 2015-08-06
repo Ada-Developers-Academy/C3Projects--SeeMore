@@ -1,5 +1,6 @@
 require 'twitter'
 require 'twitter_client'
+require 'instagram'
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
@@ -17,6 +18,11 @@ class ApplicationController < ActionController::Base
   # end
 
   private
+
+  Instagram.configure do |config|
+    config.client_id = ENV["INSTAGRAM_CLIENT_ID"]
+    config.client_secret = ENV["INSTAGRAM_CLIENT_SECRET"]
+  end
 
   def twitter_client
     @twitter_client ||= TwitterClient.new
