@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20150806202309) do
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "followee_id"
-    t.datetime "subscribe_date"
     t.datetime "unsubscribe_date"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false

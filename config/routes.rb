@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   post 'search_twitter', to: 'home#twitter_users_redirect', as: 'twitter_users_redirect'
   get 'twitter_users/:user', to: 'home#twitter_users', as: 'twitter_users'
 
+  resources :subscription
 end
