@@ -1,4 +1,7 @@
-FactoryGirl.define do
+FactoryGirl.define do  factory :instagram do
+    
+  end
+
   factory :user do
     email    "a@b.com"
     username "Ada"
