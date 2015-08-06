@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   #  get "/auth/:provider", to: "sessions#create"
    post "/auth/:provider", to: "sessions#create"
    get "auth/developer" => 'sessions#create', as: 'login'
-   delete "logout" => 'sessions#destroy'
+   delete "logout" => 'sessions#destroy', as: 'logout'
 
    resources :instagram, only: [:index]
 end
