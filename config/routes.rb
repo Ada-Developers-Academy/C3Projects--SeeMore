@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   post "/auth/:provider/callback", to: "sessions#create"
+  get '/auth/:provider/callback', to: 'sessions#create'
 
   delete '/logout', to: "sessions#destroy", as: "logout"
 
