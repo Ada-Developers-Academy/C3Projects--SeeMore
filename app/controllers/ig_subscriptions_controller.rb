@@ -1,2 +1,3 @@
 class IgSubscriptionsController < ApplicationController
+
 end
