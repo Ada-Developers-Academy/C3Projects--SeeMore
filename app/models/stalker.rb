@@ -5,7 +5,7 @@ class Stalker < ActiveRecord::Base
   validates :provider, presence: true
 
   def self.find_or_create_from_auth_hash(auth_hash)
-    create_params = create_params_by_provider(auth_hash["provider"])
+    create_params = create_params_by_provider(auth_hash)
 
     Stalker.find_or_create(create_params)
   end
@@ -19,16 +19,16 @@ class Stalker < ActiveRecord::Base
   end
 
   private
-  def self.create_params_by_provider(auth_hash_provider)
+  def self.create_params_by_provider(auth_hash)
     case auth_hash["provider"]
     when "developer"
       #
     when "twitter"
-      twitter_create_params
+      twitter_create_params(auth_hash)
     when "instagram"
       # instagram_create_params
     when "vimeo"
-      vimeo_create_params
+      vimeo_create_params(auth_hash)
     end
   end
 
