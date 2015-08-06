@@ -10,7 +10,7 @@ class TwitterClient
     end
   end
 
-  def user_search(search_term)
-    twitter_client.user_search(search_term)
-  end
+  # def user_search(search_term)
+  #   twitter_client.user_search(search_term)
+  # end
 end

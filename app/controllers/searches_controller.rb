@@ -5,7 +5,7 @@ class SearchesController < ApplicationController
 
   def index
     if params[:search_twitter]
-      response = HTTParty.get(TWITTER_SEARCH_URI + "q=#{@search_twitter}", header)
+      # response = HTTParty.get(TWITTER_SEARCH_URI + "q=#{@search_twitter}", header)
       raise
 
 
