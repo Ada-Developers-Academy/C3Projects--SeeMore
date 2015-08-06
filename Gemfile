@@ -58,7 +58,8 @@ group :development, :test do
 
   # API testing
   gem 'vcr'
-  
+  gem 'webmock'
+
   # Error handling
   gem 'better_errors'
   gem 'binding_of_caller'
