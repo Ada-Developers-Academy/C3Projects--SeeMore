@@ -35,8 +35,10 @@ RSpec.describe User, type: :model do
 
     context "when user has already been created" do
       let(:petunia) {
-        User.find_or_create_from_omniauth(OmniAuth.config.mock_auth[:instagram])
-        # mock_auth is like a result of an authentication from github
+        User.find_or_create_from_omniauth(
+          OmniAuth.config.mock_auth[:instagram]
+        )
+        # mock_auth is like a result of an authentication from instagram
       }
 
       it "user auth is valid" do
@@ -45,13 +47,21 @@ RSpec.describe User, type: :model do
     end # context
 
     context "when omniauth is invalid" do
-      it "returns nil" do
-        user = User.find_or_create_from_omniauth({"uid" => nil, "provider" => "instagram", "info" => {}})
+      it "nil uid will return nil" do
+        user = User.find_or_create_from_omniauth({
+          "uid" => nil,
+          "provider" => "instagram",
+          "info" => {}
+        })
         expect(user).to be_nil
       end
 
-      it "returns nil" do
-        user = User.find_or_create_from_omniauth({"uid" => nil, "info" => {}})
+      it "nil provider will return nil" do
+        user = User.find_or_create_from_omniauth({
+          "uid" => "123",
+          "provider" => nil,
+          "info" => {}
+        })
         expect(user).to be_nil
       end
     end # context
