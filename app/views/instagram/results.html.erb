@@ -1,19 +1,23 @@
-<div class="row">
-  <% @matches.each_with_index do |matching_feed, index| %>
-    <% if index % 3 == 0 %>
-      </div><div class="row">
-    <% end %>
-    <div class="col-sm-4 search-result">
-      <h3>
-        <%= link_to matching_feed["username"], feed_path(matching_feed["id"]) %>
-        <%= link_to "Subscribe", root_path, class: "btn btn-info btn-xs" %>
-        <% unless matching_feed["full_name"].empty? %>
-          <br />
-          <small><%= matching_feed["full_name"] %></small>
-        <% end %>
-      </h3>
+<h1>Search results for <%= @query %>:</h1>
 
-      <%= image_tag matching_feed["profile_picture"] %>
-    </div>
-  <% end %>
-</div>
+<% unless @results.empty? %>
+  <div class="row">
+    <% @results.each_with_index do |result, index| %>
+      <% if index % 3 == 0 %>
+        </div><div class="row">
+      <% end %>
+      <div class="col-sm-4 search-result">
+        <h3>
+          <%= link_to result["username"], feed_path(result["id"]) %>
+          <%= link_to "Subscribe", root_path, class: "btn btn-info btn-xs" %>
+          <% unless result["full_name"].empty? %>
+            <br />
+            <small><%= result["full_name"] %></small>
+          <% end %>
+        </h3>
+
+        <%= image_tag result["profile_picture"] %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
