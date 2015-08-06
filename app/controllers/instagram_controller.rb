@@ -22,4 +22,11 @@ class InstagramController < ApplicationController
     results = HTTParty.get(feed_url)
     @posts = results["data"]
   end
+
+  def subscribe
+    # check whether this feed is already in the database
+    # if not, add it to the database
+    # if so, don't
+    # then and only then add an entry in the join table to associate the user with the feed_url
+  end
 end
