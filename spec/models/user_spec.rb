@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
       email: "a@b.com",
       name: "Ada",
       uid: "12354",
-      provider: "instagram"
+      provider: "twitter"
       )
     }
 
@@ -92,6 +92,15 @@ RSpec.describe User, type: :model do
 
       expect(igsub.users.first.name).to eq "user1"
       expect(user.ig_subscriptions.first.instagram_id).to eq "@beast"
+    end
+
+    it "a user has and belongs to an Twitter subscription" do
+      user = User.create(name: "user1", provider: "developer", uid: "uid1")
+      twisub = TwiSubscription.create(twitter_id: "@beast")
+      twisub.users << user
+
+      expect(twisub.users.first.name).to eq "user1"
+      expect(user.twi_subscriptions.first.twitter_id).to eq "@beast"
     end
   end
 end

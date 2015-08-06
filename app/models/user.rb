@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   # Associations
   has_and_belongs_to_many :ig_subscriptions
+  has_and_belongs_to_many :twi_subscriptions
 
   def self.find_or_create_user(auth_hash)
     uid = auth_hash["uid"]

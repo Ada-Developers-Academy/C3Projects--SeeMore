@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   delete '/logout', to: "sessions#destroy", as: "logout"
 
+  resources :twi_subscriptions, path: "twitter_results"
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
