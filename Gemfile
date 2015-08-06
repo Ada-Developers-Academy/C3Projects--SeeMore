@@ -25,6 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-vimeo'
+gem 'omniauth-instagram'
 
 gem 'httparty'
 # Use ActiveModel has_secure_password

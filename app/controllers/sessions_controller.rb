@@ -1,5 +1,9 @@
 class SessionsController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: :create
+
+  def new
+
+  end
   def create
     auth_hash = request.env['omniauth.auth']
     if auth_hash["provider"] == "developer"
@@ -7,7 +11,7 @@ class SessionsController < ApplicationController
     elsif auth_hash["provider"] == "twitter"
       @user = Stalker.find_or_create_from_twitter(auth_hash)
     elsif auth_hash["provider"] == "instagram"
-      # @user = Stalker.find_or_create_from_instagram(auth_hash)
+       @user = Stalker.find_or_create_from_instagram(auth_hash)
     elsif auth_hash["provider"] == "vimeo"
       @user = Stalker.find_or_create_from_vimeo(auth_hash)
     else
