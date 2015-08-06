@@ -1,0 +1,2 @@
+class TwiSubscriptionsController < ApplicationController
+end
