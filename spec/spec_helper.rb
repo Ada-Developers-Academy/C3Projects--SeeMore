@@ -35,20 +35,20 @@ RSpec.configure do |config|
     # hashes to return during testing.
 
     OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
-      :provider => 'twitter',
-      :uid => '123545',
+      provider: 'twitter',
+      uid:'123545',
       info: { email: "a@b.com", nickname: "Ada" }
     })
 
     OmniAuth.config.mock_auth[:vimeo] = OmniAuth::AuthHash.new({
-      :provider => 'vimeo',
-      :uid => '123545',
+      provider: 'vimeo',
+      uid:'123545',
       info: { email: "a@b.com", name: "Ada" }
     })
 
     OmniAuth.config.mock_auth[:instagram] = OmniAuth::AuthHash.new({
-      :provider => 'instagram',
-      :uid => '123545',
+      provider: 'instagram',
+      uid:'123545',
       info: { email: "a@b.com", nickname: "Ada" }
     })
 

@@ -30,7 +30,7 @@ class Stalker < ActiveRecord::Base
   def self.create_params_by_provider(auth_hash)
     case auth_hash["provider"]
     when "developer"
-      #
+      # TODO: still needs to be implemented! Currently a bug.
     when "twitter"
       twitter_create_params(auth_hash)
     when "instagram"
@@ -43,6 +43,7 @@ class Stalker < ActiveRecord::Base
   end
 
   def self.twitter_create_params(auth_hash)
+
     {
       username: auth_hash["info"]["nickname"],
       uid: auth_hash["uid"],
