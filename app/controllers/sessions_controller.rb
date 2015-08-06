@@ -2,7 +2,6 @@ class SessionsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth']
-    binding.pry
     session[:user_id] = auth_hash["info"]["last_name"]
   end
 
