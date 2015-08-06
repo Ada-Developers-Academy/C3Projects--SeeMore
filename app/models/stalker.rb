@@ -29,6 +29,8 @@ class Stalker < ActiveRecord::Base
       # instagram_create_params
     when "vimeo"
       vimeo_create_params(auth_hash)
+    else
+      raise NotImplementedError
     end
   end
 
