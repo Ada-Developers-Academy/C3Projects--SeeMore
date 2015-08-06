@@ -1,5 +1,4 @@
 class FeedsController < ApplicationController
-
   TWITTER_URI = "https://api.twitter.com/1.1/users/search.json?q="
 
   def search; end
@@ -14,8 +13,6 @@ class FeedsController < ApplicationController
 
   def search_results
     @search_term = params[:search_term]
-    @results = @twit_init.client.user(@search_term)
+    @results = @twit_init.client.user_search(@search_term)
   end
-
-
 end
