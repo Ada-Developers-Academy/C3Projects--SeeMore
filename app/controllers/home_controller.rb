@@ -1,6 +1,11 @@
 class HomeController < ApplicationController
-  def landing_page
-    @current_user ||= User.find_by(id: session[:user_id])
+  before_action :current_user
+  before_action :require_signin, except: [:signin]
+
+  def signin
+  end
+
+  def newsfeed
   end
 
   def search
