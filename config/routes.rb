@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   # feed routes
   get "/feed/:feed_id", to: "instagram#individual_feed", as: "feed"
+  get "/feed/:feed_id/subscribe", to: "instagram#subscribe", as: "subscribe"
 
   # search routes
   post "/search", to: "instagram#search"

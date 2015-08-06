@@ -29,9 +29,17 @@ class InstagramController < ApplicationController
   end
 
   def subscribe
-    # check whether this feed is already in the database
-    # if not, add it to the database
-    # if so, don't
-    # then and only then add an entry in the join table to associate the user with the feed_url
+    feed = Feed.find_by(platform_feed_id: params[:feed_id])
+    unless feed
+      feed_url = FEED_URI_A + params[:feed_id] + FEED_URI_B
+      results  = HTTParty.get(feed_url)
+      results  = results["data"].first["caption"]["from"]
+      avatar   = results["profile_picture"]
+      name     = results["username"]
+      platform = "Instagram"
+      platform_feed_id = params[:feed_id]
+      feed = Feed.create(name: name, avatar: avatar, platform: platform, platform_feed_id: platform_feed_id)
+    end
+    current_user.feeds << feed unless current_user.feeds.include?(feed)
   end
 end
