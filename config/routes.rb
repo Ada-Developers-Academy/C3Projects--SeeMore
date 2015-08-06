@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
   root "feeds#index"
 
+  get "/search_twitter/:username", to: "twitters#search", as: "search_twitter" 
+
+
+
   get "auth/:provider/callback" => 'sessions#create'
   # post is here for OmniAuth developer strategy
   post "auth/:provider/callback" => 'sessions#create'

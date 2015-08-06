@@ -30,9 +30,10 @@ gem 'httparty'
 
 # OmniAuth Gems
 gem 'omniauth'
-
 gem 'omniauth-instagram'
 
+# OAuth
+gem 'twitter'
 gem 'instagram'
 
 # Use ActiveModel has_secure_password
