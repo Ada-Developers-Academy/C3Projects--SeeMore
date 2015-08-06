@@ -21,6 +21,43 @@ SimpleCov.start
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.before(:suite) do
+    # Once you have enabled test mode, all requests
+    # to OmniAuth will be short circuited
+    # to use the mock authentication hash.
+    # A request to /auth/provider will redirect
+    # immediately to /auth/provider/callback.
+
+    OmniAuth.config.test_mode = true
+
+    # The mock_auth configuration allows you to
+    # set per-provider (or default) authentication
+    # hashes to return during testing.
+
+    OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
+      provider: 'twitter',
+      uid:'123545',
+      info: { email: "a@b.com", nickname: "Ada" }
+    })
+
+    OmniAuth.config.mock_auth[:vimeo] = OmniAuth::AuthHash.new({
+      provider: 'vimeo',
+      uid:'123545',
+      info: { email: "a@b.com", name: "Ada" }
+    })
+
+    OmniAuth.config.mock_auth[:instagram] = OmniAuth::AuthHash.new({
+      provider: 'instagram',
+      uid:'123545',
+      info: { email: "a@b.com", nickname: "Ada" }
+    })
+
+    OmniAuth.config.mock_auth[:unrecognized] = OmniAuth::AuthHash.new({
+      :provider => 'unrecognized provider',
+      :uid => '123545',
+      info: { email: "a@b.com", nickname: "Ada" }
+    })
+  end
 
   config.include FactoryGirl::Syntax::Methods
   # rspec-expectations config goes here. You can use an alternate
