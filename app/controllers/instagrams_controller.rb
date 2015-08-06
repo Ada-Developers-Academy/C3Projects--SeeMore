@@ -32,22 +32,18 @@ class InstagramsController < ApplicationController
     session[:access_token] = response.access_token
     redirect_to instagrams_path
   end
-  # NOTE: WILL NEED BELOW LATER
-  # def new
-  #   @instagram = Instagram.new
-  # end
-  #
-  # def create
-  #   @instagram = Instagram.new(create_ig_params)
-  #
-  #   if @instagram.save
-  #     redirect_to @back_url, notice: "Instagram User Added!"
-  #   else
-  #     flash.now[:errors] = "D'oh! We couldn't add your user!"
-  #     # render :new
-  #     redirect_to root_url
-  #   end
-  # end
+
+  def create
+    @instagram_person = Instagram.new(create_ig_params)
+    @person = @instagram_person.username
+    @instagram_person.user_ids << session[:user_id]
+
+    if @instagram_person.save
+      redirect_to root_path(@person), flash: { alert: MESSAGES[:following_person] }
+    else
+      render "feeds/search", flash: { error: MESSAGES[:follow_error] }
+    end
+  end
 
   private
 
