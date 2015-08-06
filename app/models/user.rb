@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
     user = User.where(uid: uid, provider: provider).first_or_initialize
     user.email = auth_hash["info"]["email"]
-    user.name = auth_hash["info"]["name"]
+    user.name = auth_hash["info"]["nickname"]
 
     return user.save ? user : nil
   end

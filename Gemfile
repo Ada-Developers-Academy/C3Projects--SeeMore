@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'dotenv-rails', :groups => [:development, :test]
 # Auth
 gem 'omniauth'
-
+gem 'omniauth-instagram'
 # reading APIs
 gem 'httparty'
 
