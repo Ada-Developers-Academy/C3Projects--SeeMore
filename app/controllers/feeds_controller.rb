@@ -1,3 +1,5 @@
+
+
 class FeedsController < ApplicationController
 
   TWITTER_URI = "https://api.twitter.com/1.1/users/search.json?q="
@@ -16,5 +18,6 @@ class FeedsController < ApplicationController
     @search_term = params[:search_term]
     @results = HTTParty.get(TWITTER_URI + "#{@search_term}")
   end
+
 
 end
