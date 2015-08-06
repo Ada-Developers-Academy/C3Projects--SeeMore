@@ -51,6 +51,12 @@ RSpec.configure do |config|
     :provider => 'developer',
     :uid => 'a@b.com',
     info: {email: "a@b.com", name: "BEAST"}})
+
+
+  OmniAuth.config.mock_auth[:instagram] = OmniAuth::AuthHash.new({
+    :provider => 'instagram',
+    :uid => '12434643',
+    info: { name: "BEAST" } })
   end
 
   # rspec-mocks config goes here. You can use an alternate test double

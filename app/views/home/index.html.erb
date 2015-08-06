@@ -1,5 +1,7 @@
 
 <% unless session[:user_id] %>
   <%= link_to "Sign in Dev", "/auth/developer", class: "btn btn-default" %>
+  <%= link_to "Sign in with Instagram", "/auth/instagram", class:
+  "btn btn-default" %>
 <% end %>
 
