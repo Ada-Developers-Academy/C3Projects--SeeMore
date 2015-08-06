@@ -1,0 +1,7 @@
+<h1>Search results for <%= params[:search_twitter] %>  </h1>
+
+<ul>
+  <% @search_results.each do |user| %>
+    <ul>USER ID: <%= user %></ul>
+  <% end %>
+</ul>
