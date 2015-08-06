@@ -1,4 +1,7 @@
 require 'rails_helper'
+require 'twitter'
+require 'twit_init'
+require 'support/vcr_setup'
 
 RSpec.describe FeedsController, type: :controller do
 
@@ -27,10 +30,12 @@ RSpec.describe FeedsController, type: :controller do
   end
 
   describe "GET feeds#search_results" do
-    it "receives a JSON response" do
-      search_term = "donald trump"
-      get :search_results, search_term: search_term
-      expect(@result.class).to be(JSON)
+    it "receives a response from the api" do
+      VCR.use_cassette 'controller/twitter_api_response' do
+        @twit_init = TwitInit.new
+        response = @twit_init.client.user_search("donald trump")
+        expect(response.first.id).to eq(25073877)
+      end
     end
   end
 end
