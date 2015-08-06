@@ -1,2 +1,4 @@
 <h2>Twitter Search Results</h2>
-<%= @response_hash %>
+<% @response.each do |result| %>
+  <p><%= result.screen_name %></p>
+<% end %>
