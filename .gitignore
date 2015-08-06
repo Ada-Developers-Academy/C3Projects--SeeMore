@@ -19,3 +19,6 @@
 /coverage
 .env
 .DS_Store
+
+# The recording of our API contains info we don't want on github
+spec/vcr/*
