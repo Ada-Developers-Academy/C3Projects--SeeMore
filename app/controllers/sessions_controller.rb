@@ -3,6 +3,7 @@ skip_before_filter :verify_authenticity_token
 
   def create
     auth_hash = request.env['omniauth.auth']
+
     if auth_hash["uid"]
       @user = User.find_or_create_user(auth_hash)
       if @user
