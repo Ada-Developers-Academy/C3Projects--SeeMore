@@ -26,7 +26,7 @@ class Stalker < ActiveRecord::Base
     when "twitter"
       twitter_create_params(auth_hash)
     when "instagram"
-      # instagram_create_params
+      instagram_create_params(auth_hash)
     when "vimeo"
       vimeo_create_params(auth_hash)
     end
@@ -47,16 +47,6 @@ class Stalker < ActiveRecord::Base
       uid: auth_hash["uid"],
       provider: auth_hash["provider"]
     }
-  end
-
-
-  def self.find_or_create_from_instagram(auth_hash)
-    create_params = instagram_create_params(auth_hash)
-    Stalker.create_with(username: create_params[:username])
-      .find_or_create_by(
-        uid: create_params[:uid],
-        provider: create_params[:provider]
-      )
   end
 
   def self.instagram_create_params(auth_hash)
