@@ -12,5 +12,5 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy", as: "logout"
 
   post "/results", to: "instagram#results"
-  get "/feed/:user_id", to: "instagram#individual_feed", as: "feed"
+  get "/feed/:feed_id", to: "instagram#individual_feed", as: "feed"
 end

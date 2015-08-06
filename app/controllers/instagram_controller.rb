@@ -1,7 +1,6 @@
 class InstagramController < ApplicationController
   # THING_URI = "https://api.instagram.com/v1/media/popular?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }"
   SEARCH_URI = "https://api.instagram.com/v1/users/search?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }&count=10"
-  user_id = 571376090
   FEED_URI_A = "https://api.instagram.com/v1/users/" # then user_id
   FEED_URI_B = "/media/recent?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }"
 
@@ -18,7 +17,7 @@ class InstagramController < ApplicationController
   end
 
   def individual_feed
-    feed_url = FEED_URI_A + params[:user_id] + FEED_URI_B
+    feed_url = FEED_URI_A + params[:feed_id] + FEED_URI_B
     results = HTTParty.get(feed_url)
     @posts = results["data"]
   end
