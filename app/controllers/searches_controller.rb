@@ -21,7 +21,7 @@ class SearchesController < ApplicationController
 
   def show
     if params[:client] == "twitter"
-      @search_results = @twitter_client.client.user_search(params[:search_term])
+      @search_results = TwitterClient.user_search(params[:search_term])
     elsif params[:client] == "instagram"
       # TODO: put code to search instagram users here
     end
