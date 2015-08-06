@@ -14,7 +14,7 @@ describe "POST feeds#search_redirect" do
     it "redirects to the results page" do
       search_term = "donald trump"
       post :search_redirect, search_term: search_term
-      expect(response).to redirect_to(search_redirect_path)
+      expect(response).to redirect_to(search_results_path(search_term))
     end
   end
 
