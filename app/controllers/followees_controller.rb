@@ -20,8 +20,11 @@ class FolloweesController < ApplicationController
 
   # pull a user's instagram posts
   def insta_user_posts 
-    user_id = "66"
-    response = HTTParty.get(INSTA_USER_POSTS_URI + user_id + "/media/recent/?access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
+    # will need to update this @user_id variable when we no longer are using a route to set params[:user] here
+    @user_id = params[:user]
+    response = HTTParty.get(INSTA_USER_POSTS_URI + @user_id + "/media/recent/?count=3&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
+  
+    @insta_user_posts = response["data"]
   end
 
   def insta_search; end
