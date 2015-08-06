@@ -6,7 +6,12 @@ class User < ActiveRecord::Base
 
     user = User.where(uid: uid, provider: provider).first_or_initialize
     user.email = auth_hash["info"]["email"]
-    user.name = auth_hash["info"]["nickname"]
+
+    if provider == "developer"
+      user.name = auth_hash["info"]["name"]
+    else
+      user.name = auth_hash["info"]["nickname"]
+    end
 
     return user.save ? user : nil
   end
