@@ -16,14 +16,18 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.body {
-  background-image: url("background.png");
+.jumbotron {
+  width: 100%;
+  background: url("background.png");
   background-size: 100%;
   background-repeat: no-repeat;
 }
 
 .panel-body {
-  padding: 200px;
+  padding-top: 400px;
+  padding-left: 200px;
+  padding-right: 200px;
+}
 
 #top.nav {
   // padding: 5px 0;
