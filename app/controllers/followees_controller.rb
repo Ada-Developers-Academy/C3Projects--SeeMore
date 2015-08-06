@@ -1,5 +1,14 @@
 class FolloweesController < ApplicationController
   INSTA_URI = "https://api.instagram.com/v1/users/search?"
+  before_action :find, only: [:destroy]
+
+  def new
+    @followee = Followee.new
+  end
+
+  def create; end
+
+  def destroy; end
 
   # search for users by name
   def insta_users
@@ -15,6 +24,16 @@ class FolloweesController < ApplicationController
     #       "id": "66",
     #       "last_name": "Dorsey"
     #   }} ------------------------
+  end
+
+  private
+
+  def find
+    @followees = [User.find(session[:user_id]).followees]
+  end
+
+  def followee_params
+    params.require(:followee).permit(:handle, :source, :avatar_url)
   end
 
 end

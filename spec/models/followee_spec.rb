@@ -20,13 +20,21 @@ RSpec.describe Followee, type: :model do
     end
   end
 
-  # describe "assocations" do
-    # before :each do
-      # @followee = Followee.create(handle: "samiam", source: "twitter")
-    # end
+  describe "assocations" do
+    before :each do
+      @followee = Followee.create(handle: "samiam", source: "twitter")
+    end
 
-    # it "responds to 'posts' method call" do
-      # expect(@followee).to respond_to(:posts)
-    # end
-  # end
+    it "responds to 'posts' method call" do
+      expect(@followee).to respond_to(:posts)
+    end
+
+    it "responds to 'subscriptions' method call" do
+      expect(@followee).to respond_to(:subscriptions)
+    end
+
+    it "responds to 'users' method call" do
+      expect(@followee).to respond_to(:users)
+    end
+  end
 end
