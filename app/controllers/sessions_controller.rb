@@ -1,11 +1,19 @@
 class SessionsController < ApplicationController
+  # ew, but a necessary ew :(
+  skip_before_filter :verify_authenticity_token, only: :create
 
-  def new; end
+  def new
+    # go to Instagram for authorization & confirmation
+    redirect_to Instagram.authorize_url(:redirect_uri => callback_url)
+  end
 
   def create
-    auth_hash = request.env['omniauth.auth'] 
-    # User.find_or_create_from_omniauth(auth_hash)
-
-    # redirect_to root_path
+    # come back to our site
+    if params[:provider] == 'instagram'
+      response = Instagram.get_access_token(params[:code], :redirect_uri => callback_url)
+      session[:access_token] = response.access_token
+      session[:user_id] = User.find_by(uid: response.user.id).id
+    end
+    redirect_to feeds_path
   end
 end
