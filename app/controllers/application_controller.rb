@@ -1,17 +1,17 @@
 require 'twitter'
-require 'twitter_client'
+require 'twitur'
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :client
+  before_filter :twitur
 
   private
 
-  def client
-    @client ||= TwitterClient.new
+  def twitur
+    @twitter_client ||= Twitur.new
   end
 
 end
