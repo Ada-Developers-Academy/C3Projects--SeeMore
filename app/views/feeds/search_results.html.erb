@@ -1,7 +1,8 @@
 <h1>Creepah!!</h1>
-
+<% @results.each do |result| %>
 <pre>
-  <%= @results.screen_name %>
-  <%= @results.profile_image_url %>
+  <%= result.screen_name %>
+  <%= result.profile_image_url %>
 
 </pre>
+<% end %>
