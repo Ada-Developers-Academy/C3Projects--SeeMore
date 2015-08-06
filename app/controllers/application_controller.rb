@@ -1,4 +1,4 @@
-require 'twitterclient'
+require 'twitter_client'
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
@@ -10,6 +10,4 @@ class ApplicationController < ActionController::Base
   def set_twitter_client
     @twitter_client ||= TwitterClient.new
   end
-
-  # search_results = @twitter_client.twitter_client.user_search("whatever")
 end
