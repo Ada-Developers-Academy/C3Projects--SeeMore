@@ -51,6 +51,12 @@ RSpec.configure do |config|
       uid:'123545',
       info: { email: "a@b.com", nickname: "Ada" }
     })
+
+    OmniAuth.config.mock_auth[:unrecognized] = OmniAuth::AuthHash.new({
+      :provider => 'unrecognized provider',
+      :uid => '123545',
+      info: { email: "a@b.com", nickname: "Ada" }
+    })
   end
 
   config.include FactoryGirl::Syntax::Methods
