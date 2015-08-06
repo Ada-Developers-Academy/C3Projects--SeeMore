@@ -8,7 +8,9 @@ gem 'omniauth'
 gem 'httparty'
 # Twitter API
 gem 'twitter'
-
+# Instagram API
+gem 'instagram'
+gem 'omniauth-instagram'
 # styling
 gem 'bootstrap-sass'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
