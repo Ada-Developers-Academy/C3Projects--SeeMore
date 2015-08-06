@@ -10,10 +10,10 @@ class FolloweesController < ApplicationController
 
   def destroy; end
 
-  def insta_search; end
+  def insta_users; end
 
   # search for users by name
-  def insta_users
+  def insta_search
     client = Instagram.client(:access_token => session[:access_token])
     # @search = params[:search]
     @results = []
