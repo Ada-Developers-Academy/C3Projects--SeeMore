@@ -1,4 +1,8 @@
-<% @results.each do |result| %>
-<%= result.screen_name + " (#{result.name})" %>
-</br>
-<% end %>
+<ul>
+  <% @results.each do |result| %>
+    <li>
+      <%= result.screen_name + " (#{result.name})" %>
+      <%= link_to "Feed the BEAST!", twi_subscriptions_path(twitter_id: result.id), method: :post, class: "btn btn-default" %>
+    </li>
+  <% end %>
+</ul>
