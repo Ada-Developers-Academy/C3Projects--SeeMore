@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
   #   @tweets = @twitter_client.client.user_timeline[0..4] # For this demonstration lets keep the tweets limited to the first 5 available.
   # end
 
+  private
+
   def twitter_client
     @twitter_client ||= TwitterClient.new
   end
