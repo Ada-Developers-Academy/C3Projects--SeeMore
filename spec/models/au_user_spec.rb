@@ -37,4 +37,11 @@ RSpec.describe AuUser, type: :model do
       end
     end
   end
+
+  describe "omni auth model method" do
+    it "assigns values to the user via the provider" do
+      self.create_with_omniauth(auth)
+      expect(au_user.uid).to eq(auth["uid"])
+    end
+  end
 end
