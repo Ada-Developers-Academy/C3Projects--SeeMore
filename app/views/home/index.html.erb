@@ -4,3 +4,14 @@
   <%= link_to "Sign in with Instagram", "/auth/instagram", class:
   "btn btn-default" %>
 <% end %>
+
+
+<% @sub_array.each do |tweet| %>
+  <%= tweet.user.username %>
+  <%= tweet.text %>
+  <%= tweet.as_json["created_at"] %>
+  <% tweet.media.as_json.each do |media| %>
+    <%= image_tag(media["media_url_https"], height: '300' ) %>
+  <% end %>
+  <br>###<br>
+<% end %>
