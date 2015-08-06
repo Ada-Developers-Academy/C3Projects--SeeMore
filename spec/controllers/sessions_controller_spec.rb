@@ -37,11 +37,11 @@ RSpec.describe SessionsController, type: :controller do
             OmniAuth.config.mock_auth[:instagram]
           )
         }
-        # 
-        # it "doesn't create another user" do
-        #   petunia
-        #   expect{ get :create, {provider: :instagram} }.to_not change(User, :count).by(1)
-        # end
+
+        it "doesn't create another user" do
+          petunia
+          expect{ get :create, {provider: :instagram} }.to_not change(User, :count).by(1)
+        end
 
         it "assigns the session[:user_id]" do
           get :create, provider: :instagram
