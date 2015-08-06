@@ -1,13 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before(:each) do
-    # resetting OmniAuth to a consistent state before tests
-    OmniAuth.config.mock_auth[:instagram] = nil
-    # OmniAuth.config.mock_auth[:instagram] = nil
-  end
-
-  let(:zyn)  {create :user}
+  let(:zyn)  { create :user }
 
   describe "validations" do
       it "is valid" do
@@ -25,30 +19,42 @@ RSpec.describe User, type: :model do
       end
   end # validations
 
+  describe ".find_or_create_from_omniauth" do
+    context "when user has already been created" do
+      it "finds the correct user" do
+        maebe = create :user, uid: "123", provider: "instagram"
+        user = User.find_or_create_from_omniauth({
+          "uid" => "123",
+          "provider" => "instagram",
+          "info" => {}
+        })
 
-    describe ".find_or_create_from_omniauth" do
-      # let(:petunia) {
-      #   User.find_or_create_from_omniauth(OmniAuth.config.mock_auth[:instagram])
-      #   # mock_auth is like a result of an authentication from github
-      # }
+        expect(user).to eq(maebe)
+      end
+    end # context
 
-      it "creates a valid user" do
-        binding.pry
-        petunia =   User.find_or_create_from_omniauth(OmniAuth.config.mock_auth[:instagram])
+    context "when user has already been created" do
+      let(:petunia) {
+        User.find_or_create_from_omniauth(OmniAuth.config.mock_auth[:instagram])
+        # mock_auth is like a result of an authentication from github
+      }
+
+      it "user auth is valid" do
         expect(petunia).to be_valid
       end
+    end # context
 
-      context "when it's invalid" do
-        it "returns nil" do
-          user = User.find_or_create_from_omniauth({"uid" => "123", "info" => {}})
-          expect(user).to be_nil
-        end
-
-        it "returns nil" do
-          user = User.find_or_create_from_omniauth({"uid" => nil, "info" => {}})
-          expect(user).to be_nil
-        end
-
+    context "when omniauth is invalid" do
+      it "returns nil" do
+        user = User.find_or_create_from_omniauth({"uid" => nil, "provider" => "instagram", "info" => {}})
+        expect(user).to be_nil
       end
-    end
-  end
+
+      it "returns nil" do
+        user = User.find_or_create_from_omniauth({"uid" => nil, "info" => {}})
+        expect(user).to be_nil
+      end
+    end # context
+
+  end # describe
+end

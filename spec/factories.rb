@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :user do
-    provider 'default'
+    provider 'instagram'
     uid 'e@mail.com'
     name 'Zynthia'
   end

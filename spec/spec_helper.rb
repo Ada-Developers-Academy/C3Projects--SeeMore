@@ -36,9 +36,11 @@ RSpec.configure do |config|
 
     OmniAuth.config.mock_auth[:instagram] = OmniAuth::AuthHash.new({
       # used in place of the sessions controller, so you have access to the auth_hash
-      :provider => 'default',
-      :uid => 'e@mail.com',
-      info: {email: "e@mail.com", name: "Zynthia"}
+      :provider => "instagram",
+      :uid => "e@mail.com",
+      :info => {
+        email: "e@mail.com",
+        name: "Zynthia"}
     })
   end
 
