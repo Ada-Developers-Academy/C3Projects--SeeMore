@@ -1,4 +1,6 @@
 class FeedsController < ApplicationController
+  def index; end
+
   def search; end
 
   def search_redirect

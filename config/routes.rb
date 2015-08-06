@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
 
-  root 'sessions#new'
+  root 'sessions#index'
 
   get "/auth/:provider/callback", to: "sessions#create"
 
   get    '/about',           to: 'sessions#show',    as: 'about'
-  get    '/auth/:provider',  to: 'sessions#create'
-  get    '/login',           to: 'sessions#create',  as: 'login'
+  get    '/auth/:provider',  to: 'sessions#new',     as: 'auth'
+  get   '/auth/:provider/callback', to: 'sessions#create', as: 'callback'
+  post   '/auth/:provider/callback', to: 'sessions#create' # dev strategy
   delete '/logout',          to: 'sessions#destroy', as: 'logout'
 
   # TODO: brownie points - add users#show, users#update
