@@ -2,21 +2,6 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
   describe "GET #create" do
-    context "when using developer strategies" do
-      # before { request.env } what goes here???
-      it "redirects to the homepage" do
-
-      end
-
-      it "doesn't duplicate a user" do
-
-      end
-
-      it "sets session[:user_id]" do
-
-      end
-    end
-
     context "when using twitter authentication" do
       context "is successful" do
         before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter] }
