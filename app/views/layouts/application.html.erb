@@ -15,6 +15,11 @@
       <%= submit_tag "Search", class: "btn btn-default" %>
     <% end %>
 
+    <%= form_tag search_path, method: :post, class: "navbar-form navbar-right" do %>
+      <%= text_field_tag :search_instagram, params[:search_instagram], placeholder: "Search Instagram Users" %>
+      <%= submit_tag "Search", class: "btn btn-default" %>
+    <% end %>
+
   </nav>
 </header>
 
