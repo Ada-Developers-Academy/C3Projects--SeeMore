@@ -233,7 +233,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.0.2)
   factory_girl_rails (~> 4.0)
   httparty
-  instagram
+  instagram (~> 1.1.5)
   jbuilder (~> 2.0)
   jquery-rails
   omniauth (~> 1.2.2)
