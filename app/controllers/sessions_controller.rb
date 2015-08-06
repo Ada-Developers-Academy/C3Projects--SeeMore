@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def create
     auth_hash = request.env['omniauth.auth']
-    session[:user] = auth_hash["info"]["last_name"]
+    session[:user_id] = auth_hash["info"]["last_name"]
   end
 
   def destroy
@@ -9,9 +9,9 @@ class SessionsController < ApplicationController
     redirect_to root_path :flash => "Signed Out!"
   end
 
-  def create_instagram
-    request.env["omniauth.auth"]
-  end
+  # def create_instagram
+  #   request.env["omniauth.auth"]
+  # end
 
   def create_vimeo
     auth = request.env["omniauth.auth"]
