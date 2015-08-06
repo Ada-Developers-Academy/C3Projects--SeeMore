@@ -5,8 +5,6 @@ class InstagramController < ApplicationController
   FEED_URI_A = "https://api.instagram.com/v1/users/" # then user_id
   FEED_URI_B = "/media/recent?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }"
 
-  def search; end
-
   def results
     # params: { instagram: { query: "vikshab" } }
     query = params.require(:instagram).require(:query)
