@@ -2,7 +2,7 @@
   <% if current_user %>
     Welcome <%= current_user.name %>
     <% else %>
-      <div class="center-form panel">
+      <!-- <div class="center-form panel"> -->
         <div class="panel-body">
           <h4 class="text-center">Sign up</h4>
           <form method="post" ng-submit="signup()" name="signupForm">
@@ -25,6 +25,6 @@
           <br/>
           <p class="text-center text-muted"><small>Already have an account? <%=link_to "Log in now", sign_up_path %></small></p>
         </div>
-      </div>
+      <!-- </div> -->
   <% end %>
 </div>

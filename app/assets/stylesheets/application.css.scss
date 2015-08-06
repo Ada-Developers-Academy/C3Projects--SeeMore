@@ -15,3 +15,13 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.body {
+  background-image: url("background.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.panel-body {
+  padding: 200px;
+}
