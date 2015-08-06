@@ -12,28 +12,19 @@ class FolloweesController < ApplicationController
   def destroy; end
 
   # search for users by name
-  def insta_users
-    @search = params[:search]
-    response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=ACCESS-TOKEN")
-    @insta_users = response["search"]
-    # search output----------------
-    # {
-    #   "data": [{
-    #       "username": "jack",
-    #       "first_name": "Jack",
-    #       "profile_picture": "http://distillery.s3.amazonaws.com/profiles/profile_66_75sq.jpg",
-    #       "id": "66",
-    #       "last_name": "Dorsey"
-    #   }} ------------------------
+  def users_redirect
+    @query = params[:search]
+    response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
+    @insta_users = response["data"]
   end
 
   # pull a user's instagram posts
   def insta_user_posts 
     user_id = "66"
     response = HTTParty.get(INSTA_USER_POSTS_URI + user_id + "/media/recent/?access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
-
-
   end
+
+  def insta_search; end
 
   private
 
