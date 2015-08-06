@@ -24,6 +24,29 @@ RSpec.describe SessionsController, type: :controller do
         end
       end
 
+    context "when using instagram authorization" do
+      context "when successful" do
+
+        before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:instagram] }
+
+        it "redirects to home page" do
+          get :create, provider: :instagram
+
+          expect(response).to redirect_to root_path
+        end
+
+        it "creates a user" do
+          expect { get :create, provider: :instagram}.to change(User, :count).by(1)
+        end
+
+        it "assigns the session[:user_id]" do
+          get :create, provider: :instagram
+
+          expect(session[:user_id]).to eq assigns(:user).id
+        end
+      end
+    end
+
       context "when the user has already signed up" do
 
         before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:developer] }
