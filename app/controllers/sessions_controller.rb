@@ -3,13 +3,13 @@ class SessionsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth']
-    @stalker = Stalker.find_or_create_from_auth_hash(auth_hash)
+    stalker = Stalker.find_or_create_from_auth_hash(auth_hash)
 
-    if @stalker.persisted?
-      session[:stalker_id] = @stalker.id
+    if stalker.persisted?
+      session[:stalker_id] = stalker.id
       flash[:message] = { welcome: "You have logged in!" }
     else
-      flash[:error] = @stalker.errors
+      flash[:error] = stalker.errors
     end
 
     redirect_to root_path
