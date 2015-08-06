@@ -47,7 +47,7 @@ RSpec.describe SessionsController, type: :controller do
       end
     end
 
-      context "when the user has already signed up" do
+      context "when the user has already signed in through developer" do
 
         before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:developer] }
 
@@ -60,7 +60,25 @@ RSpec.describe SessionsController, type: :controller do
         end
 
         it "assigns the session[:user_id]" do
-          get :create, provider: :devloper
+          get :create, provider: :developer
+          expect(session[:user_id]).to eq user.id
+        end
+      end
+
+      context "when the user has already signed in with instagram" do
+
+        before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:instagram] }
+
+        let(:user) { User.find_or_create_user(OmniAuth.config.mock_auth[:instagram]) }
+
+        it "doesn't create another user" do
+          get :create, provider: :instagram
+
+          expect(User.count).to eq(1)
+        end
+
+        it "assigns the session[:user_id]" do
+          get :create, provider: :instagram
           expect(session[:user_id]).to eq user.id
         end
       end
@@ -75,7 +93,17 @@ RSpec.describe SessionsController, type: :controller do
         end
       end
 
-      context "when failing to save the user" do
+      context "fails to authenticate instagram user" do
+        before { request.env["omniauth.auth"] = :invalid_credential }
+
+        it "redirect to home with flash error" do
+          get :create, provider: :instagram
+          expect(response).to redirect_to root_path
+          expect(flash[:error]).to include "Failed to authenticate"
+        end
+      end
+
+      context "when failing to save the dev user" do
         before {
           request.env["omniauth.auth"] = { "uid" => "1234", "info" => {} }
         }
@@ -86,24 +114,36 @@ RSpec.describe SessionsController, type: :controller do
           expect(flash[:error]).to include "Failed to save the user"
         end
       end
+
+      context "when failing to save the instagram user" do
+        before {
+          request.env["omniauth.auth"] = { "uid" => "1234", "info" => {} }
+        }
+
+        it "redirect to home with flash error" do
+          get :create, provider: :instagram
+          expect(response).to redirect_to root_path
+          expect(flash[:error]).to include "Failed to save the user"
+        end
+      end
     end
   end
 
 
   describe "DELETE #destroy" do
-    before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:developer] }
+    before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:instagram] }
 
-    let(:user) { User.find_or_create_user(OmniAuth.config.mock_auth[:developer]) }
+    let(:user) { User.find_or_create_user(OmniAuth.config.mock_auth[:instagram]) }
 
     it "destroys a session id" do
-      delete :destroy, provider: :developer
+      delete :destroy, provider: :instagram
 
       expect(session[:user_id]).to eq nil
     end
 
     it "removes association between session[:user_id] and user.id" do
 
-      delete :destroy, provider: :developer
+      delete :destroy, provider: :instagram
 
       expect(session[:user_id]).to_not eq user.id
     end
