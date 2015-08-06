@@ -1,4 +1,7 @@
-FactoryGirl.define do  
+FactoryGirl.define do  factory :tweet do
+    
+  end
+  
 
   factory :user do
     email    "a@b.com"

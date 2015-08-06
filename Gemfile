@@ -34,7 +34,6 @@ gem 'omniauth-instagram'
 
 # OAuth
 gem 'twitter'
-gem 'instagram'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -1,18 +1,10 @@
 require 'httparty'
-require 'instagram'
 
 class InstagramsController < ApplicationController
   CALLBACK_URL = "http://localhost:3000/auth/instagram/callback"
   INSTAGRAM_URI = "https://api.instagram.com/v1/users/"
 
-  # WIP: IG feed
-  # NOTE: index -> connect -> callback -> index
-  def connect
-    auth_hash = request.env['omniauth.auth']
-    redirect_to Instagram.authorize_url(redirect_uri: ig_callback_url, client_id: config.client_id)
-  end
-
-  def index
+  def search
     if params[:search]
       response = HTTParty.get(INSTAGRAM_URI + "search?q=#{params[:search]}&client_id=#{ENV["INSTAGRAM_ID"]}")
 
