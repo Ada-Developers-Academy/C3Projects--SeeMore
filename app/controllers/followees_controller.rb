@@ -1,5 +1,6 @@
 class FolloweesController < ApplicationController
   INSTA_URI = "https://api.instagram.com/v1/users/search?"
+  INSTA_USER_POSTS_URI = "https://api.instagram.com/v1/users/"
   before_action :find, only: [:destroy]
 
   def new
@@ -24,6 +25,14 @@ class FolloweesController < ApplicationController
     #       "id": "66",
     #       "last_name": "Dorsey"
     #   }} ------------------------
+  end
+
+  # pull a user's instagram posts
+  def insta_user_posts 
+    user_id = "66"
+    response = HTTParty.get(INSTA_USER_POSTS_URI + user_id + "/media/recent/?access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
+
+
   end
 
   private
