@@ -8,5 +8,5 @@ Rails.application.routes.draw do
    get "auth/developer" => 'sessions#create', as: 'login'
    delete "logout" => 'sessions#destroy'
 
-   #resources :instagram, only: [:index]
+   resources :instagram, only: [:index]
 end
