@@ -1,5 +1,7 @@
 <div class="container">
   <% if current_user %>
+    Welcome <%= current_user.name %>
+      
     <%= render "feed" %>
   <% else %>
     <%= render "login" %>
