@@ -21,6 +21,13 @@
   margin-top: -(500px + (15px * 2)) / 2; /* half of height & padding */
 }
 
+.login-content {
+  // center vertically - test
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .btn-instagram {
   background-color: #125688;
 }
