@@ -1,7 +1,12 @@
 FactoryGirl.define do
   factory :user do
     username "MyString"
-email "MyString"
+    email "MyString"
+
+  end
+
+  factory :tweet do
+    
   end
 
 end

@@ -33,6 +33,7 @@ gem 'omniauth', '~> 1.2.2'
 gem 'omniauth-instagram', '~> 1.0.1'
 
 gem 'instagram', '~> 1.1.5'
+gem 'twitter'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

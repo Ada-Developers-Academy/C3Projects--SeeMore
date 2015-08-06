@@ -16,4 +16,8 @@ class SessionsController < ApplicationController
     end
     redirect_to feeds_path
   end
+
+  def show
+  end
+
 end
