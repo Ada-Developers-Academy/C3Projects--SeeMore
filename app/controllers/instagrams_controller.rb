@@ -13,11 +13,12 @@ class InstagramsController < ApplicationController
   end
 
   def index
-    connect
     if params[:search]
-      client = Instagram.client(access_token: session[:access_token])
+      response = HTTParty.get(INSTAGRAM_URI + "search?q=#{params[:search]}&client_id=#{ENV["INSTAGRAM_ID"]}")
 
-      response = HTTParty.get(INSTAGRAM_URI + "search?q=#{params[:search]}")
+      # client = Instagram.client(access_token: session[:access_token])
+      #
+      # response = HTTParty.get(INSTAGRAM_URI + "search?q=#{params[:search]}")
       @users_list = response["data"].map do |hash|
         array = []
         array << hash["username"]
