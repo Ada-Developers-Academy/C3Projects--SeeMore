@@ -22,7 +22,25 @@ RSpec.describe SearchesController, type: :controller do
 
   describe "GET #index" do
     context "searching for a Twitter user" do
+      it "responds successfully with an HTTP 200 status code" do
+        get :index, client: "twitter", search_term: "search"
 
+        expect(response).to be_success
+        expect(response).to have_http_status(200)
+      end
+
+      it "renders the index template" do
+        get :index, client: "twitter", search_term: "search"
+
+        expect(response).to render_template("index")
+      end
+
+      # it 'returns an array of Twitter users' do
+      #   uri = URI('https://api.twitter.com')
+      #
+      #   response = Net::HTTP.get(uri)
+      #   expect(response).to be_an_instance_of(Array)
+      # end
     end
   end
 end
