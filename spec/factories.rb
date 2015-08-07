@@ -5,13 +5,18 @@ FactoryGirl.define do
     uid 'e@mail.com'
     name 'Zynthia'
   end
-  
+
   factory :followee do
     handle "handled"
     source "instagram"
     native_id "12345abcde"
   end
 
+  factory :subscription do
+    user_id 12
+    followee_id 100
+  end
+  
   factory :post do
     followee_id         1
     source              "instagram"
