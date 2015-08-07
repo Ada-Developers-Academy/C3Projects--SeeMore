@@ -19,5 +19,6 @@ Rails.application.routes.draw do
 
   # this route is for de-bugging fetching a user's posts. Prob will delete later
   get '/instagram/:user/posts', to: 'followees#insta_user_posts', as: "iuser_posts"
+  get '/twitter/:user/posts', to: 'followees#twitter_posts', as: "twit_posts"
 
 end
