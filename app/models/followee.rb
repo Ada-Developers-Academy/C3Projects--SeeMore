@@ -11,6 +11,20 @@ class Followee < ActiveRecord::Base
 
 # SCOPES ----------------------------------------
   
-  def self.find_or_create_by(native_id)
+  # pass in a user search result object
+  def self.find_or_create_by(user)
+    if # search path was instagram
+      followee = Followee.where(native_id: user["id"]).find_or_initialize
+      followee.source = "instagram"
+      followee.handle = user["username"]
+      followee.avatar_url = user["profile_picture"]
+    elsif # search path was twitter
+      followee = Followee.where(native_id: user.id ).find_or_initialize
+      followee.source = "twitter"
+      followee.handle = user.screen_name
+      followee.avatar_url = user.profile_image_url
+    end
+    followee.save
+    # check for if save fails
   end
 end
