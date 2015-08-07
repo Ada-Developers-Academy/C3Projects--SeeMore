@@ -36,7 +36,7 @@ class InstagramsController < ApplicationController
   private
 
   def instagram_params
-    params.require(:instagram).permit(:username, :provider_id)
+    params.permit(:username, :provider_id)
   end
 
 end
