@@ -8,7 +8,7 @@ class TwiSubscription < ActiveRecord::Base
   #Scopes
   scope :find_twitter_id, -> (twitter_id) { find_by(twitter_id: twitter_id) }
 
-  def find_or_create_subscription(twitter_id)
+  def self.find_or_create_subscription(twitter_id)
     subscription = find_twitter_id(twitter_id)
 
     if subscription.nil?

@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
 
   # Validations
-  validates_presence_of :name, :uid, :provider
-  validates_uniqueness_of :name, :uid
+  validates_presence_of :uid, :provider
+  validates_uniqueness_of :uid
 
   # Associations
   has_and_belongs_to_many :ig_subscriptions
@@ -19,4 +19,11 @@ class User < ActiveRecord::Base
 
     return user.save ? user : nil
   end
+
+  # def associate_subscription(user, subscription)
+  #
+  #   user.twi_subscriptions << subscription
+  #   user.save
+  # end
+
 end

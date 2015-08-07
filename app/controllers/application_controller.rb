@@ -20,4 +20,4 @@ class ApplicationController < ActionController::Base
         config.access_token_secret = ENV["TWITTER_ACCESS_SECRET"]
       end
     end
-end
+  end

@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
 
   def index
-
     unless session[:user_id].nil?
       client = twitter_api_object
       twitter_ids = User.find(session[:user_id]).twi_subscriptions.pluck(:twitter_id)
@@ -19,7 +18,5 @@ class HomeController < ApplicationController
       # could transform tweets into our own "post" object...
       # need to combine
     end
-
   end
-
 end
