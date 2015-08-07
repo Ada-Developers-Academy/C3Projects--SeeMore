@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :twit_init
+  helper_method :client
 
   private
 
@@ -14,4 +15,7 @@ class ApplicationController < ActionController::Base
     @twit_init ||= TwitInit.new
   end
 
+  # def client
+  # @client ||= User.find(session[:user_id]) if session[:user_id]
+  # end
 end
