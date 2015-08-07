@@ -4,13 +4,13 @@
 
 <h2 class="text-center"><%= current_user.name %>'s feed</h2>
 
-<% if posts.nil? || posts.empty? %>
+<% if @posts.nil? || @posts.empty? %>
   <p>
     You haven't subscribed to any feeds yet. Find some interesting feeds to
     follow by searching Instagram or Vimeo users with the above search box!
   </p>
 <% else %>
-  <% posts.each_with_index do |post, index| %>
+  <% @posts.each_with_index do |post, index| %>
     <div class="col-sm-8 col-sm-offset-2 text-center">
       <h3>
         <%= post.feed.name %><br />
