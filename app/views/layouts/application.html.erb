@@ -18,7 +18,11 @@
           <%= render partial: "shared/search_bar" %>
         </div>
         <div class="col-sm-3">
-          Welcome, <%= current_user.name %>.
+          <% if current_user.name != "" %>
+            Welcome, <%= current_user.name %>.
+          <% else %>
+            Welcome, friend.
+          <% end %>
           <%= link_to "Sign Out", logout_path, :method => :delete %>
         </div>
       <% end %>
