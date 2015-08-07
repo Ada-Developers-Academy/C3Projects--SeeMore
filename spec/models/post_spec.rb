@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
+
+  # Associations--------------------------------------------------------
+  describe "Associations" do
+    it "belongs_to feed" do
+      post = create :post
+      feed = create :feed
+
+    expect(feed.posts.count).to eq 1
+    end
+  end
+
+  # Validations--------------------------------------------------------
   describe "validations" do
     before :each do
       @post = create :post
@@ -35,17 +47,9 @@ RSpec.describe Post, type: :model do
     end
   end
 
-  describe "Associations" do
-    it "belongs_to :feed" do
-      post = create :post
-      feed = create :feed
-
-    expect(feed.posts.count).to eq 1
-    end
-  end
-
+  # Scopes--------------------------------------------------------
   describe "Scopes" do
-    it "has chronological scope" do
+    it "has 'chronological' scope" do
       post1 = create :post
       post2 = create :post, date_posted: Date.parse("August 2015")
       post3 = create :post, date_posted: Date.parse("August 2014")
@@ -55,7 +59,7 @@ RSpec.describe Post, type: :model do
       expect(Post.chronological).to eq chronological_order
     end
 
-    it "has only_thirty scope" do
+    it "has 'only_thirty' scope" do
       35.times do
         post = create :post
       end
