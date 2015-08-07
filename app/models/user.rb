@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  # Associations
+  has_many :tweets
   #Validations
   validates :username,:email,  presence: true
 
