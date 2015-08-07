@@ -1,0 +1,2 @@
+class PreyController < ApplicationController
+end

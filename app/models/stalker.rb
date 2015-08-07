@@ -1,4 +1,8 @@
 class Stalker < ActiveRecord::Base
+  has_and_belongs_to_many: :prey
+  has_many: :grams, through: :prey
+  has_many: :tweets, through: :prey
+
   #validations
   validates :username, presence: true
   validates :uid, presence: true # TODO: consider customizing the error message
