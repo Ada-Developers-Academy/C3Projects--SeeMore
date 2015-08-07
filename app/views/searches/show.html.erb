@@ -1,6 +1,12 @@
-<h1>Search results for <%= params[:search_twitter] %>  </h1>
+<h1>Search results for <%= params[:search_term] %>  </h1>
 
-<% @users.each do |user_data| %>
-  Username: <%= user_data["username"] %><br>
-  <%= image_tag user_data["profile_picture"], alt: "Profile Picture", size: "50" %><br>
+<% if params[:client] == "instagram" %>
+  <% @users.each do |user_data| %>
+    Username: <%= user_data["username"] %><br>
+    <%= image_tag user_data["profile_picture"], alt: "Profile Picture", size: "50" %><br>
+  <% end %>
+<% end %>
+
+<% if params[:client] == "twitter" %>
+
 <% end %>
