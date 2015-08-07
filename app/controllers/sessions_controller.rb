@@ -7,6 +7,7 @@ skip_before_filter :verify_authenticity_token
 
     if auth_hash["uid"]
       @user = User.find_or_create_user(auth_hash)
+
       if @user
         session[:user_id] = @user.id
 
@@ -19,6 +20,7 @@ skip_before_filter :verify_authenticity_token
         flash[:error] = "Failed to save the user"
         redirect_to root_path
       end
+
     else
       flash[:error] = "Failed to authenticate"
       redirect_to root_path
