@@ -1,3 +1,38 @@
 // Place all the styles related to the sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.login-wrapper {
+  position: relative;
+  height: 700px;
+}
+
+.login-card {
+  height: 500px;
+  padding: 15px;
+  background-color: white;
+  border: 1px solid gray;
+  // border-radius: 5px;
+  // box-shadow: 3px 3px 3px gray;
+
+  /* to vertically center */
+  position: absolute;
+  top: 50%;
+  margin-top: -(500px + (15px * 2)) / 2; /* half of height & padding */
+}
+
+.login-content {
+  // center vertically - test
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn-instagram {
+  background-color: #125688;
+}
+
+.logo-instagram {
+  width: 17px;
+  color: #fff;
+}
