@@ -49,11 +49,5 @@ RSpec.describe AuUser, type: :model do
         expect(user.avatar).to eq (OmniAuth.config.mock_auth[:vimeo]["avatar"])
       end
     end
-    # context "auth hash with avatar info" do
-    #   let (:user) { AuUser.create_with_omniauth(OmniAuth::AuthHash.new({:provider => 'vimeo', :uid => '123545', info: {email: "a@b.com", name: "Ada"}})) }
-    #   it "assigns avatar to the user via the provider" do
-    #
-    #   end
-    # end
   end
 end
