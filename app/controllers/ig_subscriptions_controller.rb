@@ -1,11 +1,18 @@
+require 'httparty'
+
 class IgSubscriptionsController < ApplicationController
 
+  INSTA_URI = "https://api.instagram.com/v1/users/"
+
   def index
+    @query = params[:instagram_search]
 
-    client = Instagram.client(:access_token => session[:access_token])
-    @results = client.user_media_feed
+    access_token = session[:access_token]
 
+    response = HTTParty.get(INSTA_URI + "search?q=#{@query}&access_token=" + access_token)
 
+    @response = response["data"]
   end
+
 
 end

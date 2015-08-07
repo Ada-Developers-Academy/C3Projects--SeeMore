@@ -88,6 +88,9 @@ GEM
     http (0.6.4)
       http_parser.rb (~> 0.6.0)
     http_parser.rb (0.6.0)
+    httparty (0.13.5)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     instagram (1.1.5)
       faraday (>= 0.7, < 0.10)
@@ -260,6 +263,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   dotenv-rails
   factory_girl_rails (~> 4.0)
+  httparty
   instagram
   jbuilder (~> 2.0)
   jquery-rails

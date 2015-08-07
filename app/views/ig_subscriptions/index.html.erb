@@ -1,4 +1,12 @@
-<% @results.each do |result| %>
-  <%= result.standard_resolution %>
-  <%= result["standard_resolution"] %>
-<% end %>
+<table class="table table-hover">
+  <th>Username</th>
+  <th>Name</th>
+  <th>Pic</th>
+  <% @response.each do |person| %>
+  <tr>
+    <td><%= person["username"] %></td>
+    <td><%= person["full_name"] %></td>
+    <td><%= image_tag(person["profile_picture"]) %></td>
+    </tr>
+  <% end %>
+</table>
