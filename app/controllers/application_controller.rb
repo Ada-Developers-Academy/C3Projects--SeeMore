@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   MESSAGES = {
     no_username: "There's no user by that name. Search again.",
-    following_person: "You're now following #{@person}!",
+    success: "Success!",
     follow_error: "Oops. Something went wrong.",
     login_required: "You have to be logged in to do that!"
   }

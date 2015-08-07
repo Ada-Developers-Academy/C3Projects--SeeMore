@@ -25,7 +25,7 @@ class InstagramsController < ApplicationController
     @instagram_person.users << User.find(session[:user_id])
 
     if @instagram_person.save
-      return redirect_to root_path(@person), flash: { alert: MESSAGES[:following_person] }
+      return redirect_to root_path, flash: { alert: MESSAGES[:success] }
     else
       return render "feeds/search", flash: { error: MESSAGES[:follow_error] }
     end
