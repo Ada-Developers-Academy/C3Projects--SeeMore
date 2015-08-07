@@ -15,3 +15,14 @@
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+
+.thumbnail {
+  padding: 15px;
+}
+
+.thumbnail img {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
