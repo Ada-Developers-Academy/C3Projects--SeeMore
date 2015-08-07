@@ -14,5 +14,15 @@ class IgSubscriptionsController < ApplicationController
     @response = response["data"]
   end
 
+  def create
+    subscription = IgSubscription.find_or_create_subscription(params[:instagram_id])
+
+    @user.associate_subscription(subscription)
+
+    flash[:notice] = "Subscribed successfully!"
+
+    redirect_to root_path
+  end
+
 
 end
