@@ -6,12 +6,12 @@
         url: search_instagram_url 
         } %>
 
-<!--   <= render partial: "shared/search_form", 
+  <%= render partial: "shared/search_form", 
       locals: { 
-        provider: :twitter,
+        provider: :tweet,
         url: search_twitter_url
         } %>
- -->
+
   <!-- Search Results -->
   <span class="search-results">
     <% if params[:instagram] %>

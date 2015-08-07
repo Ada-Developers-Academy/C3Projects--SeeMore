@@ -10,7 +10,4 @@ class Twit
     end
   end
 
-  def self.username
-    
-  end
 end
