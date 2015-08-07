@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   get 'twitter_users/:user', to: 'home#twitter_users', as: 'twitter_users'
 
   resources :subscription
+
+  post "unsubscribe/:id", to: "subscriptions#unsubscribe", as: "unsubscribe"
 end

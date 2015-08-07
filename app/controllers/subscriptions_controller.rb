@@ -2,22 +2,23 @@ class SubscriptionsController < ApplicationController
   before_action :find_user
 
   def new
-    @followee = Folowee.find(params[:followee_id])
-    @subscription = Subscription.new(user_id: session[:user_id], followee_id: )
+    # do we need this?
   end
 
   def create
+    # dependent on followee model, and a valid user login
+    @followee = Folowee.find(params[:followee_id])
+    @subscription = Subscription.create(user_id: session[:user_id], followee_id: @followee.id)
   end
 
-
   def show
-    # find your followees
-    # grab the new tweets/instas
-    @following = []
+    # for show my_subscriptions page
   end
 
   def unsubscribe
     # adds current time to unsubscribe_date
+    @subscription = Subscription.find(params[:id])
+    @subscription.update(unsubscribe_date: Time.now)
   end
 
   private
@@ -26,7 +27,7 @@ class SubscriptionsController < ApplicationController
       @user = User.find(session[:user_id])
     end
 
-    def find_followee
-      @followees = @user.followee
+    def sub_params
+      params.require(:subscriptions).permit(:id, :user_id, :followee_id)
     end
 end
