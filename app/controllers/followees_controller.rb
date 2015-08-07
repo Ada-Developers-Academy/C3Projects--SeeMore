@@ -11,11 +11,38 @@ class FolloweesController < ApplicationController
 
   def destroy; end
 
-  # search for users by name
-  def users_redirect
-    @query = params[:search]
-    response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
-    @insta_users = response["data"]
+  # this renders the search page
+  def search; end
+
+  def instagram_users_redirect
+    if params[:user].present?
+      redirect_to search_results_path(params[:source], params[:user])
+    else
+      flash[:errors] = "Please enter a username."
+      redirect_to search_path
+    end
+  end
+
+  def twitter_users_redirect
+    if params[:user].present?
+      redirect_to search_results_path(params[:source], params[:user])
+    else
+      flash[:errors] = "Please enter a username."
+      redirect_to search_path
+    end
+  end
+
+  # this displays results on the search page
+  def search_results
+    @query = params[:user]
+    @source = params[:source]
+    if params[:source] == "instagram"
+      response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
+      @results = response["data"]
+    elsif params[:source] == "twitter"
+      @results = @twitter_client.user_search(@query)
+    end
+    render 'search'
   end
 
   # pull a user's instagram posts
@@ -27,8 +54,7 @@ class FolloweesController < ApplicationController
     @insta_user_posts = response["data"]
   end
 
-  def insta_search; end
-
+###########################################
   private
 
   def find
