@@ -17,8 +17,8 @@ class User < ActiveRecord::Base
     user.username = auth_hash["data"]["username"]
     user.avatar_url = auth_hash["data"]["profile_picture"]
 
-
-    return user.save ? user : nil #(could also raise an error here)
+  # TODO: raise an error here instead of `nil`
+    return user.save ? user : nil 
   end
 
 end
