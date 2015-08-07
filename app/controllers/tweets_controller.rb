@@ -1,19 +1,12 @@
 class TweetsController < ApplicationController
   before_action :require_login, only: [:create]
 
-  # to refactor into application controller, accepting params
-  # def twitter_redirect
-  #   if params[:username].present?
-  #     redirect_to search_twitter_path(params[:username])
-  #   else
-  #     redirect_to root_path, flash: { error: MESSAGES[:no_username] }
-  #   end
-  # end
-
   def search
-    if params[:username].present?
-      username = params[:username]
-      response = @twitter.client.user_search("#{username}")
+    if params[:tweet].present?
+      username = params[:tweet][:username]
+      @users = @twitter.client.user_search(username)
+      
+      return render "feeds/search"
     else
       redirect_to root_path, flash: { error: MESSAGES[:no_username] }
     end
