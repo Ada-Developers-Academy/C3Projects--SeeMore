@@ -7,7 +7,7 @@ class FeedsController < ApplicationController
     if params[:search_term].present?
       redirect_to search_results_path(params[:search_term])
     else
-      redirect_to search_path
+      redirect_to search_path(params[:provider])
     end
   end
 

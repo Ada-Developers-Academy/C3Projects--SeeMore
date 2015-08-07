@@ -7,12 +7,20 @@ RSpec.describe FeedsController, type: :controller do
 
   describe "GET feeds#search" do
     it "loads the search form" do
-      get :search
+      get :search, provider: 'instagram'
       expect(response).to render_template(:search)
     end
   end
 
   describe "POST feeds#search_redirect" do
+    let(:params){ { provider: 'instagram', search_term: 'baby' } }
+    let(:params_no_search){ { provider: 'instagram' } }
+
+    it "receives the API provider from the search form" do
+      post :search_redirect, params
+      expect(params[:provider]).to eq 'instagram'
+    end
+
     context "if search term is present" do
       it "redirects to the results page" do
         search_term = "donald trump"
@@ -23,8 +31,8 @@ RSpec.describe FeedsController, type: :controller do
 
     context "if search term is not present" do
       it "redirects to the search form" do
-        post :search_redirect
-        expect(response).to redirect_to(search_path)
+        post :search_redirect, params_no_search
+        expect(response).to redirect_to(search_path('instagram'))
       end
     end
   end

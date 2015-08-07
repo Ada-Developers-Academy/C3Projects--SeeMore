@@ -3,5 +3,5 @@
 <%= form_tag search_redirect_path do %>
   <%= label_tag :search_term %>
   <%= text_field_tag :search_term %>
-  <%= submit_tag 'CREEP' %>
+  <%= submit_tag 'CREEP', name: 'provider', value: params[:provider] %>
 <% end %>
