@@ -7,8 +7,6 @@ Rails.application.routes.draw do
 
 
   # Search page
-  # get '/insta_search', to: "followees#insta_search", as: "insta_search"
-  # get '/search', to: 'home#search', as: 'search'
   get '/search_final', to: 'followees#search', as: "search_final"
   
   # Redirect (checks if search field is filled in)
@@ -17,8 +15,6 @@ Rails.application.routes.draw do
 
   # Search Results
   get '/search/:source/:user', to: "followees#search_results", as: "search_results"
-  # get "/instagram/:user" => "followees#insta_users", as: "iusers"
-  # get '/twitter_users/:user', to: 'home#twitter_users', as: 'twitter_users'
 
   resources :subscription
 
