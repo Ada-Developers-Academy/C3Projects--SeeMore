@@ -11,30 +11,50 @@ class FolloweesController < ApplicationController
 
   def destroy; end
 
-  # search for users by name
-  def users_redirect
-    if params[:search] == ""
-      flash[:error] = "Please enter in a search field"
-      redirect_to :back
+  # this renders the search page
+  def search; end
+
+  def instagram_users_redirect
+    if params[:user].present?
+      redirect_to search_results_path(params[:source], params[:user])
     else
-      @query = params[:search]
-      response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
-      # array of hashes
-      @insta_users = response["data"]
+      flash[:errors] = "Please enter a username."
+      redirect_to search_path
     end
   end
 
+  def twitter_users_redirect
+    if params[:user].present?
+      redirect_to search_results_path(params[:source], params[:user])
+    else
+      flash[:errors] = "Please enter a username."
+      redirect_to search_path
+    end
+  end
+
+  # this displays results on the search page
+  def search_results
+    @query = params[:user]
+    @source = params[:source]
+    if params[:source] == "instagram"
+      response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
+      @results = response["data"]
+    elsif params[:source] == "twitter"
+      @results = @twitter_client.user_search(@query)
+    end
+    render 'search'
+  end
+
   # pull a user's instagram posts
-  def insta_user_posts 
+  def insta_user_posts
     # will need to update this @user_id variable when we no longer are using a route to set params[:user] here
     @user_id = params[:user]
     response = HTTParty.get(INSTA_USER_POSTS_URI + @user_id + "/media/recent/?count=3&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
-  
+
     @insta_user_posts = response["data"]
   end
 
-  def insta_search; end
-
+###########################################
   private
 
   def find
