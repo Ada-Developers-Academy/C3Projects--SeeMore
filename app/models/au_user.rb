@@ -2,7 +2,7 @@ class AuUser < ActiveRecord::Base
   has_and_belongs_to_many :feeds
   has_many :posts, through: :feeds
 
-  validates :uid, :provider, :name, :presence => true
+  validates :uid, :provider, :presence => true
 
   def self.create_with_omniauth(auth)
     create! do |au_user|
