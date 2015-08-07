@@ -1,0 +1,8 @@
+<% @users.each do |user| %>
+  <p class="">
+    Name: <%= user["full_name"] %><br>
+    Username: <%= user["username"] %><br>
+    <%= image_tag(user["profile_picture"]) %>
+  </p>
+<% end %>
+  

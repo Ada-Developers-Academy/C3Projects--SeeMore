@@ -7,27 +7,14 @@ class InstagramsController < ApplicationController
   INSTAGRAM_URI = "https://api.instagram.com/v1/users/"
 
   def search
-    if params[:search]
-      response = HTTParty.get(INSTAGRAM_URI + "search?q=#{params[:search]}&client_id=#{ENV["INSTAGRAM_ID"]}")
+    if params[:instagram].present?
+      instagram_search = params[:instagram][:username]
+      response = HTTParty.get(INSTAGRAM_URI + "search?q=#{instagram_search}&client_id=#{ENV["INSTAGRAM_ID"]}")
 
-      # client = Instagram.client(access_token: session[:access_token])
-      #
-      # response = HTTParty.get(INSTAGRAM_URI + "search?q=#{params[:search]}")
-      @users_list = response["data"].map do |hash|
-        array = []
-        array << hash["username"]
-        array << hash["id"]
-      end
+      @users = response["data"]
 
-      # response = HTTParty.get(INSTAGRAM_URI + "search?q=#{params[:search]}")
-      #
-      # @users_list = response["data"].map do |hash|
-      #   array = []
-      #   array << hash["username"]
-      #   array << hash["id"]
-      # end
+      return render "feeds/search"
     end
-  end
 
   def create
     @instagram_person = Instagram.new(create_ig_params)
@@ -39,14 +26,14 @@ class InstagramsController < ApplicationController
     else
       render "feeds/search", flash: { error: MESSAGES[:follow_error] }
     end
+    redirect_to search_path
+    # add flash: no search results were found for 'username'
   end
 
   private
 
-  def create_ig_params
-    params.require(:instagram).permit(
-      :username,
-      :provider_id
-    )
+  def instagram_params
+    params.require(:instagram).permit(:username, :provider_id)
   end
+
 end

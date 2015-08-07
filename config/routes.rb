@@ -2,8 +2,12 @@ Rails.application.routes.draw do
 
   root "feeds#index"
 
-  get "/twitter/:username", to: "tweets#search", as: "search_twitter"
-  get "/instagram/:username", to: "instagrams#search", as: "search_instagram"
+  get "search/twitter" => 'tweets#search'
+  post "search/twitter", to: "tweets#search"
+
+  get "search/instagram" => 'instagrams#search'
+  post "search/instagram", to: "instagrams#search"
+
   get "/search", to: "feeds#search", as: "search"
   get "/people", to: "feeds#people", as: "people"
 
