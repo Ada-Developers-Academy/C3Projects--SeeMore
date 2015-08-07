@@ -23,11 +23,11 @@ class SearchesController < ApplicationController
 
   def show
     if params[:client] == "twitter"
-      @search_results = TwitterClient.user_search(params[:search_term])
+      @prey = TwitterClient.user_search(params[:search_term])
     elsif params[:client] == "instagram"
       search_results = HTTParty.get(
                         INSTAGRAM_SEARCH_USERS_URI + "q=#{params[:search_term]}")
-      @users = search_results["data"]
+      @prey = search_results["data"]
     end
   end
 end
