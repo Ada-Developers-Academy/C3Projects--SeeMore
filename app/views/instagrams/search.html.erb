@@ -3,6 +3,6 @@
     Name: <%= user["full_name"] %><br>
     Username: <%= user["username"] %><br>
     <%= image_tag(user["profile_picture"]) %>
-    <%= link_to "+", { controller: :instagrams, action: :create, id: Instagram.new, username: user["username"], provider_id: user["id"]}, method: :post  %>
+    <%= link_to "+", { controller: :instagrams, action: :create, id: Instagram.new, username: user["username"], provider_id: user["id"]}, method: :post, class: "btn btn-primary" %>
   </p>
 <% end %>
