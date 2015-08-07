@@ -15,4 +15,12 @@
         <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
       <% end %>
     <!-- Actual Feed here -->
+    <h3>People I Follow</h3>
+    <% @people.each do |person| %>
+    <p><%= person.username %></p>
+    <% end %>
+
+
+
+
 </div>
