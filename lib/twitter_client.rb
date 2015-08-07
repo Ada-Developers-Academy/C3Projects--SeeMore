@@ -9,4 +9,9 @@ class TwitterClient
   def self.user_search(search_term)
     CLIENT.user_search(search_term)
   end
+
+  def self.user_timeline(user)
+    CLIENT.user_timeline(user)
+    # TODO: client.user_timeline(user, { since_id: ?, count: ?, include_rts: true } )
+  end
 end

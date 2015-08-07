@@ -8,17 +8,23 @@
   <ul>
     <li>
       <%= image_tag(tweet.user.profile_image_url_https) %>
+
       <h4>
         <%= tweet.user.name %>
         <small>@<%= tweet.user.screen_name %> * <%= time_ago_in_words(tweet.created_at) %> ago</small>
       </h4>
+
       <%= tweet.text %>
+
       <% if tweet.media.any? %>
         <% tweet.media.each do |medium| %>
           <ul>
-          <%= image_tag medium.media_url_https %>
+            <%= image_tag medium.media_url_https %>
           </ul>
         <% end %>
+        <ul>
+          <%= image_tag tweet.media.first.media_url_https %>
+        </ul>
       <% end %>
     </li>
   </ul>
