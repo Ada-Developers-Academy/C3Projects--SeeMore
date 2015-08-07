@@ -8,5 +8,12 @@
 <% end %>
 
 <% if params[:client] == "twitter" %>
-
+  <ul>
+    <% @users.each do |user| %>
+      <li>
+        <%= user.username %>
+        <%= image_tag user.profile_image_url %>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
