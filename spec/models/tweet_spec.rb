@@ -6,7 +6,7 @@ RSpec.describe Tweet, type: :model do
 
     it "requires a twitter user id" do
       tweet = build :tweet, tw_user_id_str: nil
-      valid?
+      tweet.valid?
       expect(tweet.errors.keys).to include(:tw_user_id_str)
     end
 
@@ -18,10 +18,10 @@ RSpec.describe Tweet, type: :model do
       end
 
       it "requires unique tweet ids" do
-        build :tweet
+        create :tweet
         tweet = build :tweet
         tweet.valid?
-        expect(tweet.errors.messages).to include("has already been taken")
+        expect(tweet.errors.messages).to include(:tw_id_str => ["has already been taken"])
       end
     end
 
