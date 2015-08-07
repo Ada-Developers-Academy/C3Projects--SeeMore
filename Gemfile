@@ -70,6 +70,12 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.0'
 end
 
+group :test do
+  # API testing
+  gem 'vcr'
+  gem 'webmock'
+end
+
 group :production do
   gem 'pg'
 end
