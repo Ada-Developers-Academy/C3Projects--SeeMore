@@ -26,15 +26,15 @@ RSpec.describe AuUser, type: :model do
       end
     end
 
-    # describe "associations" do
-    #   let(:au_user) { create :au_user }
-    #   let(:feed) { create :feed }
-    #   let(:post) { create :post }
-    #   it "authorized users have many feeds" do
-    #     au_user.feeds << feed
-    #     expect(au_user.feeds).to include(feed)
-    #   end
-    # end
+    describe "associations" do
+      let(:au_user) { create :au_user }
+      let(:feed) { create :feed }
+      let(:post) { create :post }
+      it "authorized users have many feeds" do
+        au_user.feeds << feed
+        expect(au_user.feeds).to include(feed)
+      end
+    end
   end
 
   describe "omni auth model method" do

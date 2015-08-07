@@ -4,8 +4,8 @@ class Feed < ActiveRecord::Base
   has_many :posts
   after_create :populate_posts
 
-  # Validations ----------------------------------------------------------------
-  validates_presence_of :platform, :platform_feed_id
+  # Validations---------------------------------------------
+  validates :name, :platform, :platform_feed_id, presence: true
 
   # Scopes ---------------------------------------------------------------------
   scope :developer, -> { where(platform: "Developer") }
