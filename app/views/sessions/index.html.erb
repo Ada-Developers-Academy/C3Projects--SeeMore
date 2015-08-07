@@ -1,9 +1,5 @@
 <h1>Welcome to Stalk Your Text, A place to Find out More.</h1>
-
-<%= link_to 'Sign in with Twitter', login_path(:twitter) %>
 <br>
-<%= link_to 'Sign in with Instagram', login_path(:instagram)%>
-<br>
-<%= link_to 'Sign in with Vimeo', login_path(:vimeo) %>
-<br>
-<%= link_to "Sign Out", logout_path, method: :delete, class: "btn btn-default" %>
+<%= link_to(image_tag('sign-in-with-twitter-gray.png'), login_path(:twitter)) %>
+<%= link_to(image_tag('Instagram_signin.png'), login_path(:instagram))%>
+<%= link_to(image_tag('vimeo.png'), login_path(:vimeo)) %>
