@@ -32,11 +32,16 @@ RSpec.configure do |config|
     # The mock_auth configuration allows you to
     # set per-provider (or default) authentication
     # hashes to return during testing.
-
     OmniAuth.config.mock_auth[:developer] = OmniAuth::AuthHash.new({
       :provider => 'developer',
       :uid => '123545',
       info: {email: "a@b.com", nickname: "Ada"}
+
+      })
+
+    OmniAuth.config.mock_auth[:instagram] = OmniAuth::AuthHash.new({
+      :provider => 'instagram',
+      data: {username: "ADA",profile_picture: "pic.jpg",id: "12345" }
       })
     end
 
@@ -44,6 +49,7 @@ RSpec.configure do |config|
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
   config.include FactoryGirl::Syntax::Methods
+
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
