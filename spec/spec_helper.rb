@@ -33,13 +33,15 @@ RSpec.configure do |config|
   # A request to /auth/provider will redirect
   # immediately to /auth/provider/callback.
 
-    OmniAuth.config.test_mode = true
+      OmniAuth.config.test_mode = true
 
   # The mock_auth configuration allows you to
   # set per-provider (or default) authentication
   # hashes to return during testing.
 
-    OmniAuth.config.mock_auth[:vimeo] = OmniAuth::AuthHash.new({:provider => 'vimeo', :uid => '123545', info: {email: "a@b.com", name: "Ada"}})
+      OmniAuth.config.mock_auth[:vimeo] = OmniAuth::AuthHash.new({:provider => 'vimeo', :uid => '123545', info: {email: "a@b.com", name: "Ada"}})
+      
+
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
     # defined using `chain`, e.g.:
@@ -47,7 +49,9 @@ RSpec.configure do |config|
     #     # => "be bigger than 2 and smaller than 4"
     # ...rather than:
     #     # => "be bigger than 2"
-    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+
+      expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+    end
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
@@ -103,4 +107,4 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
-end
+
