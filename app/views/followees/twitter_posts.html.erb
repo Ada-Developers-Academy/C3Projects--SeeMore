@@ -3,8 +3,9 @@
 
 <h1>Twitter User <%= @followee %>'s Posts:</h1>
   <% @twit_user_posts.each do |tweet| %>
-
-    <%=  "#{tweet.user.screen_name}: #{tweet.text}" %>
+<ul>
+    <li><%=  "#{tweet.user.screen_name}: #{tweet.text}" %></li>
+</ul>
 <% end %>
 <br>
 
