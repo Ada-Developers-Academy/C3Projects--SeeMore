@@ -2,7 +2,6 @@ require 'spec_helper'
 
 RSpec.shared_examples "a provider" do
 
-
   describe "model validations" do
     before :each do
       user1 = create :user

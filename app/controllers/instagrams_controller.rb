@@ -1,6 +1,9 @@
 require 'httparty'
 
 class InstagramsController < ApplicationController
+  before_action :require_login, only: [:create]
+
+  CALLBACK_URL = "http://localhost:3000/auth/instagram/callback"
   INSTAGRAM_URI = "https://api.instagram.com/v1/users/"
 
   def search
@@ -12,7 +15,18 @@ class InstagramsController < ApplicationController
 
       return render "feeds/search"
     end
+  end
 
+  def create
+    @instagram_person = Instagram.new(instagram_params)
+    @person = @instagram_person.username
+    @instagram_person.users << User.find(session[:user_id])
+
+    if @instagram_person.save
+      return redirect_to root_path(@person), flash: { alert: MESSAGES[:following_person] }
+    else
+      return render "feeds/search", flash: { error: MESSAGES[:follow_error] }
+    end
     redirect_to search_path
     # add flash: no search results were found for 'username'
   end
