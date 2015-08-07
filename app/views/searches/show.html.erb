@@ -14,7 +14,7 @@
       <% end %>
       <% if params[:client] == "twitter" %>
         <div class="thumbnail">
-          <%= image_tag prey.profile_image_url, alt: "Profile Picture" %>
+          <%= image_tag large_image_url(prey), alt: "Profile Picture", size: "200x200" %>
           <div class="caption">
             <h3><%= prey.username %></h3>
             <!-- <p>button to subscribe</p> -->
