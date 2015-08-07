@@ -12,6 +12,7 @@ class IgSubscriptionsController < ApplicationController
     response = HTTParty.get(INSTA_URI + "search?q=#{@query}&access_token=" + access_token)
 
     @response = response["data"]
+    raise
   end
 
   def create
