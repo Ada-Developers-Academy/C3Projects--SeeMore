@@ -30,9 +30,41 @@ class InstagramController < ApplicationController
 
   def subscribe
     feed = Feed.find_by(platform_feed_id: params[:feed_id])
+    # raise
     unless feed
-      save_feed
+      # raise
+      feed_url = FEED_URI_A + params[:feed_id] + FEED_URI_B
+      results = HTTParty.get(feed_url)
+
+      feed = Feed.create(create_feed_attributes_from_API_junk(results))
+
+      posts = results["data"]
+      posts.each do |post|
+        maybe_valid_post = Post.create(create_post_params(post, feed))
+        raise
+      end
+      raise
     end
     current_user.feeds << feed unless current_user.feeds.include?(feed)
   end
+
+  private
+    def create_feed_attributes_from_API_junk(results) # best variable name ever!
+      feed_hash = {}
+      feed_info = results["data"].first["caption"]["from"]
+      feed_hash[:avatar]           = feed_info["profile_picture"]
+      feed_hash[:name]             = feed_info["username"]
+      feed_hash[:platform]         = "Instagram"
+      feed_hash[:platform_feed_id] = params[:feed_id]
+      return feed_hash
+    end
+
+    def create_post_params(post_data, feed)
+      post_hash = {}
+      post_hash[:description] = post_data["caption"]["text"]
+      post_hash[:content]     = post_data["images"]["low_resolution"]["url"]
+      post_hash[:date_posted] = Time.at(post_data["caption"]["created_time"].to_i)
+      post_hash[:feed_id]     = feed.id
+      return post_hash
+    end
 end
