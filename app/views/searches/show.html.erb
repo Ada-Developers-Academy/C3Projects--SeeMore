@@ -1,18 +1,18 @@
 <h1>Search results for <%= params[:search_term] %>  </h1>
 
 <% if params[:client] == "instagram" %>
-  <% @users.each do |user_data| %>
-    Username: <%= user_data["username"] %><br>
-    <%= image_tag user_data["profile_picture"], alt: "Profile Picture", size: "50" %><br>
+  <% @prey.each do |prey| %>
+    Username: <%= prey["username"] %><br>
+    <%= image_tag prey["profile_picture"], alt: "Profile Picture", size: "50" %><br>
   <% end %>
 <% end %>
 
 <% if params[:client] == "twitter" %>
   <ul>
-    <% @users.each do |user| %>
+    <% @prey.each do |prey| %>
       <li>
-        <%= user.username %>
-        <%= image_tag user.profile_image_url %>
+        <%= prey.username %>
+        <%= image_tag prey.profile_image_url %>
       </li>
     <% end %>
   </ul>
