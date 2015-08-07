@@ -18,4 +18,13 @@
 
 .navbar-right {
   margin-right: 10px;
+
+.thumbnail {
+  padding: 15px;
+}
+
+.thumbnail img {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
 }
