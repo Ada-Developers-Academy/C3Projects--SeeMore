@@ -7,6 +7,10 @@ class Followee < ActiveRecord::Base
 # VALIDATIONS -----------------------------------
   validates :handle, presence: true
   validates :source, presence: true
+  validates :native_id, presence: true
 
 # SCOPES ----------------------------------------
+  
+  def self.find_or_create_by(native_id)
+  end
 end

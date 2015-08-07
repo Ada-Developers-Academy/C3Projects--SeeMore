@@ -9,6 +9,7 @@ FactoryGirl.define do
   factory :followee do
     handle "handled"
     source "instagram"
+    native_id "12345abcde"
   end
 
   factory :post do
