@@ -20,7 +20,7 @@ class InstagramsController < ApplicationController
   end
 
   def create
-    @instagram_person = Instagram.new(instagram_params)
+    @instagram_person = Instagram.find_or_create_by(instagram_params)
     @person = @instagram_person.username
     @instagram_person.users << User.find(session[:user_id])
 
