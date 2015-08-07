@@ -1,5 +1,7 @@
-<%= form_for provider, url: search_instagram_url do |f| %>
-  <%= f.label :username, "Search #{provider.to_s.titlecase}" %>
-  <%= f.text_field :username, placeholder: "Search Users", class: "form-group form-control" %>
-  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+<%= form_for provider, url: url, html: { class: "form-inline" } do |f| %>
+  <%= f.label :username, "Search #{provider.to_s.titlecase} Users" %>
+  <%= f.text_field :username, placeholder: "Search Users", class: "form-control form-group" %>
+  <%= button_tag(type: 'submit', class: "btn btn-primary search") do %>
+    <span class="glyphicon glyphicon-search"></span> 
+  <% end %>
 <% end %>

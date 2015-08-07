@@ -1,11 +1,15 @@
-<!-- Make this a form_for. WTF form_tag? -->
 <div class="col-xs-4 col-xs-offset-4">
-  <%= render partial: "shared/search_form", locals: { provider: :instagram } %>
-  
-  <!-- Instagram Search Results -->
-  <% if params[:instagram] %>
-    <%= render partial: "instagrams/search" %>
-  <% end %>
+  <%= render partial: "shared/search_form", locals: { provider: :instagram,
+                                                      url: search_instagram_url } %>
+
+  <!-- Search Results -->
+  <span class="search-results">
+    <% if params[:instagram] %>
+      <%= render template: "instagrams/search", layout: false %>
+    <% elsif params[:tweet] %>
+      <%= render template: "tweets/search", layout: false %>
+    <% end %>
+  </span>
 </div>
 
 
