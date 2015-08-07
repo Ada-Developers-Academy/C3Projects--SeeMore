@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_login, only: [:create, :destroy, :create_instagram, :create_vimeo]
+
   def create
     auth_hash = request.env['omniauth.auth']
     session[:user_id] = auth_hash["info"]["last_name"]
@@ -25,7 +27,4 @@ class SessionsController < ApplicationController
     flash[:success] = "You've been signed in, #{ au_user.name }!"
     redirect_to root_url
   end
-
 end
-
-
