@@ -4,6 +4,9 @@ class WelcomeController < ApplicationController
     if current_user
       posts = current_user.posts
       @posts = posts.only_thirty
+      render :feed
+    else
+      render :login
     end
   end
 end
