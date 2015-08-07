@@ -1,12 +1,10 @@
 class SubscriptionsController < ApplicationController
   before_action :find_user
 
-  def new; end
+  # def new; end
     # do we need this?
 
   def create
-    # dependent on followee model, and a valid user login
-    @subscription = Subscription.new
     @followee = Folowee.find(params[:followee_id])
     @subscription.make_subscription(@user, @followee)
   end
