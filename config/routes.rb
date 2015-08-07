@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
 
   # Search page
-  get '/search_final', to: 'followees#search', as: "search_final"
+  get '/search', to: 'followees#search', as: "search"
   
   # Redirect (checks if search field is filled in)
   post "/instagram_users", to: "followees#instagram_users_redirect", as: "instagram_users_redirect"
