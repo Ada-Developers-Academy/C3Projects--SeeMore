@@ -1,4 +1,4 @@
-<% if session[:user_id] %>
+<% if logged_in? %>
   <% @sub_array_tweets.each do |tweet| %>
     <%= tweet.user.username %>
     <%= tweet.text %>
