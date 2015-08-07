@@ -8,18 +8,27 @@ class SessionsController < ApplicationController
   end
 
   def create
+    auth_hash = request.env['omniauth.auth']
+    user = User.find_or_create_from_omniauth(auth_hash) #returns a user obj. or nil
     # come back to our site
     if params[:provider] == 'instagram'
       response = Instagram.get_access_token(params[:code], :redirect_uri => callback_url)
       session[:access_token] = response.access_token
-      session[:user_id] = User.find_by(uid: response.user.id).id
-
-      auth_hash = request.env['omniauth.auth']
+      session[:user_id] = user.id
     end
-    redirect_to feeds_path
+    redirect_to feeds_path :notice => "You are logged in to CreepPeep!"
   end
+
+
 
   def show
   end
 
+  def destroy
+    session[:user_id] = nil
+
+    redirect_to feeds_path, :notice => "You are signed out of CreepPeep!" 
+  end
+
 end
+
