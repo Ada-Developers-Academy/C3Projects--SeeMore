@@ -21,11 +21,34 @@ class FolloweesController < ApplicationController
 
   def instagram_users_redirect
     if params[:user].present?
-      redirect_to search_final_path(params[:user])
+      redirect_to search_results_path(params[:source], params[:user])
     else
       flash[:errors] = "Please enter a username."
       redirect_to search_final_path
     end
+  end
+
+  def twitter_users_redirect
+    if params[:user].present?
+      redirect_to search_results_path(params[:source], params[:user])
+    else
+      flash[:errors] = "Please enter a username."
+      redirect_to search_final_path
+    end
+  end
+
+  # this displays results
+  def search_results
+    # raise
+    @query = params[:user]
+    @source = params[:source]
+    if params[:source] == "instagram"
+      response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
+      @results = response["data"]
+    elsif params[:source] == "twitter"
+      @results = @twitter_client.user_search(@query)
+    end
+    render 'search'
   end
 
   # pull a user's instagram posts
@@ -37,13 +60,6 @@ class FolloweesController < ApplicationController
     @insta_user_posts = response["data"]
   end
 
-  def twitter_users_redirect
-    if params[:user].present?
-      redirect_to twitter_users_path(params[:user])
-    else
-      redirect_to search_path
-    end
-  end
 
   def twitter_users
     @user = params[:user]
@@ -54,7 +70,7 @@ class FolloweesController < ApplicationController
   # def insta_search; end
 
   def search
-
+    # raise
   end 
 
 ###########################################
