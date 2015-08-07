@@ -20,20 +20,20 @@ class TweetsController < ApplicationController
   end
 
   def create
-    @twitter_person = Tweet.new(create_tweet_params)
+    @twitter_person = Tweet.new(tweet_params)
     @person = @twitter_person.username
     @twitter_person.users << User.find(session[:user_id])
 
     if @twitter_person.save
-      redirect_to root_path(@person), flash: { alert: MESSAGES[:following_person] }
+      return redirect_to root_path(@person), flash: { alert: MESSAGES[:following_person] }
     else
-      render "feeds/search", flash: { error: MESSAGES[:follow_error] }
+      return render "feeds/search", flash: { error: MESSAGES[:follow_error] }
     end
   end
 
   private
 
-  def create_tweet_params
+  def tweet_params
     params.require(:tweet).permit(
       :username,
       :provider_id
