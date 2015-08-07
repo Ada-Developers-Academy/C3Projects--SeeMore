@@ -1,7 +1,6 @@
 require 'httparty'
 
 class InstagramsController < ApplicationController
-  CALLBACK_URL = "http://localhost:3000/auth/instagram/callback"
   INSTAGRAM_URI = "https://api.instagram.com/v1/users/"
 
   def search
@@ -13,8 +12,10 @@ class InstagramsController < ApplicationController
         user["username"]
       end
 
-      render "feeds/search"
+      return render "feeds/search"
     end
+
+    redirect_to search_path
   end
 
   def callback  # NOTE: ADD NEW CALLBACK ROUTE TO THOSE IN IG FOR SITE.
