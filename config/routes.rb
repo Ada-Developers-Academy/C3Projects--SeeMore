@@ -13,12 +13,13 @@ Rails.application.routes.draw do
   post 'search_twitter', to: 'home#twitter_users_redirect', as: 'twitter_users_redirect'
   get 'twitter_users/:user', to: 'home#twitter_users', as: 'twitter_users'
 
+  # need to limit the subscription paths
   resources :subscription
 
   post "unsubscribe/:id", to: "subscriptions#unsubscribe", as: "unsubscribe"
 
   # this route is for de-bugging fetching a user's posts. Prob will delete later
   get '/instagram/:user/posts', to: 'followees#insta_user_posts', as: "iuser_posts"
-  get '/twitter/:user/posts', to: 'followees#twitter_posts', as: "twit_posts"
+  get '/twitter/:followee/posts', to: 'followees#twitter_posts', as: "twit_posts"
 
 end

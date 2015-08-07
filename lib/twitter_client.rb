@@ -13,4 +13,9 @@ class TwitterClient
   def user_search(user, count=3)
     client.user_search(user, options = {count: count})
   end
+
+  def user_timeline(user)
+    client.user_timeline(user).take(2)
+    # limit this so don't go over
+  end
 end

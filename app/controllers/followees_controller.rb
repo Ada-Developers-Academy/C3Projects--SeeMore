@@ -33,17 +33,13 @@ class FolloweesController < ApplicationController
 
 # Twitter -------------------------------------------------
 
-  # pull a user's instagram posts
+  # pull twitter posts
   def twitter_posts
-    # will need to update this @user_id variable when we no longer are using a route to set params[:user] here
-    @user_id = params[:user]
-    response = HTTParty.get(TWIT_URI + "user_id=" @user_id + AUTHSTUFF)
-    # can specify user_id or screen_name
-
-    @twitter_user_posts = response["data"]
+    @followee = params[:followee]
+    @twit_user_posts = @twitter_client.user_timeline(@followee)
   end
   private
-
+# ---------------------------------------------------------
   def find
     @followees = [User.find(session[:user_id]).followees]
   end
