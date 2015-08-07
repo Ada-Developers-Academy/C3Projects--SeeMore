@@ -12,6 +12,8 @@ class AuUser < ActiveRecord::Base
       au_user.email = auth["info"]["email"]
       if au_user.avatar
         au_user.avatar = auth["info"]["pictures"][0]["link"]
+      else
+        au_user.avatar = nil
       end
     end
   end
