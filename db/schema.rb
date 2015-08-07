@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806214114) do
+ActiveRecord::Schema.define(version: 20150807203555) do
 
   create_table "instagrams", force: :cascade do |t|
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "username",    null: false
     t.string   "provider_id", null: false
+    t.string   "image_url"
   end
 
   create_table "instagrams_users", id: false, force: :cascade do |t|
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150806214114) do
     t.string   "provider_id", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "image_url"
   end
 
   create_table "tweets_users", id: false, force: :cascade do |t|

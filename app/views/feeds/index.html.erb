@@ -9,7 +9,9 @@
             <span class="fa fa-twitter fa-5x col-sm-1 center social-icon" aria-hidden="true" data-toggle="tooltip" title="twitter login"></span>
         <% end %>
       <% else %>
-        <h2><%= @user.username %></h2>
+        <% if @user %>
+          <h2><%= @user.username %></h2>
+        <% end %>
         <%= link_to "Follow People", search_path, class: "btn btn-primary" %>
         <!-- Manage feed button -->
         <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>

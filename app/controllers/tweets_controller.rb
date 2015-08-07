@@ -13,7 +13,7 @@ class TweetsController < ApplicationController
   end
 
   def create
-    @twitter_person = Tweet.new(tweet_params)
+    @twitter_person = Tweet.find_or_create_by(tweet_params)
     @person = @twitter_person.username
     @twitter_person.users << User.find(session[:user_id])
 
@@ -24,12 +24,24 @@ class TweetsController < ApplicationController
     end
   end
 
+  def destroy
+    user = User.find_by(id: session[:user_id])
+    tweeter = Tweet.find(params[:id])
+
+    if tweeter
+       user.tweets.destroy(tweeter)
+    end
+
+    redirect_to people_path, flash: { alert: MESSAGES[:success] }
+  end
+
   private
 
   def tweet_params
     params.require(:tweet).permit(
       :username,
-      :provider_id
+      :provider_id,
+      :image_url
     )
   end
 end

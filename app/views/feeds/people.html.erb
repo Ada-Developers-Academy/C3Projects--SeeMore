@@ -6,7 +6,8 @@
   <% @people.each do |person| %>
   <p>
     <%= person.username %>
-    <%= link_to "X", instagram_path(id: person.id), method: :delete, class: "btn btn-danger" %>
+    <%= image_tag(person.image_url) %>
+    <%= link_to "X", polymorphic_path(person.class.name.downcase, id: person.id), method: :delete, class: "btn btn-danger" %>
   </p>
   <% end %>
 <% end  %>
