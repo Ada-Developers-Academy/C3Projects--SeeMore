@@ -4,7 +4,7 @@
     <div class="thumbnail">
       <p><%= link_to user.screen_name, "http://twitter.com/#{user.screen_name}" %></p>
       <p><%= image_tag(user.profile_image_url) %></p>
-      <% if following(user.id)? %>
+      <% if following?(user.id) %>
         <p>Following!</p>
       <% else %>
         <p><%= link_to "Follow", tw_follow_path(user.id), class: "btn btn-success"%></p>
