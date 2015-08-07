@@ -1,19 +1,26 @@
 <h1>Search results for <%= params[:search_term] %>  </h1>
 
-<% if params[:client] == "instagram" %>
+<div class="row">
   <% @prey.each do |prey| %>
-    Username: <%= prey["username"] %><br>
-    <%= image_tag prey["profile_picture"], alt: "Profile Picture", size: "50" %><br>
-  <% end %>
-<% end %>
-
-<% if params[:client] == "twitter" %>
-  <ul>
-    <% @prey.each do |prey| %>
-      <li>
-        <%= prey.username %>
-        <%= image_tag prey.profile_image_url %>
-      </li>
+    <div class="col-sm-6 col-md-4">
+      <% if params[:client] == "instagram" %>
+        <div class="thumbnail">
+          <%= image_tag prey["profile_picture"], alt: "Profile Picture", size: "200" %><br>
+          <div class="caption">
+            <h3><%= prey["username"] %></h3>
+            <!-- <p>button to subscribe</p> -->
+          </div>
+        </div>
+      <% end %>
+      <% if params[:client] == "twitter" %>
+        <div class="thumbnail">
+          <%= image_tag prey.profile_image_url, alt: "Profile Picture" %>
+          <div class="caption">
+            <h3><%= prey.username %></h3>
+            <!-- <p>button to subscribe</p> -->
+          </div>
+        </div>
     <% end %>
-  </ul>
-<% end %>
+    </div>
+  <% end %>
+</div>
