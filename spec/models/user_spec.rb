@@ -3,7 +3,6 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { User.new(
-    email:    "a@b.com",
     username: "Ada",
     avatar_url: "sikca.jpg",
     uid:      "1234",
@@ -13,11 +12,6 @@ RSpec.describe User, type: :model do
   describe "validations" do
     it "is valid" do
       expect(user).to be_valid
-    end
-
-    it "requires an email" do
-      user.email = nil
-      expect(user).to be_invalid
     end
 
     it "requires a username" do
@@ -51,7 +45,7 @@ RSpec.describe User, type: :model do
 
     context "when it's invalid" do
       it "returns nil" do
-        user = User.find_or_create_from_omniauth({"uid" => "123", "info" => {}})
+        user = User.find_or_create_from_omniauth({"uid" => "123","data" => {"username" => ""}})
         expect(user).to be_nil
       end
     end
