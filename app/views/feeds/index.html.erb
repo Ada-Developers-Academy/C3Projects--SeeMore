@@ -1,17 +1,18 @@
-<h1>I can haz feedz?</h1>
-
-<!-- put this in a nav bar partial -->
-<%= link_to "Dev Login", login_path(provider: :developer), class: "btn btn-primary" %>
-<%= link_to "Login with Instagram", login_path(provider: :instagram), class: "btn btn-primary" %>
-<%= link_to "Logout", logout_path, method: :delete, class: "btn btn-danger" %>
-<% unless @user.nil?  %>
-  <%= @user.username %>
-<% end %>
-
-<!-- Search button -->
-<%= link_to "Follow People", search_path, class: "btn btn-primary" %>
-
-<!-- Manage feed button -->
-<%= link_to "Manage Feed", people_path, class: "btn btn-primary" %>
-
-<!-- Actual Feed here -->
+<div class="container center">
+  <h1 class="header">NinjaPartay</h1>
+    <% if session[:user_id].nil? %>
+      <h3>Choose Your Weapon</h3>
+        <%= link_to login_path(provider: :instagram) do %>
+            <span class="fa fa-instagram fa-5x col-sm-1 center social-icon" aria-hidden="true" data-toggle="tooltip" title="instagram login"></span>
+        <% end %>
+        <%= link_to login_path(provider: :twitter) do %>
+            <span class="fa fa-twitter fa-5x col-sm-1 center social-icon" aria-hidden="true" data-toggle="tooltip" title="twitter login"></span>
+        <% end %>
+      <% else %>
+        <h2><%= @user.username %></h2>
+        <%= link_to "Follow People", search_path, class: "btn btn-primary" %>
+        <!-- Manage feed button -->
+        <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
+      <% end %>
+    <!-- Actual Feed here -->
+</div>
