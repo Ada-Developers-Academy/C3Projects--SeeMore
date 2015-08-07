@@ -14,13 +14,13 @@ FactoryGirl.define do
   factory :subscription do
     user_id 12
     followee_id 100
-
+  end
+  
   factory :post do
     followee_id         1
     source              "instagram"
     native_created_at   "2015-06-01"
     native_id           "www.instagram.com/blah"
     embed_html          "blah"
-
   end
 end
