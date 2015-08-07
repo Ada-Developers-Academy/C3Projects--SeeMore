@@ -43,4 +43,10 @@ RSpec.describe Tweet, type: :model do
       expect(tweet.errors.keys).to include(:user_id)
     end
   end
+
+  describe "follow a twitter user" do
+    it "creates tweet records" do
+      Tweet.follow()
+    end
+  end
 end
