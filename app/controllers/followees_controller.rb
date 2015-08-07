@@ -12,12 +12,45 @@ class FolloweesController < ApplicationController
 
   def destroy; end
 
-# Instagram -------------------------------------------
   # search for users by name
   def users_redirect
     @query = params[:search]
     response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
     @insta_users = response["data"]
+  end
+
+  # this renders the search page
+  def search; end
+
+  def instagram_users_redirect
+    if params[:user].present?
+      redirect_to search_results_path(params[:source], params[:user])
+    else
+      flash[:errors] = "Please enter a username."
+      redirect_to search_path
+    end
+  end
+
+  def twitter_users_redirect
+    if params[:user].present?
+      redirect_to search_results_path(params[:source], params[:user])
+    else
+      flash[:errors] = "Please enter a username."
+      redirect_to search_path
+    end
+  end
+
+  # this displays results on the search page
+  def search_results
+    @query = params[:user]
+    @source = params[:source]
+    if params[:source] == "instagram"
+      response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
+      @results = response["data"]
+    elsif params[:source] == "twitter"
+      @results = @twitter_client.user_search(@query)
+    end
+    render 'search'
   end
 
   # pull a user's instagram posts
@@ -31,15 +64,13 @@ class FolloweesController < ApplicationController
 
   def insta_search; end
 
-# Twitter -------------------------------------------------
-
   # pull twitter posts
   def twitter_posts
     @followee = params[:followee]
     @twit_user_posts = @twitter_client.user_timeline(@followee)
   end
+###########################################
   private
-# ---------------------------------------------------------
   def find
     @followees = [User.find(session[:user_id]).followees]
   end
