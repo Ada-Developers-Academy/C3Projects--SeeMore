@@ -11,8 +11,8 @@ class SubscriptionsController < ApplicationController
     @subscription = Subscription.create(user_id: session[:user_id], followee_id: @followee.id)
   end
 
-  def show
-    # for show my_subscriptions page
+  def index
+    @subscriptions = @user.followees
   end
 
   def unsubscribe
