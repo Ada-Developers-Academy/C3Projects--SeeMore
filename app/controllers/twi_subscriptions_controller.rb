@@ -6,6 +6,7 @@ class TwiSubscriptionsController < ApplicationController
   end
 
   def create
+    # Calling find_or_create_subscription and associate_subscription model methods.
     subscription = TwiSubscription.find_or_create_subscription(params[:twitter_id])
     @user.associate_subscription(subscription)
 

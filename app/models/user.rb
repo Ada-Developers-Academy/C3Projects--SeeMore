@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
     return user.save ? user : nil
   end
 
+  # Adds the association between a new subscription and the user.
   def associate_subscription(subscription)
     self.twi_subscriptions << subscription
     self.save
