@@ -20,8 +20,8 @@ Rails.application.routes.draw do
   post "/vimeo/feed/:feed_id/subscribe", to: "vimeo#subscribe", as: "vimeo_subscribe"
 
   # search routes
-  post "/search", to: "instagram#search"
-  get "/results/:query", to: "instagram#results", as: "results"
-  post "vimeo/search", to: "vimeo#search"
-  get "vimeo/results/:query", to: "vimeo#results", as: "vimeo_results"
+  post "/search", to: "welcome#search", as: :search
+  get "/instagram/:query", to: "instagram#results", as: "instagram_results"
+
+  get '/vimeo/:query', to: "vimeo#results", as: "vimeo_results"
 end

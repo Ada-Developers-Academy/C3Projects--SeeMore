@@ -1,8 +1,10 @@
 class VimeoController < ApplicationController
-  SEARCH_URI =
-  def search
+  SEARCH_URI = "https://api.vimeo.com/users?per_page=30&query="
 
-  end
+   def search
+     user = params[:query]
+     auth = HTTParty.get(SEARCH_URI + user + "&sort=relevant")
+   end
 
   def results
 
@@ -18,4 +20,5 @@ class VimeoController < ApplicationController
   private
     def create_feed_attributes_from_API_junk(results)
     end
+
 end
