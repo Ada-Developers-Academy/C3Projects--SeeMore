@@ -12,9 +12,4 @@ class TwiSubscriptionsController < ApplicationController
 
     redirect_to root_path
   end
-
-  # def twitter_sub_params
-  #   params.require(:)
-  # end
-
 end
