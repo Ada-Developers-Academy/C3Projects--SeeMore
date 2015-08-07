@@ -1,5 +1,7 @@
-<h1>Sign in to FeedMe</h1>
-
-<%= link_to 'Sign in (dev strategy)', '/auth/developer' %>
-
-<%= link_to 'Sign in w/ Instagram', '/auth/instagram' %>
+<div class="container-fluid">
+  <h1>Sign in to FeedMe</h1>
+  <div class="sign-in">
+  <%= link_to 'Sign in (dev strategy)', '/auth/developer', class: "btn btn-default" %>
+  <%= link_to 'Sign in w/ Instagram', '/auth/instagram', class: "btn btn-primary" %>
+  </div>
+</div>
