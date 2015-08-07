@@ -1,6 +1,7 @@
 require 'httparty'
 
 class IgSubscriptionsController < ApplicationController
+  before_action :redirect_if_not_allowed
 
   INSTA_URI = "https://api.instagram.com/v1/users/"
 

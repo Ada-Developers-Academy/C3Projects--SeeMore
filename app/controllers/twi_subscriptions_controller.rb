@@ -1,4 +1,5 @@
 class TwiSubscriptionsController < ApplicationController
+  before_action :redirect_if_not_allowed
 
   def index
     unless params[:twitter_search].nil?

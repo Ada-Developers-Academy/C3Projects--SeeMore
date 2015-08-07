@@ -21,4 +21,11 @@ class ApplicationController < ActionController::Base
         config.access_token_secret = ENV["TWITTER_ACCESS_SECRET"]
       end
     end
+
+    def redirect_if_not_allowed
+      unless logged_in?
+        flash[:error] = "You must be logged in to see that."
+        redirect_to root_path
+      end
+    end
   end
