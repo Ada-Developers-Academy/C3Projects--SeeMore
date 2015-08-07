@@ -28,7 +28,6 @@ gem 'omniauth-vimeo'
 gem 'omniauth-instagram'
 
 gem 'twitter'
-
 gem 'httparty'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
