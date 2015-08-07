@@ -18,5 +18,4 @@ class VimeoController < ApplicationController
   private
     def create_feed_attributes_from_API_junk(results)
     end
-
 end
