@@ -11,11 +11,11 @@ RSpec.describe Followee, type: :model do
     end
 
     context "invalid" do
-      let (:invalid_followee) {build :followee, handle: nil, source: nil}
+      let (:invalid_followee) { build :followee, handle: nil, source: nil, native_id: nil }
 
       it "requires a handle and source" do
         expect(invalid_followee).to be_invalid
-        expect(invalid_followee.errors.keys).to include(:handle, :source)
+        expect(invalid_followee.errors.keys).to include(:handle, :source, :native_id)
       end
     end
   end
