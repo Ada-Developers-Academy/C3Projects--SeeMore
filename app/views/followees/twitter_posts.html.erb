@@ -1,0 +1,13 @@
+<!-- This view is for de-bugging. Prob will delete this view later -->
+
+
+<h1>Twitter User <%= @followee %>'s Posts:</h1>
+  <% @twit_user_posts.each do |tweet| %>
+<ul>
+    <li><%=  "#{tweet.user.screen_name}: #{tweet.text}" %></li>
+</ul>
+<% end %>
+<br>
+
+<br>
+<%= link_to "Back to Home", root_path, class: "btn-sm btn-primary" %>

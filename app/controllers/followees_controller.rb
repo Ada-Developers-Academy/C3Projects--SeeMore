@@ -1,6 +1,7 @@
 class FolloweesController < ApplicationController
   INSTA_URI = "https://api.instagram.com/v1/users/search?"
   INSTA_USER_POSTS_URI = "https://api.instagram.com/v1/users/"
+  TWIT_URI = "https://api.twitter.com/1.1/statuses/user_timeline.json?"
   before_action :find, only: [:destroy]
 
   def new
@@ -10,6 +11,13 @@ class FolloweesController < ApplicationController
   def create; end
 
   def destroy; end
+
+  # search for users by name
+  def users_redirect
+    @query = params[:search]
+    response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
+    @insta_users = response["data"]
+  end
 
   # this renders the search page
   def search; end
@@ -54,9 +62,15 @@ class FolloweesController < ApplicationController
     @insta_user_posts = response["data"]
   end
 
+  def insta_search; end
+
+  # pull twitter posts
+  def twitter_posts
+    @followee = params[:followee]
+    @twit_user_posts = @twitter_client.user_timeline(@followee)
+  end
 ###########################################
   private
-
   def find
     @followees = [User.find(session[:user_id]).followees]
   end
