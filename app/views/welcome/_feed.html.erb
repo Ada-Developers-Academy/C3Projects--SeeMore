@@ -2,7 +2,7 @@
   <%= image_tag current_user.avatar %>
 <% end %>
 
-<h2><%= current_user.name %>'s feed</h2>
+<h2 class="text-center"><%= current_user.name %>'s feed</h2>
 
 <% if posts.nil? || posts.empty? %>
   <p>
