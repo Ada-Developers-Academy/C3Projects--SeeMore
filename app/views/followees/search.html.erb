@@ -31,8 +31,8 @@
     <% end %>
   <% elsif params[:source] == "twitter" %>
     <ul>
-      <% @results.each do |result| %>
-        <li><%= result.screen_name %></li>
+      <% @results.each do |user| %>
+        <li><%= user.screen_name %></li>
       <% end %>
     </ul> 
   <% end %>

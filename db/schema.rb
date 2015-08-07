@@ -11,14 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806223126) do
+ActiveRecord::Schema.define(version: 20150807191512) do
 
   create_table "followees", force: :cascade do |t|
     t.string   "handle"
     t.string   "source"
     t.string   "avatar_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "native_id"
+    t.string   "last_post_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer  "followee_id"
+    t.string   "source"
+    t.string   "native_created_at"
+    t.string   "native_id"
+    t.string   "embed_html"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "posts", force: :cascade do |t|
