@@ -6,6 +6,9 @@ class SessionsController < ApplicationController
     @user = User.find_or_create_from_omniauth(auth_hash)
     session[:user_id] = @user.id
 
+    # NOTE: SM added. Gets the user's access_token from Instagram
+    session[:access_token] = auth_hash[:credentials][:token]
+
     redirect_to root_path
   end
 
