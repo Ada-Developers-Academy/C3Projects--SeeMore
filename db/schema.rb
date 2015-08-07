@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150807165656) do
     t.integer  "tw_favorite_count"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "user_id"
   end
 
   create_table "users", force: :cascade do |t|
