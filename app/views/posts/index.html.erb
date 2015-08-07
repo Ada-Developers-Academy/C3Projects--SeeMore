@@ -1,8 +1,25 @@
-
-<h1> feed goes here </h1>
-
 <h1>STALK UR TEXT</h1>
 
-<h2> Welcome to the homepage You see when you are logged in! </h2>
+<h2>Welcome, <%= @stalker.username %>!</h2>
 
-<h2>Welcome <%= @stalker.provider %> user!</h2>
+<h3>Preliminary Twitter Feed</h3>
+
+<% @tweets.each do |tweet| %>
+  <ul>
+    <li>
+      <%= image_tag(tweet.user.profile_image_url_https) %>
+      <h4>
+        <%= tweet.user.name %>
+        <small>@<%= tweet.user.screen_name %> * <%= time_ago_in_words(tweet.created_at) %> ago</small>
+      </h4>
+      <%= tweet.text %>
+      <% if tweet.media.any? %>
+        <% tweet.media.each do |medium| %>
+          <ul>
+          <%= image_tag medium.media_url_https %>
+          </ul>
+        <% end %>
+      <% end %>
+    </li>
+  </ul>
+<% end %>
