@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # Search page
   get '/search', to: 'followees#search', as: "search"
-  
+
   # Redirect (checks if search field is filled in)
   post "/instagram_users", to: "followees#instagram_users_redirect", as: "instagram_users_redirect"
   post '/twitter_users', to: 'followees#twitter_users_redirect', as: 'twitter_users_redirect'
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get '/search/:source/:user', to: "followees#search_results", as: "search_results"
 
   # need to limit the subscription paths
-  resources :subscription
+  resources :subscriptions
 
   post "/unsubscribe/:id", to: "subscriptions#unsubscribe", as: "unsubscribe"
 
