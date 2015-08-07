@@ -27,7 +27,7 @@ class Tweet < ActiveRecord::Base
     end
   end
 
-  def following(id)?
+  def following?(id)
     # This checks to see if tweets by this twitter user exist
     matches = Tweet.find_by(tw_user_id_str: id)
     # Checks if there are any matches
