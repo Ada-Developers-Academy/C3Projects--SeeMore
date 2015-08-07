@@ -23,12 +23,7 @@ class FolloweesController < ApplicationController
     end
   end
 
-  def insta_search
-    if params[:search] == ""
-      flash[:error] = "Please enter in a search field"
-      redirect_to :back
-    end
-  end
+  def insta_search; end
 
   private
 
