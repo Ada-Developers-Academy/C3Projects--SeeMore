@@ -10,7 +10,7 @@
   <div class="alert alert-danger"><%= flash[:error] %></div>
 <% end %>
 
-<% if session[:user_id] %>
+<% if logged_in? %>
   <%= form_tag(twi_subscriptions_path, method: :get, class:"form-inline") do %>
     <%= text_field_tag :twitter_search, params[:twitter_search], placeholder: "Twitter user search"  %>
     <%= submit_tag "Find Tweets for the Beast", class:"btn btn-default" %>

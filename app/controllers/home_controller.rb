@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def index
-    unless session[:user_id].nil?
+    if logged_in?
       client = twitter_api_object
       twitter_ids = User.find(session[:user_id]).twi_subscriptions.pluck(:twitter_id)
 
