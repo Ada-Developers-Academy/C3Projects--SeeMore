@@ -34,4 +34,33 @@ RSpec.describe Post, type: :model do
       expect(@post.errors.keys).to include(:feed_id)
     end
   end
+
+  describe "Associations" do
+    it "belongs_to :feed" do
+      post = create :post
+      feed = create :feed
+
+    expect(feed.posts.count).to eq 1
+    end
+  end
+
+  describe "Scopes" do
+    it "has chronological scope" do
+      post1 = create :post
+      post2 = create :post, date_posted: Date.parse("August 2015")
+      post3 = create :post, date_posted: Date.parse("August 2014")
+      post4 = create :post, date_posted: Date.parse("August 2013")
+
+      chronological_order = post2, post3, post1, post4
+      expect(Post.chronological).to eq chronological_order
+    end
+
+    it "has only_thirty scope" do
+      35.times do
+        post = create :post
+      end
+
+      expect(Post.only_thirty.count).to eq 30
+    end
+  end
 end

@@ -29,4 +29,62 @@ RSpec.describe Feed, type: :model do
       expect(@feed.errors.keys).to include(:platform_feed_id)
     end
   end
+
+  describe "scopes" do
+
+    it "shows just feed where platform is instagram" do
+      @feed1 = create :feed
+      @feed2 = create :feed, platform: "vimeo"
+      @feed3 = create :feed, platform: "vimeo"
+      @feed4 = create :feed
+
+      expect(Feed.count).to eq 4
+      expect(Feed.instagram.count).to eq 2
+    end
+
+    it "shows just feed where platform is vimeo" do
+      @feed1 = create :feed, platform: "vimeo"
+      @feed2 = create :feed, platform: "vimeo"
+      @feed3 = create :feed, platform: "vimeo"
+      @feed4 = create :feed
+
+      expect(Feed.count).to eq 4
+      expect(Feed.vimeo.count).to eq 3
+    end
+
+    it "shows just feed where platform is developer" do
+      @feed1 = create :feed, platform: "developer"
+      @feed2 = create :feed, platform: "vimeo"
+      @feed3 = create :feed, platform: "vimeo"
+      @feed4 = create :feed
+
+      expect(Feed.count).to eq 4
+      expect(Feed.developer.count).to eq 1
+    end
+  end
+
+  describe "Associations" do
+    before :each do
+      @feed = create :feed
+    end
+
+    it "has_many posts" do
+      post1 = create :post
+      post2 = create :post
+
+      expect(@feed.posts.count).to eq 2
+    end
+
+    it "has_and_belongs_to_many :au_users" do
+      user1 = create :au_user
+      user2 = create :au_user, uid: 2
+      user1.feeds << @feed
+      user2.feeds << @feed
+
+      expect(@feed.au_users.count).to eq 2
+    end
+
+  end
+
+
 end
