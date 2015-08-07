@@ -29,7 +29,7 @@ RSpec.describe WelcomeController, type: :controller do
     end
   end
 
-  describe "unauthenticated users" do
+  describe "unauthenticated / guest users" do
     context "GET #index" do
       before :each do
         get :index
