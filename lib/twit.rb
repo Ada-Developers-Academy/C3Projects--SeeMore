@@ -10,6 +10,7 @@ class Twit
     end
   end
 
-  def user_search
+  def self.username
+    
   end
 end
