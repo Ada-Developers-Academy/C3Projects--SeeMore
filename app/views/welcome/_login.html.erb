@@ -12,12 +12,13 @@
       <span class="ion-key form-control-feedback"></span>
     </div>
 
-      <button type="submit" class="btn btn-block btn-primary">Sign up</button>
+      <button type="submit" class="btn btn-block btn-primary">Sign up for an account</button>
       <br/>
     </form>
 
-  <button type="submit" class="btn btn-block btn-success">Sign up with Instagram</button>
-  <%= link_to "sign in with vimeo", "/auth/vimeo/", class:"btn btn-block btn-danger" %>
-  <br/>
-  <p class="text-center text-muted"><small>Already have an account? <%=link_to "Log in now", sign_up_path %></small></p>
+    <%= link_to "Login with Instagram", "/auth/instagram/", class:"btn btn-block btn-success" %>
+    <%= link_to "Login with Vimeo", "/auth/vimeo/", class:"btn btn-block btn-danger" %>
+    <br/>
+    <p class="text-center text-muted"><small>Already have an account? <%=link_to "Log in now", sign_up_path %></small></p>
+  </div>
 </div>
