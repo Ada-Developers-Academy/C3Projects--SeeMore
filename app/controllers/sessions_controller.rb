@@ -15,10 +15,6 @@ skip_before_filter :verify_authenticity_token
         session[:user_id] = @user.id
 
         redirect_to root_path
-      else
-        flash[:error] = "Failed to save the user"
-
-        redirect_to root_path
       end
     else
       flash[:error] = "Failed to authenticate"

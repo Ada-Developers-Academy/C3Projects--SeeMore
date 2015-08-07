@@ -107,27 +107,27 @@ RSpec.describe SessionsController, type: :controller do
 
       context "when failing to save the dev user" do
         before {
-          request.env["omniauth.auth"] = { "uid" => "1234", "info" => {} }
+          request.env["omniauth.auth"] = { "uid" => nil, "info" => {} }
         }
 
         it "redirect to home with flash error" do
           get :create, provider: :developer
 
           expect(response).to redirect_to root_path
-          expect(flash[:error]).to eq("Failed to save the user")
+          expect(flash[:error]).to include "Failed to authenticate"
         end
       end
 
       context "when failing to save the instagram user" do
         before {
-          request.env["omniauth.auth"] = { "uid" => "1234", "info" => {} }
+          request.env["omniauth.auth"] = { "uid" => nil, "info" => {} }
         }
 
         it "redirect to home with flash error" do
           get :create, provider: :instagram
 
           expect(response).to redirect_to root_path
-          expect(flash[:error]).to eq("Failed to save the user")
+          expect(flash[:error]).to include "Failed to authenticate"
         end
       end
     end
