@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  # Associations
+  has_many :tweets
   #Validations
   validates :avatar_url,:uid,:provider,  presence: true 
   validates :username, presence: true, uniqueness: true

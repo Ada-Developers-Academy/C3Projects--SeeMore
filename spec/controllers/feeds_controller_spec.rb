@@ -30,7 +30,7 @@ RSpec.describe FeedsController, type: :controller do
   end
 
   describe "GET feeds#search_results" do
-    it "receives a response from the api" do
+    it "receives a response from the twitter api" do
       VCR.use_cassette 'controller/twitter_api_response' do
         @twit_init = TwitInit.new
         response = @twit_init.client.user_search("donald trump")
