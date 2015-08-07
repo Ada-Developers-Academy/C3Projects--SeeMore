@@ -18,3 +18,4 @@ Rails.application.routes.draw do
   get '/results/:search_term', to: 'feeds#search_results', as: 'search_results'
   resources :feeds, except: [:destroy]
 end
+
