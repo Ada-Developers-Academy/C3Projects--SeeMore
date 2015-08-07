@@ -1,0 +1,12 @@
+<!-- This view is for de-bugging. Prob will delete this view later -->
+
+
+<h1>Instagram User <%= @user_id %>'s Posts:</h1>
+  <% @insta_user_posts.each do |post| %>
+    <%= image_tag post["images"]["low_resolution"]["url"] %>
+    <%= post["caption"]["text"] %>
+<% end %>
+<br>
+
+<br>
+<%= link_to "Back to Home", root_path, class: "btn-sm btn-primary" %>
