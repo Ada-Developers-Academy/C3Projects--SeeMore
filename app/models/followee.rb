@@ -11,15 +11,17 @@ class Followee < ActiveRecord::Base
 
 # SCOPES ----------------------------------------
   
-  # pass in a user search result object
+  # plug this into a "add_subscription" action thru a button by each user
+  # the "user" parameter is each twitter or instagram user in the search results
+
   def self.find_or_create_by(user)
-    if @source == "instagram"
-      followee = Followee.where(native_id: user["id"]).find_or_initialize
+    if params[:source] == "instagram"
+      followee = self.find_or_initialize_by(native_id: user["id"])
       followee.source = "instagram"
       followee.handle = user["username"]
       followee.avatar_url = user["profile_picture"]
-    elsif @source == "twitter"
-      followee = Followee.where(native_id: user.id ).find_or_initialize
+    elsif params[:source] == "twitter"
+      followee = self.find_or_initialize_by(native_id: user.id )
       followee.source = "twitter"
       followee.handle = user.screen_name
       followee.avatar_url = user.profile_image_url
@@ -27,7 +29,6 @@ class Followee < ActiveRecord::Base
       return false # if there's no @source
     end
 
-    return false unless followee.save
-    followee
+    followee.save ? followee : false
   end
 end
