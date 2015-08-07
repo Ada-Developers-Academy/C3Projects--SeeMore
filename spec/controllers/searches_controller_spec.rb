@@ -20,19 +20,19 @@ RSpec.describe SearchesController, type: :controller do
     pending "searching for an Instagram user"
   end
 
-  describe "GET #index" do
+  describe "GET #show" do
     context "searching for a Twitter user" do
       it "responds successfully with an HTTP 200 status code" do
-        get :index, client: "twitter", search_term: "search"
+        get :show, client: "twitter", search_term: "search"
 
         expect(response).to be_success
         expect(response).to have_http_status(200)
       end
 
-      it "renders the index template" do
-        get :index, client: "twitter", search_term: "search"
+      it "renders the show template" do
+        get :show, client: "twitter", search_term: "search"
 
-        expect(response).to render_template("index")
+        expect(response).to render_template("show")
       end
 
       # it 'returns an array of Twitter users' do
