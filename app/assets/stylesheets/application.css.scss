@@ -29,8 +29,11 @@
   padding-right: 200px;
 }
 
+.white {
+  color: #fff;
+}
+
 #top.nav {
-  // padding: 5px 0;
   padding-top: 5px;
   margin-bottom: 5px;
 }
@@ -42,6 +45,7 @@
   font-size: 26px;
   margin: 2px;
   padding: 15px;
+  text-decoration: none;
 }
 
 #top.nav h2 {
