@@ -5,7 +5,9 @@ class FeedsController < ApplicationController
 
   def search_redirect
     if params[:search_term].present?
-      redirect_to search_results_path(params[:search_term])
+      selected_params = { search_term: params[:search_term],
+                          provider: params[:provider] }
+      redirect_to search_results_path(selected_params)
     else
       redirect_to search_path(params[:provider])
     end
@@ -13,6 +15,17 @@ class FeedsController < ApplicationController
 
   def search_results
     @search_term = params[:search_term]
-    @results = @twit_init.client.user_search(@search_term)
+
+    if params[:provider] == 'twitter'
+      @results = @twit_init.client.user_search(@search_term)
+    elsif params[:provider] == 'instagram'
+      # move to ApplicationController & make an instance var like @twit_init?
+      instagram_client = Instagram.client(:access_token => session[:access_token])
+      @results = instagram_client.user_search(@search_term)
+    else
+      # guard
+      # TODO: send flash notices
+      redirect_to search_path(params[:provider])
+    end
   end
 end
