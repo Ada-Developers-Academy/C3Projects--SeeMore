@@ -36,7 +36,7 @@ class InstagramsController < ApplicationController
   def create
     @instagram_person = Instagram.new(create_ig_params)
     @person = @instagram_person.username
-    @instagram_person.user_ids << session[:user_id]
+    @instagram_person.users << User.find(session[:user_id])
 
     if @instagram_person.save
       redirect_to root_path(@person), flash: { alert: MESSAGES[:following_person] }
