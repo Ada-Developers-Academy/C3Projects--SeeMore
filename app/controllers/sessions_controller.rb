@@ -26,11 +26,6 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
-  private
-
-  def vimeo_params
-    params(request.env["omniauth.auth"]).require
-  end
 end
 
 #<OmniAuth::AuthHash credentials=#<OmniAuth::AuthHash expires=false token="571376090.1113a83.b4fd15ef69c840e58b088bac9e53a8f7"> extra=#<OmniAuth::AuthHash> info=#<OmniAuth::AuthHash::InfoHash bio="💙❤️" image="https://igcdn-photos-a-a.akamaihd.net/hphotos-ak-xpa1/t51.2885-19/1597456_1553396424875024_384861688_a.jpg" name="Victoria" nickname="vikshab" website=""> provider="instagram" uid="571376090">
