@@ -1,7 +1,7 @@
 class SearchesController < ApplicationController
   INSTAGRAM_SEARCH_USERS_URI = "https://api.instagram.com/v1/users/search?client_id=#{ENV["INSTAGRAM_CLIENT_ID"]}&"
 
-  def index
+  def search
     if params[:search_twitter]
       if params[:search_twitter] == ""
         redirect_to root_path

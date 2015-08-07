@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get "/login", to: "sessions#index", as: 'landing'
 
-  post "/search", to: "searches#index"
+  post "/search", to: "searches#search"
   get "search/:client/:search_term", to: "searches#show", as: "search_results"
 
   get "auth/developer" => 'sessions#create'
