@@ -8,6 +8,8 @@ class InstagramController < ApplicationController
   def search
     # params: { instagram: { query: "vikshab" } }
     query = params.require(:instagram).require(:query)
+    
+    
     # => "vikshab"
     # query = params.require(:instagram).permit(:query)
     # => { query: "vikshab" }
