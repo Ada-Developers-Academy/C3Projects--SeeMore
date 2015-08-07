@@ -40,7 +40,8 @@ RSpec.configure do |config|
   # hashes to return during testing.
 
       OmniAuth.config.mock_auth[:vimeo] = OmniAuth::AuthHash.new({:provider => 'vimeo', :uid => '123545', info: {email: "a@b.com", name: "Ada"}})
-      
+      OmniAuth.config.mock_auth[:instagram] = OmniAuth::AuthHash.new({:provider => 'instagram', :uid => '123545', info: {email: "a@b.com", name: "Ada"}})
+
 
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
@@ -107,4 +108,3 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
-
