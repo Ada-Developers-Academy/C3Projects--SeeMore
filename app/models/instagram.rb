@@ -4,10 +4,4 @@ class Instagram < ActiveRecord::Base
 
   # Validations ----------------------------------------------
   validates :username, :provider_id, presence: true, uniqueness: true
-
-  # Methods ----------------------------------------------
-  def self.search(query)
-    where("username like ?", "%#{query}%")
-  end
-
 end
