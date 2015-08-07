@@ -5,6 +5,9 @@
 <%= form_tag twitter_users_redirect_path do %>
   <%= label_tag :user %>
   <%= text_field_tag :user %>
+
+  <%= hidden_field_tag :source, "twitter" %>
+
   <%= submit_tag 'Look up Twitter Users', class: "btn btn-default" %>
 <% end %>
 
@@ -13,5 +16,24 @@
 <%= form_tag instagram_users_redirect_path do %>
   <%= label_tag :user %>
   <%= text_field_tag :user %>
+
+  <%= hidden_field_tag :source, "instagram" %>
+
   <%= submit_tag "Look up Instagram Users", class: "btn btn-default" %>
+<% end %>
+
+<% if action_name == "search_results" %>
+  <h1><%= @source.capitalize %> user results for "<%= @query %>"</h1>
+  <% if params[:source] == "instagram" %>
+    <% @results.each do |user| %>
+      <%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
+      <%= link_to "@#{user["username"]}" %>
+    <% end %>
+  <% elsif params[:source] == "twitter" %>
+    <ul>
+      <% @results.each do |result| %>
+        <li><%= result.screen_name %></li>
+      <% end %>
+    </ul> 
+  <% end %>
 <% end %>
