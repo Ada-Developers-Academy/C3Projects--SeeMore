@@ -1,6 +1,10 @@
+<!-- Search Forms -->
 <div class="col-xs-4 col-xs-offset-4">
-  <%= render partial: "shared/search_form", locals: { provider: :instagram,
-                                                      url: search_instagram_url } %>
+  <%= render partial: "shared/search_form", 
+      locals: { 
+        provider: :instagram,
+        url: search_instagram_url 
+        } %>
 
   <!-- Search Results -->
   <span class="search-results">
@@ -11,9 +15,3 @@
     <% end %>
   </span>
 </div>
-
-
-<!-- same for Twitter; make it a partial. -->
-
-<!-- Results below. Define @response in feeds controller -->
-

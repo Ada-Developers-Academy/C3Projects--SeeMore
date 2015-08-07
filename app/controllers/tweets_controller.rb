@@ -10,8 +10,8 @@ class TweetsController < ApplicationController
   end
 
   def search
-    @username = params[:username]
-    @response = @twitter.client.user_search("#{@username}")
+    username = params[:username]
+    response = @twitter.client.user_search("#{username}")
   end
 
 end
