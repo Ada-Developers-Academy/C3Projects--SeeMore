@@ -19,7 +19,7 @@ class FeedsController < ApplicationController
     if params[:provider] == 'twitter'
       @results = @twit_init.client.user_search(@search_term)
     elsif params[:provider] == 'instagram'
-      # move to ApplicationController & make an instance var like @twit_init?
+      # TODO: move to ApplicationController & make an instance var like @twit_init?
       instagram_client = Instagram.client(:access_token => session[:access_token])
       @results = instagram_client.user_search(@search_term)
     else
