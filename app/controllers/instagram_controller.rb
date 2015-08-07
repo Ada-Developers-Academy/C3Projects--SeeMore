@@ -1,5 +1,7 @@
 class InstagramController < ApplicationController
   SEARCH_URI = "https://api.instagram.com/v1/users/search?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }&count=10"
+  FEED_INFO_URI_A = "https://api.instagram.com/v1/users/" # then user_id (for us: feed_id)
+  FEED_INFO_URI_B = "?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }"
   FEED_URI_A = "https://api.instagram.com/v1/users/" # then user_id (for us: feed_id)
   FEED_URI_B = "/media/recent?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }"
 
@@ -29,42 +31,26 @@ class InstagramController < ApplicationController
   end
 
   def subscribe
-    feed = Feed.find_by(platform_feed_id: params[:feed_id])
-    # raise
+    id = params[:feed_id]
+    feed = Feed.find_by(platform_feed_id: id)
+    # FIXME: what if the platform_feed_id is the same for a vimeo feed & an instagram feed?
     unless feed
-      # raise
-      feed_url = FEED_URI_A + params[:feed_id] + FEED_URI_B
-      results = HTTParty.get(feed_url)
-
-      feed = Feed.create(create_feed_attributes_from_API_junk(results))
-
-      posts = results["data"]
-      posts.each do |post|
-        maybe_valid_post = Post.create(create_post_params(post, feed))
-        raise
-      end
-      raise
+      feed_info_url = FEED_INFO_URI_A + id + FEED_INFO_URI_B
+      feed_info_results = HTTParty.get(feed_info_url)
+      feed = Feed.create(create_feed_attributes_from_API_junk(feed_info_results))
     end
     current_user.feeds << feed unless current_user.feeds.include?(feed)
+    redirect_to root_path
   end
 
   private
     def create_feed_attributes_from_API_junk(results) # best variable name ever!
       feed_hash = {}
-      feed_info = results["data"].first["caption"]["from"]
-      feed_hash[:avatar]           = feed_info["profile_picture"]
+      feed_info = results["data"]
+      feed_hash[:avatar]           = feed_info["profile_picture"] if feed_info["profile_picture"]
       feed_hash[:name]             = feed_info["username"]
       feed_hash[:platform]         = "Instagram"
       feed_hash[:platform_feed_id] = params[:feed_id]
       return feed_hash
-    end
-
-    def create_post_params(post_data, feed)
-      post_hash = {}
-      post_hash[:description] = post_data["caption"]["text"]
-      post_hash[:content]     = post_data["images"]["low_resolution"]["url"]
-      post_hash[:date_posted] = Time.at(post_data["caption"]["created_time"].to_i)
-      post_hash[:feed_id]     = feed.id
-      return post_hash
     end
 end
