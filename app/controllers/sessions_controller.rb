@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
       session[:access_token] = response.access_token
       session[:user_id] = user.id
     end
-    redirect_to feeds_path :notice => "You are logged in to CreepPeep!"
+    redirect_to feeds_path 
   end
 
 
@@ -25,9 +25,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
+    reset_session
 
-    redirect_to feeds_path, :notice => "You are signed out of CreepPeep!" 
+    redirect_to feeds_path
   end
 
 end

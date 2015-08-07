@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     @twit_init ||= TwitInit.new
   end
 
-  def client
-  @client ||= User.find(session[:user_id]) if session[:user_id]
-  end
+  # def client
+  # @client ||= User.find(session[:user_id]) if session[:user_id]
+  # end
 end

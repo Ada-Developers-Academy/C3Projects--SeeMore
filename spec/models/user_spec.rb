@@ -14,11 +14,6 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
 
-    # it "requires an email" do
-    #   user.email = nil
-    #   expect(user).to be_invalid
-    # end
-
     it "requires a username" do
       user.username = nil
       expect(user).to be_invalid
