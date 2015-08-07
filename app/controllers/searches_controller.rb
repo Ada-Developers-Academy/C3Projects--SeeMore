@@ -1,12 +1,4 @@
 class SearchesController < ApplicationController
-  def index
-    if params[:client] == "twitter"
-      @search_results = TwitterClient.user_search(params[:search_term])
-    elsif params[:client] == "instagram"
-      # TODO: put code to search instagram users here
-    end
-  end
-
   def search
     if params[:search_twitter]
       if params[:search_twitter] == ""
@@ -25,5 +17,13 @@ class SearchesController < ApplicationController
     #     redirect_to search_results_path("instagram", params[:search_instagram])
     #   end
     # end
+  end
+
+  def show
+    if params[:client] == "twitter"
+      @search_results = TwitterClient.user_search(params[:search_term])
+    elsif params[:client] == "instagram"
+      # TODO: put code to search instagram users here
+    end
   end
 end
