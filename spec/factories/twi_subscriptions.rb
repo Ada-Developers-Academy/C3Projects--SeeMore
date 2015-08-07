@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :twi_subscription do
-    twitter_id "MyString"
-twitter_handle "MyString"
+    twitter_id "123"
+    twitter_handle "@beast"
   end
-
 end

@@ -1,10 +1,9 @@
 FactoryGirl.define do
   factory :user do
-    uid "MyString"
-provider "MyString"
-email "MyString"
-name "MyString"
-image "MyString"
+    uid "789"
+    provider "Instagram"
+    email ""
+    name ""
+    image ""
   end
-
 end
