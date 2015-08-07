@@ -1,5 +1,5 @@
 <% if current_user %>
-  <%= render partial: "shared/feed", locals: { posts: Array.new, display_author: true } %>
+  <%= render partial: "feed", locals: { posts: @posts } %>
 <% else %>
   <%= render "login" %>
 <% end %>
