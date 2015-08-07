@@ -14,6 +14,8 @@ class InstagramsController < ApplicationController
       @users = response["data"]
 
       return render "feeds/search"
+    else
+      redirect_to root_path, flash: { error: MESSAGES[:no_username] }
     end
   end
 
