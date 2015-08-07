@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :au_user do
-    first_name "Joe"
-    last_name "Shmoe"
+    name "Joe"
+    uid "1"
+    provider "vimeo"
   end
 end

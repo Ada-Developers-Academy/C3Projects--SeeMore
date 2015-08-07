@@ -39,7 +39,7 @@ RSpec.configure do |config|
   # set per-provider (or default) authentication
   # hashes to return during testing.
 
-    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({:provider => 'vimeo', :uid => '123545', info: {email: "a@b.com", name: "Ada"}})
+    OmniAuth.config.mock_auth[:vimeo] = OmniAuth::AuthHash.new({:provider => 'vimeo', :uid => '123545', info: {email: "a@b.com", name: "Ada"}})
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
     # defined using `chain`, e.g.:
@@ -108,4 +108,5 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+end
 end
