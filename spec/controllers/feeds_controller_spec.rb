@@ -51,7 +51,7 @@ RSpec.describe FeedsController, type: :controller do
       end
     end
 
-    it "receives a response from the api" do
+    it "receives a response from the twitter api" do
       VCR.use_cassette 'controller/twitter_api_response' do
         get :search_results, twitter_params
         expect(assigns(:results).first.id).to eq(25073877)

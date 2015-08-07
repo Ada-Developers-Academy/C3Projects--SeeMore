@@ -1,8 +1,11 @@
 <h1>Creepah!!</h1>
-<% @results.each do |result| %>
-<pre>
-  <%= result.screen_name %>
-  <%= result.profile_image_url %>
-
-</pre>
+<% @results.each do |user| %>
+<div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <p><%= link_to user.screen_name, "http://twitter.com/#{user.screen_name}" %></p>
+      <p><%= image_tag(user.profile_image_url) %></p>
+      <p><%= link_to "Follow", "/", class: "btn btn-success"%></p>
+       <!-- Add a link here once users and sessions are complete -->
+    </div>
+  </div>
 <% end %>
