@@ -1,14 +1,14 @@
 class SubscriptionsController < ApplicationController
   before_action :find_user
 
-  def new
+  def new; end
     # do we need this?
-  end
 
   def create
     # dependent on followee model, and a valid user login
+    @subscription = Subscription.new
     @followee = Folowee.find(params[:followee_id])
-    @subscription = Subscription.create(user_id: session[:user_id], followee_id: @followee.id)
+    @subscription.make_subscription(@user, @followee)
   end
 
   def index

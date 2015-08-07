@@ -20,4 +20,14 @@ RSpec.describe Subscription, type: :model do
       end
     end # context
   end #describe
+
+  describe ".create" do
+    let!(:zynthia) { create :user, id: 1 }
+    let!(:beyonce) { create :followee, id: 200, handle: "beyonce", source: "instagram" }
+
+    it "creates a valid subscription to existing followee & user" do
+      natgeo = Subscription.make_subscription(zynthia, beyonce)
+      expect(natgeo).to be_valid
+    end
+  end
 end # Rspec

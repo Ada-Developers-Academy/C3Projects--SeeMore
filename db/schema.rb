@@ -36,12 +36,9 @@ ActiveRecord::Schema.define(version: 20150807191512) do
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "followee_id"
-    t.string   "source"
-    t.string   "native_created_at"
-    t.string   "native_id"
-    t.string   "embed_html"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "unsubscribe_date"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   add_index "subscriptions", ["followee_id"], name: "index_subscriptions_on_followee_id"
