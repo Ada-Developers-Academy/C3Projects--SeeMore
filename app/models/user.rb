@@ -11,11 +11,15 @@ class User < ActiveRecord::Base
 
     auth_uid = auth_hash["uid"]
     auth_provider = auth_hash["provider"]
-
     user = User.where(uid: auth_uid, provider: auth_provider).first_or_initialize
-    user.uid =  auth_hash["data"]["id"]
-    user.username = auth_hash["data"]["username"]
-    user.avatar_url = auth_hash["data"]["profile_picture"]
+    if :provider == "instagram"
+      user.uid =  auth_hash["data"]["id"]
+      user.username = auth_hash["data"]["username"]
+      user.avatar_url = auth_hash["data"]["profile_picture"]
+    else
+      user.uid =  auth_hash["info"]["uid"]
+      user.username = auth_hash["info"]["username"]
+    end
 
   # TODO: raise an error here instead of `nil`
     return user.save ? user : nil 
