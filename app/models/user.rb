@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   # Validations ------------------------------------------------------
+  has_many :subscriptions
+  has_many :followees, through: :subscriptions
   validates :uid, :provider, presence: true
 
   def self.find_or_create_from_omniauth(auth_hash)
