@@ -15,13 +15,6 @@
         <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
       <% end %>
     <!-- Actual Feed here -->
-    <% unless session[:user_id].nil? %>
-      <h3>People I Follow</h3>
-      <% @people.each do |person| %>
-      <p><%= person.username %></p>
-      <% end %>
-    <% end  %>
-
 
 
 

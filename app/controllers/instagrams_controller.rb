@@ -33,6 +33,17 @@ class InstagramsController < ApplicationController
     # add flash: no search results were found for 'username'
   end
 
+  def destroy
+    user = User.find_by(id: session[:user_id])
+    instagramer = Instagram.find(params[:id])
+
+    if instagramer
+       user.instagrams.destroy(instagramer)
+    end
+
+    redirect_to people_path, flash: { alert: MESSAGES[:success] }
+  end
+
   private
 
   def instagram_params

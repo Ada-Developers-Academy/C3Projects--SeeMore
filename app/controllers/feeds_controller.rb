@@ -8,4 +8,12 @@ class FeedsController < ApplicationController
   end
 
   def search; end
+
+  def people
+    @user = User.find_by(id: session[:user_id])
+    if @user
+      @people = Instagram.find(@user.instagram_ids)
+    end
+  end
+
 end
