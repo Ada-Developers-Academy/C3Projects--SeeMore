@@ -1,8 +1,13 @@
-<ul>
-  <% @results.each do |result| %>
-    <li>
-      <%= result.screen_name + " (#{result.name})" %>
-      <%= link_to "Feed the BEAST!", twi_subscriptions_path(twitter_id: result.id), method: :post, class: "btn btn-default" %>
-    </li>
-  <% end %>
-</ul>
+
+<% if @results %>
+  <ul>
+    <% @results.each do |result| %>
+      <li>
+        <%= result.screen_name + " (#{result.name})" %>
+        <%= link_to "Feed the BEAST!", twi_subscriptions_path(twitter_id: result.id), method: :post, class: "btn btn-default" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <h4>You have not asked the beast for anything. Please search for new friends!</h4>
+<% end %>

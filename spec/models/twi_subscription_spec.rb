@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe TwiSubscription, type: :model do
   let(:twi_subscription) {

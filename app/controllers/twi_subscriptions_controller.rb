@@ -1,8 +1,12 @@
 class TwiSubscriptionsController < ApplicationController
+  before_action :redirect_if_not_allowed
 
   def index
-    client =  twitter_api_object
-    @results = client.user_search(params[:twitter_search])
+    # Guard in case someone tries to access the URL without any search results.
+    unless params[:twitter_search].nil?
+      client = twitter_api_object
+      @results = client.user_search(params[:twitter_search])
+    end
   end
 
   def create

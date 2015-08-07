@@ -1,6 +1,6 @@
 <% if logged_in? %>
   <% @sub_array_tweets.each do |tweet| %>
-    <%= tweet.user.username %>
+    <%= tweet.user.screen_name %>
     <%= tweet.text %>
     <%= tweet.as_json["created_at"] %>
     <% tweet.media.as_json.each do |media| %>
