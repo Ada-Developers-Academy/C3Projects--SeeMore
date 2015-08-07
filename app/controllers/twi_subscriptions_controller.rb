@@ -6,12 +6,8 @@ class TwiSubscriptionsController < ApplicationController
   end
 
   def create
-    subscription = TwiSubscription.create(twitter_id: params[:twitter_id])
-
-    user = User.find(session[:user_id])
-
-    user.twi_subscriptions << subscription
-    user.save
+    subscription = TwiSubscription.find_or_create_subscription(params[:twitter_id])
+    @user.associate_subscription(subscription)
 
     redirect_to root_path
   end
