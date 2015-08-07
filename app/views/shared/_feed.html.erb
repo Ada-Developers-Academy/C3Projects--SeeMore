@@ -1,4 +1,7 @@
-<%= link_to "Subscribe", subscribe_path(params[:feed_id]), method: "post", class: "btn btn-info btn-xs" %>
+<% if params[:feed_id] %>
+  <%= link_to "Subscribe", subscribe_path(params[:feed_id]), method: "post", class: "btn btn-info btn-xs" %>
+<% end %>
+
 <div class="row">
   <% if posts.nil? || posts.empty? %>
     <h2>This feed doesn't have any posts. ;_;</h2>

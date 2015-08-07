@@ -1,13 +1,13 @@
 <div class="jumbotron">
   <div class="panel-body">
-    <h4 class="text-center">Sign up</h4>
+    <h4 class="text-center white">Sign up</h4>
     <form method="post" ng-submit="signup()" name="signupForm">
       <div class="form-group has-feedback" >
         <input class="form-control input-lg" type="email" id="email" name="email" ng-model="email" placeholder="Email" required autofocus, class: "circle">
         <span class="ion-at form-control-feedback"></span>
       </div>
 
-    <div class="form-group has-feedback" >
+    <div class="form-group has-feedback">
       <input class="form-control input-lg" type="password" name="password" ng-model="password" placeholder="Password" required>
       <span class="ion-key form-control-feedback"></span>
     </div>
@@ -16,8 +16,8 @@
       <br/>
     </form>
 
-    <button type="submit" class="btn btn-block btn-success">Login with Instagram</button><br>
-    <%= link_to "Login with vimeo", "/auth/vimeo/", class:"btn btn-block btn-danger" %>
+    <%= link_to "Login with Instagram", "/auth/instagram/", class:"btn btn-block btn-success" %>
+    <%= link_to "Login with Vimeo", "/auth/vimeo/", class:"btn btn-block btn-danger" %>
     <br/>
     <p class="text-center text-muted"><small>Already have an account? <%=link_to "Log in now", sign_up_path %></small></p>
   </div>
