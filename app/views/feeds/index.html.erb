@@ -17,7 +17,9 @@
         <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
       <% end %>
     <!-- Actual Feed here -->
-
-
+    <% @feed.each do |tweet| %>
+      <p><%= tweet.text %>
+      <%= tweet.created_at %></p>  
+    <% end  %>
 
 </div>
