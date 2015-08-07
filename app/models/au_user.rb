@@ -8,7 +8,11 @@ class AuUser < ActiveRecord::Base
       au_user.uid = auth["uid"]
       au_user.name = auth["info"]["name"]
       au_user.email = auth["info"]["email"]
-      au_user.avatar = auth["info"]["pictures"][0]["link"]
+      if auth["info"]["pictures"].nil?
+        au_user.avatar = ""
+      else
+        au_user.avatar = auth["info"]["pictures"][0]["link"]
+      end
     end
   end
 end

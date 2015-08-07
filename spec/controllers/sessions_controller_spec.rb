@@ -14,11 +14,11 @@ RSpec.describe SessionsController, type: :controller do
     context "when using vimeo authorization" do
       context "is successful" do
         # let(:params) {au_user: { provider: :vimeo, uid: 12345} }
-        before { Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:vimeo] }
+        before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:vimeo] }
 
         it "redirects to home page" do
           get :create_vimeo, ({provider: :vimeo, uid: 1234})
-          expect(response).to have_http_status(:success)
+          expect(response).to have_http_status(302)
         end
 
         it "creates a user" do
@@ -26,13 +26,14 @@ RSpec.describe SessionsController, type: :controller do
         end
 
         it "assigns the @user var" do
-          get :create_vimeo, provider: :vimeo
-          expect(assigns(:au_user)).to be_an_instance_of AuUser
+          get :create_vimeo, provider: :vimeos
+          expect(AuUser.first).to be_an_instance_of AuUser
         end
 
         it "assigns the session[:user_id]" do
           get :create_vimeo, provider: :vimeo
-          expect(session[:user_id]).to eq assigns(:au_user).id
+         
+          expect(session[:user_id]).to eq (AuUser.first).id
         end
       end
     end

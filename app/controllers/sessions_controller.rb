@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
 
   def create_vimeo
     auth = request.env["omniauth.auth"]
-    binding.pry
+    # binding.pry
     au_user = AuUser.find_by_provider_and_uid(auth["provider"], auth["uid"]) || AuUser.create_with_omniauth(auth)
     session[:user_id] = au_user.id
     flash[:success] = "You've been signed in, #{ au_user.name }!"
