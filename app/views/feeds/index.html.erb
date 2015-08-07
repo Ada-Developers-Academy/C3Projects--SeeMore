@@ -15,6 +15,10 @@
         <%= link_to "Follow People", search_path, class: "btn btn-primary" %>
         <!-- Manage feed button -->
         <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
+        <% if @response %>
+          <%= @response %>
+        <% end %>
+
       <% end %>
     <!-- Actual Feed here -->
     <% @feed.each do |tweet| %>

@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :twit
 
+  INSTAGRAM_URI = "https://api.instagram.com/v1/users/"
   MESSAGES = {
     no_username: "There's no user by that name. Search again.",
     success: "Success!",

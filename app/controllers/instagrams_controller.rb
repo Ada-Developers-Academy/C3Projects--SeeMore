@@ -4,7 +4,6 @@ class InstagramsController < ApplicationController
   before_action :require_login, only: [:create]
 
   CALLBACK_URL = "http://localhost:3000/auth/instagram/callback"
-  INSTAGRAM_URI = "https://api.instagram.com/v1/users/"
 
   def search
     if params[:instagram].present?
