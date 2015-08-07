@@ -29,7 +29,25 @@ RSpec.describe InstagramsController, type: :controller do
     end
 
     context "invalid params" do
-      # invalid stuff
+      before :each do
+        user = create :user
+        session[:user_id] = user.id
+        post :create, instagram: attributes_for(:instagram, username: nil)
+      end
+
+      it "invalid attributes fail validations" do
+        bad_instagram_record = Instagram.create(attributes_for(:instagram, username: nil, user_ids: [1]))
+        expect(bad_instagram_record).to_not be_valid
+        expect(bad_instagram_record.errors).to include(:username)
+      end
+
+      it "does not create a instagram record" do
+        expect(Instagram.count).to eq 0
+      end
+
+      it "renders the feeds/search view" do
+        expect(response).to render_template("feeds/search")
+      end
     end
 
 

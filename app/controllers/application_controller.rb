@@ -10,10 +10,17 @@ class ApplicationController < ActionController::Base
   MESSAGES = {
     no_username: "There's no user by that name. Search again.",
     following_person: "You're now following #{@person}!",
-    follow_error: "Oops. Something went wrong."
+    follow_error: "Oops. Something went wrong.",
+    login_required: "You have to be logged in to do that!"
   }
 
   def twit
     @twitter ||= Twit.new
+  end
+
+  def require_login
+    unless session[:user_id]
+      redirect_to root_path, flash: { errors: MESSAGES[:login_required] }
+    end
   end
 end

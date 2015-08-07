@@ -1,6 +1,8 @@
 require 'httparty'
 
 class InstagramsController < ApplicationController
+  before_action :require_login, only: [:create]
+
   CALLBACK_URL = "http://localhost:3000/auth/instagram/callback"
   INSTAGRAM_URI = "https://api.instagram.com/v1/users/"
 
@@ -25,12 +27,6 @@ class InstagramsController < ApplicationController
       #   array << hash["id"]
       # end
     end
-  end
-
-  def callback  # NOTE: ADD NEW CALLBACK ROUTE TO THOSE IN IG FOR SITE.
-    response = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
-    session[:access_token] = response.access_token
-    redirect_to instagrams_path
   end
 
   def create
