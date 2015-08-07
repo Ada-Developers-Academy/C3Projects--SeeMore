@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   def index
     if logged_in?
       client = twitter_api_object
-      twitter_ids = User.find(session[:user_id]).twi_subscriptions.pluck(:twitter_id)
+      twitter_ids = @user.twi_subscriptions.pluck(:twitter_id)
 
       @sub_array_tweets = []
 
