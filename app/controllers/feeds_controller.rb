@@ -9,9 +9,9 @@ class FeedsController < ApplicationController
       end
     end
 
-    if @user
+    if @user && @user.tweets
       @people = []
-      @people << Instagram.find(@user.instagram_ids)
+      # @people << Instagram.find(@user.instagram_ids)
       @people << Tweet.find(@user.tweet_ids)
       @people.flatten!
       @people.sort_by! { |person| person.username.downcase }
