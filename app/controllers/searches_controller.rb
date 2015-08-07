@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
-  def index
+  def search
     if params[:search_twitter]
       if params[:search_twitter] == ""
         redirect_to root_path
