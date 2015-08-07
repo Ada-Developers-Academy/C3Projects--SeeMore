@@ -4,6 +4,13 @@ RSpec.describe AuUser, type: :model do
   context "creating a new user" do
     describe "validations" do
 
+      it "name is required" do
+        au_user = build :au_user, name: nil
+
+        expect(au_user).to_not be_valid
+        expect(au_user.errors.keys).to include(:name)
+      end
+
       it "uid is required" do
         au_user = build :au_user, uid: nil
 

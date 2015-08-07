@@ -21,8 +21,8 @@ class SessionsController < ApplicationController
     auth = request.env["omniauth.auth"]
     au_user = AuUser.find_by_provider_and_uid(auth["provider"], auth["uid"]) || AuUser.create_with_omniauth(auth)
     session[:user_id] = au_user.id
-    redirect_to root_url :notice => "Signed in!"
     flash[:success] = "You've been signed in, #{ au_user.name }!"
+    redirect_to root_url
   end
 end
 
