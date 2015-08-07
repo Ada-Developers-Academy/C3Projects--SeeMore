@@ -8,12 +8,14 @@ class WelcomeController < ApplicationController
   end
 
   def search
-    query = params.require(:search).permit(:query, :platform)
-    if params[:platform] == "vimeo"
-      raise
-      return redirect_to vimeo_search_path(query[:query])
+    search = params.require(:search).permit(:query, :platform)
+    if search[:platform] == "vimeo"
+      return redirect_to vimeo_results_path(search[:query])
+    elsif search[:platform] == "instagram"
+      redirect_to instagram_results_path(search[:query])
     else
-      redirect_to  
+      flash[:error] = "Please select instagram or vimeo"
+      redirect_to :back
     end
   end
 end
