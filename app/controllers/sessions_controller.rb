@@ -8,15 +8,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    auth_hash = request.env['omniauth.auth']
-    user = User.find_or_create_from_omniauth(auth_hash) #returns a user obj. or nil
     # come back to our site
     if params[:provider] == 'instagram'
       response = Instagram.get_access_token(params[:code], :redirect_uri => callback_url)
       session[:access_token] = response.access_token
-      session[:user_id] = user.id
+      user = User.find_or_create_from_omniauth(response) #returns a user obj. or nil
+    else
+      auth_hash = request.env['omniauth.auth']
+      user = User.find_or_create_from_omniauth(auth_hash) #returns a user obj. or nil
     end
-    redirect_to feeds_path 
+    session[:user_id] = user.id
+
+    redirect_to feeds_path
   end
 
 
@@ -31,4 +34,3 @@ class SessionsController < ApplicationController
   end
 
 end
-

@@ -1,8 +1,11 @@
 FactoryGirl.define do
   factory :user do
     username "MyString"
+    avatar_url "kitty.jpeg"
+    uid "34432"
+    provider "instagram"
   end
-  
+
 
   factory :tweet do
     tw_user_id_str "100"
