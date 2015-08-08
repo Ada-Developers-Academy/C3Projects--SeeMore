@@ -7,6 +7,8 @@ class SubscriptionsController < ApplicationController
   def create
     @followee = Folowee.find(params[:followee_id])
     @subscription.make_subscription(@user, @followee)
+
+    redirect_to root_path
   end
 
   def index
