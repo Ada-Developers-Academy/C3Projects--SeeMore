@@ -1,13 +1,24 @@
 require 'csv'
 
-CSV.foreach("db/followees.csv", headers: true) do |row|
-  image_path = "app/assets/images/" + row[2]
+# CSV.foreach("db/followees.csv", headers: true) do |row|
+#   image_path = "app/assets/images/" + row[2]
 
-  Followee.create(
-    handle: row[0],
-    source: row[1],
-    avatar_url: open(image_path)
-  )
+#   Followee.create(
+#     handle: row[0],
+#     source: row[1],
+#     avatar_url: open(image_path)
+#   )
+# end
+
+new_followees = [
+  { handle: "vp", 
+    source: "twitter", 
+    avatar_url: "http://pbs.twimg.com/profile_images/464835807837044737/vO0cnKR1_normal.jpeg", 
+    native_id: "325830217" }
+]
+
+new_followees.each do |followee|
+  Followee.create(followee)  
 end
 
 CSV.foreach("db/subscriptions.csv", headers: true) do |row|
