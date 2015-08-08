@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   # before_filter :load_tweets
 
   # def load_tweets
-  #   @tweets = @twitter_client.client.user_timeline[0..4] # For this demonstration lets keep the tweets limited to the first 5 available.
+  #   @tweets = @twitter_client.user_timeline[0..4] # For this demonstration lets keep the tweets limited to the first 5 available.
   # end
 
   private
@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def twitter_client
-    @twitter_client ||= TwitterClient.new
+    @twitter_client ||= TwitterClient.new.client
   end
 
   def current_user
