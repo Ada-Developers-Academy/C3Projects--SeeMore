@@ -1,4 +1,4 @@
-# SeeMore
+# SeeMore - Team Beast (Brandi, Carly, Elia, Lila)
 
 ![SeeMore](http://www.theirishduck.info/wp-content/uploads/2013/06/plant.png)
 

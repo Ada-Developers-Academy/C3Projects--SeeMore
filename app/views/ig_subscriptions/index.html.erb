@@ -1,0 +1,13 @@
+<table class="table table-hover">
+  <th>Username</th>
+  <th>Name</th>
+  <th>Pic</th>
+  <% @response.each do |person| %>
+  <tr>
+    <td><%= image_tag(person["profile_picture"]) %></td>
+    <td><%= person["username"] %></td>
+    <td><%= person["full_name"] %></td>
+    <td><%= link_to "Feed the Beast!", ig_subscriptions_path(instagram_id: person["id"]), method: :post, class: "btn btn-default"  %></td>
+    </tr>
+  <% end %>
+</table>
