@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Associations
   has_and_belongs_to_many :subscriptions
   has_many :posts, through: :subscriptions
-  
+
   # Validations
   validates_presence_of :uid, :provider
   validates_uniqueness_of :uid
@@ -20,13 +20,13 @@ class User < ActiveRecord::Base
   end
 
   # Adds the association between a new subscription and the user.
-  def associate_subscription(subscription)
-    if subscription.class == TwiSubscription
-      self.twi_subscriptions << subscription
-    else
-      self.ig_subscriptions << subscription
-    end
-    self.save
-  end
+  # def associate_subscription(subscription)
+  #   if subscription.class == TwiSubscription
+  #     self.twi_subscriptions << subscription
+  #   else
+  #     self.ig_subscriptions << subscription
+  #   end
+  #   self.save
+  # end
 
 end
