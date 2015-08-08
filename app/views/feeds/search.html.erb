@@ -1,0 +1,23 @@
+<!-- Search Forms -->
+<div class="col-xs-4 col-xs-offset-4">
+  <%= render partial: "shared/search_form", 
+      locals: { 
+        provider: :instagram,
+        url: search_instagram_url 
+        } %>
+
+<!--   <= render partial: "shared/search_form", 
+      locals: { 
+        provider: :twitter,
+        url: search_twitter_url
+        } %>
+ -->
+  <!-- Search Results -->
+  <span class="search-results">
+    <% if params[:instagram] %>
+      <%= render template: "instagrams/search", layout: false %>
+    <% elsif params[:tweet] %>
+      <%= render template: "tweets/search", layout: false %>
+    <% end %>
+  </span>
+</div>
