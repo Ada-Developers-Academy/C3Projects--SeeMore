@@ -83,8 +83,8 @@ RSpec.describe User, type: :model do
 
       user.associate_subscription(igsub)
 
-      expect(user.ig_subscriptions.count).to eq 1
-      expect(user.ig_subscriptions).to include(igsub)
+      expect(user.subscriptions.count).to eq 1
+      expect(user.subscriptions).to include(igsub)
     end
   end
 
