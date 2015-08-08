@@ -1,9 +1,10 @@
 FactoryGirl.define do
 
   factory :post do
-    username "MyString"
+    username "beastmaster"
     posted_at "2015-08-07 16:59:22"
-    content_id "MyString"
+    content_id "12345678"
+    subscription_id 1
   end
 
   factory :twi_sub, class: Subscription do
