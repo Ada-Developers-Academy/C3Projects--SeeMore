@@ -6,5 +6,5 @@ class Post < ActiveRecord::Base
   belongs_to :followee
 
   # Scopes ---------------------------------------------------------------------
-  scope :sort, -> { order('native_created_at')}
+  scope :chron_sort, -> { order('native_created_at')}
 end
