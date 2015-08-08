@@ -15,15 +15,19 @@
         <%= link_to "Follow People", search_path, class: "btn btn-primary" %>
         <!-- Manage feed button -->
         <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
+        <!-- Instagram Actual Feed here -->
         <% if @response %>
-          <%= @response %>
+          <% @response.first["data"].each do |response| %>
+            <%= response["images"]["standard_resolution"]["url"] %>
+          <% end %>
         <% end %>
-
       <% end %>
     <!-- Actual Feed here -->
     <% @feed.each do |tweet| %>
       <p><%= tweet.text %>
-      <%= tweet.created_at %></p>  
+      <%= tweet.created_at %></p>
     <% end  %>
+
+
 
 </div>
