@@ -1,11 +1,14 @@
 <!-- This view is for de-bugging. Prob will delete this view later -->
-
+window.instgrm.Embeds.process()
 
 <h1>Instagram User <%= @user_id %>'s Posts:</h1>
   <% @insta_user_posts.each do |post| %>
     <%= image_tag post["images"]["low_resolution"]["url"] %>
     <%= post["caption"]["text"] %>
-<% end %>
+    <%= post["link"] %>
+  <% end %>
+
+  <%= @embedded_response %>
 <br>
 
 <br>
