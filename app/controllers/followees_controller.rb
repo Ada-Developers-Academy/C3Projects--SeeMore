@@ -59,13 +59,13 @@ class FolloweesController < ApplicationController
   end
 
   # pull a user's instagram posts
-  def insta_user_posts
+  def insta_posts
     # will need to update this @user_id variable when we no longer are using a route to set params[:user] here
-    @user_id = params[:user]
-    response = HTTParty.get(INSTA_USER_POSTS_URI + @user_id + "/media/recent/?count=3&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
+    @followee = params[:followee]
+    response = HTTParty.get(INSTA_USER_POSTS_URI + @followee + "/media/recent/?count=3&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
 
-    @insta_user_posts = response["data"]
-    link = @insta_user_posts.first["link"]
+    @insta_posts = response["data"]
+    link = @insta_posts.first["link"]
   
     @instagram_html = get_embedded_html_instagram(link)
 

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post "/unsubscribe/:id", to: "subscriptions#unsubscribe", as: "unsubscribe"
 
   # this route is for de-bugging fetching a user's posts. Prob will delete later
-  get '/instagram/:user/posts', to: 'followees#insta_user_posts', as: "iuser_posts"
+  get '/instagram/:followee/posts', to: 'followees#insta_posts', as: "insta_posts"
   get '/twitter/:followee/posts', to: 'followees#twitter_posts', as: "twit_posts"
 
 
