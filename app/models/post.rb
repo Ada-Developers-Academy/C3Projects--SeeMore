@@ -4,4 +4,7 @@ class Post < ActiveRecord::Base
 
   # Associations ---------------------------------------------------------------
   belongs_to :followee
+
+  # Scopes ---------------------------------------------------------------------
+  scope :sort, -> { order('native_created_at')}
 end
