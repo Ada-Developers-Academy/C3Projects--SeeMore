@@ -6,7 +6,7 @@ class CreatePosts < ActiveRecord::Migration
       t.string :text
       t.string :image
       t.string :content_id, null: false
-      t.references :subcription, index: true, foreign_key: true
+      t.references :subscription, index: true, foreign_key: true
 
       t.timestamps null: false
     end

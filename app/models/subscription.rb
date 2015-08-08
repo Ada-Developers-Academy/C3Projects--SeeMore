@@ -4,7 +4,17 @@ class Subscription < ActiveRecord::Base
   has_many :posts
 
   # Validations
+  validate :twitter_xor_instagram_id
   # would be good to write a validation that it has either a twitter_id OR an instagram_id
+
+  private
+    # validates that there is EITHER a twitter OR instagram id
+    # can't both be blank or both have values
+    def twitter_xor_instagram_id
+      if !(twitter_id.blank? ^ instagram_id.blank?)
+        errors.add(:ids, "Subscription must have one id")
+      end
+    end
 
   # NOTE TO SELF: This does not work as a scope BECAUSE
   # if it finds NOTHING it returns EVERYTHING.

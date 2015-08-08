@@ -14,17 +14,17 @@
 ActiveRecord::Schema.define(version: 20150808000102) do
 
   create_table "posts", force: :cascade do |t|
-    t.string   "username",       null: false
-    t.datetime "posted_at",      null: false
+    t.string   "username",        null: false
+    t.datetime "posted_at",       null: false
     t.string   "text"
     t.string   "image"
-    t.string   "content_id",     null: false
-    t.integer  "subcription_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "content_id",      null: false
+    t.integer  "subscription_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
-  add_index "posts", ["subcription_id"], name: "index_posts_on_subcription_id"
+  add_index "posts", ["subscription_id"], name: "index_posts_on_subscription_id"
 
   create_table "subscriptions", force: :cascade do |t|
     t.string   "twitter_id"
