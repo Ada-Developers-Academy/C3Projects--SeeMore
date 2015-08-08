@@ -11,36 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150806212410) do
+ActiveRecord::Schema.define(version: 20150808000102) do
 
-  create_table "ig_subscriptions", force: :cascade do |t|
-    t.string   "instagram_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  create_table "ig_subscriptions_users", force: :cascade do |t|
-    t.integer "user_id",            null: false
-    t.integer "ig_subscription_id", null: false
-  end
-
-  add_index "ig_subscriptions_users", ["ig_subscription_id"], name: "index_ig_subscriptions_users_on_ig_subscription_id"
-  add_index "ig_subscriptions_users", ["user_id"], name: "index_ig_subscriptions_users_on_user_id"
-
-  create_table "twi_subscriptions", force: :cascade do |t|
-    t.string   "twitter_id"
-    t.string   "twitter_handle"
+  create_table "posts", force: :cascade do |t|
+    t.string   "username",       null: false
+    t.datetime "posted_at",      null: false
+    t.string   "text"
+    t.string   "image"
+    t.string   "content_id",     null: false
+    t.integer  "subcription_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
 
-  create_table "twi_subscriptions_users", force: :cascade do |t|
-    t.integer "user_id",             null: false
-    t.integer "twi_subscription_id", null: false
+  add_index "posts", ["subcription_id"], name: "index_posts_on_subcription_id"
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string   "twitter_id"
+    t.string   "instagram_id"
+    t.string   "profile_pic"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
-  add_index "twi_subscriptions_users", ["twi_subscription_id"], name: "index_twi_subscriptions_users_on_twi_subscription_id"
-  add_index "twi_subscriptions_users", ["user_id"], name: "index_twi_subscriptions_users_on_user_id"
+  create_table "subscriptions_users", force: :cascade do |t|
+    t.integer "user_id",         null: false
+    t.integer "subscription_id", null: false
+  end
+
+  add_index "subscriptions_users", ["subscription_id"], name: "index_subscriptions_users_on_subscription_id"
+  add_index "subscriptions_users", ["user_id"], name: "index_subscriptions_users_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "uid"
