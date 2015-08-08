@@ -21,9 +21,11 @@
 
       <% end %>
     <!-- Actual Feed here -->
-    <% @feed.each do |tweet| %>
-      <p><%= tweet.text %>
-      <%= tweet.created_at %></p>  
-    <% end  %>
+    <% if @user %>
+      <% @feed.each do |tweet| %>
+        <p><%= tweet.text %>
+        <%= tweet.created_at %></p>  
+      <% end  %>
+    <% end %>
 
 </div>
