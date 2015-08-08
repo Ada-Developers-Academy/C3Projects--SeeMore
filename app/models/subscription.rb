@@ -12,7 +12,7 @@ class Subscription < ActiveRecord::Base
     # can't both be blank or both have values
     def twitter_xor_instagram_id
       if !(twitter_id.blank? ^ instagram_id.blank?)
-        errors.add(:base, "Subscription must have one id")
+        errors.add(:ids, "Subscription must have one id")
       end
     end
 

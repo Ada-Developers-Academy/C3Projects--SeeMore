@@ -15,6 +15,14 @@ FactoryGirl.define do
     instagram_id "123456"
   end
 
+  factory :nil_sub, class: Subscription do
+  end
+
+  factory :dup_sub, class: Subscription do
+    instagram_id "123456"
+    twitter_id "123456"
+  end
+
   factory :user do
     uid "789"
     provider "Instagram"
