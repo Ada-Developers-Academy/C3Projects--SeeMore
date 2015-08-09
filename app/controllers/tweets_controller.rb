@@ -2,13 +2,13 @@ class TweetsController < ApplicationController
   before_action :require_login, only: [:create]
 
   def search
-    if params[:tweet].present?
+    if params[:tweet][:username].present?
       username = params[:tweet][:username]
       @users = @twitter.client.user_search(username)
       # @feed = @twitter.client.user_timeline(username, count: 1)
       return render "feeds/search"
     else
-      redirect_to root_path, flash: { error: MESSAGES[:no_username] }
+      redirect_to search_path, flash: { error: MESSAGES[:no_username] }
     end
   end
 

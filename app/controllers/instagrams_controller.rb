@@ -6,7 +6,7 @@ class InstagramsController < ApplicationController
   CALLBACK_URL = "http://localhost:3000/auth/instagram/callback"
 
   def search
-    if params[:instagram].present?
+    if params[:instagram][:username].present?
       instagram_search = params[:instagram][:username]
       response = HTTParty.get(INSTAGRAM_URI + "search?q=#{instagram_search}&client_id=#{ENV["INSTAGRAM_ID"]}")
 
@@ -14,7 +14,7 @@ class InstagramsController < ApplicationController
 
       return render "feeds/search"
     else
-      redirect_to root_path, flash: { error: MESSAGES[:no_username] }
+      redirect_to search_path, flash: { error: MESSAGES[:no_username] }
     end
   end
 
