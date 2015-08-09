@@ -117,30 +117,30 @@ RSpec.describe Stalker, type: :model do
   end
 
   describe "private methods" do
-    describe ".twitter_create_params" do
+    describe ".create_params_using_nickname" do
       let(:formatted_params) { { username: "Ada", uid: "123545", provider: "twitter" } }
       let(:auth_hash) { OmniAuth.config.mock_auth[:twitter] }
 
       it "returns a formatted hash" do
-        expect(Stalker.twitter_create_params(auth_hash)).to eq(formatted_params)
+        expect(Stalker.create_params_using_nickname(auth_hash)).to eq(formatted_params)
       end
 
       it "uses the nickname as the username" do
-        method_params = Stalker.twitter_create_params(auth_hash)
+        method_params = Stalker.create_params_using_nickname(auth_hash)
         expect(auth_hash["info"]["nickname"]).to eq(method_params[:username])
       end
     end
 
-    describe ".vimeo_create_params" do
+    describe ".create_params_using_name" do
       let(:formatted_params) { { username: "Ada", uid: "123545", provider: "vimeo" } }
       let(:auth_hash) { OmniAuth.config.mock_auth[:vimeo] }
 
       it "returns a formatted hash" do
-        expect(Stalker.vimeo_create_params(auth_hash)).to eq(formatted_params)
+        expect(Stalker.create_params_using_name(auth_hash)).to eq(formatted_params)
       end
 
       it "uses the name as the username" do
-        method_params = Stalker.vimeo_create_params(auth_hash)
+        method_params = Stalker.create_params_using_name(auth_hash)
         expect(auth_hash["info"]["name"]).to eq(method_params[:username])
       end
     end

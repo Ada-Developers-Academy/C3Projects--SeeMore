@@ -34,20 +34,19 @@ class Stalker < ActiveRecord::Base
   def self.create_params_by_provider(auth_hash)
     case auth_hash["provider"]
     when "developer"
-      vimeo_create_params(auth_hash)
+      create_params_using_name(auth_hash)
     when "twitter"
-      twitter_create_params(auth_hash)
+      create_params_using_nickname(auth_hash)
     when "instagram"
-      instagram_create_params(auth_hash)
+      create_params_using_nickname(auth_hash)
     when "vimeo"
-      vimeo_create_params(auth_hash)
+      create_params_using_name(auth_hash)
     else
       raise NotImplementedError
     end
   end
 
-  def self.twitter_create_params(auth_hash)
-
+  def self.create_params_using_nickname(auth_hash)
     {
       username: auth_hash["info"]["nickname"],
       uid: auth_hash["uid"],
@@ -55,20 +54,11 @@ class Stalker < ActiveRecord::Base
     }
   end
 
-  def self.vimeo_create_params(auth_hash)
+  def self.create_params_using_name(auth_hash)
     {
       username: auth_hash["info"]["name"],
       uid: auth_hash["uid"],
       provider: auth_hash["provider"]
     }
   end
-
-  def self.instagram_create_params(auth_hash)
-    {
-      username: auth_hash["info"]["nickname"],
-      uid: auth_hash["uid"],
-      provider: auth_hash["provider"]
-    }
-  end
-
 end
