@@ -5,8 +5,11 @@ class SubscriptionsController < ApplicationController
     # do we need this?
 
   def create
-    @followee = Folowee.find(params[:followee_id])
-    @subscription.make_subscription(@user, @followee)
+    # if followee not in db, add to db
+    followee = Followee.find_or_create_by(params[:followee_id])
+    params[:source] == "instagram"
+    # need to also persist the params[:source]
+    @subscription.make_subscription(session[:user_id], followee)
 
     redirect_to root_path
   end

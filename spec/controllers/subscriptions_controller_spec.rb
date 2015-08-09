@@ -15,7 +15,7 @@ RSpec.describe SubscriptionsController, type: :controller do
 
     it "creates a new subscription" do
       # binding.pry
-      post :create => :subscription
+      post :create => :subscription, user: zynthia, followee: beyonce
       subscription.reload
       expect(Subscription.count).to eq(1)
     end
