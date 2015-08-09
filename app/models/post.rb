@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   # Associations
-  belongs_to :subcription
+  belongs_to :subscription
   has_many :users, through: :subscriptions
 
   #Validations
