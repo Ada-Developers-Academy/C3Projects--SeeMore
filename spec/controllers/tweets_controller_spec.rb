@@ -3,6 +3,16 @@ require 'airborne'
 
 RSpec.describe TweetsController, type: :controller do
   describe "POST #create" do
+    context "login required" do
+      it "doesn't create twitter record" do
+        session[:user_id] = nil
+
+        post :create, tweet: attributes_for(:tweet)
+        expect(Tweet.count).to eq(0)
+        expect(flash[:error]).to_not be nil
+      end
+    end
+
     context "valid params" do
       before :each do
         @user = create :user
