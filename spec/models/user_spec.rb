@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
   let(:user)   { build(:user) }
   let(:twisub) { build(:twi_sub) }
   let(:igsub)  { build(:ig_sub) }
+  let(:post)   { build(:post) }
 
   describe "validations" do
 
@@ -105,6 +106,26 @@ RSpec.describe User, type: :model do
 
       expect(twisub.users.first.uid).to eq "789"
       expect(user.subscriptions.first.twitter_id).to eq "123456"
+    end
+
+    it "a user has posts through instagram subscriptions" do
+      user.save
+      igsub.save
+      igsub.users << user
+      post.save
+
+      expect(user.posts.count).to eq 1
+      expect(user.posts.first).to eq post
+    end
+
+    it "a user has posts through twitter subscriptions" do
+      user.save
+      twisub.save
+      twisub.users << user
+      post.save
+
+      expect(user.posts.count).to eq 1
+      expect(user.posts.first).to eq post
     end
   end
 end
