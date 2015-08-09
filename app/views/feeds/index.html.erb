@@ -1,31 +1,33 @@
 <div class="container center">
   <h1 class="header">NinjaPartay</h1>
     <% if session[:user_id].nil? %>
-      <h3>Choose Your Weapon</h3>
+    <div class="jumbotron">
+      <div class="container">
+      <h3 class="login-header">Choose Your Weapon</h3>
         <%= link_to login_path(provider: :instagram) do %>
-            <span class="fa fa-instagram fa-5x col-sm-1 center social-icon" aria-hidden="true" data-toggle="tooltip" title="instagram login"></span>
+            <span class="fa fa-instagram fa-5x col-sm-1 center ig-icon" aria-hidden="true" data-toggle="tooltip" title="instagram login"></span>
         <% end %>
         <%= link_to login_path(provider: :twitter) do %>
-            <span class="fa fa-twitter fa-5x col-sm-1 center social-icon" aria-hidden="true" data-toggle="tooltip" title="twitter login"></span>
+            <span class="fa fa-twitter fa-5x col-sm-1 center twitter-icon" aria-hidden="true" data-toggle="tooltip" title="twitter login"></span>
         <% end %>
+      </div>
+    </div>
       <% else %>
         <% if @user %>
           <h2><%= @user.username %></h2>
         <% end %>
+        <div class="follow-delete-button">
         <%= link_to "Follow People", search_path, class: "btn btn-primary" %>
         <!-- Manage feed button -->
         <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
-        <% if @response %>
-          <%= @response %>
-        <% end %>
-
+      </div>
       <% end %>
-    <!-- Actual Feed here -->
+    <div class="feed">
     <% if @user %>
       <% @feed.each do |tweet| %>
         <p><%= tweet.text %>
-        <%= tweet.created_at %></p>  
+        <%= tweet.created_at %></p>
       <% end  %>
     <% end %>
-
+  </div>
 </div>
