@@ -66,6 +66,11 @@ group :development, :test do
   gem 'simplecov', require: false
 end
 
+group :test do
+  gem 'vcr'
+  gem 'webmock'
+end
+
 group :production do
   # For deploying to Heroku.
   gem 'pg'
