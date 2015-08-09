@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'airborne'
 
 RSpec.describe TweetsController, type: :controller do
   describe "POST #create" do
@@ -46,4 +47,14 @@ RSpec.describe TweetsController, type: :controller do
       end
     end
   end
+
+  # describe "GET #search" do
+  #   context "valid params" do
+  #     it "returns correct types" do
+  #       get :search, :format => 'json' #if your route responds to both html and json
+  #       expect_status(302)
+  #     end
+  #   end
+  # end
+
 end

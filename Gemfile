@@ -66,6 +66,7 @@ group :development, :test do
 
   # Rspec
   gem 'rspec-rails'
+  gem 'airborne'
 
   # Factory Girl
   gem 'factory_girl_rails', '~> 4.0'
