@@ -1,7 +1,7 @@
 class SubscriptionsController < ApplicationController
   before_action :find_user
 
-  # def new; end
+  def new; end
     # do we need this?
 
   def create

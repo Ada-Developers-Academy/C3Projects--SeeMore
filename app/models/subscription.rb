@@ -11,7 +11,7 @@ class Subscription < ActiveRecord::Base
     # binding.pry
     subscription = self.create(user_id: user.id, followee_id: followee.id)
     # subscription[:user_id] = user_id
-    followee.save ? subscription : false
+    subscription.save ? subscription : false
 
   end
 

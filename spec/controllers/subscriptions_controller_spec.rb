@@ -15,7 +15,8 @@ RSpec.describe SubscriptionsController, type: :controller do
 
     it "creates a new subscription" do
       # binding.pry
-      post :create => :subscription, user: zynthia, followee: beyonce
+      post :create => :subscription
+      subscription.reload
       expect(Subscription.count).to eq(1)
     end
       # it "redirect_to user_path" do
