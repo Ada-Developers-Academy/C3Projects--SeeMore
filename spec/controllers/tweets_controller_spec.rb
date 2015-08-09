@@ -2,6 +2,32 @@ require 'rails_helper'
 require 'airborne'
 
 RSpec.describe TweetsController, type: :controller do
+  describe "POST #search" do
+    context "valid params" do
+      xit "searches users in Twitter API" do
+        post :search, tweet: { username: "name" }
+        expect()
+      end
+
+      it "renders search template" do
+        post :search, tweet: { username: "name" }
+        expect(response).to render_template("feeds/search")
+      end
+    end
+
+    context "invalid params" do
+      it "redirects to search page" do
+        post :search, tweet: { username: nil }
+        expect(response).to redirect_to(search_path)
+      end
+
+      it "displays an error message" do
+        post :search, tweet: { username: nil }
+        expect(flash[:error]).to_not be nil
+      end
+    end
+  end
+
   describe "POST #create" do
     context "login required" do
       it "doesn't create twitter record" do
@@ -57,14 +83,5 @@ RSpec.describe TweetsController, type: :controller do
       end
     end
   end
-
-  # describe "GET #search" do
-  #   context "valid params" do
-  #     it "returns correct types" do
-  #       get :search, :format => 'json' #if your route responds to both html and json
-  #       expect_status(302)
-  #     end
-  #   end
-  # end
 
 end

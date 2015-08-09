@@ -1,7 +1,32 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe InstagramsController, type: :controller do
+
+  describe "POST #search" do
+    context "valid params" do
+      xit "searches users in Instagram API" do
+        post :search, instagram: { username: "name" }
+        expect()
+      end
+
+      it "renders search template" do
+        post :search, instagram: { username: "name" }
+        expect(response).to render_template("feeds/search")
+      end
+    end
+
+    context "invalid params" do
+      it "redirects to search page" do
+        post :search, instagram: { username: nil }
+        expect(response).to redirect_to(search_path)
+      end
+
+      it "displays an error message" do
+        post :search, instagram: { username: nil }
+        expect(flash[:error]).to_not be nil
+      end
+    end
+  end
 
   describe "POST #create" do
     context "login required" do

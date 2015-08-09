@@ -1,11 +1,9 @@
-require 'twitter'
 require 'twit'
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_filter :twit
 
   INSTAGRAM_URI = "https://api.instagram.com/v1/users/"
   MESSAGES = {
@@ -14,10 +12,6 @@ class ApplicationController < ActionController::Base
     follow_error: "Oops. Something went wrong.",
     login_required: "You have to be logged in to do that!"
   }
-
-  def twit
-    @twitter ||= Twit.new
-  end
 
   def require_login
     unless session[:user_id]

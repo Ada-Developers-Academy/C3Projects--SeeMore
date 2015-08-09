@@ -19,7 +19,7 @@ class FeedsController < ApplicationController
       @feed = []
       @people.each do |person|
         username = person.username
-        @feed << @twitter.client.user_timeline(username, count: 10)
+        @feed << Twit.user_timeline(username)
         @feed.flatten!
         @feed.sort_by { |tweet| tweet.created_at.strftime("%m/%d/%Y") }
       end
