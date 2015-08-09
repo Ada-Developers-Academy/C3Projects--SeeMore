@@ -34,7 +34,7 @@ class Stalker < ActiveRecord::Base
   def self.create_params_by_provider(auth_hash)
     case auth_hash["provider"]
     when "developer"
-      # TODO: still needs to be implemented! Currently a bug.
+      vimeo_create_params(auth_hash)
     when "twitter"
       twitter_create_params(auth_hash)
     when "instagram"
