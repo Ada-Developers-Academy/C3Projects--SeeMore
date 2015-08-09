@@ -26,7 +26,7 @@ RSpec.describe Subscription, type: :model do
     let!(:beyonce) { create :followee, id: 200, handle: "beyonce", source: "instagram" }
 
     it "creates valid subscription to existing followee & user" do
-      natgeo = Subscription.make_subscription(zynthia, beyonce)
+      natgeo = Subscription.make_subscription(zynthia.id, beyonce)
       expect(natgeo).to be_valid
     end
   end

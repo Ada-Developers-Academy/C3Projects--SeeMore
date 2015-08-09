@@ -6,10 +6,10 @@ class SubscriptionsController < ApplicationController
 
   def create
     # if followee not in db, add to db
-    followee = Followee.find_or_create_by(params[:followee_id])
-    params[:source] == "instagram"
+    followee = Followee.find_or_create_by(params[:id])
+        # how to get the whole of user passed into method above?
     # need to also persist the params[:source]
-    @subscription.make_subscription(session[:user_id], followee)
+    Subscription.make_subscription(session[:user_id], followee)
 
     redirect_to root_path
   end
