@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809205747) do
+ActiveRecord::Schema.define(version: 20150809210900) do
 
   create_table "grams", force: :cascade do |t|
     t.string   "uid",        null: false
     t.string   "body"
     t.string   "photo_url",  null: false
-    t.datetime "gram_time",  null: false
+    t.datetime "post_time",  null: false
     t.integer  "prey_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20150809205747) do
   create_table "tweets", force: :cascade do |t|
     t.string   "uid",        null: false
     t.string   "body"
-    t.datetime "tweet_time", null: false
+    t.datetime "post_time",  null: false
     t.integer  "prey_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
