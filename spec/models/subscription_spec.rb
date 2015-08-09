@@ -5,31 +5,6 @@ RSpec.describe Subscription, type: :model do
   let(:igsub)  { build(:ig_sub) }
   let(:user)   { build(:user) }
 
-  describe "model validations" do
-
-    it "requires an twitter id OR an instagram id" do
-      expect(twisub).to be_valid
-    end
-
-    it "requires an twitter id OR an instagram id" do
-      expect(igsub).to be_valid
-    end
-
-    it "won't create a subscription without an id" do
-      nilsub = build(:nil_sub)
-
-      expect(nilsub).to be_invalid
-      expect(nilsub.errors.messages).to include(:ids)
-    end
-
-    it "won't create a subscription with both ids" do
-      dupsub = build(:dup_sub)
-
-      expect(dupsub).to be_invalid
-      expect(dupsub.errors.messages).to include(:ids)
-    end
-  end
-
   describe "model associations" do
     it "a Twitter subscription has and belongs to a user" do
       user.save
@@ -59,6 +34,30 @@ RSpec.describe Subscription, type: :model do
     end
   end
 
+  describe "model validations" do
+
+    it "requires an twitter id OR an instagram id" do
+      expect(twisub).to be_valid
+    end
+
+    it "requires an twitter id OR an instagram id" do
+      expect(igsub).to be_valid
+    end
+
+    it "won't create a subscription without an id" do
+      nilsub = build(:nil_sub)
+
+      expect(nilsub).to be_invalid
+      expect(nilsub.errors.messages).to include(:ids)
+    end
+
+    it "won't create a subscription with both ids" do
+      dupsub = build(:dup_sub)
+
+      expect(dupsub).to be_invalid
+      expect(dupsub.errors.messages).to include(:ids)
+    end
+  end
   # describe "model methods" do
   #   context "#find_twitter_id" do
   #     it "finds a twitter subscription according to twitter_id" do
