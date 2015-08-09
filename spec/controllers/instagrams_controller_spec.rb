@@ -84,4 +84,25 @@ RSpec.describe InstagramsController, type: :controller do
     end
   end # POST #create
 
+  describe "DELETE #destroy" do
+    context "valid params" do
+      before :each do
+        @user = create :user
+        session[:user_id] = @user.id
+        @instagrammer = create :instagram
+      end
+
+      it "unfollows a tweeter" do
+        delete :destroy, id: @instagrammer.id
+
+        expect(@user.instagrams.count).to eq(0)
+      end
+
+      it "redirects to the people page" do
+        delete :destroy, id: @instagrammer.id
+        expect(subject).to redirect_to(people_path)
+      end
+    end
+  end # DELETE #destroy
+
 end # controller spec

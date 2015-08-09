@@ -84,4 +84,25 @@ RSpec.describe TweetsController, type: :controller do
     end
   end
 
+  describe "DELETE #destroy" do
+    context "valid params" do
+      before :each do
+        @user = create :user
+        session[:user_id] = @user.id
+        @tweeter = create :tweet
+      end
+
+      it "unfollows a tweeter" do
+        delete :destroy, id: @tweeter.id
+
+        expect(@user.tweets.count).to eq(0)
+      end
+
+      it "redirects to the people page" do
+        delete :destroy, id: @tweeter.id
+        expect(subject).to redirect_to(people_path)
+      end
+    end
+  end # DELETE #destroy
+
 end
