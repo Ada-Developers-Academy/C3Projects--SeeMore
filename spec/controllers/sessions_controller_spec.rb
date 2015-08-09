@@ -44,7 +44,7 @@ RSpec.describe SessionsController, type: :controller do
           }.to change(User, :count).by(0)
       end
     end
-  end
+  end # GET #create
 
   describe "DELETE #destroy" do
     context "valid params" do
@@ -64,6 +64,6 @@ RSpec.describe SessionsController, type: :controller do
         expect(subject).to redirect_to(root_path)
       end
     end
-  end
+  end # DELETE #destroy
 
-end
+end # controller spec

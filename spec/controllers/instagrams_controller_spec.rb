@@ -4,6 +4,16 @@ require 'pry'
 RSpec.describe InstagramsController, type: :controller do
 
   describe "POST #create" do
+    context "login required" do
+      it "doesn't create instagram record" do
+        session[:user_id] = nil
+
+        post :create, instagram: attributes_for(:instagram)
+        expect(Instagram.count).to eq(0)
+        expect(flash[:error]).to_not be nil
+      end
+    end
+
     context "valid params" do
       before :each do
         @user = create :user
@@ -24,8 +34,6 @@ RSpec.describe InstagramsController, type: :controller do
         expect(response).to redirect_to(root_path)
         expect(response).to have_http_status(302)
       end
-
-
     end
 
     context "invalid params" do
@@ -49,8 +57,6 @@ RSpec.describe InstagramsController, type: :controller do
         expect(response).to render_template("feeds/search")
       end
     end
+  end # POST #create
 
-
-  end# post create
-
-end# controller
+end # controller spec
