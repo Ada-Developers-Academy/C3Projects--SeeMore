@@ -20,11 +20,21 @@ class FeedsController < ApplicationController
       @people.each do |person|
         username = person.username
         @feed << @twitter.client.user_timeline(username, count: 10)
+        raise
         @feed.flatten!
         @feed.sort_by { |tweet| tweet.created_at.strftime("%m/%d/%Y") }
       end
     end
   end
+
+  # TweetPost model
+  # ---------------
+  # post_id:integer     ([id])
+  # posted_at:datetime  ([created_at])
+  # text:text           ([text])
+  # media_url:string    ([entities][media][media_url])
+  # tweet_id:integer    (Tweet model FK)
+
 
   def search; end
 
