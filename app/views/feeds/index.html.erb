@@ -15,13 +15,27 @@
         <%= link_to "Follow People", search_path, class: "btn btn-primary" %>
         <!-- Manage feed button -->
         <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
+
         <!-- Instagram Actual Feed here -->
         <% if @response %>
           <% @response.first["data"].each do |response| %>
-            <%= response["images"]["standard_resolution"]["url"] %>
+            <div class="row">
+              <div class="col-sm-4 center">
+                <div class="thumbnail">
+                  <%= link_to image_tag(response["images"]["standard_resolution"]["url"]), "https://instagram.com/p/6EV9MOKwzY/" %>
+                  <div class="caption">
+                    <% unless response["caption"].nil? %>
+                      <p><%= response["caption"]["text"] %></p>
+                    <% end %>
+                    <em><%= Time.at(response["created_time"].to_i).strftime("%m/%d/%Y at %I:%M%p") %></em>
+                  </div>
+                </div>
+              </div>
+            </div>
           <% end %>
         <% end %>
       <% end %>
+
     <!-- Actual Feed here -->
     <% @feed.each do |tweet| %>
       <p><%= tweet.text %>

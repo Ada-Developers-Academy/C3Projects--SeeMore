@@ -6,6 +6,7 @@ class FeedsController < ApplicationController
       @response = []
       @user.instagrams.each do |gram|
         @response << HTTParty.get(INSTAGRAM_URI + "#{gram.provider_id}/media/recent?access_token=#{session[:access_token]}")
+      raise
       end
     end
 
