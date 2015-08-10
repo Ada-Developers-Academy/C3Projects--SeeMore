@@ -29,10 +29,10 @@ class FeedsController < ApplicationController
     end
   end
 
-  def tw_follow(tw_user)
-    # run the model method
-    Tweet.follow(tw_user)
-    redirect_to search_results_path
+  def tw_follow(tw_user_id_str)
+    twitter_user = TwUser.find_or_create_by(tw_user_id_str)
+    our_user = User.find(session[:user_id])
+    out_user.tw_users << [twitter_user]
   end
 
 end
