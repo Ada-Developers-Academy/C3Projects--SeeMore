@@ -28,8 +28,6 @@ class InstagramsController < ApplicationController
     else
       return render "feeds/search", flash: { error: MESSAGES[:follow_error] }
     end
-    redirect_to search_path
-    # add flash: no search results were found for 'username'
   end
 
   def destroy
