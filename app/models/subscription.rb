@@ -21,6 +21,7 @@ class Subscription < ActiveRecord::Base
   # This is by design to make scopes chainable.
   # Thx scopes.
 
+
   # Not sure if this id == @twitter_id is 100% failsafe
   def self.find_id(id)
     if id == @twitter_id

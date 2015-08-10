@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+#do we get rid of or par down tests for developer log in? since it's not production?
 RSpec.describe SessionsController, type: :controller do
   describe "GET #create" do
     context "when using omniauth developer authorization" do

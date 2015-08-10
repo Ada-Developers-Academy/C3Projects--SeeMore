@@ -31,6 +31,7 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
 
     it "assigns @results if logged in" do
       log_in
+
       get :index, twitter_search: "lolcats"
 
       expect(assigns(:results)).to_not be_nil
@@ -52,11 +53,12 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
       expect(subject).to redirect_to root_path
     end
 
+    #associations method is adding the id to instragram, not twitter
     it "associates the twitter subscription with user" do
       log_in
       post :create, twitter_id: "777"
 
-      expect(assigns(:user).twi_subscriptions).to include(TwiSubscription.find_by(twitter_id: "777"))
+      expect(assigns(:user).subscriptions).to include(Subscription.find_by(twitter_id: "777"))
     end
   end
 end
