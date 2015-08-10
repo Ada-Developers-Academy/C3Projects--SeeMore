@@ -29,10 +29,13 @@ class FeedsController < ApplicationController
     end
   end
 
-  def tw_follow(tw_user_id_str)
-    twitter_user = TwUser.find_or_create_by(tw_user_id_str)
+  def tw_follow
+    id = params[:tw_user]
+    twitter_user = TwUser.find_or_create_by(tw_user_id_str: id)
     our_user = User.find(session[:user_id])
-    out_user.tw_users << [twitter_user]
+    our_user.tw_users << [twitter_user]
+
+    redirect_to :back
   end
 
 end
