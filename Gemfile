@@ -10,7 +10,6 @@ gem 'httparty'
 gem 'twitter'
 # Instagram API
 gem 'instagram'
-
 # styling
 gem 'bootstrap-sass'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -34,7 +33,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 

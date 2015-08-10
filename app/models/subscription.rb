@@ -12,4 +12,7 @@ class Subscription < ActiveRecord::Base
 
     subscription.save ? subscription : false
   end
+  
+  # Scopes ------------------------------
+  scope :active, -> { where(unsubscribe_date: nil) }
 end

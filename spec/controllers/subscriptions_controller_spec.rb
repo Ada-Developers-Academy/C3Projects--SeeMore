@@ -27,6 +27,7 @@ RSpec.describe SubscriptionsController, type: :controller do
     #
     #   expect(response).to redirect_to(root_path)
     # end
+
   #
   # # describe "POST #unsubscribe" do
   # #   let!(:subscription) { create :subscription }
