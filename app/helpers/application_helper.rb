@@ -4,9 +4,9 @@ module ApplicationHelper
     matches = TwUser.find_by(tw_user_id_str: id)
     # Checks if there are any matches
     unless matches == nil
-    # This checks the twitter user is associated with the Creep Peep user
-    matches.users.first.id == session[:user_id]
-    # if match, this returns true
+      # This checks the twitter user is associated with the Creep Peep user
+      matches.users.first.id == session[:user_id]
+      # if match, this returns true
     else
       return false
     end
