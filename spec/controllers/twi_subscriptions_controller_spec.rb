@@ -25,17 +25,17 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
 
     # will need to refactor using this setup for VCR use
     # only needed for tests that hit the API
-    # VCR.use_cassette('whatever cassette name you want') do
-    #    # the body of the test would go here...
-    # end
-
     it "assigns @results if logged in" do
-      log_in
+      VCR.use_cassette('twitter user search') do
+        log_in
 
-      get :index, twitter_search: "lolcats"
+        get :index, twitter_search: "lolcats"
 
-      expect(assigns(:results)).to_not be_nil
+        expect(assigns(:results)).to_not be_nil
+      end
     end
+
+
   end
 
   describe "#create" do
