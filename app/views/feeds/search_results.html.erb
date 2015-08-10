@@ -9,7 +9,8 @@
       <% if tw_following?(user.id) %>
         <p>Following!</p>
       <% else %>
-        <p><%= button_to "Follow", tw_follow_path(user.id), class: "btn btn-success" %></p>
+        <p><%= button_to "Follow", tw_follow_path(user.id), params: { profile_image_url: user.profile_image_url,
+        screen_name: user.screen_name, user_name: user.name}, class: "btn btn-success" %></p>
         <!-- Add a link here once users and sessions are complete -->
       <% end %>
     </div>

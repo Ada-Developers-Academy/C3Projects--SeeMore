@@ -32,9 +32,13 @@ class FeedsController < ApplicationController
   def tw_follow
     id = params[:tw_user]
     twitter_user = TwUser.find_or_create_by(tw_user_id_str: id)
+    # TODO: Refactor so these assignments happen in another method
+    twitter_user.user_name = params[:user_name]
+    twitter_user.screen_name = params[:screen_name]
+    twitter_user.profile_image_url = params[:profile_image_url]
+    twitter_user.save
     our_user = User.find(session[:user_id])
     our_user.tw_users << [twitter_user]
-
     redirect_to :back
   end
 
