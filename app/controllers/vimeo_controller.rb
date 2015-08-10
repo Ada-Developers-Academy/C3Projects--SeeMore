@@ -7,9 +7,9 @@ class VimeoController < ApplicationController
    
    
   def results
-    user = params[:query]
+    query = params[:query]
                 
-    auth = JSON.parse(HTTParty.get(SEARCH_URI + user + "&sort=relevant", :headers => TOKEN_HEADER ))
+    auth = JSON.parse(HTTParty.get(SEARCH_URI + query + "&sort=relevant", :headers => TOKEN_HEADER ))
     @results = auth["data"]
   end
 
