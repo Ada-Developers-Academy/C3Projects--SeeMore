@@ -4,8 +4,7 @@ class VimeoController < ApplicationController
                     "Accept" => "application/vnd.vimeo.*+json;version=3.2",
                     "Authorization" => "bearer #{ENV["VIMEO_ACCESS_TOKEN"]}" 
                   }
-   
-   
+                   
   def results
     query = params[:query]
                 
