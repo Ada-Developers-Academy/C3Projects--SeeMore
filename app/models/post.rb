@@ -4,7 +4,7 @@ class Post < ActiveRecord::Base
   belongs_to :prey
   has_many :media
 
-  validates :uid, :post_time, :prey_id, :url, presence: true
+  validates :uid, :post_time, :prey_id, :url, :provider, presence: true
 
   def self.seed_tweets(prey_uid, count = 5)
     tweets = TwitterClient.fetch_tweets(prey_uid, { count: count })
