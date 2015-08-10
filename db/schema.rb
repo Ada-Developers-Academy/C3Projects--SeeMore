@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20150809233631) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "grams", ["prey_id"], name: "index_grams_on_prey_id"
+
   create_table "prey", force: :cascade do |t|
     t.string   "name"
     t.string   "username"
@@ -68,5 +70,7 @@ ActiveRecord::Schema.define(version: 20150809233631) do
     t.datetime "updated_at", null: false
     t.string   "url",        null: false
   end
+
+  add_index "tweets", ["prey_id"], name: "index_tweets_on_prey_id"
 
 end

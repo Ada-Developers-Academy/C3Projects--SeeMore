@@ -1,9 +1,8 @@
 class SessionsController < ApplicationController
-  skip_before_filter :verify_authenticity_token, only: :create
+  skip_before_filter :verify_authenticity_token, only: :create, :if => proc { |c| Rails.env.development? }
+  skip_before_filter :require_login, only: :index
 
-  def index
-
-  end
+  def index; end
 
   def create
     auth_hash = request.env['omniauth.auth']
