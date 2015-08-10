@@ -1,5 +1,5 @@
-<h1><%= @user %>'s Subscriptions </h1>
-<!-- how are we designating both source subscriptions?? -->
+<h1 class="center"><%= @user.name.capitalize %>'s Subscriptions </h1>
+
 <% @subscriptions.each do |s| %>
   <%= link_to image_tag(s.avatar_url, class: "img-thumbnail", size: "50x50") %>
   <%= link_to s.handle %>
