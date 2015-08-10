@@ -1,5 +1,7 @@
 module ApplicationHelper
   def logged_in?
-    session[:user_id]
+    unless session[:user_id].blank?
+      return true
+    end
   end
 end
