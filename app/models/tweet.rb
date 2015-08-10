@@ -6,8 +6,9 @@ class Tweet < ActiveRecord::Base
   validates :tw_user_id_str, :tw_created_at, :tw_text, :user_id, presence: true
   validates :tw_id_str, presence: true, uniqueness: true
 
-  def self.follow(tw_user) # aka tweet factory
-    # look up tweets for that twitter user
+  def self.follow(tw_user)
+    # this should just create a join table association between the user
+    # and a tweet
     tweets = @twit_init.client.user_timeline(tw_user).take(5)
     # TODO: This number five is arbitrary. Decide how many tweets to take later.
     # for each tweet make the foreign key user_id = the sessions user_id
