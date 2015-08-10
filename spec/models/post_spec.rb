@@ -37,4 +37,16 @@ RSpec.describe Post, type: :model do
       expect(post).to respond_to(:followee)
     end
   end
+
+  describe "scopes" do
+    context ":sort scope" do
+      let(:post)  { create :post, native_created_at: "2015-08-01" }
+      let(:post2) { create :post, native_created_at: "2015-06-01" }
+      let(:post3) { create :post, native_created_at: "2015-07-01" }
+
+      it "sorts posts by native_created_at date" do
+        expect(Post.chron_sort).to eq([post2, post3, post])
+      end
+    end
+  end
 end
