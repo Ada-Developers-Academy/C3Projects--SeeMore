@@ -1,0 +1,2 @@
+module InstagramPostsHelper
+end

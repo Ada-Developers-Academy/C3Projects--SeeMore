@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  INSTAGRAM_URI = "https://api.instagram.com/v1/users/"
+  INSTAGRAM_URI = "https://api.instagram.com/v1/"
   MESSAGES = {
     no_username: "There's no user by that name. Search again.",
     success: "Success!",

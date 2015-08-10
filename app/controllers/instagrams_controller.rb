@@ -8,7 +8,7 @@ class InstagramsController < ApplicationController
   def search
     if params[:instagram][:username].present?
       instagram_search = params[:instagram][:username]
-      response = HTTParty.get(INSTAGRAM_URI + "search?q=#{instagram_search}&client_id=#{ENV["INSTAGRAM_ID"]}")
+      response = HTTParty.get(INSTAGRAM_URI + "users/search?q=#{instagram_search}&client_id=#{ENV["INSTAGRAM_ID"]}")
 
       @users = response["data"]
 

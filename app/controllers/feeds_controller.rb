@@ -1,12 +1,16 @@
+require 'httparty'
+
 class FeedsController < ApplicationController
 
   def index
     @user = User.find_by(id: session[:user_id])
+    @posts = []
     if @user && @user.instagrams
-      @response = []
-      @user.instagrams.each do |gram|
-        @response << HTTParty.get(INSTAGRAM_URI + "#{gram.provider_id}/media/recent?access_token=#{session[:access_token]}")
+      @user.instagram_posts.each do |post|
+        @posts << HTTParty.get(INSTAGRAM_URI + "media/" + post.post_id + "?access_token=#{session[:access_token]}")
       end
+      @posts.sort_by! { |post| post["data"]["created_time"]}
+      @posts.reverse!
     end
 
     if @user && @user.tweets
