@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810175627) do
+ActiveRecord::Schema.define(version: 20150810203835) do
 
   create_table "media", force: :cascade do |t|
     t.string   "url",        null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20150810175627) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "url",        null: false
+    t.string   "provider",   null: false
   end
 
   add_index "posts", ["prey_id"], name: "index_posts_on_prey_id"
