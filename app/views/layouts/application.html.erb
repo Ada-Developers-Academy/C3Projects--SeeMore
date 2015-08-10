@@ -21,6 +21,7 @@
               <%= submit_tag "Search", class: "btn btn-default" %>
             <% end %>
             <%= link_to "Sign Out", logout_path, method: :delete, class: "btn btn-success navbar-btn navbar-right" %>
+            <%= link_to "Dashboard", dashboard_path(session[:stalker_id]), class: "btn btn-default navbar-btn navbar-right" %>
         </nav>
       <% end %>
     </header>
