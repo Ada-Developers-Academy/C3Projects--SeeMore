@@ -47,9 +47,10 @@ class Feed < ActiveRecord::Base
   end
 
   def populate_vimeo_feed
-    feed_url = VIMEO_FEED_URI + platform_feed_id.to_s
-    results = JSON.parse(HTTParty.get(feed_url, :headers => TOKEN_HEADER ))
-    posts = results["data"]
+    feed_url = VIMEO_BASE_URI + platform_feed_id.to_s + VIMEO_FEED_END_URI
+    json_string_results = HTTParty.get(feed_url, :headers => VIMEO_TOKEN_HEADER )
+    json_results = JSON.parse(json_string_results)
+    posts = json_results["data"]
     posts.each do |post|
       maybe_valid_post = Post.create(create_vimeo_post(post, self.id))
     end
