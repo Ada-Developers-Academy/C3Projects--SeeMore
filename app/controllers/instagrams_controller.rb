@@ -14,15 +14,13 @@ class InstagramsController < ApplicationController
 
       return render "feeds/search"
     else
-      redirect_to search_path, flash: { error: MESSAGES[:no_username] }
+      redirect_to "feeds/search", flash: { error: MESSAGES[:no_username] }
     end
   end
 
   def create
     @instagram_person = Instagram.find_or_create_by(instagram_params)
-    @person = @instagram_person.username
     @instagram_person.users << User.find(session[:user_id])
-
     if @instagram_person.save
       return redirect_to root_path, flash: { alert: MESSAGES[:success] }
     else

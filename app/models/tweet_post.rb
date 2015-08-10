@@ -3,8 +3,8 @@ class TweetPost < ActiveRecord::Base
   belongs_to :tweet
 
   # Validations ----------------------------------------------
-  validates :post_id, :posted_at, :tweet_id presence: true
-  validates :post_id uniqueness: true
+  validates :post_id, :posted_at, :tweet_id, presence: true
+  validates :post_id, uniqueness: true
 
   def self.find_or_create_from_twitter_api(twitter_api)
     post_id = twitter_api["id"]
