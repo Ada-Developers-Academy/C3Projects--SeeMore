@@ -30,14 +30,15 @@
         <h4 class="alert alert-success"><%= key.to_s.titlecase %>: <%= value %></h4>
       <% end %>
     <% end %>
+
     <% if flash[:error] %>
       <% flash[:error].each do |key, value| %>
         <h4 class="alert alert-warning"><%= key.to_s.titlecase %>: <%= value %></h4>
       <% end %>
     <% end %>
 
-
     <%= yield %>
+
   </div>
 </body>
 </html>
