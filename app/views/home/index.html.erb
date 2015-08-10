@@ -9,8 +9,13 @@ This is why the @user.subscriptions.blank? is a thing-->
 <% elsif logged_in? %>
   <% @posts.each do |post| %>
     <%= post.username %>
-    <%= image_tag(post.image) %>
+    <% unless post.image.empty? %>
+      <% post.image.each do |image| %>
+      <%= image_tag image %>
+      <% end %>
+    <% end %>
     <%= post.text %>
+  </br>
   <% end %>
 
 <% else %>
