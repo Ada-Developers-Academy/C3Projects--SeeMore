@@ -37,19 +37,19 @@ RSpec.describe FeedsController, type: :controller do
 
   describe "GET feeds#search_results" do
     let(:twitter_params){ { provider: 'twitter', search_term: 'donald trump' } }
-    let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
-
-    it "queries the correct API" do
-      VCR.use_cassette 'controller/twitter_api_response' do
-        get :search_results, twitter_params
-        expect(assigns(:results).first.id).to eq(25073877)
-      end
-
-      VCR.use_cassette 'controller/instagram_api_search' do
-        get :search_results, instagram_params
-        expect(assigns(:results).first.id).to eq("1105876259")
-      end
-    end
+  #   let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
+  #
+  #   it "queries the correct API" do
+  #     VCR.use_cassette 'controller/twitter_api_response' do
+  #       get :search_results, twitter_params
+  #       expect(assigns(:results).first.id).to eq(25073877)
+  #     end
+  #
+  #     VCR.use_cassette 'controller/instagram_api_search' do
+  #       get :search_results, instagram_params
+  #       expect(assigns(:results).first.id).to eq("1105876259")
+  #     end
+  #   end
 
     it "receives a response from the twitter api" do
       VCR.use_cassette 'controller/twitter_api_response' do
