@@ -12,7 +12,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.update_tweets(prey_uid)
-    last_tweet_uid = tweets.order(:uid).last.uid
+    last_tweet_uid = Prey.find_by(uid: prey_uid).posts.last.uid
     tweets = TwitterClient.fetch_tweets(prey_uid, { since_id: last_tweet_uid })
     create_many_from_api(tweets)
   end
@@ -33,7 +33,8 @@ class Post < ActiveRecord::Base
       body:  tweet.text,
       post_time: tweet.created_at,
       prey_id: Prey.find_by(uid: tweet.user.id).id,
-      url: tweet.url
+      url: tweet.url,
+      provider: "twitter"
     }
   end
 end
