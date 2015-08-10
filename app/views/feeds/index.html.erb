@@ -20,9 +20,32 @@
         <%= link_to "Follow People", search_path, class: "btn btn-primary" %>
         <!-- Manage feed button -->
         <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
+        <%= render partial: "instagrams/refresh_feed" %>
+        <!-- Instagram Actual Feed here -->
+        <% if @posts %>
+          <% @posts.each do |post| %>
+            <div class="row">
+              <div class="col-sm-4 center">
+                <div class="thumbnail">
+                  <%= link_to image_tag(post["data"]["images"]["standard_resolution"]["url"]), post["data"]["link"] %>
+                  <div class="caption">
+                    <h5>Posted by: <%= post["data"]["user"]["username"] %></h5>
+                    <% unless post["data"]["caption"].nil? %>
+                      <p><%= post["data"]["caption"]["text"] %></p>
+                    <% end %>
+                    <em><%= Time.at(post["data"]["created_time"].to_i).strftime("%m/%d/%Y at %I:%M%p") %></em>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
       </div>
       <% end %>
+      
     <div class="feed">
+    <!-- Actual Feed here -->
     <% if @user %>
       <% @feed.each do |tweet| %>
           <h4><%= tweet.user.username %></h4>

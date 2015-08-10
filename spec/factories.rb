@@ -1,4 +1,7 @@
-FactoryGirl.define do
+FactoryGirl.define do  factory :instagram_post do
+    
+  end
+
   factory :user do
     email    "a@b.com"
     username "Ada"
@@ -9,12 +12,12 @@ FactoryGirl.define do
   factory :instagram do
     username "Ada"
     provider_id "1357"
-    user_ids [1, 2]
+    user_ids 1
   end
 
   factory :tweet do
     username "Ada"
     provider_id "1357"
-    user_ids [1, 2]
+    user_ids 1
   end
 end
