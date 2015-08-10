@@ -3,7 +3,7 @@ class Tweet < ActiveRecord::Base
   belongs_to :tw_users
 
   # Validations
-  validates :tw_user_id_str, :tw_created_at, :tw_text, :user_id, presence: true
+  validates :tw_created_at, presence: true
   validates :tw_id_str, presence: true, uniqueness: true
 
   # def self.follow(tw_user)
