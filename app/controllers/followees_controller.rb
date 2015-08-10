@@ -50,7 +50,6 @@ class FolloweesController < ApplicationController
     elsif params[:source] == "twitter"
       @results = @twitter_client.user_search(@query, { count: 1 })
     end
-    raise
     render 'search'
   end
 
