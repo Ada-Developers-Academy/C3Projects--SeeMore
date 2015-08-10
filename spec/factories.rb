@@ -1,4 +1,7 @@
-FactoryGirl.define do
+FactoryGirl.define do  factory :tw_user do
+    
+  end
+
   factory :user do
     username "MyString"
     avatar_url "kitty.jpeg"
