@@ -17,14 +17,33 @@ body {
   // Exactly 50px because first (top) navbar is exactly 50px according to Bootstrap.
   // Any more than 50px and there will be white space between the first and second navbars.
   padding-top: 50px;
+  background-color: #FFFFCC;
+}
+
+.jumbotron {
+  text-align: center;
+  background-color: #FF0000;
+  color: #FFFFCC;
 }
 
 // Style of the navbar(s).
 .navbar {
-  background-color: #99FF99;
+  background-color: #FF0000;
   border: none;
   // Default is rounded borders, which looks weird with two navbars.
   border-radius: 0;
+}
+
+.navbar-default .navbar-brand {
+  color: #FFFFCC;
+}
+
+.navbar-default .navbar-brand:hover {
+  color: #990000;
+}
+
+.navbar-default .navbar-text {
+  color: #FFFFCC;
 }
 
 .navbar-brand {
