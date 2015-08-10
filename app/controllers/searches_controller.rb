@@ -1,6 +1,5 @@
+require 'instagram_client'
 class SearchesController < ApplicationController
-  INSTAGRAM_SEARCH_USERS_URI = "https://api.instagram.com/v1/users/search?client_id=#{ENV["INSTAGRAM_CLIENT_ID"]}&"
-
   def search
     if params[:search_twitter]
       if params[:search_twitter].empty?
@@ -25,9 +24,7 @@ class SearchesController < ApplicationController
     if params[:client] == "twitter"
       @prey = TwitterClient.user_search(params[:search_term])
     elsif params[:client] == "instagram"
-      search_results = HTTParty.get(
-                        INSTAGRAM_SEARCH_USERS_URI + "q=#{params[:search_term]}")
-      @prey = search_results["data"]
+      @prey = InstagramClient.user_search(params[:search_term])
     end
   end
 end
