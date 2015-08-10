@@ -44,7 +44,6 @@ class FeedsController < ApplicationController
     @user = User.includes(:tweets, :instagrams).find(session[:user_id])
     @people = @user.tweets + @user.instagrams
     # end
-
     # @user = User.find_by(id: session[:user_id])
     # if @user
     #   @people = Instagram.find(@user.instagram_ids) +  Tweet.find(@user.tweet_ids)
