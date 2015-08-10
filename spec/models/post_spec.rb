@@ -35,6 +35,13 @@ RSpec.describe Post, type: :model do
       expect(post).to be_invalid
       expect(post.errors).to include(:url)
     end
+
+    it "requires provider" do
+      post = build(:post, provider: nil)
+
+      expect(post).to be_invalid
+      expect(post.errors).to include(:provider)
+    end
   end
 
   pending ".seed_tweets"
