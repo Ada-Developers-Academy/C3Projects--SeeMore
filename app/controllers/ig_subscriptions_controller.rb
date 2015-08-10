@@ -24,7 +24,6 @@ class IgSubscriptionsController < ApplicationController
 
     subscription = Subscription.find_or_create_ig_subscription(@instagram_id)
 
-
     @user.associate_subscription(subscription)
 
     flash[:notice] = "Subscribed successfully!"
