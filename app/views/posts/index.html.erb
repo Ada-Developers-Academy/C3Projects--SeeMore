@@ -1,8 +1,37 @@
-
-<h1> feed goes here </h1>
-
 <h1>STALK UR TEXT</h1>
 
-<h2> Welcome to the homepage You see when you are logged in! </h2>
+<h2>Welcome, <%= @stalker.username %>!</h2>
 
-<h2>Welcome <%= @stalker.provider %> user!</h2>
+<h3>Preliminary Twitter Feed</h3>
+
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <% if post.is_a?(Tweet) %>
+          <%= image_tag post.prey.photo_url %>
+
+          <h4>
+            <%= post.prey.name %>
+            <small>@<%= post.prey.username %> * <%= time_ago_in_words(post.post_time) %> ago</small>
+            <%= link_to "See Original", post.url, class: "btn btn-default" %>
+          </h4>
+
+          <%= post.body %>
+
+          <% if post.tweet_media.any? %>
+            <% post.tweet_media.each do |medium| %>
+              <%= link_to medium.url, class: "post_img" do %>
+                <%= image_tag medium.url %>
+              <% end %>
+            <% end %>
+          <% end %>
+      <% end %>
+
+      <% if post.is_a?(Gram) %>
+        <% # TODO: fill in gram display %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+

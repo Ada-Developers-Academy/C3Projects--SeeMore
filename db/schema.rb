@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809181855) do
+ActiveRecord::Schema.define(version: 20150809233631) do
 
   create_table "grams", force: :cascade do |t|
     t.string   "uid",        null: false
     t.string   "body"
     t.string   "photo_url",  null: false
-    t.datetime "gram_time",  null: false
+    t.datetime "post_time",  null: false
     t.integer  "prey_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -52,13 +52,23 @@ ActiveRecord::Schema.define(version: 20150809181855) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tweet_media", force: :cascade do |t|
+    t.string   "url",        null: false
+    t.integer  "tweet_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tweet_media", ["tweet_id"], name: "index_tweet_media_on_tweet_id"
+
   create_table "tweets", force: :cascade do |t|
     t.string   "uid",        null: false
     t.string   "body"
-    t.datetime "tweet_time", null: false
+    t.datetime "post_time",  null: false
     t.integer  "prey_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "url",        null: false
   end
 
   add_index "tweets", ["prey_id"], name: "index_tweets_on_prey_id"
