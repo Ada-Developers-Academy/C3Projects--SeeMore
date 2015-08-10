@@ -10,6 +10,11 @@ class TwitterClient
     CLIENT.user_search(search_term)
   end
 
+  def self.find_user(username)
+    match = CLIENT.user_search(username)
+    match.first
+  end
+
   def self.fetch_tweets(user_uid, options = {})
       CLIENT.user_timeline(user_uid.to_i, options)
     # TODO: client.user_timeline(user, { since_id: ?, count: ?, include_rts: true } )

@@ -7,20 +7,26 @@
         <div class="thumbnail">
           <%= link_to(image_tag(prey["profile_picture"], alt: "Profile Picture", size: "200"), "http://instagram.com/#{prey['username']}") %><br>
           <div class="caption">
-            <h3><%= link_to prey["username"], "http://instagram.com/#{prey['username']}" %></h3>
-            <!-- <p>button to subscribe</p> -->
+            <h3><center><%= link_to prey["username"], "http://instagram.com/#{prey['username']}" %>
+            <br>
+            <%= button_to "Follow", follow_path, params: { username: prey["username"] }, class: "btn btn-primary active", method: :post %>
+
+          </h3></center>
           </div>
         </div>
       <% end %>
+
       <% if params[:client] == "twitter" %>
         <div class="thumbnail">
           <%= link_to(image_tag(large_image_url(prey), alt: "Profile Picture", size: "200x200"), "http://twitter.com/#{prey.username}") %>
           <div class="caption">
-            <h3><%= link_to prey.username, "http://twitter.com/#{prey.username}" %></h3>
-            <!-- <p>button to subscribe</p> -->
+            <h3><center><%= link_to prey.username, "http://twitter.com/#{prey.username}" %>
+            <br>
+            <%= button_to "Follow", follow_path, params: { username: prey["username"] }, class: "btn btn-primary active", method: :post %>
+            </h3></center>
           </div>
         </div>
-    <% end %>
+      <% end %>
     </div>
   <% end %>
 </div>

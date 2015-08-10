@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   get "auth/developer" => 'sessions#create'
 
   delete "logout" => 'sessions#destroy', as: 'logout'
+  post "/follow" => 'prey#create', as: 'follow'
 end
