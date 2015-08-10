@@ -18,8 +18,8 @@
 
           <%= post.body %>
 
-          <% if post.tweet_media.any? %>
-            <% post.tweet_media.each do |medium| %>
+          <% if post.media.any? %>
+            <% post.media.each do |medium| %>
               <%= link_to medium.url, class: "post_img" do %>
                 <%= image_tag medium.url %>
               <% end %>

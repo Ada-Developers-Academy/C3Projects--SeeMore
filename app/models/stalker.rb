@@ -15,6 +15,10 @@ class Stalker < ActiveRecord::Base
     Stalker.find_or_create(create_params)
   end
 
+  def order_posts
+     posts.order("post_time DESC")
+  end
+
   def self.find_or_create(create_params)
     Stalker.create_with(username: create_params[:username])
       .find_or_create_by(

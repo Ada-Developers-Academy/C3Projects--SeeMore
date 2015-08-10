@@ -5,7 +5,6 @@ class Prey < ActiveRecord::Base
   has_many :posts
 
   validates :uid, :provider, presence: true
-
   after_create :seed_tweets
 
   def update_tweets

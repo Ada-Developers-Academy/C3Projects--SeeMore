@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
     @stalker = Stalker.find(session[:stalker_id])
-    @posts = Post.all # TODO: Remember to update!!
+    @posts = @stalker.order_posts
   end
 end
