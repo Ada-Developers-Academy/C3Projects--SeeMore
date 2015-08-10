@@ -1,6 +1,6 @@
 require 'httparty'
-
 class IgSubscriptionsController < ApplicationController
+
   before_action :redirect_if_not_allowed
 
   INSTA_URI = "https://api.instagram.com/v1/users/"
@@ -17,8 +17,13 @@ class IgSubscriptionsController < ApplicationController
     end
   end
 
+
+
   def create
-    subscription = Subscription.find_or_create_subscription(params[:instagram_id])
+    @instagram_id = params[:instagram_id]
+
+    subscription = Subscription.find_or_create_subscription(@instagram_id)
+
 
     @user.associate_subscription(subscription)
 

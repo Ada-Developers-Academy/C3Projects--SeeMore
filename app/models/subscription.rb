@@ -21,37 +21,33 @@ class Subscription < ActiveRecord::Base
   # This is by design to make scopes chainable.
   # Thx scopes.
 
-  # REFACTOR for shared model
-  def self.find_twitter_id(id)
-    find_by(twitter_id: id)
+
+  # Not sure if this id == @twitter_id is 100% failsafe
+  def self.find_id(id)
+    if id == @twitter_id
+      find_by(twitter_id: id)
+    else
+      find_by(instagram_id: id)
+    end
   end
 
+  #
   # Uses twitter_id passed in params from the link_to button from the search results.
+
+  # Ideally would like to be able to pass in the profile_pic info as a parameter here as well. Not currently happening
+  #So profile pic info not currently being stored.
   def self.find_or_create_subscription(id)
-    subscription = find_twitter_id(twitter_id)
+    subscription = find_id(id)
 
     # If there's not a subscription, will create one or return the subscription found.
     if subscription.nil?
-      return create(twitter_id: twitter_id)
+      unless :instagram_id == nil
+        return create(instagram_id: id)
+      else
+        return create(twitter_id: id)
+      end
     else
       return subscription
     end
   end
-
-  def self.find_instagram_id(id)
-    find_by(instagram_id: id)
-  end
-  #
-
-  def self.find_or_create_subscription(instagram_id)
-    subscription = find_instagram_id(instagram_id)
-
-    if subscription.nil?
-      return create(instagram_id: instagram_id)
-    else
-      return subscription
-    end
-  end
-  #
-
 end
