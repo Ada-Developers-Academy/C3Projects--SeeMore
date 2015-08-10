@@ -5,5 +5,4 @@ class Instagram < ActiveRecord::Base
 
   # Validations ----------------------------------------------
   validates :username, :provider_id, presence: true, uniqueness: true
-
 end

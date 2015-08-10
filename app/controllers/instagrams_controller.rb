@@ -2,6 +2,7 @@ require 'httparty'
 
 class InstagramsController < ApplicationController
   before_action :require_login, only: [:create]
+  rescue_from SQLite3::ConstraintException, with: :already_following
 
   CALLBACK_URL = "http://localhost:3000/auth/instagram/callback"
 
@@ -14,15 +15,13 @@ class InstagramsController < ApplicationController
 
       return render "feeds/search"
     else
-      redirect_to search_path, flash: { error: MESSAGES[:no_username] }
+      redirect_to "feeds/search", flash: { error: MESSAGES[:no_username] }
     end
   end
 
   def create
     @instagram_person = Instagram.find_or_create_by(instagram_params)
-    @person = @instagram_person.username
     @instagram_person.users << User.find(session[:user_id])
-
     if @instagram_person.save
       return redirect_to root_path, flash: { alert: MESSAGES[:success] }
     else
@@ -45,6 +44,12 @@ class InstagramsController < ApplicationController
 
   def instagram_params
     params.require(:instagram).permit(:username, :provider_id, :image_url)
+  end
+
+  def already_following
+    params[:instagram] = nil
+    flash.now[:error] = MESSAGES[:already_following_error]
+    render "feeds/search"
   end
 
 end

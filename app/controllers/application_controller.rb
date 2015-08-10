@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
     success: "Success!",
     follow_error: "Oops. Something went wrong.",
     login_required: "You have to be logged in to do that!",
-    target_eliminated: "Target eliminated!"
+    target_eliminated: "Target eliminated!",
+    already_following_error: "Oops! You are already following that person."
   }
 
   def require_login
