@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe SubscriptionsController, type: :controller do
+  let(:user) { create :user }
+  let(:followee) { create :followee }
+  let(:subscription) { create :subscription, user_id: 1, followee_id: 1}
 
   describe "GET #index" do
     it "responds successfully with an HTTP 200 status" do
@@ -10,9 +13,11 @@ RSpec.describe SubscriptionsController, type: :controller do
     end
 
     it "loads all the subscriptions" do
-      sub1, sub2 = Subscription.create(user_id: 1, followee_id: 1), Subscription.create(user_id: 2, followee_id: 1)
+      user
+      binding.pry
+      followee
       get :index
-      expect(assigns(:subscriptions)).to match_array([sub1, sub2])
+      expect(assigns(:subscriptions)).to match_array(:subscription)
     end
   end
 

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get '/search/:source/:user', to: "followees#search_results", as: "search_results"
 
   # need to limit the subscription paths
-  resources :subscription
+  resources :subscriptions
 
   post "/unsubscribe/:id", to: "subscriptions#unsubscribe", as: "unsubscribe"
 
