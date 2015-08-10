@@ -13,7 +13,11 @@
 
       <div class="col-sm-4">
         <% if display_author %>
-          AUTHOR INFO HERE
+          <h3>
+            <%= post["user"]["username"] %>
+            <span class="badge"><%= post["likes"]["count"] %> likes</span><br />
+            <small><%= Time.at(post["created_time"].to_i) %></small>
+          </h3>
         <% end %>
         <%= image_tag post["images"]["low_resolution"]["url"] %>
         <p>
