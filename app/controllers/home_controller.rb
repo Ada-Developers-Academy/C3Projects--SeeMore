@@ -27,7 +27,6 @@ class HomeController < ApplicationController
       end
     end
     @all_posts.sort_by { |post| post["native_created_at"] }
-    raise
     return @all_posts
     # render :more_news
   end
