@@ -1,4 +1,5 @@
 class PreyController < ApplicationController
+
   def create
     prey = Prey.find_by(username: params[:username])
     if prey.present?
@@ -9,4 +10,7 @@ class PreyController < ApplicationController
     end
     redirect_to root_path
   end
+
+  # TODO: Add actions to the PreyController or delete the file!
+
 end
