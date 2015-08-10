@@ -6,7 +6,7 @@
 
 <ul>
   <% @twitter_prey.each do |prey| %>
-    <li> <%= prey.username %> </li>
+    <li> <%= prey.username %> <%= button_to "Unfollow", unfollow_path, method: :patch, class: "btn btn-danger", params: { username: prey.username } %></li>
   <% end %>
 </ul>
 
@@ -14,6 +14,6 @@
 
 <ul>
   <% @instagram_prey.each do |prey| %>
-    <li> <%= prey.username %> </li>
+    <li> <%= prey.username %> <%= button_to "Unfollow", unfollow_path, method: :patch, class: "btn btn-danger", params: { username: prey.username } %> </li>
   <% end %>
 </ul>
