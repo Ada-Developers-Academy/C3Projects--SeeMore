@@ -15,10 +15,10 @@ class FeedsController < ApplicationController
 
     if @user && @user.tweets
       @people = []
+      # will eventually combine Instagram and Twitter feeds into one, then sort both together by posted_at time
       # @people << Instagram.find(@user.instagram_ids)
       @people << Tweet.find(@user.tweet_ids)
       @people.flatten!
-      # @people.sort_by! { |person| person.username.downcase }
 
       @feed = []
       @people.each do |person|

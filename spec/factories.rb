@@ -1,5 +1,6 @@
-FactoryGirl.define do  factory :instagram_post do
-    
+FactoryGirl.define do
+  factory :instagram_post do
+
   end
 
   factory :user do

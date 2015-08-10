@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 20150809210224) do
   add_index "instagrams_users", ["instagram_id"], name: "index_instagrams_users_on_instagram_id"
   add_index "instagrams_users", ["user_id"], name: "index_instagrams_users_on_user_id"
 
+  create_table "tweet_posts", force: :cascade do |t|
+    t.integer  "post_id"
+    t.datetime "posted_at"
+    t.text     "text"
+    t.string   "media_url"
+    t.integer  "tweet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tweets", force: :cascade do |t|
     t.string   "username",    null: false
     t.string   "provider_id", null: false
