@@ -12,13 +12,6 @@ class FolloweesController < ApplicationController
 
   def destroy; end
 
-  # search for users by name
-  def users_redirect
-    @query = params[:search]
-    response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
-    @insta_users = response["data"]
-  end
-
   # this renders the search page
   def search; end
 
@@ -61,8 +54,6 @@ class FolloweesController < ApplicationController
 
     @insta_user_posts = response["data"]
   end
-
-  def insta_search; end
 
   # pull twitter posts
   def twitter_posts
