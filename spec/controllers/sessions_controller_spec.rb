@@ -57,7 +57,7 @@ RSpec.describe SessionsController, type: :controller do
        it "redirects to home with flash error" do
          get :create, provider: :twitter
 
-         expect(response).to redirect_to root_path
+         expect(response).to redirect_to landing_path
          expect(flash[:error]).to_not be nil
        end
       end
@@ -116,7 +116,7 @@ RSpec.describe SessionsController, type: :controller do
        it "redirects to home with flash error" do
          get :create, provider: :vimeo
 
-         expect(response).to redirect_to root_path
+         expect(response).to redirect_to landing_path
          expect(flash[:error]).to_not be nil
        end
       end
@@ -175,7 +175,7 @@ RSpec.describe SessionsController, type: :controller do
        it "redirects to home with flash error" do
          get :create, provider: :instagram
 
-         expect(response).to redirect_to root_path
+         expect(response).to redirect_to landing_path
          expect(flash[:error]).to_not be nil
        end
       end
