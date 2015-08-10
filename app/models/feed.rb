@@ -8,9 +8,9 @@ class Feed < ActiveRecord::Base
   validates :name, :platform, :platform_feed_id, presence: true
 
   # Scopes ---------------------------------------------------------------------
-  scope :developer, -> { where(platform: "Developer") }
-  scope :instagram, -> { where(platform: "Instagram") }
-  scope :vimeo, -> { where(platform: "Vimeo") }
+  scope :developer, -> { where(platform: "developer") }
+  scope :instagram, -> { where(platform: "instagram") }
+  scope :vimeo, -> { where(platform: "vimeo") }
 
   def check_for_updates
     # query the API

@@ -9,9 +9,10 @@ class InstagramController < ApplicationController
     # params: { instagram: { query: "vikshab" } }
     query = params.require(:instagram).require(:query)
     
-    
+    # params: { search: { query: "vikshab" } }
+
     # => "vikshab"
-    # query = params.require(:instagram).permit(:query)
+    # query = params.require(:search).permit(:query)
     # => { query: "vikshab" }
     # query = "vikshab"
 
@@ -36,11 +37,13 @@ class InstagramController < ApplicationController
     id = params[:feed_id]
     feed = Feed.find_by(platform_feed_id: id)
     # FIXME: what if the platform_feed_id is the same for a vimeo feed & an instagram feed?
+
     unless feed
       feed_info_url = FEED_INFO_URI_A + id + FEED_INFO_URI_B
       feed_info_results = HTTParty.get(feed_info_url)
       feed = Feed.create(create_feed_attributes_from_API_junk(feed_info_results))
     end
+
     current_user.feeds << feed unless current_user.feeds.include?(feed)
     redirect_to root_path
   end
