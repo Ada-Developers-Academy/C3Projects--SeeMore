@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'support/vcr_setup'
+
 
 RSpec.describe TwiSubscriptionsController, type: :controller do
   let(:log_in) {
@@ -20,6 +22,12 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
 
       expect(subject).to redirect_to root_path
     end
+
+    # will need to refactor using this setup for VCR use
+    # only needed for tests that hit the API
+    # VCR.use_cassette('whatever cassette name you want') do
+    #    # the body of the test would go here...
+    # end
 
     it "assigns @results if logged in" do
       log_in
