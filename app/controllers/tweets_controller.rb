@@ -4,7 +4,7 @@ class TweetsController < ApplicationController
   def search
     if params[:tweet][:username].present?
       username = params[:tweet][:username]
-      @users = Twit.user_search(username)
+      @users = @twitter.client.user_search(username)
       # @feed = Twit.user_timeline(username)
       return render "feeds/search"
     else

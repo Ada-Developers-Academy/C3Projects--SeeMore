@@ -26,7 +26,7 @@ class FeedsController < ApplicationController
       usernames = @user.tweets.map &:username
       usernames.each do |username|
         # username = person.username
-        @feed << Twit.user_timeline(username)
+        @feed << @twitter.client.user_timeline(username)
         # raise
 
       end
