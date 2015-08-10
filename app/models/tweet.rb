@@ -1,6 +1,7 @@
 class Tweet < ActiveRecord::Base
   # Associations
-  belongs_to :user
+  has_and_belongs_to :users
+
 
   # Validationss
   validates :tw_user_id_str, :tw_created_at, :tw_text, :user_id, presence: true
