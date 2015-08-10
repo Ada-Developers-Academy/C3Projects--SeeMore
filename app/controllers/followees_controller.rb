@@ -48,8 +48,9 @@ class FolloweesController < ApplicationController
       response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&count=" + INSTA_USER_COUNT + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
       @results = response["data"]
     elsif params[:source] == "twitter"
-      @results = @twitter_client.user_search(@query)
+      @results = @twitter_client.user_search(@query, { count: 1 })
     end
+    raise
     render 'search'
   end
 
