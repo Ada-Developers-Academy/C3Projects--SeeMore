@@ -32,7 +32,7 @@ class TwiSubscriptionsController < ApplicationController
     redirect_to root_path
   end
 
-  def refresh_tweets(@user)
+  def refresh_tweets
 
 
     # @user.subscriptions.map do |subscription|
@@ -44,7 +44,7 @@ class TwiSubscriptionsController < ApplicationController
 
     subscriptions.each do
     client = twitter_api_object
-
+    end
   end
 
   private
