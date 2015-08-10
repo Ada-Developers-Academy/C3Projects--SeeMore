@@ -14,6 +14,8 @@ RSpec.describe ApplicationHelper, type: :helper do
 
   before(:each) do
     create :user
+    @our_user = User.find(1)
+    session[:user_id] = @our_user.id
   end
 
   context "when you haven't followed a Twitter user yet" do
@@ -26,14 +28,9 @@ RSpec.describe ApplicationHelper, type: :helper do
   context "when you're already following a Twitter user" do
     it "returns true after a following? check" do
       create :tw_user
-      our_user = User.find(1)
-      session[:user_id] = our_user.id
       twitter_user = TwUser.find(1)
-      our_user.tw_users << [twitter_user]
+      @our_user.tw_users << [twitter_user]
       expect(helper.tw_following?("100")).to be(true)
     end
   end
-
-
-
 end
