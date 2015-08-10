@@ -1,4 +1,7 @@
-<% if logged_in? %>
+<!-- This is broken if a person is signing in for the first time and doesn't already follow anyone.
+This is why the @user.subscriptions.present? is a thing-->
+
+<% if logged_in? && @user.subscriptions.present? %>
   <% @sub_array_tweets.each do |tweet| %>
     <%= tweet.user.screen_name %>
     <%= tweet.text %>
@@ -8,9 +11,11 @@
     <% end %>
     <br>###<br>
   <% end %>
-<% else %>
+<% end %>
+
+<% unless logged_in? %>
   WELCOME!
-  <%= link_to "Sign in Dev", "/auth/developer", class: "btn btn-default" %>
-  <%= link_to "Sign in with Instagram", "/auth/instagram", class:
-  "btn btn-default" %>
+    <%= link_to "Sign in Dev", "/auth/developer", class: "btn btn-default" %>
+    <%= link_to "Sign in with Instagram", "/auth/instagram", class:
+    "btn btn-default" %>
 <% end %>
