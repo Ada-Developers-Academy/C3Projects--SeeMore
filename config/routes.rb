@@ -16,5 +16,5 @@ Rails.application.routes.draw do
   post '/search_redirect',        to: 'feeds#search_redirect', as: 'search_redirect'
   get  '/results/:search_term',   to: 'feeds#search_results',  as: 'search_results'
 
-  post '/twitter_follow/:tw_user',      to: 'feeds#tw_follow',      as: 'tw_follow'
+  post '/tw_follow/:tw_user',      to: 'feeds#tw_follow',      as: 'tw_follow'
 end
