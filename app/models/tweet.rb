@@ -4,6 +4,8 @@ class Tweet < ActiveRecord::Base
   belongs_to :prey
   has_many :tweet_media
 
+  validates :uid, :post_time, :prey_id, :url, presence: true
+
   def self.seed_tweets(stalker_uid, count = 5)
     tweets = TwitterClient.fetch_tweets(stalker_uid, { count: count })
     create_many_from_api(tweets)
