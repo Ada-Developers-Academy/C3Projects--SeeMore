@@ -22,7 +22,7 @@ class IgSubscriptionsController < ApplicationController
   def create
     @instagram_id = params[:instagram_id]
 
-    subscription = Subscription.find_or_create_subscription(@instagram_id)
+    subscription = Subscription.find_or_create_ig_subscription(@instagram_id)
 
 
     @user.associate_subscription(subscription)
