@@ -7,7 +7,7 @@
 <ul>
   <% @posts.each do |post| %>
     <li>
-      <% if post.is_a?(Tweet) %>
+      <% if post.prey.provider == "twitter" %>
           <%= image_tag post.prey.photo_url %>
 
           <h4>
@@ -27,11 +27,9 @@
           <% end %>
       <% end %>
 
-      <% if post.is_a?(Gram) %>
+      <% if post.prey.provider == "instagram" %>
         <% # TODO: fill in gram display %>
       <% end %>
     </li>
   <% end %>
 </ul>
-
-

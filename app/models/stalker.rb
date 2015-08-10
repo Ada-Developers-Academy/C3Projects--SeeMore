@@ -1,7 +1,7 @@
 class Stalker < ActiveRecord::Base
   has_and_belongs_to_many :prey
   has_many :grams, through: :prey
-  has_many :tweets, through: :prey
+  has_many :posts, through: :prey
 
   #validations
   validates :username, presence: true

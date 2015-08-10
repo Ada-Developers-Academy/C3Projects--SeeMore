@@ -1,8 +1,8 @@
 require 'twitter_client'
 
-class Tweet < ActiveRecord::Base
+class Post < ActiveRecord::Base
   belongs_to :prey
-  has_many :tweet_media
+  has_many :media
 
   validates :uid, :post_time, :prey_id, :url, presence: true
 
@@ -19,9 +19,9 @@ class Tweet < ActiveRecord::Base
 
   def self.create_many_from_api(tweets)
     tweets.each do |tweet|
-      tweet_id = Tweet.create(create_params_from_api(tweet)).id
+      tweet_id = Post.create(create_params_from_api(tweet)).id
       tweet.media.each do |medium|
-        TweetMedium.create(url: medium.media_url_https.to_s, tweet_id: tweet_id)
+        Medium.create(url: medium.media_url_https.to_s, tweet_id: tweet_id)
       end
     end
   end

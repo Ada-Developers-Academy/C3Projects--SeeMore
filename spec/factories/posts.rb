@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :tweet do
+  factory :post do
     uid "MyString"
     body "MyString"
     url "MyString"
