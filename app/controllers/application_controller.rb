@@ -11,11 +11,6 @@ class ApplicationController < ActionController::Base
   helper_method :require_signin
 
   before_action :twitter_client
-  # before_filter :load_tweets
-
-  # def load_tweets
-  #   @tweets = @twitter_client.user_timeline[0..4] # For this demonstration lets keep the tweets limited to the first 5 available.
-  # end
 
   private
 
