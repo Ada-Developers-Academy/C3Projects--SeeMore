@@ -11,15 +11,16 @@ class SessionsController < ApplicationController
     if stalker.persisted?
       session[:stalker_id] = stalker.id
       flash[:message] = { welcome: "You have logged in!" }
+      redirect_to root_path
     else
       flash[:error] = stalker.errors
+      redirect_to landing_path
     end
-
-    redirect_to root_path
   end
 
   def destroy
     session[:stalker_id] = nil
+    flash[:message] = { success: "You have signed out!" }
     redirect_to landing_path
   end
 
