@@ -7,8 +7,7 @@ class HomeController < ApplicationController
   INSTA_URI = "https://api.instagram.com/v1/users/search?"
   INSTA_USER_POSTS_URI = "https://api.instagram.com/v1/users/"
   INSTA_OEMBED_URI = "http://api.instagram.com/oembed?omitscript=false&url="
-  INSTA_USER_COUNT = "3"
-  {user-id}/media/recent/?access_token=ACCESS-TOKEN
+  FIRST_POSTS_NUM = 5
 
   def signin
   end
@@ -30,35 +29,54 @@ class HomeController < ApplicationController
     active_subscriptions = @current_user.subscriptions.active
 
     active_subscriptions.each do |sub|
-      followee_id = sub.followee_id
+      followee = sub.followee
       last_post_id = sub.followee.last_post_id
       source = sub.followee.source
 
-      posts = get_posts_from_API(source, followee_id, last_post_id)
+      posts = get_posts_from_API(source, followee, last_post_id)
 
       # twitter vs instagram
-      posts.each do |post|
-        Post.create(post)
+      if source == "twitter"
+        posts.each do |post|
+          Post.twitter_create(post)
+        end
+      elsif source == "instagram"
+        posts.each do |post|
+          Post.instagram_create(post)
+        end
       end
 
       # id attr might be dif for instagram
-      new_last_post_id = posts.first.id
+      new_last_post_id = source == "twitter" ? posts.first.id : posts.first["id"]
 
       sub.followee.update!(last_post_id: new_last_post_id)
     end
+
+    raise
   end
 
-  def get_posts_from_API(source, followee_id, last_post_id)
+  # do we want to pass in followee or followee_id?
+  def get_posts_from_API(source, followee, last_post_id)
     if source == "twitter"
-      posts = @twitter_client.user_timeline(
-        followee_id.to_i, { since_id: last_post_id.to_i }
-        )
+      id = followee.native_id.to_i
+      if followee.last_post_id
+        posts = @twitter_client.user_timeline(id, { since_id: last_post_id.to_i })
+      else
+        posts = @twitter_client.user_timeline(id, { count: 5 } )
+        return posts
+      end
     elsif source == "instagram"
-      response = HTTParty.get(
-        INSTA_USER_POSTS_URI + followee_id + "/media/recent/?min_id=" + last_post_id + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
-      posts = response["data"]
+      if followee.last_post_id
+        response = HTTParty.get(
+          INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?min_id=" + last_post_id + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
+      else
+        response = HTTParty.get(
+          INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?count=" + FIRST_POSTS_NUM.to_s + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
+      end
+        posts = response["data"]
     end
-    posts
+    raise
+    return posts
   end
 
 

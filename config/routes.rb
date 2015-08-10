@@ -29,4 +29,6 @@ Rails.application.routes.draw do
 
   post '/posts', to: 'posts#create', as: 'posts'
 
+  get '/new_posts_test', to: 'home#get_new_posts', as: 'get_new_posts'
+
 end

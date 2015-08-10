@@ -60,6 +60,7 @@ class FolloweesController < ApplicationController
     response = HTTParty.get(INSTA_USER_POSTS_URI + @followee + "/media/recent/?count=3&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
 
     @insta_posts = response["data"]
+    raise
     link = @insta_posts.first["link"]
   
     @instagram_html = get_embedded_html_instagram(link)
