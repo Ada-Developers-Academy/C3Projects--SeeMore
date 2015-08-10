@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   # Associations ----------------------------------------------
   has_and_belongs_to_many :instagrams
   has_and_belongs_to_many :tweets
+  has_many :instagram_posts, through: :instagrams
+
 
   # Validations ----------------------------------------------
   validates :username, :uid, :provider, presence: true
