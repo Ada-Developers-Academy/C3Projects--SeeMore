@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810213152) do
+ActiveRecord::Schema.define(version: 20150807191512) do
 
   create_table "followees", force: :cascade do |t|
     t.string   "handle"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20150810213152) do
     t.integer  "followee_id"
     t.string   "source"
     t.string   "native_created_at"
-    t.integer  "native_id"
+    t.string   "native_id"
     t.string   "embed_html"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
