@@ -18,7 +18,6 @@ class IgSubscriptionsController < ApplicationController
     end
   end
 
-
   def create
     @instagram_id = params[:instagram_id]
 
@@ -33,7 +32,7 @@ class IgSubscriptionsController < ApplicationController
     redirect_to root_path
   end
 
-  def refresh_recent
+  def refresh_recent_ig
     access_token = session[:access_token]
 
     users_subs = @user.subscriptions
