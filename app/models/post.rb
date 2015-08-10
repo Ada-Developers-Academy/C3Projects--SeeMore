@@ -19,9 +19,9 @@ class Post < ActiveRecord::Base
 
   def self.create_many_from_api(tweets)
     tweets.each do |tweet|
-      tweet_id = Post.create(create_params_from_api(tweet)).id
+      post_id = Post.create(create_params_from_api(tweet)).id
       tweet.media.each do |medium|
-        Medium.create(url: medium.media_url_https.to_s, tweet_id: tweet_id)
+        Medium.create(url: medium.media_url_https.to_s, post_id: post_id)
       end
     end
   end
