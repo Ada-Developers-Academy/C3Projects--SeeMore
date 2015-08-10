@@ -1,8 +1,10 @@
 class FolloweesController < ApplicationController
   INSTA_URI = "https://api.instagram.com/v1/users/search?"
   INSTA_USER_POSTS_URI = "https://api.instagram.com/v1/users/"
-  TWIT_URI = "https://api.twitter.com/1.1/statuses/user_timeline.json?"
   INSTA_OEMBED_URI = "http://api.instagram.com/oembed?omitscript=false&url="
+  INSTA_USER_COUNT = "3"
+
+  TWIT_URI = "https://api.twitter.com/1.1/statuses/user_timeline.json?"
   
   before_action :find, only: [:destroy]
   helper_method :get_embedded_html_instagram
@@ -43,7 +45,7 @@ class FolloweesController < ApplicationController
     @query = params[:user]
     @source = params[:source]
     if params[:source] == "instagram"
-      response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
+      response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&count=" + INSTA_USER_COUNT + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
       @results = response["data"]
     elsif params[:source] == "twitter"
       @results = @twitter_client.user_search(@query)
