@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   get  '/feeds/:provider/search', to: 'feeds#search',          as: 'search'
   post '/search_redirect',        to: 'feeds#search_redirect', as: 'search_redirect'
   get  '/results/:search_term',   to: 'feeds#search_results',  as: 'search_results'
+  post '/instagram_follow',       to: 'feeds#ig_follow',       as:  'ig_follow'  
 end
 

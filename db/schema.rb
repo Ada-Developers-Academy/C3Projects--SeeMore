@@ -11,7 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807165656) do
+ActiveRecord::Schema.define(version: 20150810201858) do
+
+  create_table "grams", force: :cascade do |t|
+    t.string   "tags"
+    t.string   "type"
+    t.string   "created_time"
+    t.string   "link"
+    t.integer  "likes"
+    t.string   "image_url"
+    t.string   "caption"
+    t.string   "ig_id"
+    t.string   "ig_username"
+    t.string   "ig_user_pic"
+    t.string   "ig_user_id"
+    t.string   "ig_user_fullname"
+    t.integer  "user_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "instagram_users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "instagram_users_and_users", id: false, force: :cascade do |t|
+    t.integer "instagram_user"
+    t.integer "user"
+  end
 
   create_table "tweets", force: :cascade do |t|
     t.string   "tw_user_id_str"
