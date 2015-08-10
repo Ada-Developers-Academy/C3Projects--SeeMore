@@ -10,7 +10,10 @@ class Twit
     CLIENT.user_search(search_term)
   end
 
-  def self.user_timeline(search_term)
-    CLIENT.user_timeline(search_term)
+  def self.user_timeline(search_term, count = 10)
+    CLIENT.user_timeline(search_term, options = { count: count } )
   end
+
+  def self.entities
+
 end
