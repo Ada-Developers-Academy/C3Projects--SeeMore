@@ -13,9 +13,9 @@ skip_before_filter :verify_authenticity_token
 
       if @user
         session[:user_id] = @user.id
-
-        redirect_to root_path
       end
+
+      redirect_to root_path
     else
       flash[:error] = "Failed to authenticate"
 
