@@ -1,0 +1,13 @@
+<nav class="header">
+  <div class="navbar navbar-default">
+    <div class="navbar-header">
+      <%= link_to "FeedMe", root_path, class: "navbar-brand" %>
+    </div>
+    <div class="nav navbar-nav navbar-right button">
+      <% raise %>
+      <% if @user || @current_user %>
+        <%= link_to "Logout", signout_path, method: :delete, class: "btn btn-default btn-sm" %>
+      <% end %>
+    </div>
+  </div>
+</nav>

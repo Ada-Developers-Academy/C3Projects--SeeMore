@@ -22,18 +22,20 @@
   <%= submit_tag "Look up Instagram Users", class: "btn btn-default" %>
 <% end %>
 
-<% if action_name == "search_results" %>
+<% if action_name == "search-results" %>
   <h1><%= @source.capitalize %> user results for "<%= @query %>"</h1>
   <% if params[:source] == "instagram" %>
+    <ul class="search-results">
     <% @results.each do |user| %>
-      <%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
-      <%= link_to "@#{user["username"]}" %>
+      <li><%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
+      <%= link_to "@#{user["username"]}" %></li>
     <% end %>
+  </ul>
   <% elsif params[:source] == "twitter" %>
-    <ul>
+    <ul class="search-results">
       <% @results.each do |user| %>
         <li><%= user.screen_name %></li>
       <% end %>
-    </ul> 
+    </ul>
   <% end %>
 <% end %>
