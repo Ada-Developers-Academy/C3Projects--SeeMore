@@ -14,10 +14,7 @@ class TweetsController < ApplicationController
 
   def create
     @twitter_person = Tweet.find_or_create_by(tweet_params)
-    unless @twitter_person.user_ids.include?(session[:user_id])
-      @twitter_person.users << User.find(session[:user_id])
-    end
-
+    @twitter_person.users << User.find(session[:user_id])
     if @twitter_person.save
       return redirect_to root_path, flash: { alert: MESSAGES[:success] }
     else

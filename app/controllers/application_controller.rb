@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  rescue_from SQLite3::ConstraintException, with: :already_following
 
   INSTAGRAM_URI = "https://api.instagram.com/v1/"
   MESSAGES = {
@@ -15,9 +16,19 @@ class ApplicationController < ActionController::Base
     already_following_error: "Oops! You are already following that person."
   }
 
+  private
+
   def require_login
     unless session[:user_id]
       redirect_to root_path, flash: { error: MESSAGES[:login_required] }
     end
+  end
+
+  def already_following
+    params[:instagram] = nil
+    params[:tweet] = nil
+
+    flash.now[:error] = MESSAGES[:already_following_error]
+    render "feeds/search"
   end
 end
