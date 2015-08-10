@@ -4,28 +4,34 @@
 
 <h3>Preliminary Twitter Feed</h3>
 
-<% @tweets.each do |tweet| %>
-  <ul>
+<ul>
+  <% @posts.each do |post| %>
     <li>
-      <%= image_tag(tweet.user.profile_image_url_https) %>
+      <% if post.is_a?(Tweet) %>
+          <%= image_tag post.prey.photo_url %>
 
-      <h4>
-        <%= tweet.user.name %>
-        <small>@<%= tweet.user.screen_name %> * <%= time_ago_in_words(tweet.created_at) %> ago</small>
-      </h4>
+          <h4>
+            <%= post.prey.name %>
+            <small>@<%= post.prey.username %> * <%= time_ago_in_words(post.post_time) %> ago</small>
+            <%= link_to "See Original", post.url.to_s, class: "btn btn-default" %>
+          </h4>
 
-      <%= tweet.text %>
+          <%= post.body %>
 
-      <% if tweet.media.any? %>
-        <% tweet.media.each do |medium| %>
-          <ul>
-            <%= image_tag medium.media_url_https %>
-          </ul>
-        <% end %>
-        <ul>
-          <%= image_tag tweet.media.first.media_url_https %>
-        </ul>
+          <% if post.tweet_media.any? %>
+            <% post.tweet_media.each do |medium| %>
+              <%= link_to medium.url, class: "post_img" do %>
+                <%= image_tag medium.url %>
+              <% end %>
+            <% end %>
+          <% end %>
+      <% end %>
+
+      <% if post.is_a?(Gram) %>
+        <% # TODO: fill in gram display %>
       <% end %>
     </li>
-  </ul>
-<% end %>
+  <% end %>
+</ul>
+
+

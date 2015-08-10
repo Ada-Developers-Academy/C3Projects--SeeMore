@@ -29,3 +29,18 @@
   height: 200px;
   overflow: hidden;
 }
+
+.post_img {
+  display: block;
+  height: 252px;
+  width: 505px;
+  overflow: hidden;
+  position: relative;
+  vertical-align: middle;
+  border-radius: 5px;
+}
+
+.post_img img {
+  width: 100%;
+  vertical-align: middle;
+}
