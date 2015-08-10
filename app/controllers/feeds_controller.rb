@@ -28,4 +28,11 @@ class FeedsController < ApplicationController
       redirect_to search_path(params[:provider])
     end
   end
+
+  def tw_follow(tw_user)
+    # run the model method
+    Tweet.follow(tw_user)
+    redirect_to search_results_path
+  end
+
 end
