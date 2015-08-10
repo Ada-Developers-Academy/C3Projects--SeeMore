@@ -9,6 +9,7 @@ class Tweet < ActiveRecord::Base
   def self.follow(tw_user) # aka tweet factory
     # look up tweets for that twitter user
     tweets = @twit_init.client.user_timeline(tw_user).take(5)
+    # TODO: This number five is arbitrary. Decide how many tweets to take later.
     # for each tweet make the foreign key user_id = the sessions user_id
     tweets.each do |tweet|
       our_tweet = Tweet.new
@@ -24,25 +25,6 @@ class Tweet < ActiveRecord::Base
       our_tweet.user_id = session[:user_id]
       # save the tweets in the db
       our_tweet.save
-    end
-  end
-
-  def following?(id)
-    # This checks to see if tweets by this twitter user exist
-    matches = Tweet.find_by(tw_user_id_str: id)
-    # Checks if there are any matches
-    unless matches == nil
-    # This checks if that collection of matches are associated with
-    # the Creep Peep user
-    matches.first.user_id == session[:user_id]
-      # This conditional might not be necessary...
-      # if matches.first.user_id == session[:user_id]
-      #   return true
-      # else
-      #   return false
-      # end
-    else
-      return false
     end
   end
 end
