@@ -1,36 +1,33 @@
 require 'rails_helper'
 
 RSpec.describe SubscriptionsController, type: :controller do
-  before :each do
-    @user = User.create(name: "sam", email: "hi@bye.com", uid: 1234, provider: "instagram")
-    @followee = Followee.create(handle: "samiam", source: "instagram", native_id: 1)
-    @subscription = Subscription.create(user_id: 1, followee_id: 1)
-  end
+  describe "POST #create" do
+    let(:zynthia) { create :user }
 
-  # these tests aren't working yet
-  # describe "GET #index" do
-    # it "responds successfully with an HTTP 200 status" do
-      # binding.pry
-      # get :index
-      # expect(response).to be_success
-      # expect(response).to have_http_status(200)
+    before :each do
+      session[:user_id] = zynthia.id
+      post :create, source: "twitter", username: "beyonce", id: "123456", picture: ""
+    end
+
+    it "creates a new subscription" do
+      expect(Subscription.count).to eq(1)
+    end
+      # it "redirect_to user_path" do
+      #   post :create, user: create(:user), followee: create(:followee)
+      #   expect(response).to redirect_to(user_path(session[:user_id]))
+      #   # undefined method `user_id' for nil:NilClass??
+      # end
+      # post :create, :user zynthia :followee beyonce
+      # expect{post :create, subscription: FactoryGirl.attributes_for(:subscription)}.to change(Subscription, :count).by(1)
+
+  end # create
+
+    # it "redirect_to root_path" do
+    #   post :create
+    #
+    #   expect(response).to redirect_to(root_path)
     # end
 
-    # it "loads all the subscriptions" do
-      # get :index
-      # expect(assigns(:subscriptions)).to match_array(@subscription)
-    # end
-  # end
-
-  # describe "POST #create" do
-  #     let(user) { create :user }
-  #     let(followee) { create :followee }
-  #
-  #   it "creates a new subscription" do
-  #     # post :create, :user_id user :followee_id followee
-  #     expect(Subscription.count).to eq(1)
-  #   end
-  # end
   #
   # # describe "POST #unsubscribe" do
   # #   let!(:subscription) { create :subscription }

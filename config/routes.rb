@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   # Search Results
   get '/search/:source/:user', to: "followees#search_results", as: "search_results"
 
+  # post '/subscriptions/:user', to: 'subscriptions#create', as: 'subscribe'
   # need to limit the subscription paths
   resources :subscriptions
 

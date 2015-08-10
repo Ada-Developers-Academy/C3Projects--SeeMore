@@ -21,6 +21,16 @@ RSpec.describe Subscription, type: :model do
     end # context
   end #describe
 
+  describe ".make_subscription" do
+    let!(:zynthia) { create :user, id: 1 }
+    let!(:beyonce) { create :followee, id: 200, handle: "beyonce", source: "instagram" }
+
+    it "creates valid subscription to existing followee & user" do
+      natgeo = Subscription.make_subscription(zynthia, beyonce)
+      expect(natgeo).to be_valid
+    end
+  end
+
   describe "scopes" do
 
     context ":active scope" do
@@ -37,6 +47,5 @@ RSpec.describe Subscription, type: :model do
         expect(Subscription.active.count).to eq 1
       end
     end
-
   end
 end # Rspec
