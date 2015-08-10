@@ -15,7 +15,7 @@ class HomeController < ApplicationController
   #   # raise
   # end
 
-  def update
+  def refresh
     subscriptions = @current_user.subscriptions
     @all_posts = []
     subscriptions.each do |s|
@@ -26,8 +26,10 @@ class HomeController < ApplicationController
         end
       end
     end
+    @all_posts.sort_by { |post| post["native_created_at"] }
+    raise
     return @all_posts
-    render :more_news
+    # render :more_news
   end
 
   def get_embed_html(tweet_id)
