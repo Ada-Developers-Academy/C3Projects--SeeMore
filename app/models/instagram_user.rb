@@ -4,5 +4,12 @@ class InstagramUser < ActiveRecord::Base
 
 # Methods ----------------------------------------------------------------------
   def self.first_or_create_account(ig_user)
+    username = ig_user["username"]
+    account = InstagramUser.where(username: username).first_or_initialize
+    account.username = ig_user["username"]
+    account.profile_pic = ig_user["profile_picture"]
+    account.fullname = ig_user["full_name"]
+
+    return account.save ?  account : nil  
   end
 end

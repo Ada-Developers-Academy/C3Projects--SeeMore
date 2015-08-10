@@ -58,4 +58,12 @@ RSpec.describe FeedsController, type: :controller do
       end
     end
   end
+
+  describe "#ig_follow" do
+    let(:user){create :user}
+    let(:instagram_user){create :instagram_user}
+
+    it "creates an association between user and IG account"do
+    end
+  end
 end
