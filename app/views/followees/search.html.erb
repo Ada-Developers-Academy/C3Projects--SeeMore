@@ -26,11 +26,6 @@
   <h1><%= @source.capitalize %> user results for "<%= @query %>"</h1>
   <% if params[:source] == "instagram" %>
     <ul class="search-results">
-    <% @results.each do |user| %>
-      <li><%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
-      <%= link_to "@#{user["username"]}", "https://api.instagram.com/v1/users/#{user[:id]}/?access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}" %></li>
-    <% end %>
-    </ul>
       <% @results.each do |user| %>
         <li>
           <%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
@@ -48,6 +43,7 @@
       <% @results.each do |user| %>
         <li><%= link_to image_tag(user.profile_image_url), "https://api.twitter.com/1/statuses/user_timeline.html?&user_id=#{user.id}" %>
         <%= link_to "@#{user.screen_name}" %></li>
+
         <%= form_tag subscriptions_path(user)%>
           <%= hidden_field_tag :id, user.id %>
           <%= hidden_field_tag :avatar_url, user.profile_image_url %>
