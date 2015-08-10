@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807203555) do
+ActiveRecord::Schema.define(version: 20150809210224) do
+
+  create_table "instagram_posts", force: :cascade do |t|
+    t.string   "post_id",      null: false
+    t.integer  "instagram_id", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "instagram_posts", ["instagram_id"], name: "index_instagram_posts_on_instagram_id"
 
   create_table "instagrams", force: :cascade do |t|
     t.datetime "created_at",  null: false
