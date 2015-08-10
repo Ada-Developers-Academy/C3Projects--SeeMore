@@ -24,6 +24,8 @@ class IgSubscriptionsController < ApplicationController
 
     subscription = Subscription.find_or_create_ig_subscription(@instagram_id)
 
+    assign_profile_pic(subscription)
+
     @user.associate_subscription(subscription)
 
     flash[:notice] = "Subscribed successfully!"
@@ -31,5 +33,11 @@ class IgSubscriptionsController < ApplicationController
     redirect_to root_path
   end
 
+  private
 
+  def assign_profile_pic(subscription)
+    subscription.profile_pic = params[:profile_pic]
+
+    subscription.save
+  end
 end
