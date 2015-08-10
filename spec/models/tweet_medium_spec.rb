@@ -14,7 +14,7 @@ RSpec.describe TweetMedium, type: :model do
       expect(medium.errors).to include(:tweet_id)
     end
 
-    it "requires " do
+    it "requires url" do
       medium = build(:tweet_medium, url: nil)
 
       expect(medium).to be_invalid
