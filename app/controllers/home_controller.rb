@@ -38,11 +38,13 @@ class HomeController < ApplicationController
       # twitter vs instagram
       if source == "twitter"
         posts.each do |post|
-          Post.twitter_create(post)
+          post_hash = find_twitter_params(post, followee)
+          Post.create(post_hash)
         end
       elsif source == "instagram"
         posts.each do |post|
-          Post.instagram_create(post)
+          post_hash = find_twitter_params(post, followee)
+          Post.create(post_hash)
         end
       end
 
@@ -51,9 +53,20 @@ class HomeController < ApplicationController
 
       sub.followee.update!(last_post_id: new_last_post_id)
     end
-
-    raise
   end
+  
+
+  def find_twitter_params(post, followee)
+    post_hash = {}
+    post_hash[:native_id] = post.id
+    post_hash[:native_created_at] = post.created_at
+    post_hash[:followee_id] = followee.id
+    post_hash[:source] = followee.source
+    post_hash[:embed_html] = get_embed_html(post.id)
+
+    return post_hash
+  end
+
 
   # do we want to pass in followee or followee_id?
   def get_posts_from_API(source, followee, last_post_id)
@@ -75,7 +88,7 @@ class HomeController < ApplicationController
       end
         posts = response["data"]
     end
-    raise
+
     return posts
   end
 
