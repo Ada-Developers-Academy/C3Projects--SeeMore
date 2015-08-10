@@ -4,6 +4,8 @@ RSpec.describe SearchesController, type: :controller do
   let (:invalid_search) { "" }
   let (:valid_search)   { "words" }
 
+  before { session[:stalker_id] = 1 }
+
   describe "POST #search" do
     context "searching for a Twitter user" do
       it "redirects you to home page when you don't enter a search term" do

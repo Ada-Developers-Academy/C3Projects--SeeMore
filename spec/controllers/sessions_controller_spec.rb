@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
+  before { session[:stalker_id] = 1 }
+
   describe "GET #create" do
     context "when using twitter authentication" do
       context "is successful" do
