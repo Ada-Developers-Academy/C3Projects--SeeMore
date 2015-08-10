@@ -5,5 +5,6 @@ FactoryGirl.define do
     url "MyString"
     post_time "2015-08-07 14:36:31"
     prey_id 1
+    provider "default"
   end
 end
