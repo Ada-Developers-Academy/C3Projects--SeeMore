@@ -32,7 +32,7 @@ class TweetsController < ApplicationController
        user.tweets.destroy(tweeter)
     end
 
-    redirect_to people_path, flash: { alert: MESSAGES[:success] }
+    redirect_to people_path, flash: { alert: MESSAGES[:target_eliminated] }
   end
 
   private

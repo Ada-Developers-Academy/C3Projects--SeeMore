@@ -38,7 +38,7 @@ class InstagramsController < ApplicationController
        user.instagrams.destroy(instagramer)
     end
 
-    redirect_to people_path, flash: { alert: MESSAGES[:success] }
+    redirect_to people_path, flash: { alert: MESSAGES[:target_eliminated] }
   end
 
   private

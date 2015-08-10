@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
     no_username: "There's no user by that name. Search again.",
     success: "Success!",
     follow_error: "Oops. Something went wrong.",
-    login_required: "You have to be logged in to do that!"
+    login_required: "You have to be logged in to do that!",
+    target_eliminated: "Target eliminated!"
   }
 
   def require_login
