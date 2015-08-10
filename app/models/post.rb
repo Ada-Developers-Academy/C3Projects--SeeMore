@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
   # Associations
   belongs_to :subscription
   has_many :users, through: :subscription
+  serialize :image, Array
 
   #Validations
   validates_presence_of :username, :posted_at, :content_id, :subscription_id
@@ -21,7 +22,7 @@ class Post < ActiveRecord::Base
           text: tweet.text,
           posted_at: tweet.as_json["created_at"],
           content_id: tweet.id,
-          image: media_array.to_s,
+          image: media_array,
           subscription_id: subscription.id
         )
       end
