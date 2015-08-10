@@ -4,7 +4,12 @@
     <% @results.each do |result| %>
       <li>
         <%= result.screen_name + " (#{result.name})" %>
-        <%= link_to "Feed the BEAST!", twi_subscriptions_path(twitter_id: result.id), method: :post, class: "btn btn-default" %>
+        <%= link_to "Feed the BEAST!", twi_subscriptions_path(
+          params: {
+          twitter_id: result.id,
+          profile_pic: result.as_json["profile_image_url"] }),
+          method: :post,
+          class: "btn btn-default" %>
       </li>
     <% end %>
   </ul>

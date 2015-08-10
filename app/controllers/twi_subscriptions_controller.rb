@@ -11,15 +11,24 @@ class TwiSubscriptionsController < ApplicationController
 
   def create
     # Calling find_or_create_subscription and associate_subscription model methods.
-
     @twitter_id = params[:twitter_id]
 
-    subscription = Subscription.find_or_create_subscription(@twitter_id)
+    subscription = Subscription.find_or_create_twi_subscription(@twitter_id)
+
+    assign_profile_pic(subscription)
 
     @user.associate_subscription(subscription)
 
     flash[:notice] = "Subscribed successfully!"
 
     redirect_to root_path
+  end
+
+  private
+
+  def assign_profile_pic(subscription)
+    subscription.profile_pic = params[:profile_pic]
+
+    subscription.save
   end
 end

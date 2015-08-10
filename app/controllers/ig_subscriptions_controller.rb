@@ -22,8 +22,9 @@ class IgSubscriptionsController < ApplicationController
   def create
     @instagram_id = params[:instagram_id]
 
-    subscription = Subscription.find_or_create_subscription(@instagram_id)
+    subscription = Subscription.find_or_create_ig_subscription(@instagram_id)
 
+    assign_profile_pic(subscription)
 
     @user.associate_subscription(subscription)
 
@@ -32,5 +33,11 @@ class IgSubscriptionsController < ApplicationController
     redirect_to root_path
   end
 
+  private
 
+  def assign_profile_pic(subscription)
+    subscription.profile_pic = params[:profile_pic]
+
+    subscription.save
+  end
 end
