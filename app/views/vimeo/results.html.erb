@@ -1,1 +1,7 @@
+
+
 <h1>results</h1>
+<% @results.each do |result| %>
+  <%= result["name"] %>
+  <%= result["link"] %>
+<% end %>
