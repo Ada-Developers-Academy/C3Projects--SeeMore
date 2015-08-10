@@ -21,7 +21,7 @@ FactoryGirl.define do
 
   factory :gram do
     tags "whorundaworld?"
-    type "image"
+    media_type "image"
     created_time "1435626415"
     link "https://instagram.com/p/4iMUbxCKwZ/"
     likes 16

@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810211553) do
+ActiveRecord::Schema.define(version: 20150810230817) do
 
   create_table "grams", force: :cascade do |t|
     t.string   "tags"
-    t.string   "type"
+    t.string   "media_type"
     t.string   "created_time"
     t.string   "link"
     t.integer  "likes"
