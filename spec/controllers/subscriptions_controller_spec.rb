@@ -1,22 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe SubscriptionsController, type: :controller do
-  # these tests aren't working yet
   describe "POST #create" do
-      let!(:zynthia) { create :user, id: 12 }
-      let!(:beyonce) { create :followee, id: 100, handle: "beyonce", source: "instagram" }
-    # before(:each) do
-      # @zynthia = create :user, id: 12
-      # @beyonce = create :followee
-    # end
+    let(:zynthia) { create :user }
 
-    # @followee = Folowee.find(params[:followee_id])
-    # @subscription.make_subscription(@user, @followee)
+    before :each do
+      session[:user_id] = zynthia.id
+      post :create, source: "twitter", username: "beyonce", id: "123456", picture: ""
+    end
 
     it "creates a new subscription" do
-      # binding.pry
-      post :create => :subscription, user: zynthia, followee: beyonce
-      subscription.reload
       expect(Subscription.count).to eq(1)
     end
       # it "redirect_to user_path" do
