@@ -1,9 +1,44 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe InstagramsController, type: :controller do
 
+  describe "POST #search" do
+    context "valid params" do
+      xit "searches users in Instagram API" do
+        post :search, instagram: { username: "name" }
+        expect()
+      end
+
+      it "renders search template" do
+        post :search, instagram: { username: "name" }
+        expect(response).to render_template("feeds/search")
+      end
+    end
+
+    context "invalid params" do
+      it "redirects to search page" do
+        post :search, instagram: { username: nil }
+        expect(response).to redirect_to(search_path)
+      end
+
+      it "displays an error message" do
+        post :search, instagram: { username: nil }
+        expect(flash[:error]).to_not be nil
+      end
+    end
+  end
+
   describe "POST #create" do
+    context "login required" do
+      it "doesn't create instagram record" do
+        session[:user_id] = nil
+
+        post :create, instagram: attributes_for(:instagram)
+        expect(Instagram.count).to eq(0)
+        expect(flash[:error]).to_not be nil
+      end
+    end
+
     context "valid params" do
       before :each do
         @user = create :user
@@ -24,8 +59,6 @@ RSpec.describe InstagramsController, type: :controller do
         expect(response).to redirect_to(root_path)
         expect(response).to have_http_status(302)
       end
-
-
     end
 
     context "invalid params" do
@@ -49,8 +82,27 @@ RSpec.describe InstagramsController, type: :controller do
         expect(response).to render_template("feeds/search")
       end
     end
+  end # POST #create
 
+  describe "DELETE #destroy" do
+    context "valid params" do
+      before :each do
+        @user = create :user
+        session[:user_id] = @user.id
+        @instagrammer = create :instagram
+      end
 
-  end# post create
+      it "unfollows a tweeter" do
+        delete :destroy, id: @instagrammer.id
 
-end# controller
+        expect(@user.instagrams.count).to eq(0)
+      end
+
+      it "redirects to the people page" do
+        delete :destroy, id: @instagrammer.id
+        expect(subject).to redirect_to(people_path)
+      end
+    end
+  end # DELETE #destroy
+
+end # controller spec
