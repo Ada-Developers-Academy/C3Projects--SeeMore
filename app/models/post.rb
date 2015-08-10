@@ -6,6 +6,8 @@ class Post < ActiveRecord::Base
 
   validates :uid, :post_time, :prey_id, :url, :provider, presence: true
 
+  # TWEETS --------------------------------------------------------------------
+
   def self.seed_tweets(prey_uid, count = 5)
     tweets = TwitterClient.fetch_tweets(prey_uid, { count: count })
     create_many_from_api(tweets)
@@ -24,6 +26,17 @@ class Post < ActiveRecord::Base
         Medium.create(url: medium.media_url_https.to_s, post_id: post_id)
       end
     end
+  end
+
+  # GRAMS --------------------------------------------------------------------
+
+  def self.seed_grams(user_uid)
+    grams = InstagramClient.seed_grams(user_uid)
+    create_many_grams_from_api(grams)
+  end
+
+  def self.create_many_grams_from_api(grams)
+    #WIP
   end
 
   private
