@@ -18,6 +18,12 @@ class TwiSubscriptionsController < ApplicationController
     assign_profile_pic(subscription)
 
     @user.associate_subscription(subscription)
+    client = twitter_api_object
+    tweet_array = []
+    client.user_timeline(@twitter_id.to_i).each do |tweet|
+      tweet_array << tweet
+    end
+    Post.create_twitter_posts(tweet_array, subscription)
 
     flash[:notice] = "Subscribed successfully!"
 
