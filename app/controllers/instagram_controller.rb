@@ -21,8 +21,7 @@ class InstagramController < ApplicationController
 
   def subscribe
     id = params[:feed_id]
-    feed = Feed.find_by(platform_feed_id: id)
-    # FIXME: what if the platform_feed_id is the same for a vimeo feed & an instagram feed?
+    feed = Feed.find_by(platform_feed_id: id, platform: "instagram")
 
     unless feed
       feed_info_url = FEED_INFO_URI_A + id + FEED_INFO_URI_B

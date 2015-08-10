@@ -9,7 +9,7 @@
       <div class="col-sm-4 search-result">
         <h3>
           <%= link_to result["username"], feed_path(result["id"]) %>
-          <%= link_to "Subscribe", subscribe_path(result["id"]), method: "post", class: "btn btn-info btn-xs" %>
+          <%= link_to "Subscribe", instagram_subscribe_path(result["id"]), method: "post", class: "btn btn-info btn-xs" %>
           <% unless result["full_name"].empty? %>
             <br />
             <small><%= result["full_name"] %></small>
