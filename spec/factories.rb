@@ -9,7 +9,7 @@ FactoryGirl.define do
 
   factory :tw_user do
     tw_user_id_str "100"
-    user_name_str "Beyonce"
+    user_name "Beyonce"
     profile_image_url "http://fakeurl.org/beyonce.jpg"
     screen_name "beyonce"
   end
