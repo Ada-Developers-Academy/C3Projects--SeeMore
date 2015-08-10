@@ -9,17 +9,27 @@ RSpec.describe SearchesController, type: :controller do
   describe "POST #search" do
     context "searching for a Twitter user" do
       it "redirects you to home page when you don't enter a search term" do
-        post :search, search_twitter: invalid_search
+        post :search, search: invalid_search, client: "twitter"
         expect(response).to redirect_to(root_path)
       end
 
       it "redirects you to the search show page when you enter a search term" do
-        post :search, search_twitter: valid_search
+        post :search, search: valid_search, client: "twitter"
         expect(response).to redirect_to(search_results_path("twitter", valid_search))
       end
     end
 
-    pending "searching for an Instagram user"
+    context "searching for an Instagram user" do
+      it "redirects you to home page when you don't enter a search term" do
+        post :search, search: invalid_search, client: "instagram"
+        expect(response).to redirect_to(root_path)
+      end
+
+      it "redirects you to the search show page when you enter a search term" do
+        post :search, search: valid_search, client: "instagram"
+        expect(response).to redirect_to(search_results_path("instagram", valid_search))
+      end
+    end
   end
 
   describe "GET #show" do
