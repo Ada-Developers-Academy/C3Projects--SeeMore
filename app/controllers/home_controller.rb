@@ -4,6 +4,12 @@ class HomeController < ApplicationController
 
   include ActionView::Helpers::OutputSafetyHelper
 
+  INSTA_URI = "https://api.instagram.com/v1/users/search?"
+  INSTA_USER_POSTS_URI = "https://api.instagram.com/v1/users/"
+  INSTA_OEMBED_URI = "http://api.instagram.com/oembed?omitscript=false&url="
+  INSTA_USER_COUNT = "3"
+  {user-id}/media/recent/?access_token=ACCESS-TOKEN
+
   def signin
   end
 
@@ -11,8 +17,8 @@ class HomeController < ApplicationController
     # user = Followee.find(5)
     # user_id = user.native_id.to_i
     # tweet = @twitter_client.user_timeline(user_id, { count: 2 }).last
-  #   @tweet_html = get_embed_html(tweet.id)
-  #   # raise
+    # @tweet_html = get_embed_html(tweet.id)
+    # raise
   end
 
   def get_embed_html(tweet_id)
@@ -43,9 +49,19 @@ class HomeController < ApplicationController
   end
 
   def get_posts_from_API(source, followee_id, last_post_id)
-
-
+    if source == "twitter"
+      posts = @twitter_client.user_timeline(
+        followee_id.to_i, { since_id: last_post_id.to_i }
+        )
+    elsif source == "instagram"
+      response = HTTParty.get(
+        INSTA_USER_POSTS_URI + followee_id + "/media/recent/?min_id=" + last_post_id + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
+      posts = response["data"]
+    end
+    posts
   end
+
+
 
 # identify current user (before_action)
 # find active subscriptions for current user
