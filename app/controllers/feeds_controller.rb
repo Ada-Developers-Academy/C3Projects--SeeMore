@@ -1,7 +1,7 @@
 require 'httparty'
 
 class FeedsController < ApplicationController
-  before_action :require_login, only: [:people]
+  before_action :require_login, only: [:people, :search]
 
   def index
     @user = User.find_by(id: session[:user_id])
