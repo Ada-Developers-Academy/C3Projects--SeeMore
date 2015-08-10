@@ -1,0 +1,19 @@
+<h1>Welcome to your dashboard, <%= @stalker.username %> </h1>
+
+<h3>Subscriptions</h3>
+
+<h4>Twitter</h4>
+
+<ul>
+  <% @twitter_prey.each do |prey| %>
+    <li> <%= prey.username %> </li>
+  <% end %>
+</ul>
+
+<h4>Instagram</h4>
+
+<ul>
+  <% @instagram_prey.each do |prey| %>
+    <li> <%= prey.username %> </li>
+  <% end %>
+</ul>
