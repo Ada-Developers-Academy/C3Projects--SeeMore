@@ -72,7 +72,7 @@ class IgSubscriptionsController < ApplicationController
 
   def assign_post(content)
     post = Post.new(
-      image: content["images"]["low_resolution"]["url"],
+      image: [content["images"]["low_resolution"]["url"]],
       posted_at: Time.at(content["created_time"].to_i),
       username: content["user"]["username"],
       content_id: content["id"],
