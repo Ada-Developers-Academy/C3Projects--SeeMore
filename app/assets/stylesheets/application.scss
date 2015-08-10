@@ -30,5 +30,15 @@
 }
 
 .search-results {
-  list-style-type: none
+  list-style-type: none;
+}
+
+.twitter-results img {
+  list-style-type: none;
+  border-radius: 10px;
+  border: 2px solid #3366CC;
+  padding: 2px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 5px;
 }
