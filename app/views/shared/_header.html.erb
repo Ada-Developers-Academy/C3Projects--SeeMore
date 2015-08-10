@@ -12,6 +12,25 @@
 
     <% #if logged_in? %>
       <div class="collapse navbar-collapse navbar-nav" id="navbar-collapse">
+        <div class="input-group">
+          <%= form_tag(twi_subscriptions_path, method: :get, class: "navbar-form navbar-left", role: "search") do %>
+          <%= form_tag(ig_subscriptions_path, method: :get, class: "navbar-form navbar-left", role: "search") do %>
+          <%= text_field_tag :search, params[:search], placeholder: "User", class: "form-control inline" %>
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li>
+                <option>Twitter</option>
+              </li>
+              <% end %>
+              <li>
+                <option>Insta</option>
+              </li>
+            </ul>
+                <%= submit_tag "Find", class:"btn btn-default" %>
+          </div>
+          <% end %>
+        </div>
         <%= form_tag(twi_subscriptions_path, method: :get, class: "navbar-form navbar-left", role: "search") do %>
           <div class="form-group">
             <%= text_field_tag :twitter_search, params[:twitter_search], placeholder: "Twitter user", class: "form-control" %>
@@ -20,8 +39,8 @@
         <% end %>
         <%= form_tag(ig_subscriptions_path, method: :get, class:"navbar-form navbar-left", role: "search") do %>
           <div class="form-group">
-            <%= text_field_tag :instagram_search, params[:instagram_search], placeholder: "Instagram user", class: "form-control inline" %>
-            <%= submit_tag "Find", class:"btn btn-default inline" %>
+            <%= text_field_tag :instagram_search, params[:instagram_search], placeholder: "Instagram user", class: "form-control" %>
+            <%= submit_tag "Find", class:"btn btn-default" %>
           </div>
         <% end %>
         <ul class="nav navbar-right">
