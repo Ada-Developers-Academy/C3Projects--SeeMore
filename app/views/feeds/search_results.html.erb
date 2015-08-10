@@ -1,6 +1,8 @@
 <h1>Creepah!!</h1>
 <% @results.each do |user| %>
 <div class="col-sm-6 col-md-4">
+
+  <% if params[:provider] == 'twitter' %>
     <div class="thumbnail">
       <p><%= link_to user.screen_name, "http://twitter.com/#{user.screen_name}" %></p>
       <p><%= image_tag(user.profile_image_url) %></p>
@@ -11,5 +13,15 @@
         <!-- Add a link here once users and sessions are complete -->
       <% end %>
     </div>
+
+  <% elsif params[:provider] == 'instagram' %>
+    <div class="thumbnail">
+      <p><%= link_to user.username,"http://www.instagram.com/#{user.username}" %></p>
+      <p><%= image_tag(user.profile_picture) %></p>
+      <p><%= link_to "Follow", "/", class: "btn btn-success"%></p>
+       <!-- Add a link here once users and sessions are complete -->
+    </div>
+  <% end %>
+
   </div>
 <% end %>
