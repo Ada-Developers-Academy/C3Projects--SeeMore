@@ -14,7 +14,7 @@
     <div class="thumbnail">
       <p><%= link_to user.username,"http://www.instagram.com/#{user.username}" %></p>
       <p><%= image_tag(user.profile_picture) %></p>
-      <p><%= link_to "Follow", ig_follow_path(user.id), class: "btn btn-success"%></p>
+      <p><%= link_to "Follow", ig_follow_path(user), class: "btn btn-success"%></p>
        <!-- Add a link here once users and sessions are complete -->
     </div>
   <% end %>
