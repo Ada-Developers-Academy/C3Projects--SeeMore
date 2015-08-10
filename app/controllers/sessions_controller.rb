@@ -26,6 +26,6 @@ skip_before_filter :verify_authenticity_token
   def destroy
     session[:user_id] = nil
 
-    redirect_to root_path, notice: "Log out successful"
+    redirect_to root_path, notice: "You have fled from the beast!"
   end
 end

@@ -14,8 +14,14 @@ This is why the @user.subscriptions.present? is a thing-->
 <% end %>
 
 <% unless logged_in? %>
-  WELCOME!
-    <%= link_to "Sign in Dev", "/auth/developer", class: "btn btn-default" %>
-    <%= link_to "Sign in with Instagram", "/auth/instagram", class:
-    "btn btn-default" %>
+  <div class="jumbotron">
+    <h1>WELCOME TO <strong>BEAST MODE!</strong></h1>
+    <p class="beast-mode">You must to sign in to feed the beast.</p>
+    <p>
+      <%= link_to "Sign In via Developer", "/auth/developer", class: "btn btn-primary" %>
+    </p>
+    <p>
+      <%= link_to "Sign In via Instagram", "/auth/instagram", class: "btn btn-primary" %>
+    </p>
+  </div>
 <% end %>
