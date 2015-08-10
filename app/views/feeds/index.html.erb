@@ -39,7 +39,7 @@
       <% end %>
 
     <!-- Actual Feed here -->
-    <% if @feed %>
+    <% if @user %>
       <% @feed.each do |tweet| %>
         <p><%= tweet.text %>
         <%= tweet.created_at %></p>
