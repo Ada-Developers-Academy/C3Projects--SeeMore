@@ -1,4 +1,4 @@
-FactoryGirl.define do 
+FactoryGirl.define do
 
   factory :user do
     username "MyString"
@@ -7,7 +7,7 @@ FactoryGirl.define do
     provider "instagram"
   end
 
-  factor :tw_user do
+  factory :tw_user do
     tw_user_id_str "100"
     user_name_str "Beyonce"
     profile_image_url "http://fakeurl.org/beyonce.jpg"
