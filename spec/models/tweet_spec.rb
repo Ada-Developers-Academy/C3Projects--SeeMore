@@ -36,4 +36,8 @@ RSpec.describe Tweet, type: :model do
       expect(tweet.errors).to include(:url)
     end
   end
+
+  pending ".seed_tweets"
+  pending ".update_tweets"
+  pending ".create_many_from_api"
 end
