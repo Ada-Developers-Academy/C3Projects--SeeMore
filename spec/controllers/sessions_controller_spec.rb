@@ -3,7 +3,26 @@ require 'rails_helper'
 RSpec.describe SessionsController, type: :controller do
   before { session[:stalker_id] = 1 }
 
+  describe "GET #index" do
+    it "does not require login" do
+      session[:stalker_id] = nil
+      get :index
+
+      expect(flash[:error]).to be_nil
+      expect(response).not_to redirect_to(landing_path)
+    end
+  end
+
   describe "GET #create" do
+    it "does not require login" do
+      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
+      session[:stalker_id] = nil
+      get :create, provider: :twitter
+
+      expect(flash[:error]).to be_nil
+      expect(response).not_to redirect_to(landing_path)
+    end
+
     context "when using twitter authentication" do
       context "is successful" do
         before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter] }
@@ -182,4 +201,13 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
+  describe "#destroy" do
+    it "requires login" do
+      session[:stalker_id] = nil
+      delete :destroy
+
+      expect(flash[:error]).to include(:login_required)
+      expect(response).to redirect_to(landing_path)
+    end
+  end
 end
