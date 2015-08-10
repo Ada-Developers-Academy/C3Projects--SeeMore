@@ -4,6 +4,7 @@ class IgSubscriptionsController < ApplicationController
   before_action :redirect_if_not_allowed
 
   INSTA_URI = "https://api.instagram.com/v1/users/"
+
   COUNT = 15
 
   def index
@@ -38,13 +39,13 @@ class IgSubscriptionsController < ApplicationController
     users_subs = @user.subscriptions
 
     response = users_subs.map do |subscription|
-      if instagram_id.present?
+      if subscription.instagram_id.present?
         HTTParty.get(INSTA_URI + "#{subscription.instagram_id}/media/recent/?count=#{COUNT}&access_token=" + access_token)
       end
     end
 
-    newed_posts = response.map do |content|
-      assign_post(content["data"])
+    newed_posts = response.first["data"].map do |content|
+      assign_post(content)
     end
 
     check_database(newed_posts)
@@ -55,7 +56,7 @@ class IgSubscriptionsController < ApplicationController
 
   def check_database(content_array)
     content_array.each do |content|
-      unless Post.all.include?(content_id: content.content_id)
+      if Post.where(content_id: content.content_id).empty?
         content.save
       end
     end
@@ -70,13 +71,16 @@ class IgSubscriptionsController < ApplicationController
   end
 
   def assign_post(content)
-    Post.new(
-      image: content["images"]["low_resolution"],
-      text: content["caption"]["text"],
+    post = Post.new(
+      image: content["images"]["low_resolution"]["url"],
       posted_at: Time.at(content["created_time"].to_i),
       username: content["user"]["username"],
       content_id: content["id"],
-      subscription_id: content["user"]["id"]
+      subscription_id: Subscription.find_by(instagram_id: content["user"]["id"]).id
     )
+    unless content["caption"].nil?
+      post.text = content["caption"]["text"]
+    end
+    return post
   end
 end
