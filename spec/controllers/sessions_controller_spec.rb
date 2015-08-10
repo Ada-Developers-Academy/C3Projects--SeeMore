@@ -11,6 +11,12 @@ RSpec.describe SessionsController, type: :controller do
       expect(flash[:error]).to be_nil
       expect(response).not_to redirect_to(landing_path)
     end
+
+    it "renders the index template" do
+      get :index
+
+      expect(response).to render_template("index")
+    end
   end
 
   describe "GET #create" do
@@ -202,6 +208,8 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe "#destroy" do
+    pending "fill in additional sessions#destroy tests"
+
     it "requires login" do
       session[:stalker_id] = nil
       delete :destroy
