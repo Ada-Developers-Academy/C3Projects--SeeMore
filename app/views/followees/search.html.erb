@@ -5,7 +5,6 @@
 <%= form_tag twitter_users_redirect_path do %>
   <%= label_tag :user %>
   <%= text_field_tag :user %>
-
   <%= hidden_field_tag :source, "twitter" %>
 
   <%= submit_tag 'Look up Twitter Users', class: "btn btn-default" %>
@@ -16,7 +15,6 @@
 <%= form_tag instagram_users_redirect_path do %>
   <%= label_tag :user %>
   <%= text_field_tag :user %>
-
   <%= hidden_field_tag :source, "instagram" %>
 
   <%= submit_tag "Look up Instagram Users", class: "btn btn-default" %>
@@ -28,22 +26,23 @@
     <% @results.each do |user| %>
       <%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
       <%= link_to "@#{user["username"]}" %>
-
       <%= form_tag subscriptions_path(user)%>
         <%= hidden_field_tag :source, "instagram" %>
 
         <%= submit_tag "Subscribe" %>
-
-    <% end %>
+      <% end %>
   <% elsif params[:source] == "twitter" %>
     <ul>
       <% @results.each do |user| %>
         <li><%= user.screen_name %></li>
         <%= form_tag subscriptions_path(user)%>
+          <%= hidden_field_tag :id, user.id %>
+          <%= hidden_field_tag :avatar_url, user.profile_image_url %>
+          <%= hidden_field_tag :username, user.screen_name %>
           <%= hidden_field_tag :source, "twitter" %>
 
           <%= submit_tag "Subscribe" %>
-      <% end %>
+        <% end %>
     </ul>
   <% end %>
 <% end %>
