@@ -1,25 +1,43 @@
-<div class="container-fluid">
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <%= link_to "BEAST MODE", root_path, class: "navbar-brand" %>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
 
-<h1>Welcome to BEAST MODE</h1><small>The home for all your feed needs. FEED THE BEAST.</small>
+    <% #if logged_in? %>
+      <div class="collapse navbar-collapse navbar-nav" id="navbar-collapse">
+        <%= form_tag(twi_subscriptions_path, method: :get, class: "navbar-form navbar-left", role: "search") do %>
+          <div class="form-group">
+            <%= text_field_tag :twitter_search, params[:twitter_search], placeholder: "Twitter user", class: "form-control" %>
+            <%= submit_tag "Find", class: "btn btn-default" %>
+          </div>
+        <% end %>
+        <%= form_tag(ig_subscriptions_path, method: :get, class:"navbar-form navbar-left", role: "search") do %>
+          <div class="form-group">
+            <%= text_field_tag :instagram_search, params[:instagram_search], placeholder: "Instagram user", class: "form-control inline" %>
+            <%= submit_tag "Find", class:"btn btn-default inline" %>
+          </div>
+        <% end %>
+        <ul class="nav navbar-right">
+          <li>
+            <%= button_to "Log Out", logout_path, method: :delete, class: "btn btn-default navbar-btn" %>
+          </li>
+        </ul>
+      </div>
+    <% #end %>
+  </div>
+</div>
 
-<% if flash[:notice]%>
-   <div class="alert alert-success"><%= flash[:notice] %></div>
-<% end %>
-
-<% if flash[:error]%>
-  <div class="alert alert-danger"><%= flash[:error] %></div>
-<% end %>
-
-<% if logged_in? %>
-  <%= form_tag(twi_subscriptions_path, method: :get, class:"form-inline") do %>
-    <%= text_field_tag :twitter_search, params[:twitter_search], placeholder: "Twitter user search"  %>
-    <%= submit_tag "Find Tweets for the Beast", class:"btn btn-default" %>
-  <% end %>
-  <%= form_tag(ig_subscriptions_path, method: :get, class:"form-inline") do %>
-    <%= text_field_tag :instagram_search, params[:twitter_search], placeholder: "Instagram user search"  %>
-    <%= submit_tag "Find Peeps for the Beast", class:"btn btn-default" %>
-  <% end %>
-  <p><%= link_to "Log Out", logout_path, method: :delete, class: "btn btn-default"%></p>
-<% end %>
-
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="row">
+      <p class="navbar-text">The home for all your feed needs. FEED THE BEAST.</p>
+    </div>
+  </div>
 </div>
