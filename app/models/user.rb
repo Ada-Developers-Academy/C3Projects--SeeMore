@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   # Associations
   has_many :tweets
+  has_and_belongs_to_many :instagram_users
+  has_many :grams, through :instagram_users
   #Validations
   validates :avatar_url,:uid,:provider,  presence: true
   validates :username, presence: true, uniqueness: true
