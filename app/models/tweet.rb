@@ -2,8 +2,7 @@ class Tweet < ActiveRecord::Base
   # Associations
   has_and_belongs_to :users
 
-
-  # Validationss
+  # Validations
   validates :tw_user_id_str, :tw_created_at, :tw_text, :user_id, presence: true
   validates :tw_id_str, presence: true, uniqueness: true
 
@@ -23,7 +22,6 @@ class Tweet < ActiveRecord::Base
       our_tweet.tw_created_at = tweet.created_at
       our_tweet.tw_retweet_count = tweet.retweet_count
       our_tweet.tw_favorite_count = tweet.favorite_count
-      our_tweet.user_id = session[:user_id]
       # save the tweets in the db
       our_tweet.save
     end
