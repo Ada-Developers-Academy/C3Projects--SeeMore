@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Associations
   has_many :tweets
   has_and_belongs_to_many :instagram_users
-  has_many :grams, through :instagram_users
+  has_many :grams, through: :instagram_users
   #Validations
   validates :avatar_url,:uid,:provider,  presence: true
   validates :username, presence: true, uniqueness: true
@@ -30,8 +30,13 @@ class User < ActiveRecord::Base
     user.provider = instagram.nil?   ? "developer" : "instagram"
     user.username = instagram.nil?   ? auth_hash["info"]["name"] : instagram["username"]
     user.avatar_url = instagram.nil? ? "nil" : instagram["profile_picture"]
-  # TODO: raise an error here instead of `nil`
+
+    # TODO: raise an error here instead of `nil`
     return user.save ? user : nil
   end
 
+  def ig_follow(ig_user)
+    InstagramUser.first_or_create_account(ig_user)
+    self.instagram_users << ig_user
+  end
 end

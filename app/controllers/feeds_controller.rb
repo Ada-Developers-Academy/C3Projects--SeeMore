@@ -28,11 +28,4 @@ class FeedsController < ApplicationController
       redirect_to search_path(params[:provider])
     end
   end
-
-  def ig_follow
-    #id from user session present, need ig user id,
-    #refresh back to search result page
-
-    
-  end
 end
