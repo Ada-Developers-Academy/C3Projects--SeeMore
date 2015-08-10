@@ -1,0 +1,10 @@
+<!-- This view is for de-bugging. Prob will delete this view later -->
+
+<h1>Instagram User <%= @user_id %>'s Posts:</h1>
+  <% @insta_posts.each do |post| %>
+    <%= raw get_embedded_html_instagram(post["link"]) %>
+  <% end %>
+<br>
+
+<br>
+<%= link_to "Back to Home", root_path, class: "btn-sm btn-primary" %>

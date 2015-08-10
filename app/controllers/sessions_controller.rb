@@ -8,6 +8,11 @@ class SessionsController < ApplicationController
     redirect_to root_path, notice: "Signed in!"
   end
 
+  def destroy
+    reset_session
+    redirect_to signin_path
+  end
+
   private
 
   def auth_hash

@@ -1,14 +1,15 @@
 class SubscriptionsController < ApplicationController
-  before_action :find_user
+  # before_action :find_user
+  before_action :current_user
 
-  def new
+  def new; end
     # do we need this?
-  end
 
   def create
-    # dependent on followee model, and a valid user login
-    @followee = Folowee.find(params[:followee_id])
-    @subscription = Subscription.create(user_id: session[:user_id], followee_id: @followee.id)
+    followee = Followee.find_or_create_by(followee_params)
+    Subscription.make_subscription(@current_user, followee)
+
+    redirect_to root_path
   end
 
   def index
@@ -23,11 +24,19 @@ class SubscriptionsController < ApplicationController
 
   private
 
-    def find_user
-      @user = User.find(session[:user_id])
-    end
+  def find_user
+    @user = User.find(session[:user_id])
+  end
 
-    def sub_params
-      params.require(:subscriptions).permit(:id, :user_id, :followee_id)
-    end
+  def sub_params
+    params.require(:subscriptions).permit(:id, :user_id, :followee_id)
+  end
+
+  def followee_params
+    { source: params[:source],
+      username: params[:username],
+      id: params[:id],
+      picture: params[:profile_picture]
+    }
+  end
 end

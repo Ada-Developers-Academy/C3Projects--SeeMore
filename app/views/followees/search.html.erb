@@ -1,11 +1,12 @@
 <h1>Search</h1>
 
+<%= render partial: "shared/errors" %>
+<br>
 <p>Search for a twitter user to follow:</p>
 
 <%= form_tag twitter_users_redirect_path do %>
   <%= label_tag :user %>
   <%= text_field_tag :user %>
-
   <%= hidden_field_tag :source, "twitter" %>
 
   <%= submit_tag 'Look up Twitter Users', class: "btn btn-default" %>
@@ -16,7 +17,6 @@
 <%= form_tag instagram_users_redirect_path do %>
   <%= label_tag :user %>
   <%= text_field_tag :user %>
-
   <%= hidden_field_tag :source, "instagram" %>
 
   <%= submit_tag "Look up Instagram Users", class: "btn btn-default" %>
@@ -25,15 +25,32 @@
 <% if action_name == "search_results" %>
   <h1><%= @source.capitalize %> user results for "<%= @query %>"</h1>
   <% if params[:source] == "instagram" %>
-    <% @results.each do |user| %>
-      <%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
-      <%= link_to "@#{user["username"]}" %>
-    <% end %>
+    <ul class="search-results">
+      <% @results.each do |user| %>
+        <li>
+          <%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
+          <%= link_to "@#{user["username"]}" %>
+          <%= form_tag subscriptions_path(user) do %>
+            <%= hidden_field_tag :source, "instagram" %>
+            <%= submit_tag "Subscribe" %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
   <% elsif params[:source] == "twitter" %>
-    <ul>
+    <ul class="search-results">
       <% @results.each do |user| %>
         <li><%= user.screen_name %></li>
+        <%= form_tag subscriptions_path(user) do %>
+          <%= hidden_field_tag :id, user.id %>
+          <%= hidden_field_tag :avatar_url, user.profile_image_url %>
+          <%= hidden_field_tag :username, user.screen_name %>
+          <%= hidden_field_tag :source, "twitter" %>
+
+          <%= submit_tag "Subscribe" %>
+        <% end %>
+        <li><%= link_to user.screen_name %></li>
       <% end %>
-    </ul> 
+    </ul>
   <% end %>
 <% end %>

@@ -16,7 +16,7 @@ FactoryGirl.define do
     user_id 12
     followee_id 100
   end
-  
+
   factory :post do
     followee_id         1
     source              "instagram"

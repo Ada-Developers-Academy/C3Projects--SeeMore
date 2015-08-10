@@ -1,0 +1,12 @@
+<nav class="header">
+  <div class="navbar navbar-default">
+    <div class="navbar-header">
+      <%= link_to "FeedMe", root_path, class: "navbar-brand" %>
+    </div>
+    <div class="nav navbar-nav navbar-right button">
+      <% if session[:user_id] %>
+        <%= link_to "Logout", signout_path, method: :delete, class: "btn btn-default btn-sm" %>
+      <% end %>
+    </div>
+  </div>
+</nav>
