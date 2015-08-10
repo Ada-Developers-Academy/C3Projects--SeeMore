@@ -6,6 +6,7 @@
         <li><%= link_to "Dev Login", login_path(provider: :developer), class: "btn btn-primary" %></li>
         <% if session[:user_id].nil? %>
         <% else %>
+        <li><%= link_to "Go Home", root_path, method: :get, class: "btn btn-default" %></li>
         <li><%= link_to "Logout", logout_path, method: :delete, class: "btn btn-danger" %></li>
         <% end %>
     </nav>
