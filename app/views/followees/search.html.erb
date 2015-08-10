@@ -28,13 +28,21 @@
     <% @results.each do |user| %>
       <%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
       <%= link_to "@#{user["username"]}" %>
-      <%= button_to "Subscribe", subscribe_path(user), method: :post, data: {:confirm => "Add to your subscriptions?"} %>
+
+      <%= form_tag subscriptions_path(user)%>
+        <%= hidden_field_tag :source, "instagram" %>
+
+        <%= submit_tag "Subscribe" %>
 
     <% end %>
   <% elsif params[:source] == "twitter" %>
     <ul>
       <% @results.each do |user| %>
         <li><%= user.screen_name %></li>
+        <%= form_tag subscriptions_path(user)%>
+          <%= hidden_field_tag :source, "twitter" %>
+
+          <%= submit_tag "Subscribe" %>
       <% end %>
     </ul>
   <% end %>

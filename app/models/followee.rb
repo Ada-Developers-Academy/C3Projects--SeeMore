@@ -14,20 +14,20 @@ class Followee < ActiveRecord::Base
   # plug this into a "add_subscription" action thru a button by each user
   # the "user" parameter is each twitter or instagram user in the search results
 
-  def self.find_or_create_by(user_id)
-    # if params[:source] == "instagram"
-      followee = self.find_or_initialize_by(native_id: user_id)
+  def self.find_or_create_by(source, username, picture, id)
+    if source == "instagram"
+      followee = self.find_or_initialize_by(native_id: id)
       followee.source = "instagram"
-      # followee.handle = user["username"]
-      # followee.avatar_url = user["profile_picture"]
-    # elsif params[:source] == "twitter"
-    #   followee = self.find_or_initialize_by(native_id: user.id )
-    #   followee.source = "twitter"
-    #   followee.handle = user.screen_name
-    #   followee.avatar_url = user.profile_image_url
-    # else
-    #   return false # if there's no @source
-    # end
+      followee.handle = username
+      followee.avatar_url = picture
+    elsif params[:source] == "twitter"
+      followee = self.find_or_initialize_by(native_id: user.id )
+      followee.source = "twitter"
+      followee.handle = user.screen_name
+      followee.avatar_url = user.profile_image_url
+    else
+      return false # if there's no @source
+    end
 
     followee.save ? followee : false
   end

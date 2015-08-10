@@ -6,10 +6,9 @@ class Subscription < ActiveRecord::Base
   # Validations -------------------------
   validates :user_id, :followee_id, presence: true
 
-  def self.make_subscription(user_id, followee)
+  def self.make_subscription(current_user, followee)
     subscription = Subscription.new
-    # binding.pry
-    subscription = self.create(user_id: user_id, followee_id: followee.id)
+    subscription = self.create(user_id: current_user.id, followee_id: followee.id)
 
     subscription.save ? subscription : false
   end
