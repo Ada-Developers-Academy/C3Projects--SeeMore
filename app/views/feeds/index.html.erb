@@ -16,18 +16,20 @@
         <!-- Manage feed button -->
         <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
 
+        <%= render partial: "instagrams/refresh_feed" %>
         <!-- Instagram Actual Feed here -->
-        <% if @response %>
-          <% @response.first["data"].each do |response| %>
+        <% if @posts %>
+          <% @posts.each do |post| %>
             <div class="row">
               <div class="col-sm-4 center">
                 <div class="thumbnail">
-                  <%= link_to image_tag(response["images"]["standard_resolution"]["url"]), "https://instagram.com/p/6EV9MOKwzY/" %>
+                  <%= link_to image_tag(post["data"]["images"]["standard_resolution"]["url"]), post["data"]["link"] %>
                   <div class="caption">
-                    <% unless response["caption"].nil? %>
-                      <p><%= response["caption"]["text"] %></p>
+                    <h5>Posted by: <%= post["data"]["user"]["username"] %></h5>
+                    <% unless post["data"]["caption"].nil? %>
+                      <p><%= post["data"]["caption"]["text"] %></p>
                     <% end %>
-                    <em><%= Time.at(response["created_time"].to_i).strftime("%m/%d/%Y at %I:%M%p") %></em>
+                    <em><%= Time.at(post["data"]["created_time"].to_i).strftime("%m/%d/%Y at %I:%M%p") %></em>
                   </div>
                 </div>
               </div>
@@ -37,11 +39,11 @@
       <% end %>
 
     <!-- Actual Feed here -->
-    <% @feed.each do |tweet| %>
-      <p><%= tweet.text %>
-      <%= tweet.created_at %></p>
-    <% end  %>
-
-
+    <% if @feed %>
+      <% @feed.each do |tweet| %>
+        <p><%= tweet.text %>
+        <%= tweet.created_at %></p>
+      <% end  %>
+    <% end %>
 
 </div>
