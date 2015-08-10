@@ -25,6 +25,7 @@
     <div class="feed">
     <% if @user %>
       <% @feed.each do |tweet| %>
+          <h4><%= tweet.user.username %></h4>
         <p><%= tweet.text %>
         <%= tweet.created_at %></p>
       <% end  %>
