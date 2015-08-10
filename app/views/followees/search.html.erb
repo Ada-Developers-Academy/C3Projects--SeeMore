@@ -22,7 +22,7 @@
   <%= submit_tag "Look up Instagram Users", class: "btn btn-default" %>
 <% end %>
 
-<% if action_name == "search-results" %>
+<% if action_name == "search_results" %>
   <h1><%= @source.capitalize %> user results for "<%= @query %>"</h1>
   <% if params[:source] == "instagram" %>
     <ul class="search-results">
@@ -34,7 +34,7 @@
   <% elsif params[:source] == "twitter" %>
     <ul class="search-results">
       <% @results.each do |user| %>
-        <li><%= user.screen_name %></li>
+        <li><%= link_to user.screen_name %></li>
       <% end %>
     </ul>
   <% end %>
