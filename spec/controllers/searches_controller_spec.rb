@@ -7,6 +7,14 @@ RSpec.describe SearchesController, type: :controller do
   before { session[:stalker_id] = 1 }
 
   describe "POST #search" do
+    it "requires login" do
+      session[:stalker_id] = nil
+      post :search, search_twitter: valid_search
+
+      expect(flash[:error]).to include(:login_required)
+      expect(response).to redirect_to(landing_path)
+    end
+
     context "searching for a Twitter user" do
       it "redirects you to home page when you don't enter a search term" do
         post :search, search_twitter: invalid_search
@@ -23,6 +31,14 @@ RSpec.describe SearchesController, type: :controller do
   end
 
   describe "GET #show" do
+    it "requires login" do
+      session[:stalker_id] = nil
+      get :show, client: "twitter", search_term: "search"
+
+      expect(flash[:error]).to include(:login_required)
+      expect(response).to redirect_to(landing_path)
+    end
+
     context "searching for a Twitter user" do
       it "responds successfully with an HTTP 200 status code" do
         get :show, client: "twitter", search_term: "search"
