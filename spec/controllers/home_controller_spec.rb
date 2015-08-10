@@ -26,4 +26,14 @@ RSpec.describe HomeController, type: :controller do
     #   expect(@current_user).to be_nil
     # end
   end
+
+   describe "refresh newsfeed" do
+     let(:post) { create :post }
+     context "finds all the posts" do
+       it "redirects" do
+         patch :refresh
+         expect(response).to render_template(:newsfeed)
+       end
+     end
+   end
 end

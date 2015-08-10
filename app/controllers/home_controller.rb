@@ -27,8 +27,7 @@ class HomeController < ApplicationController
       end
     end
     @all_posts.sort_by { |post| post["native_created_at"] }
-    return @all_posts
-    # render :more_news
+    render :newsfeed
   end
 
   def get_embed_html(tweet_id)

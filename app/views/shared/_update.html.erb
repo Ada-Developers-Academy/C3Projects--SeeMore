@@ -1,1 +1,3 @@
-<%= @all_posts %>
+<% @all_posts.each do |p| %>
+  <%= p.embed_html %>
+  <% end %>

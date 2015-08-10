@@ -8,6 +8,9 @@
 
 <%= link_to 'Update', refresh_path, method: :post, class: "btn btn-default" %>
 
+<% if @all_posts %>
+  <%= render partial: "shared/update" %>
+<% end %>
 <!-- <blockquote class="twitter-tweet">
   <p lang="en" dir="ltr">Where are they now: Beast Jesus edition.</p>&mdash; Alice Rhomieux (@rhomieux) <a href="https://twitter.com/rhomieux/status/629789712799002625">August 7, 2015</a></blockquote> -->
 
