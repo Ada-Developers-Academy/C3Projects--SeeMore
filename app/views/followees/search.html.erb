@@ -30,9 +30,8 @@
         <li>
           <%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
           <%= link_to "@#{user["username"]}" %>
-          <%= form_tag subscriptions_path(user)%>
+          <%= form_tag subscriptions_path(user) do %>
             <%= hidden_field_tag :source, "instagram" %>
-
             <%= submit_tag "Subscribe" %>
           <% end %>
         </li>
@@ -43,8 +42,7 @@
       <% @results.each do |user| %>
         <li><%= link_to image_tag(user.profile_image_url), "https://api.twitter.com/1/statuses/user_timeline.html?&user_id=#{user.id}" %>
         <%= link_to "@#{user.screen_name}" %></li>
-
-        <%= form_tag subscriptions_path(user)%>
+        <%= form_tag subscriptions_path(user) do %>
           <%= hidden_field_tag :id, user.id %>
           <%= hidden_field_tag :avatar_url, user.profile_image_url %>
           <%= hidden_field_tag :username, user.screen_name %>
