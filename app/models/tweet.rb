@@ -6,14 +6,14 @@ class Tweet < ActiveRecord::Base
 
   validates :uid, :post_time, :prey_id, :url, presence: true
 
-  def self.seed_tweets(stalker_uid, count = 5)
-    tweets = TwitterClient.fetch_tweets(stalker_uid, { count: count })
+  def self.seed_tweets(prey_uid, count = 5)
+    tweets = TwitterClient.fetch_tweets(prey_uid, { count: count })
     create_many_from_api(tweets)
   end
 
-  def self.update_tweets(stalker_uid)
-    last_tweet_uid = tweets.order(:post_time).last.uid
-    tweets = TwitterClient.fetch_tweets(stalker_uid, { since_id: last_tweet_uid })
+  def self.update_tweets(prey_uid)
+    last_tweet_uid = tweets.order(:uid).last.uid
+    tweets = TwitterClient.fetch_tweets(prey_uid, { since_id: last_tweet_uid })
     create_many_from_api(tweets)
   end
 

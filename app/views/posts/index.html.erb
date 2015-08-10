@@ -13,7 +13,7 @@
           <h4>
             <%= post.prey.name %>
             <small>@<%= post.prey.username %> * <%= time_ago_in_words(post.post_time) %> ago</small>
-            <%= link_to "See Original", post.url.to_s, class: "btn btn-default" %>
+            <%= link_to "See Original", post.url, class: "btn btn-default" %>
           </h4>
 
           <%= post.body %>
