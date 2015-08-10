@@ -58,4 +58,16 @@ RSpec.describe FeedsController, type: :controller do
       end
     end
   end
+
+  describe "POST #tw_follow" do
+    it "follows a twitter user" do
+      request.env["HTTP_REFERER"] = "/"
+      user = create :user
+      twitter_user = create :tw_user
+      session[:user_id] = user.id
+      post :tw_follow, tw_user: twitter_user.tw_user_id_str
+
+      expect(user.tw_users).to include(twitter_user)
+    end
+  end
 end
