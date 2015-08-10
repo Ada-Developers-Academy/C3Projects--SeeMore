@@ -6,8 +6,7 @@ class SubscriptionsController < ApplicationController
     # do we need this?
 
   def create
-    raise
-    followee = Followee.find_or_create_by(params[:source], params[:username], params[:profile_picture], params[:id])
+    followee = Followee.find_or_create_by(followee_params)
     Subscription.make_subscription(@current_user, followee)
 
     redirect_to root_path
@@ -25,11 +24,19 @@ class SubscriptionsController < ApplicationController
 
   private
 
-    def find_user
-      @user = User.find(session[:user_id])
-    end
+  def find_user
+    @user = User.find(session[:user_id])
+  end
 
-    def sub_params
-      params.require(:subscriptions).permit(:id, :user_id, :followee_id)
-    end
+  def sub_params
+    params.require(:subscriptions).permit(:id, :user_id, :followee_id)
+  end
+
+  def followee_params
+    { source: params[:source],
+      username: params[:username],
+      id: params[:id],
+      picture: params[:profile_picture]
+    }
+  end
 end
