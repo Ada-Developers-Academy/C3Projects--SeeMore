@@ -9,9 +9,80 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *
- *= require_tree .
- *= require_self
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+body {
+  // Exactly 50px because first (top) navbar is exactly 50px according to Bootstrap.
+  // Any more than 50px and there will be white space between the first and second navbars.
+  padding-top: 50px;
+  background-color: #FFFFCC;
+}
+
+.jumbotron {
+  text-align: center;
+  background-color: #FF0000;
+  color: #FFFFCC;
+}
+
+.beast-mode {
+  font-family: 'Rock Salt', cursive;
+}
+
+// Style of the navbar(s).
+.navbar {
+  background-color: #FF0000;
+  border: none;
+  // Default is rounded borders, which looks weird with two navbars.
+  border-radius: 0;
+}
+
+.navbar-default .navbar-brand {
+  font-family: 'Rock Salt', cursive;
+  color: #FFFFCC;
+}
+
+.navbar-default .navbar-brand:hover {
+  color: #990000;
+}
+
+.navbar-default .navbar-text {
+  color: #FFFFCC;
+}
+
+.navbar-brand {
+  font-size: 18px;
+}
+
+// To adjust the height of the second navbar, so it's not MASSIVE.
+.navbar.navbar-static-top {
+  min-height: 30px;
+}
+
+//Style for the webpage subtitle.
+p.navbar-text {
+  margin-top: 5px;
+}
+
+// Changes border of expandable menu button.
+.navbar-default .navbar-toggle {
+  border-color: #888888;
+}
+
+// Mostly for when shrinking window to keep search field and button on the same line.
+.form-control {
+  display: inline;
+  width: 50%;
+}
+
+// Removes border that gets added when shrinking the window.
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+  border: none;
+}
+
+// Form gains a margin when shrinking window.
+// .navbar-form {
+//   margin-top: 1px;
+//   margin-bottom: 1px;
+// }
