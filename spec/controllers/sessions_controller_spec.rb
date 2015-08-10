@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'support/vcr_setup'
 
 RSpec.describe SessionsController, type: :controller do
 
@@ -15,27 +16,17 @@ RSpec.describe SessionsController, type: :controller do
       @user = create :user
     end
 
-    let(:good_params){{:session => {username: "MyString"}}}
-    let(:bad_params){{:session => {username: "MyStrng"}}}
-    
-    it "creates a new session" do
-      post :create, good_params
-      expect(session).to include :username
-    end
-    
+    let(:good_params){ { username: "MyString", avatar_url: "kitty.jpeg", uid: "344432", provider: 'instagram', code: "d8f12e2001b845208032e27f1446272c" } }
+    let(:bad_params){ { username: "MyStrng" } }
+
     it "sets :user_id attribute to the user's id" do
-      post :create, good_params
-      expect(session[:user_id]).to be(@user.id)
+      VCR.use_cassette 'controller/instagram_user_auth' do
+        post :create, good_params
+        expect(session[:user_id]).to eq @user.id
+      end
     end
 
     # it "finds the correct user." do
     # end
-
-
-
   end
-
-
-
 end
-
