@@ -5,7 +5,6 @@ class Subscription < ActiveRecord::Base
 
   # Validations
   validate :twitter_xor_instagram_id
-  # would be good to write a validation that it has either a twitter_id OR an instagram_id
 
   private
     # validates that there is EITHER a twitter OR instagram id

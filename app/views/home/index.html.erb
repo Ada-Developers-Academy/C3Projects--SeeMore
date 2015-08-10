@@ -2,18 +2,17 @@
 This is why the @user.subscriptions.present? is a thing-->
 <!-- The .blank? I put in because everything kept breaking surrounding this code, so I purposefully made it so it would never be true and never try and display this code -->
 <% if logged_in? && @user.subscriptions.blank? %>
-  <% @sub_array_tweets.each do |tweet| %>
-    <%= tweet.user.screen_name %>
-    <%= tweet.text %>
-    <%= tweet.as_json["created_at"] %>
-    <% tweet.media.as_json.each do |media| %>
-      <%= image_tag(media["media_url_https"], height: '300' ) %>
-    <% end %>
-    <br>###<br>
-  <% end %>
-<% end %>
+  <h4>You have not fed the beast yet. Use the search window
+  to satiate the beast!</h4>
 
-<% unless logged_in? %>
+<% elsif logged_in? %>
+  <% @posts.each do |post| %>
+    <%= post.username %>
+    <%= post.image %>
+    <%= post.text %>
+  <% end %>
+
+<% else %>
   <div class="jumbotron">
     <h1>WELCOME TO <strong>BEAST MODE!</strong></h1>
     <p class="beast-mode">You must to sign in to feed the beast.</p>
