@@ -1,5 +1,4 @@
 <% @users.each do |user| %>
-  <p class="">
     Name: <%= user.name %><br>
     Username: <%= user.screen_name %><br>
     <%= image_tag(user.profile_image_url(size = :bigger)) %>

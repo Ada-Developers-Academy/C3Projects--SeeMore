@@ -1,12 +1,16 @@
+require 'httparty'
+
 class FeedsController < ApplicationController
 
   def index
     @user = User.find_by(id: session[:user_id])
+    @posts = []
     if @user && @user.instagrams
-      @response = []
-      @user.instagrams.each do |gram|
-        @response << HTTParty.get(INSTAGRAM_URI + "#{gram.provider_id}/media/recent?access_token=#{session[:access_token]}")
+      @user.instagram_posts.each do |post|
+        @posts << HTTParty.get(INSTAGRAM_URI + "media/" + post.post_id + "?access_token=#{session[:access_token]}")
       end
+      @posts.sort_by! { |post| post["data"]["created_time"]}
+      @posts.reverse!
     end
 
     if @user && @user.tweets
@@ -15,15 +19,14 @@ class FeedsController < ApplicationController
       # @people << Instagram.find(@user.instagram_ids)
       @people << Tweet.find(@user.tweet_ids)
       @people.flatten!
-      # @people.sort_by! { |person| person.username.downcase } # Elsa's comment: why are we sorting @people? @feed will reshuffle everything later
 
       @feed = []
       @people.each do |person|
         username = person.username
-        @feed << @twitter.client.user_timeline(username, count: 10)
+        @feed << Twit.user_timeline(username)
         @feed.flatten!
-        @feed.sort_by { |tweet| tweet.created_at.strftime("%m/%d/%Y") }
-        raise
+        @feed.sort_by! { |tweet| tweet.created_at.strftime("%Y-%m-%d %H:%M:%S") }
+        @feed.reverse!
       end
     end
   end

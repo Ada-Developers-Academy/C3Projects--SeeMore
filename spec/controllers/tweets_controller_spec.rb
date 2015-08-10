@@ -1,7 +1,44 @@
 require 'rails_helper'
+require 'airborne'
 
 RSpec.describe TweetsController, type: :controller do
+  describe "POST #search" do
+    context "valid params" do
+      xit "searches users in Twitter API" do
+        post :search, tweet: { username: "name" }
+        expect()
+      end
+
+      it "renders search template" do
+        post :search, tweet: { username: "name" }
+        expect(response).to render_template("feeds/search")
+      end
+    end
+
+    context "invalid params" do
+      it "redirects to search page" do
+        post :search, tweet: { username: nil }
+        expect(response).to redirect_to(search_path)
+      end
+
+      it "displays an error message" do
+        post :search, tweet: { username: nil }
+        expect(flash[:error]).to_not be nil
+      end
+    end
+  end
+
   describe "POST #create" do
+    context "login required" do
+      it "doesn't create twitter record" do
+        session[:user_id] = nil
+
+        post :create, tweet: attributes_for(:tweet)
+        expect(Tweet.count).to eq(0)
+        expect(flash[:error]).to_not be nil
+      end
+    end
+
     context "valid params" do
       before :each do
         @user = create :user
@@ -46,4 +83,26 @@ RSpec.describe TweetsController, type: :controller do
       end
     end
   end
+
+  describe "DELETE #destroy" do
+    context "valid params" do
+      before :each do
+        @user = create :user
+        session[:user_id] = @user.id
+        @tweeter = create :tweet
+      end
+
+      it "unfollows a tweeter" do
+        delete :destroy, id: @tweeter.id
+
+        expect(@user.tweets.count).to eq(0)
+      end
+
+      it "redirects to the people page" do
+        delete :destroy, id: @tweeter.id
+        expect(subject).to redirect_to(people_path)
+      end
+    end
+  end # DELETE #destroy
+
 end

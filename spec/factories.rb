@@ -1,9 +1,6 @@
-FactoryGirl.define do  factory :tweet_post do
-    post_id 1
-posted_at "2015-08-09 12:51:21"
-text "MyText"
-media_url "MyString"
-tweet_id 1
+FactoryGirl.define do
+  factory :instagram_post do
+
   end
 
   factory :user do
@@ -16,12 +13,12 @@ tweet_id 1
   factory :instagram do
     username "Ada"
     provider_id "1357"
-    user_ids [1, 2]
+    user_ids 1
   end
 
   factory :tweet do
     username "Ada"
     provider_id "1357"
-    user_ids [1, 2]
+    user_ids 1
   end
 end

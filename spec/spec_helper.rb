@@ -44,7 +44,8 @@ RSpec.configure do |config|
     OmniAuth.config.mock_auth[:instagram] = OmniAuth::AuthHash.new({
       :provider => 'instagram',
       :uid => '12345',
-      info: {email: "a@b.com", name: "Ada"}
+      info: {email: "a@b.com", name: "Ada"},
+      credentials: { token: 'token' }
     })
   end
   
