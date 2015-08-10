@@ -8,9 +8,9 @@ class HomeController < ApplicationController
   end
 
   def newsfeed
-  #   user = Followee.find(1)
-  #   user_id = user.native_id.to_i
-  #   tweet = @twitter_client.user_timeline(user_id, { count: 3 }).first
+    # user = Followee.find(5)
+    # user_id = user.native_id.to_i
+    # tweet = @twitter_client.user_timeline(user_id, { count: 2 }).last
   #   @tweet_html = get_embed_html(tweet.id)
   #   # raise
   end
