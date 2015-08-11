@@ -3,7 +3,7 @@ require 'httparty'
 class InstagramPostsController < ApplicationController
   before_action :require_login, only: [:create]
 
-  def self.create
+  def create
     user = User.find_by(id: session[:user_id])
     if user && user.instagrams
       get_posts(user)
@@ -20,7 +20,6 @@ class InstagramPostsController < ApplicationController
       end
     end
     redirect_to root_path
-    # raise
   end
 
   private

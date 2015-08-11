@@ -15,7 +15,6 @@ class FeedsController < ApplicationController
     end
 
     if @user && @user.tweets
-
       @feed = []
       usernames = @user.tweets.map &:username
       usernames.each do |username|
