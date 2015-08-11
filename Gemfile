@@ -46,6 +46,9 @@ gem 'bcrypt'
 #   gem "pg"
 # end
 
+group :test do
+  gem 'webmock'
+end
 
 group :development, :test do
   # troubleshooting
@@ -58,7 +61,6 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'factory_girl_rails', "~> 4.0"
   gem 'vcr'
-  gem 'webmock'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
