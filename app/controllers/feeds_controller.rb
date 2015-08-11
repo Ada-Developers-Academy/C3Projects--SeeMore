@@ -2,7 +2,7 @@ class FeedsController < ApplicationController
   def index
     user = User.find(session[:user_id])
     Tweet.update_timeline(user)
-
+    @tweets = user.tweets
   end
 
   def search; end
