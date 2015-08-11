@@ -22,8 +22,43 @@ RSpec.describe Prey, type: :model do
       expect(prey.errors).to include(:provider)
     end
   end
-  pending "add some examples to (or delete) #{__FILE__}"
 
-  pending "#update_tweets"
-  pending "seeds tweets after create"
+  describe "tweeter?" do
+    context "when prey's provider is twitter" do
+      it "returns true" do
+        prey = build(:prey, provider: "twitter")
+
+        expect(prey.tweeter?).to be true
+      end
+    end
+
+    context "when prey's provider is instagram" do
+      it "returns false" do
+        prey = build(:prey, provider: "instagram")
+
+        expect(prey.tweeter?).to be false
+      end
+    end
+  end
+
+  describe "grammer?" do
+    context "when prey's provider is instagram" do
+      it "returns true" do
+        prey = build(:prey, provider: "instagram")
+
+        expect(prey.grammer?).to be true
+      end
+    end
+
+    context "when prey's provider is twitter" do
+      it "returns false" do
+        prey = build(:prey, provider: "twitter")
+
+        expect(prey.grammer?).to be false
+      end
+    end
+  end
+
+  pending "#update_posts"
+  pending "seeds posts after create"
 end
