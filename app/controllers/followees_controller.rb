@@ -1,6 +1,6 @@
 class FolloweesController < ApplicationController
   INSTA_URI = "https://api.instagram.com/v1/users/search?"
-  INSTA_USER_COUNT = "3"
+  USER_COUNT = 3
 
   before_action :find, only: [:destroy]
   helper_method :get_embedded_html_instagram
@@ -39,12 +39,14 @@ class FolloweesController < ApplicationController
   def search_results
     @query = params[:user]
     @source = params[:source]
-    if params[:source] == "instagram"
-      response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&count=" + INSTA_USER_COUNT + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
+    case params[:source]
+    when INSTAGRAM
+      response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&count=" + USER_COUNT.to_s + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
       @results = response["data"]
-    elsif params[:source] == "twitter"
-      @results = @twitter_client.user_search(@query, { count: 1 })
+    when TWITTER
+      @results = @twitter_client.user_search(@query, { count: USER_COUNT })
     end
+
     render 'search'
   end
 

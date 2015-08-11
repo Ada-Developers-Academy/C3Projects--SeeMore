@@ -4,7 +4,6 @@ class HomeController < ApplicationController
 
   include ActionView::Helpers::OutputSafetyHelper
 
-  INSTA_URI = "https://api.instagram.com/v1/users/search?"
   INSTA_USER_POSTS_URI = "https://api.instagram.com/v1/users/"
   INSTA_OEMBED_URI = "http://api.instagram.com/oembed?omitscript=false&url="
   FIRST_POSTS_NUM = 5
@@ -12,11 +11,6 @@ class HomeController < ApplicationController
   def signin; end
 
   def newsfeed
-    # user = Followee.find(5)
-    # user_id = user.native_id.to_i
-    # tweet = @twitter_client.user_timeline(user_id, { count: 2 }).last
-    # @tweet_html = get_embed_html(tweet.id)
-    # raise
     #### uncomment below for debugging example code
     @posts = []
     @current_user.followees.each do |f|
@@ -40,26 +34,26 @@ class HomeController < ApplicationController
 
     active_subscriptions.each do |sub|
       followee = sub.followee
-      last_post_id = sub.followee.last_post_id
-      source = sub.followee.source
+      source = followee.source
 
-      posts = get_posts_from_API(source, followee, last_post_id)
+      posts = get_posts_from_API(followee)
 
       # twitter vs instagram
       if posts && posts.count > 0
-        if source == "twitter"
+        case source
+        when TWITTER
           posts.each do |post|
             post_hash = find_twitter_params(post, followee)
             Post.create(post_hash)
           end
-        elsif source == "instagram"
+        when INSTAGRAM
           posts.each do |post|
             post_hash = find_instagram_params(post, followee)
             Post.create(post_hash)
           end
         end
 
-        new_last_post_id = source == "twitter" ? posts.first.id : posts.first["id"]
+        new_last_post_id = source == TWITTER ? posts.first.id : posts.first["id"]
         sub.followee.update!(last_post_id: new_last_post_id)
       end
     end
@@ -91,31 +85,36 @@ class HomeController < ApplicationController
   end
 
   # do we want to pass in followee or followee_id?
-  def get_posts_from_API(source, followee, last_post_id)
-    if source == "twitter"
+  def get_posts_from_API(followee)
+    last_post_id = followee.last_post_id
+    source = followee.source
+
+    case source
+    when TWITTER
       id = followee.native_id.to_i
-      if followee.last_post_id
+      if last_post_id
         posts = @twitter_client.user_timeline(id, { since_id: last_post_id.to_i })
       else
-        posts = @twitter_client.user_timeline(id, { count: 5 } )
-        return posts
+        posts = @twitter_client.user_timeline(id, { count: 5 })
       end
-    elsif source == "instagram"
-      if followee.last_post_id
-        real_last_id = (followee.last_post_id.to_i + 1).to_s
+    when INSTAGRAM
+      if last_post_id
         response = HTTParty.get(
-          INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?min_id=" + real_last_id + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
+          INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?min_id=" + last_post_id + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
       else
         response = HTTParty.get(
           INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?count=" + "5" + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
       end
-        posts = response["data"]
+
+      posts = response["data"]
+      if posts && posts.count > 0
+        posts = posts[0..-2]
+      end
     end
 
     return posts
   end
-
-
+end
 
 # identify current user (before_action)
 # find active subscriptions for current user
@@ -135,5 +134,3 @@ class HomeController < ApplicationController
     # update followee's last_post_id to be that of the last post you created
 
   # ... next subscription
-
-end
