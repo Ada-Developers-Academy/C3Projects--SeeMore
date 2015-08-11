@@ -24,7 +24,7 @@ RSpec.describe FolloweesController, type: :controller do
 
   describe "POST #twitter_users_redirect" do
     context "search term entered" do
-      
+
       before :each do
         VCR.use_cassette 'controller/followees_controller/twitter_users_redirect' do
           response = post :twitter_users_redirect, user: "pig", source: "twitter"
@@ -86,8 +86,10 @@ RSpec.describe FolloweesController, type: :controller do
 
   describe "GET #search_results" do
     it "renders the search template" do
-      get :search_results, source: "twitter", user: "cow"
-      expect(response).to render_template("search")
+      VCR.use_cassette 'controller/followees_controller/search_results' do
+        response = get :search_results, source: "twitter", user: "cow"
+        expect(response).to render_template("search")
+      end
     end
   end
 end
