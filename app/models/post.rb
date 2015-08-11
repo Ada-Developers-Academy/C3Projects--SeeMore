@@ -1,4 +1,5 @@
 require 'twitter_client'
+require 'instagram_client'
 
 class Post < ActiveRecord::Base
   belongs_to :prey
@@ -36,7 +37,10 @@ class Post < ActiveRecord::Base
   end
 
   def self.create_many_grams_from_api(grams)
-    #WIP
+    grams.each do |gram|
+      post = Post.create(create_gram_params_from_api(gram))
+      Medium.create(url: gram["images"]["standard_resolution"]["url"], post_id: post.id)
+    end
   end
 
   private
@@ -49,5 +53,20 @@ class Post < ActiveRecord::Base
       url: tweet.url,
       provider: "twitter"
     }
+  end
+
+  def self.create_gram_params_from_api(gram)
+    {
+      uid: gram["id"],
+      body: gram["caption"]["text"],
+      post_time: convert_unix_to_datetime(gram["created_time"]),
+      prey_id: Prey.find_by(uid: gram["user"]["id"]).id,
+      url: gram["link"],
+      provider: "instagram"
+    }
+  end
+
+  def self.convert_unix_to_datetime(time)
+    Time.at(time.to_i).to_datetime
   end
 end
