@@ -13,9 +13,9 @@ class Feed < ActiveRecord::Base
   VIMEO_BASE_URI = "https://api.vimeo.com/users/" # vm's user_id == our feed_id
   VIMEO_FEED_END_URI = "/videos?page=1&per_page=30"
   VIMEO_TOKEN_HEADER = {
-                   "Accept" => "application/vnd.vimeo.*+json;version=3.2",
-                   "Authorization" => "bearer #{ ENV["VIMEO_ACCESS_TOKEN"] }"
-                 }
+                  "Accept" => "application/vnd.vimeo.*+json;version=3.2",
+                  "Authorization" => "bearer #{ ENV["VIMEO_ACCESS_TOKEN"] }"
+                }
 
   # Validations-----------------------------------------------------------------
   validates :name, :platform, :platform_feed_id, presence: true
@@ -75,9 +75,7 @@ class Feed < ActiveRecord::Base
     feed_post_ids = feed_posts.map { |post| post.post_id }
 
     # query the API
-    # OPTIMIZE: which of the following two lines is better?
     feed_url = INSTAGRAM_FEED_URI_A + platform_feed_id.to_s + INSTAGRAM_FEED_URI_B
-    # feed_url = "#{ INSTAGRAM_FEED_URI_A }#{ platform_feed_id }#{ INSTAGRAM_FEED_URI_B }"
     results = HTTParty.get(feed_url)
     new_posts = results["data"]
 
@@ -122,11 +120,10 @@ class Feed < ActiveRecord::Base
     def create_vimeo_post(post_data, feed_id)
       post_hash = {}
 
-      post_id_array = post_data["uri"].split("/") # "/videos/1234" => ["", "videos", "1234"]
-      post_id = post_id_array.last # "1234"
+      post_id = VimeoController.helpers.grab_id(post_data)
 
       post_hash[:post_id]     = post_id # post id from vimeo
-      post_hash[:name]        = post_data["name"] # FIXME: we need to add this column to the table
+      post_hash[:name]        = post_data["name"]
       post_hash[:description] = post_data["description"] # FIXME: in description, if description nil we can just put name
       post_hash[:content]     = post_data["embed"] # this is the HTML for embedding the video!
       post_hash[:date_posted] = post_data["created_time"]
