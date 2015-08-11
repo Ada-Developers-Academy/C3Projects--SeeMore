@@ -48,6 +48,17 @@
 nav a {
   margin-left: 5px;
 }
+
+
+.welcome_image {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  opacity: 0.15;
+  background-image: url(/assets/search.jpg);
+  z-index: -1;}
+
 .home_icon {
   float: left;
+
 }
