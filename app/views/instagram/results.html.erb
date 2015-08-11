@@ -1,18 +1,19 @@
 <h1 class ="green search-header">Search results for <%= @query %>:</h1>
-<div class="result">
 <% unless @results.empty? %>
     <% @results.each do |result| %>
-      <div class="col-sm-3 search-result">
-        <h3>
-          <%= link_to result["username"], instagram_feed_path(result["id"]) %>
-          <br>
-          <%= link_to "Subscribe", instagram_subscribe_path(result["id"]), method: "post", class: "btn btn-success btn-sm" %>
-          <% unless result["full_name"].empty? %>
-            <br />
-            <small><%= result["full_name"] %></small>
-          <% end %>
-        </h3>
-        <%= image_tag result["profile_picture"], class: "profile" %>
+      <div class="col-sm-4">
+        <div class="search-result">
+          <h3>
+            <%= link_to result["username"], instagram_feed_path(result["id"]) %>
+            <br>
+            <%= link_to "Subscribe", instagram_subscribe_path(result["id"]), method: "post", class: "btn btn-success btn-sm" %>
+            <% unless result["full_name"].empty? %>
+              <br />
+              <small><%= result["full_name"] %></small>
+            <% end %>
+          </h3>
+          <%= image_tag result["profile_picture"], class: "profile" %>
+        </div>
       </div>
     <% end %>
   </div>

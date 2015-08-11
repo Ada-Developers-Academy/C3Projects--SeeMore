@@ -85,17 +85,6 @@
   border-radius: 5px;
 }
 
-.results{
-  max-width: 80%;
-  margin: auto;
-}
-
-.col-sm-3{
-  background: rgba(255,255,255,0.9);
-  padding: 10px;
-  border-radius: 10px;
-}
-
 .green {
   color: #4cae4c;
   margin: auto;
@@ -110,6 +99,8 @@
 }
 
 .search-header {
+  margin-top: 15px;
+  margin-bottom: 15px;
   border-radius: 20px;
 }
 
@@ -138,7 +129,10 @@
 }
 
 .search-result {
-  margin: 20px;
+  margin: 10px;
+  background: rgba(255,255,255,0.75);
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .btn-sm {
