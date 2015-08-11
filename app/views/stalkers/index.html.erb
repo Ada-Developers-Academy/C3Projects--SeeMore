@@ -1,20 +1,10 @@
-<h1>Welcome to your dashboard, <%= @stalker.username %> </h1>
+<h1>Welcome to your dashboard, <%= @stalker.username %></h1>
 <%= link_to "View Feed", root_path, class: "btn btn-primary navbar-btn navbar-right" %>
 
 <h3>Subscriptions</h3>
 
 <h4>Twitter</h4>
-
-<ul>
-  <% @twitter_prey.each do |prey| %>
-    <li><%= image_tag prey.photo_url %><%= link_to prey.username, "http://twitter.com/#{prey.username}" %><%= button_to "Unfollow", unfollow_path, method: :patch, class: "btn btn-danger btn", params: { username: prey.username } %></li>
-  <% end %>
-</ul>
+<%= render 'shared/following_list', { all_prey: @twitter_prey } %>
 
 <h4>Instagram</h4>
-
-<ul>
-  <% @instagram_prey.each do |prey| %>
-    <li> <%= prey.username %> <%= button_to "Unfollow", unfollow_path, method: :patch, class: "btn btn-danger", params: { username: prey.username } %> </li>
-  <% end %>
-</ul>
+<%= render 'shared/following_list', { all_prey: @instagram_prey } %>
