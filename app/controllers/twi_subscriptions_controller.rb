@@ -21,30 +21,32 @@ class TwiSubscriptionsController < ApplicationController
 
     client = twitter_api_object
     tweet_array = []
+
     client.user_timeline(@twitter_id.to_i).each do |tweet|
       tweet_array << tweet
     end
-
-    Post.create_twitter_posts(tweet_array, subscription)
-
+    subscription_twitter_ids = {subscription.id => tweet_array}
+    Post.create_twitter_posts(subscription_twitter_ids)
     flash[:notice] = "Subscribed successfully!"
 
     redirect_to root_path
   end
 
   def refresh_tweets
-
-
-    # @user.subscriptions.map do |subscription|
-    #   if subscription.twitter_id != nil
-    #   end
-    # end
-
-    subscriptions = @user.subscriptions.where("twitter_id IS NOT NULL").pluck(:id)
-
-    subscriptions.each do
+    sub_twit_array = @user.subscriptions.where("twitter_id IS NOT NULL").pluck(:id, :twitter_id)
     client = twitter_api_object
+
+
+    sub_twit_array.each do |sub_id, twit_id|
+      @tweet_array = []
+      client.user_timeline(twit_id.to_i).each do |twit_id|
+        @tweet_array << twit_id
+      end
+      subscription_twitter_ids = {sub_id => @tweet_array}
+      Post.create_twitter_posts(subscription_twitter_ids)
     end
+
+    redirect_to root_path
   end
 
   private
