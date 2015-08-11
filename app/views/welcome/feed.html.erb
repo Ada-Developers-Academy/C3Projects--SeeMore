@@ -17,11 +17,15 @@
       <% end %>
       <div class="right">
         <h3>
-          <%= post.feed.name %>
+          <% if post.feed.platform == "Instagram" %>
+            <%= link_to post.feed.name, instagram_feed_path(post.feed.platform_feed_id) %>
+          <% elsif post.feed.platform == "Vimeo" %>
+            <%= link_to post.feed.name, vimeo_feed_path(post.feed.platform_feed_id) %>
+          <% end %>
         </h3>
         <p>
           <% if post.description %>
-            <%= post.description %>
+            <%= only_250_characters(post.description) %>
           <% else %>
             No description provided.
           <% end %>

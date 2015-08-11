@@ -10,6 +10,9 @@
    <div class="feed">
     <%= image_tag post["images"]["low_resolution"]["url"], class: "left" %>
     <div class="right">
+      <h3>
+        <%= link_to post["caption"]["from"]["username"], instagram_feed_path(params[:feed_id]) %>
+      </h3>
       <p>
         <% if post["caption"] %>
           <%= post["caption"]["text"] %>
