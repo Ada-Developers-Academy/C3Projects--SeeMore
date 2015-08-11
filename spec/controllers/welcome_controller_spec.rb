@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe WelcomeController, type: :controller do
   describe "authenticated users" do
-    context "GET #index" do
-      before :each do
-        @user = create :au_user
-        session[:user_id] = @user.id
-      end
+    before :each do
+      @user = create :au_user
+      session[:user_id] = @user.id
+    end
 
+    context "GET #index" do
       it "responds successfully" do
         get :index
         expect(response).to have_http_status(200)
@@ -27,6 +27,36 @@ RSpec.describe WelcomeController, type: :controller do
         expect(assigns(:posts)).to include(post)
       end
     end
+
+    context "search" do
+      context "valid form input" do
+        it "redirects to instagram results path for instagram searches" do
+          search_term = "potatoes"
+          post :search, search: { query: search_term, platform: "instagram" }
+          expect(response).to redirect_to(instagram_results_path(search_term))
+        end
+
+        it "redirects to vimeo results path for vimeo searches" do
+          search_term = "potatoes"
+          post :search, search: { query: search_term, platform: "vimeo" }
+          expect(response).to redirect_to(vimeo_results_path(search_term))
+        end
+      end
+
+      context "invalid form input" do
+        it "flashes an error message" do
+          request.env["HTTP_REFERER"] = root_path
+          post :search, search: { platform: "bad input", query: "potatoes" }
+          expect(flash[:error]).not_to be_nil
+        end
+
+        it "redirects to the previous page" do
+          request.env["HTTP_REFERER"] = instagram_results_path("cats")
+          post :search, search: { platform: "bad input", query: "potatoes" }
+          expect(response).to redirect_to(instagram_results_path("cats"))
+        end
+      end
+    end
   end
 
   describe "unauthenticated / guest users" do
@@ -41,6 +71,14 @@ RSpec.describe WelcomeController, type: :controller do
 
       it "renders the login template" do
         expect(response).to render_template("login")
+      end
+    end
+
+    context "search" do
+      it "redirects to the root_path / login page" do
+        search_term = "potatoes"
+        post :search, search: { query: search_term, platform: "instagram" }
+        expect(response).to redirect_to root_path
       end
     end
   end

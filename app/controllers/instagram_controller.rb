@@ -5,21 +5,21 @@ class InstagramController < ApplicationController
   FEED_URI_A = "https://api.instagram.com/v1/users/" # then user_id (for us: feed_id)
   FEED_URI_B = "/media/recent?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }"
 
-  def results
+  def results # index ?
     @query = params[:query]
     search_url = SEARCH_URI + "&q=#{ @query }"
     results = HTTParty.get(search_url)
     @results = results["data"]
   end
 
-  def individual_feed
+  def individual_feed # show
     feed_url = FEED_URI_A + params[:feed_id] + FEED_URI_B
     results = HTTParty.get(feed_url)
     @posts = results["data"]
     flash.now[:error] = "This feed does not have any public posts." unless @posts
   end
 
-  def subscribe
+  def subscribe # new
     id = params[:feed_id]
     feed = Feed.find_by(platform_feed_id: id, platform: "instagram")
 

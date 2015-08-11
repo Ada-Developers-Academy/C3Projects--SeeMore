@@ -18,7 +18,7 @@ class WelcomeController < ApplicationController
     elsif search[:platform] == "instagram"
       redirect_to instagram_results_path(search[:query])
     else
-      flash[:error] = "Please select instagram or vimeo"
+      flash[:error] = "Please select instagram or vimeo."
       redirect_to :back
     end
   end
