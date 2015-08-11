@@ -7,15 +7,6 @@ class FolloweesController < ApplicationController
 
   include ActionView::Helpers::OutputSafetyHelper
 
-  ######## remove all these?
-  # def new
-  #   @followee = Followee.new
-  # end
-
-  # def create; end
-
-  # def destroy; end
-
   def search; end   # this renders the search page
 
   def instagram_users_redirect
@@ -50,15 +41,4 @@ class FolloweesController < ApplicationController
 
     render 'search'
   end
-
-###########################################
-  ## remove these too??
-  # private
-  # def find
-  #   @followees = [@current_user.followees]
-  # end
-
-  # def followee_params
-  #   params.require(:followee).permit(:handle, :source, :avatar_url)
-  # end
 end
