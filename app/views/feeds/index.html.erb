@@ -1,4 +1,5 @@
 <div class="container center">
+  <%= image_tag("notso-2.png", class: "ninja")%>
   <h1 class="header">NinjaPartay</h1>
     <% if session[:user_id].nil? %>
       <h3 class="login-header">Choose Your Weapon</h3>
@@ -11,27 +12,32 @@
     <% else %>
       <% if @user %>
           <h2><%= @user.username %></h2>
+          <div class="follow-delete-button">
+            <%= link_to "Follow People", search_path, class: "btn btn-primary" %>
+            <!-- Manage feed button -->
+            <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
+            <%= render partial: "instagrams/refresh_feed" %>
+          </div>
+          <!-- Feed -->
+          <div class="feed col-sm-4 center">
+            <% if @all_posts %>
+              <% @all_posts.each do |post| %>
+                <div class="thumbnail">
+                  <% if post.provider == "Instagram"  %>
+                    <span class="fa fa-instagram fa-1x" aria-hidden="true" data-toggle="tooltip"></span>
+                  <% else %>
+                    <span class="fa fa-twitter fa-1x" aria-hidden="true" data-toggle="tooltip"></span>
+                  <% end %>
+                  <%= link_to image_tag(post.photo, class: "ig_image"), post.link %>
+                  <div class="caption">
+                    <h5>Posted by: <%= post.username %></h5>
+                      <p><%= post.text %></p>
+                    <em><%= post.date_time.strftime("%m/%d/%Y at %I:%M%p") %></em>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
       <% end %>
-      <div class="follow-delete-button">
-      <%= link_to "Follow People", search_path, class: "btn btn-primary" %>
-      <!-- Manage feed button -->
-      <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
-      <%= render partial: "instagrams/refresh_feed" %>
-      <!-- Instagram Actual Feed here -->
-      <div class="feed col-sm-4 center">
-        <% if @all_posts %>
-          <% @all_posts.each do |post| %>
-            <div class="thumbnail">
-              <%= link_to image_tag(post.photo, class: "ig_image"), post.link%>
-              <div class="caption">
-                <h5>Posted by: <%= post.username %></h5>
-                  <p><%= post.text %></p>
-                <em><%= post.date_time.strftime("%m/%d/%Y at %I:%M%p") %></em>
-              </div>
-            </div>
-
-          <% end %>
-        <% end %>
     <% end %>
-
 </div>
