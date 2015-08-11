@@ -27,27 +27,27 @@ RSpec.describe HomeController, type: :controller do
     # end
   end
 
-   describe "refresh newsfeed" do
+   describe "GET #refresh" do
+     context "renders newsfeed template" do
+       it "redirects" do
+         get :refresh
+         expect(response).to render_template(:newsfeed)
+       end
+     end
+   end # refresh
+
+   describe "#find_subscription_posts" do
      let!(:souly) { create :user, id: 20 }
      let!(:buzz) { create :followee, id: 15 }
      let!(:post) { create :post, followee_id: 15 }
      let!(:post1) { create :post, followee_id: 15 }
 
-     let!(:subby1) { create :subscription, user_id: 20, followee_id: 15 }
-
-     context "finds all the posts" do
-       it "redirects" do
-         get :refresh
-         expect(response).to render_template(:newsfeed)
-       end
-
-       it "puts posts in an array" do
-        session[:user_id] = souly.id
-        @current_user = souly
-        post
-        get :refresh
-        expect(@all_posts).to eq(1)
-       end
+     it "finds all user's subscription posts" do
+      session[:user_id] = souly.id
+      @current_user = souly
+      post
+      get :refresh
+      expect(@all_posts).to eq(1)
      end
    end
-end
+end # describe

@@ -4,8 +4,7 @@ class HomeController < ApplicationController
 
   include ActionView::Helpers::OutputSafetyHelper
 
-  def signin
-  end
+  def signin; end
 
   # def newsfeed
     # user = Followee.find(5)
@@ -16,6 +15,12 @@ class HomeController < ApplicationController
   # end
 
   def refresh
+    # create new posts method
+    find_subscription_posts
+    render :newsfeed
+  end
+
+  def find_subscription_posts
     subscriptions = @current_user.subscriptions
     @all_posts = []
     subscriptions.each do |s|
@@ -27,7 +32,6 @@ class HomeController < ApplicationController
       end
     end
     @all_posts.sort_by { |post| post["native_created_at"] }
-    render :newsfeed
   end
 
   def get_embed_html(tweet_id)
