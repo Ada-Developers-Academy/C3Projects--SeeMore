@@ -20,4 +20,6 @@ Rails.application.routes.draw do
 
   get "dashboard/:stalker_id" => "stalkers#index", as: "dashboard"
 
+  patch "/unfollow", to: "prey#unfollow", as: "unfollow"
+
 end
