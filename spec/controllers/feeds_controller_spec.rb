@@ -60,14 +60,35 @@ RSpec.describe FeedsController, type: :controller do
   end
 
   describe "POST #tw_follow" do
-    it "follows a twitter user" do
-      request.env["HTTP_REFERER"] = "/"
-      user = create :user
-      twitter_user = create :tw_user
-      session[:user_id] = user.id
-      post :tw_follow, tw_user: twitter_user.tw_user_id_str
 
-      expect(user.tw_users).to include(twitter_user)
+    before(:each) do
+      request.env["HTTP_REFERER"] = "/"
+      @user = create :user
+      @twitter_user = create :tw_user
+      session[:user_id] = @user.id
+    end
+
+    let(:twitter){ { user_name: 'beyonce', profile_image_url: 'fancy.jpg', screen_name: 'queen_beyonce' } }
+
+    it "follows a twitter user" do
+      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, params: twitter
+      expect(@user.tw_users).to include(@twitter_user)
+    end
+
+    it "has a user name attribute" do
+      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, params: twitter
+      @twitter_user.reload
+      expect(@twitter_user.user_name).to eq("beyonce")
+    end
+
+    it "has a profile image attribute" do
+      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, params: twitter
+      expect(@twitter_user.profile_image_url).to eq("fancy.jpg")
+    end
+
+    it "has a screen name attribute" do
+      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, params: twitter
+      expect(@twitter_user.screen_name).to eq("queen_bey")
     end
   end
 end
