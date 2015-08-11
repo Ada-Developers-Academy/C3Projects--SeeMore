@@ -1,11 +1,11 @@
 class TwiSubscriptionsController < ApplicationController
   before_action :redirect_if_not_allowed
+  before_action :twitter_api_object
 
   def index
     # Guard in case someone tries to access the URL without any search results.
     unless params[:twitter_search].nil?
-      client = twitter_api_object
-      @results = client.user_search(params[:twitter_search])
+      @results = @client.user_search(params[:twitter_search])
     end
   end
 
@@ -19,10 +19,9 @@ class TwiSubscriptionsController < ApplicationController
 
     @user.associate_subscription(subscription)
 
-    client = twitter_api_object
     tweet_array = []
 
-    client.user_timeline(@twitter_id.to_i).each do |tweet|
+    @client.user_timeline(@twitter_id.to_i).each do |tweet|
       tweet_array << tweet
     end
     subscription_twitter_ids = {subscription.id => tweet_array}
@@ -34,12 +33,10 @@ class TwiSubscriptionsController < ApplicationController
 
   def refresh_tweets
     sub_twit_array = @user.subscriptions.where("twitter_id IS NOT NULL").pluck(:id, :twitter_id)
-    client = twitter_api_object
-
 
     sub_twit_array.each do |sub_id, twit_id|
       @tweet_array = []
-      client.user_timeline(twit_id.to_i).each do |twit_id|
+      @client.user_timeline(twit_id.to_i).each do |twit_id|
         @tweet_array << twit_id
       end
       subscription_twitter_ids = {sub_id => @tweet_array}
@@ -51,9 +48,18 @@ class TwiSubscriptionsController < ApplicationController
 
   private
 
-  def assign_profile_pic(subscription)
-    subscription.profile_pic = params[:profile_pic]
+    def assign_profile_pic(subscription)
+      subscription.profile_pic = params[:profile_pic]
 
-    subscription.save
-  end
+      subscription.save
+    end
+
+    def twitter_api_object
+      @client = Twitter::REST::Client.new do |config|
+        config.consumer_key        = ENV["TWITTER_CLIENT_ID"]
+        config.consumer_secret     = ENV["TWITTER_CLIENT_SECRET"]
+        config.access_token        = ENV["TWITTER_ACCESS_TOKEN"]
+        config.access_token_secret = ENV["TWITTER_ACCESS_SECRET"]
+      end
+    end
 end
