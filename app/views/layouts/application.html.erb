@@ -11,21 +11,27 @@
     <header>
       <% if session[:stalker_id] %>
         <nav class="navbar navbar-default">
-            <%= form_tag search_path, method: :post, class: "navbar-form navbar-left" do %>
-              <%= text_field_tag :search, params[:search], placeholder: "Search Twitter Users" %>
-              <%= hidden_field_tag :client, 'twitter' %>
-              <%= submit_tag "Search", class: "btn btn-default" %>
-            <% end %>
+          <div class="navbar-header">
+            <%= link_to(image_tag('home.png'), root_path, class: "navbar-brand") %>
+          </div>
 
-            <%= form_tag search_path, method: :post, class: "navbar-form navbar-left" do %>
-              <%= text_field_tag :search, params[:search], placeholder: "Search Instagram Users" %>
-              <%= hidden_field_tag :client, 'instagram' %>
-              <%= submit_tag "Search", class: "btn btn-default" %>
-            <% end %>
-            <%= link_to "Sign Out", logout_path, method: :delete, class: "btn btn-success navbar-btn navbar-right" %>
-            <%= link_to "Dashboard", dashboard_path(session[:stalker_id]), class: "btn btn-default navbar-btn navbar-right" %>
+          <%= form_tag search_path, method: :post, class: "navbar-form navbar-left" do %>
+            <%= text_field_tag :search, params[:search], placeholder: "Search Twitter Users" %>
+            <%= hidden_field_tag :client, 'twitter' %>
+            <%= submit_tag "Search", class: "btn btn-default" %>
+          <% end %>
+
+          <%= form_tag search_path, method: :post, class: "navbar-form navbar-left" do %>
+            <%= text_field_tag :search, params[:search], placeholder: "Search Instagram Users" %>
+            <%= hidden_field_tag :client, 'instagram' %>
+            <%= submit_tag "Search", class: "btn btn-default" %>
+          <% end %>
+
+          <%= link_to "Sign Out", logout_path, method: :delete, class: "btn btn-success navbar-btn navbar-right" %>
+          <%= link_to "Dashboard", dashboard_path(session[:stalker_id]), class: "btn btn-default navbar-btn navbar-right" %>
         </nav>
       <% end %>
+
     </header>
 
     <% if flash[:message] %>

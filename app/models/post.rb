@@ -13,25 +13,16 @@ class Post < ActiveRecord::Base
 
   def self.seed_tweets(prey_uid, count = 5)
     tweets = TwitterClient.fetch_tweets(prey_uid, { count: count })
-    create_many_from_api(tweets)
+    create_many_tweets_from_api(tweets)
   end
 
-  def self.update_tweets(prey_uid)
-    last_tweet_uid = Prey.find_by(uid: prey_uid).posts.last.uid
-    tweets = TwitterClient.fetch_tweets(prey_uid, { since_id: last_tweet_uid })
-    create_many_from_api(tweets)
+  def self.update_tweets(prey)
+    last_tweet_uid = prey.posts.maximum(:uid)
+    tweets = TwitterClient.fetch_tweets(prey.uid, { since_id: last_tweet_uid })
+    create_many_tweets_from_api(tweets)
   end
 
-  def self.create_many_from_api(tweets)
-    tweets.each do |tweet|
-      post_id = Post.create(create_params_from_api(tweet)).id
-      tweet.media.each do |medium|
-        Medium.create(url: medium.media_url_https.to_s, post_id: post_id)
-      end
-    end
-  end
-
-  # GRAMS --------------------------------------------------------------------
+  # GRAMS ---------------------------------------------------------------------
 
   def self.seed_grams(prey_uid)
     grams = InstagramClient.seed_grams(prey_uid)
@@ -44,18 +35,19 @@ class Post < ActiveRecord::Base
     create_many_grams_from_api(grams)
   end
 
-  def self.create_many_grams_from_api(grams)
-    # Instagram API returns most recent post first, but we want it in reverse
-    grams.reverse!
-    grams.each do |gram|
-      post = Post.create(create_gram_params_from_api(gram))
-      Medium.create(url: gram["images"]["standard_resolution"]["url"], post_id: post.id)
+  private
+  # TWEETS --------------------------------------------------------------------
+
+  def self.create_many_tweets_from_api(tweets)
+    tweets.each do |tweet|
+      post_id = Post.create(create_tweet_params_from_api(tweet)).id
+      tweet.media.each do |medium|
+        Medium.create(url: medium.media_url_https.to_s, post_id: post_id)
+      end
     end
   end
 
-  private
-
-  def self.create_params_from_api(tweet)
+  def self.create_tweet_params_from_api(tweet)
     { uid: tweet.id,
       body:  tweet.text,
       post_time: tweet.created_at,
@@ -65,9 +57,19 @@ class Post < ActiveRecord::Base
     }
   end
 
+  # GRAMS ---------------------------------------------------------------------
+
+  def self.create_many_grams_from_api(grams)
+    # Instagram API returns most recent post first, but we want it in reverse
+    grams.reverse!
+    grams.each do |gram|
+      post = Post.create(create_gram_params_from_api(gram))
+      Medium.create(url: gram["images"]["standard_resolution"]["url"], post_id: post.id)
+    end
+  end
+
   def self.create_gram_params_from_api(gram)
-    {
-      uid: gram["id"],
+    { uid: gram["id"],
       body: gram["caption"]["text"],
       post_time: convert_unix_to_datetime(gram["created_time"]),
       prey_id: Prey.find_by(uid: gram["user"]["id"]).id,
