@@ -1,6 +1,7 @@
-<%= form_for :search, url: search_path, method: :post do |f| %>
+<%= form_for :search, url: search_path do |f| %>
+
   <div class="row">
-    <%= f.text_field :query, placeholder: "handsome_devil" %>
+    <%= f.text_field :query, placeholder: "search by user name" %>
     <label>
       Instagram
         <%= f.radio_button :platform, "instagram" %>

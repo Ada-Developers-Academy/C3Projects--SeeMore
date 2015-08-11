@@ -6,6 +6,7 @@ gem "omniauth"
 gem "omniauth-instagram"
 gem "omniauth-vimeo"
 gem "bootstrap-sass"
+gem 'google-webfonts'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use sqlite3 as the database for Active Record
@@ -39,6 +40,8 @@ gem 'httparty'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem "webmock"
+  gem "vcr"
   gem "better_errors" # These two are just for debugging
   gem "binding_of_caller"
   gem "rspec-rails"

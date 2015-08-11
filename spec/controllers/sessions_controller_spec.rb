@@ -39,4 +39,13 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
+  describe "#destory" do 
+    let(:user) { FactoryGirl.create(:au_user)}
+    it "destroys a session" do
+      session[:user_id] = user.id
+      delete :destroy
+      expect(session[:user_id]).to eq nil
+    end
+  end
+
 end

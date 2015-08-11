@@ -1,5 +1,0 @@
-<% if current_user %>
-  <%= render partial: "feed", locals: { posts: @posts } %>
-<% else %>
-  <%= render "login" %>
-<% end %>

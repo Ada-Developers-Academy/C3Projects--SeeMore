@@ -10,7 +10,7 @@
   <body>
     <header id="top" class="nav navbar-default">
       <div class="col-sm-2">
-        <h2><%= link_to "FriendFace", root_path %></h2>
+        <h2 class="brand"><%= link_to "Friendface", root_path %></h2>
       </div>
 
       <!-- begin logged in user content -->
@@ -29,7 +29,6 @@
       <% end %>
       <!-- end logged in user content -->
     </header>
-    <div class="container">
       <!-- begin message handling -->
       <% if flash[:error] %>
         <div class="alert alert-danger">
@@ -47,6 +46,5 @@
       <main>
         <%= yield %>
       </main>
-    </div>
   </body>
 </html>
