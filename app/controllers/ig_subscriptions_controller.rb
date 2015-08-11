@@ -33,14 +33,14 @@ class IgSubscriptionsController < ApplicationController
     redirect_to root_path
   end
 
-  def refresh_recent_ig
+  def refresh_ig
     user_subs = @user.instagram_subscriptions
 
     response = multiple_subscription_httparty_objects(user_subs)
     newed_posts = Post.new_all_instagram_posts(response)
     Post.create_all_instagram_posts(newed_posts)
 
-    redirect_to root_path
+    redirect_to refresh_twi_path
   end
 
   private
