@@ -37,4 +37,18 @@ RSpec.describe ApplicationHelper, type: :helper do
     time = tweet.tw_created_at
     expect(helper.tw_prettify(time)).to eq("Thu Aug  6 15:07:59 2015")
   end
+
+  context "there is a logged in user" do
+    it "finds the logged in users username" do
+      user = create :user
+      session[:user_id] = user.id
+      expect(helper.user_or_guest).to eq(user.username)
+    end
+  end
+
+  context "there is not a logged in user" do
+    it "uses 'guest' as the user's name" do
+      expect(helper.user_or_guest).to eq("guest")
+    end
+  end
 end
