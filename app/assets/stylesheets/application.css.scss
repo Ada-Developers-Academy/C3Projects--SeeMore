@@ -103,21 +103,22 @@
 }
 
 .left {
-  max-width: 300px;
+  max-width: 50%;
   float: left;
-  display: block;
-  margin-right: 10px;
+  display: inline-block;
   margin-bottom: 10px;
   border: 2px solid #e6f3e6;
   border-radius: 10px;
+  box-sizing: border-box;
 }
 
 .right {
-  max-width: 250px;
-  float: right;
-  display: inline;
-  margin-left: 10px;
+  max-width: 45%;
+  margin: 10px;
+  float: left;
+  display: inline-block;
   text-align: left;
+  box-sizing: border-box;
 }
 
 .date {
