@@ -1,5 +1,6 @@
 require 'factory_girl'
 require 'simplecov'
+require 'support/vcr_setup'
 # require 'webmock/rspec'
 
 # this line makes sure that while we are testing, we don't
