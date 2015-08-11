@@ -13,9 +13,9 @@ class WelcomeController < ApplicationController
 
   def search
     search = params.require(:search).permit(:query, :platform)
-    if search[:platform] == "vimeo" && search[:query] == true
+    if search[:platform] == "vimeo" && search[:query].empty? == false
       return redirect_to vimeo_results_path(search[:query])
-    elsif search[:platform] == "instagram" && search[:query] == true
+    elsif search[:platform] == "instagram" && search[:query].empty? == false
       redirect_to instagram_results_path(search[:query])
     elsif search[:platform] == nil
       flash[:error] = "Please select instagram or vimeo."
