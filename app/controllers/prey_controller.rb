@@ -1,15 +1,28 @@
 class PreyController < ApplicationController
+  before_action :set_stalker
+  before_action :set_prey
 
   def create
-    prey = Prey.find_by(username: params[:username])
-    unless prey.present?
-      prey = Prey.create_from_username(params[:username])
+    if @prey.nil?
+      @prey = Prey.create_from_username(params[:username])
     end
-      stalker = Stalker.find(session[:stalker_id])
-      stalker.prey << prey
+    @stalker.prey << @prey
     redirect_to root_path
   end
 
-  # TODO: Add actions to the PreyController or delete the file!
+  def unfollow
+    @stalker.prey.delete(@prey)
+    redirect_to dashboard_path(@stalker.id)
+  end
+
+  private
+
+  def set_prey
+    @prey = Prey.find_by(username: params[:username])
+  end
+
+  def set_stalker
+    @stalker = Stalker.find(session[:stalker_id])
+  end
 
 end
