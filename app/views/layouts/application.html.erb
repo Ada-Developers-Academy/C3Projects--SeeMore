@@ -29,7 +29,6 @@
       <% end %>
       <!-- end logged in user content -->
     </header>
-    <div class="container">
       <!-- begin message handling -->
       <% if flash[:error] %>
         <div class="alert alert-danger">
@@ -47,6 +46,5 @@
       <main>
         <%= yield %>
       </main>
-    </div>
   </body>
 </html>

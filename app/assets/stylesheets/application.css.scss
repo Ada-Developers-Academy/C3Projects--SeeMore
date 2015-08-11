@@ -62,3 +62,52 @@
   height: 36px;
   width: 200px;
 }
+
+.profile {
+  height: 150px;
+  width: 150px;
+}
+
+.feed {
+  margin: auto;
+  padding: 10px;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 1);
+  background:rgba(255,255,255,0.5);
+  border-left: 1px solid #e6f3e6;
+  border-right: 1px solid #e6f3e6;
+  border-bottom: 1px solid #e6f3e6;
+}
+
+.green {
+  color: #080;
+  background-color: #fff;
+  border-top-left-radius:20px;
+  border-top-right-radius:20px;
+}
+
+.left {
+  max-width: 300px;
+  float: left;
+  display: block;
+  margin-right: 10px;
+  border: 2px solid #e6f3e6;
+  border-radius: 10px;
+}
+
+.right {
+  max-width: 250px;
+  float: right;
+  display: inline;
+  margin-left: 10px;
+  text-align: left;
+}
+
+.date {
+  clear: both;
+  text-align: center;
+}
+
+html, body {
+  background-color: #f8fbf8;
+}
