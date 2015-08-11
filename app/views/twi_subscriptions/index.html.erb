@@ -10,7 +10,7 @@
       <td><%= image_tag result.profile_image_url %></td>
       <td><%= result.screen_name %></td>
       <td><%= result.name %></td>
-    <% if Subscription.already_subscribed?(session[:user_id], result.id) %>
+    <% if @user.already_subscribed?(result.id) %>
       <td><h5 class="btn btn-default">Already Fed!</h5></td>
     <% else %>
       <td><%= link_to "Feed the BEAST!", twi_subscriptions_path(

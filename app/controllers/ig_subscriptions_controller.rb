@@ -38,9 +38,10 @@ class IgSubscriptionsController < ApplicationController
 
     users_subs = @user.subscriptions
 
-    response = users_subs.map do |subscription|
+    response = []
+    users_subs.each do |subscription|
       if subscription.instagram_id.present?
-        HTTParty.get(INSTA_URI + "#{subscription.instagram_id}/media/recent/?count=#{COUNT}&access_token=" + access_token)
+        response << HTTParty.get(INSTA_URI + "#{subscription.instagram_id}/media/recent/?count=#{COUNT}&access_token=" + access_token)
       end
     end
 
