@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :create
+  skip_before_filter :require_signin
 
   def create
     @user = User.find_or_create_from_omniauth(auth_hash)
