@@ -6,7 +6,7 @@
 
 <ul>
   <% @twitter_prey.each do |prey| %>
-    <li> <%= prey.username %> <%= button_to "Unfollow", unfollow_path, method: :patch, class: "btn btn-danger", params: { username: prey.username } %></li>
+    <li><%= image_tag prey.photo_url %><%= link_to prey.username, "http://twitter.com/#{prey.username}" %><%= button_to "Unfollow", unfollow_path, method: :patch, class: "btn btn-danger btn", params: { username: prey.username } %></li>
   <% end %>
 </ul>
 
