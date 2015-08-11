@@ -1,15 +1,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.jumbotron {
-    background: image-url("notso-2.png") no-repeat;
-    padding-bottom: 150px;
-    margin-bottom: 100px;
-}
+// body
 
-.header {
-  font-size: 60px;
-}
+  // .jumbotron {
+  //     background: image-url("notso-2.png") no-repeat;
+  //     padding-bottom: 150px;
+  //     margin-bottom: 100px;
+  // }
 
 body {
     background: image-url("bamboo.jpg") no-repeat center center fixed;
@@ -39,15 +37,36 @@ body {
 
 .feed {
   margin-top: 20px;
+  background-color: rgba(0,0,0,.7);
+  background-repeat: repeat;
+  width: 500px;
+  padding-top: 10px;
 }
+
+.ig_image {
+  width: 250px;
+}
+
+// typography
 
 h1, h2, h3, .search, a:link {
   font-family: 'Orbitron', sans-serif;
+  text-align: center;
+}
+
+h1 {
+  font-size: 70px;
+}
+a:link {
+  font-size: 12px;
 }
 
 a:hover {
   text-decoration: none;
 }
+
+
+// buttons
 
 .follow-delete-button {
   margin-top: 20px;
@@ -64,6 +83,25 @@ a:hover {
 
 .search {
   margin-top: 10px;
+}
 
+// search results
 
+.well {
+  background-color: rgba(0,0,0,.7);
+  text-align: center;
+  padding: 5px;
+  width: 240px;
+  margin: 10px;
+  font-size: 14px;
+}
+
+.photo-size {
+  width: 72px;
+}
+
+.ninja {
+  position: fixed;
+  left: 50px;
+  bottom: 20px;
 }

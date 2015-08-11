@@ -1,15 +1,15 @@
 <!-- List of all people user follows with options to delete and add more -->
-<div class="container center">
+<div class="container">
 
 <h2>Assassinate</h2>
 
 <% unless session[:user_id].nil? %>
   <h3>Targets</h3>
   <% @people.each do |person| %>
-  <p>
+  <div class="col-xs-3 well">
     <%= person.username %>
-    <%= image_tag(person.image_url) %>
+    <%= image_tag(person.image_url, class: "photo-size") %>
     <%= link_to "X", polymorphic_path(person.class.name.downcase, id: person.id), method: :delete, class: "btn btn-danger" %>
-  </p>
+</div>
   <% end %>
 <% end  %>
