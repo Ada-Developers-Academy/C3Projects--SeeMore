@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :require_login, only: [:create, :destroy, :create_instagram, :create_vimeo]
+  skip_before_action :require_login, only: [:create, :create_instagram, :create_vimeo]
 
   def create
     auth_hash = request.env['omniauth.auth']
@@ -21,7 +21,6 @@ class SessionsController < ApplicationController
 
   def create_vimeo
     auth = request.env["omniauth.auth"]
-    # binding.pry
     au_user = AuUser.find_by_provider_and_uid(auth["provider"], auth["uid"]) || AuUser.create_with_omniauth(auth)
     session[:user_id] = au_user.id
     flash[:success] = "You've been signed in, #{ au_user.name }!"
