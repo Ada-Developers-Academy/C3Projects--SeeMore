@@ -68,7 +68,6 @@ class HomeController < ApplicationController
     redirect_to root_path
   end
 
-
   def find_twitter_params(post, followee)
     post_hash = {}
     post_hash[:native_id] = post.id
@@ -91,7 +90,6 @@ class HomeController < ApplicationController
     return post_hash
   end
 
-  # do we want to pass in followee or followee_id?
   def get_posts_from_API(followee)
     last_post_id = followee.last_post_id
     source = followee.source
@@ -122,22 +120,3 @@ class HomeController < ApplicationController
     return posts
   end
 end
-
-# identify current user (before_action)
-# find active subscriptions for current user
-  # for each subscription:
-    # get followee_id
-      # find last_post_id from that followee
-    # if twitter...
-    # if instagram...
-
-    # hit API
-      # find all new posts for that followee since that last_post_id -> present
-      # returns a JSON object of all of them--ish
-
-    # iterate through this collection
-      # Post.new for each
-
-    # update followee's last_post_id to be that of the last post you created
-
-  # ... next subscription
