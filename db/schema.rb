@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809210224) do
+ActiveRecord::Schema.define(version: 20150810221759) do
 
   create_table "instagram_posts", force: :cascade do |t|
     t.string   "post_id",      null: false
     t.integer  "instagram_id", null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "image_url"
   end
 
   add_index "instagram_posts", ["instagram_id"], name: "index_instagram_posts_on_instagram_id"
@@ -38,7 +39,7 @@ ActiveRecord::Schema.define(version: 20150809210224) do
   add_index "instagrams_users", ["instagram_id", "user_id"], name: "index_instagrams_users_on_instagram_id_and_user_id", unique: true
 
   create_table "tweet_posts", force: :cascade do |t|
-    t.integer  "post_id"
+    t.string   "post_id"
     t.datetime "posted_at"
     t.text     "text"
     t.string   "media_url"
