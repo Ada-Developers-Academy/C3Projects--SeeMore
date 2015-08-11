@@ -93,12 +93,7 @@
 .col-sm-3{
   background: rgba(255,255,255,0.9);
   padding: 10px;
-}
-
-.col-sm-3:hover{
-  background: rgba(255, 255, 255, 1);
-  border: 1px dotted #4cae4c;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .green {
@@ -144,6 +139,10 @@
 
 .search-result {
   margin: 20px;
+}
+
+.btn-sm {
+  margin: 5px;
 }
 
 a{
