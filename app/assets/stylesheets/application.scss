@@ -22,12 +22,13 @@ body {
 
 .container-fluid {
   width: 58%;
-  background-color: #98FF28;
+  margin-top: -20px;
+  background-color: #CCE28C;
   background-position: fixed no-repeat;
 }
 
 header {
-  background-color: rgba(255, 0, 0, .60);
+  background-color: #FF0000;
 }
 
 .header1 {
@@ -111,6 +112,8 @@ p.navbar-text {
 .fa-refresh {
   margin-right: 5px;
 }
+
+// Stuff for the feed!!!!!!!!!!!!!
 
 .thumbnail {
   margin-top: 3rem;
