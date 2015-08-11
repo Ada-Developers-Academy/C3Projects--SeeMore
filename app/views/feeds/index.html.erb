@@ -20,6 +20,7 @@
         <%= link_to "Follow People", search_path, class: "btn btn-primary" %>
         <!-- Manage feed button -->
         <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
+        <%= link_to "Refresh Instagram Feed", { controller: :instagram_posts, action: :create }, method: :post, class: "btn btn-primary" %>
         <%= link_to "Refresh Twitter Feed", { controller: :tweet_posts, action: :create }, method: :post, class: "btn btn-primary" %>
         <!-- Instagram Actual Feed here -->
         <% if @posts %>
