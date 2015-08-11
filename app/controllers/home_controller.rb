@@ -15,6 +15,7 @@ class HomeController < ApplicationController
       flash[:errors] = "You have no subscriptions! Search users to subscribe to."
     else
       @rev_posts = []
+      @thing = 5
       subscriptions.each do |s|
         start = s.created_at
         s.followee.posts.each do |p|
