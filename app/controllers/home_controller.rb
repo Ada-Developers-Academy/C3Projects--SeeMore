@@ -4,7 +4,6 @@ class HomeController < ApplicationController
 
   include ActionView::Helpers::OutputSafetyHelper
 
-  INSTA_URI = "https://api.instagram.com/v1/users/search?"
   INSTA_USER_POSTS_URI = "https://api.instagram.com/v1/users/"
   INSTA_OEMBED_URI = "http://api.instagram.com/oembed?omitscript=false&url="
   FIRST_POSTS_NUM = 5
@@ -36,10 +35,9 @@ class HomeController < ApplicationController
 
     active_subscriptions.each do |sub|
       followee = sub.followee
-      last_post_id = sub.followee.last_post_id
-      source = sub.followee.source
+      source = followee.source
 
-      posts = get_posts_from_API(source, followee, last_post_id)
+      posts = get_posts_from_API(followee)
 
       # twitter vs instagram
       if posts && posts.count > 0
@@ -88,17 +86,20 @@ class HomeController < ApplicationController
   end
 
   # do we want to pass in followee or followee_id?
-  def get_posts_from_API(source, followee, last_post_id)
+  def get_posts_from_API(followee)
+    last_post_id = followee.last_post_id
+    source = followee.source
+
     case source
     when TWITTER
       id = followee.native_id.to_i
-      if followee.last_post_id
+      if last_post_id
         posts = @twitter_client.user_timeline(id, { since_id: last_post_id.to_i })
       else
         posts = @twitter_client.user_timeline(id, { count: 5 })
       end
     when INSTAGRAM
-      if followee.last_post_id
+      if last_post_id
         response = HTTParty.get(
           INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?min_id=" + last_post_id + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
       else
