@@ -19,15 +19,16 @@ class Tweet < ActiveRecord::Base
         recent_tweets = @twit_init.client.user_timeline(id).take(5)
       else
         # the twitter id of the last saved tweet by that followee
-        last_id = Tweet.find_by(tw_user_id_str: id).last.tw_id_str.to_i
+        last_id = Tweet.where(tw_user_id_str: id).last.tw_id_str.to_i
         # fetches their recent tweets
         recent_tweets = @twit_init.client.user_timeline(id, since_id: last_id)
       end
-      self.tweet_factory(recent_tweets)
+
+      self.tweet_factory(recent_tweets, followee.id)
     end
   end
 
-  def self.tweet_factory(recent_tweets)
+  def self.tweet_factory(recent_tweets, followee_id)
     recent_tweets.each do |tweet|
       our_tweet = Tweet.new
       our_tweet.tw_user_id_str = tweet.user.id
@@ -36,6 +37,7 @@ class Tweet < ActiveRecord::Base
       our_tweet.tw_created_at = tweet.created_at
       our_tweet.tw_retweet_count = tweet.retweet_count
       our_tweet.tw_favorite_count = tweet.favorite_count
+      our_tweet.tw_user_id = followee_id
       # save the tweets in the db
       our_tweet.save
     end
