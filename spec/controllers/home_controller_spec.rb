@@ -2,14 +2,14 @@ require 'rails_helper'
 require 'support/vcr_setup'
 
 RSpec.describe HomeController, type: :controller do
-  # before :each do
-  #   session[:user_id] = user.id
-  # end
+  let!(:user) { create :user }
+  before :each do
+    session[:user_id] = user.id
+  end
 
   describe "GET #newsfeed" do
 
     context "user has no subscription" do
-      let!(:souly) { create :user, id: 2 }
 
       before :each do
         get :newsfeed
@@ -39,7 +39,6 @@ RSpec.describe HomeController, type: :controller do
     end
 
   end # newsfeed
-end # describe
 
     # it "finds the current user" do
     #   binding.pry
@@ -50,7 +49,6 @@ end # describe
     #   session[:user_id] = nil
     #   expect(@current_user).to be_nil
     # end
-  end
 
   # describe "get_posts_from_API" do
   #   let(:followee) { create :followee }
