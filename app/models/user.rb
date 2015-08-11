@@ -27,4 +27,12 @@ class User < ActiveRecord::Base
     self.subscriptions << subscription
     self.save
   end
+
+  def already_subscribed?(sub_id)
+    subscriptions = self.subscriptions
+
+    if subscriptions.find_by(twitter_id: sub_id) || subscriptions.find_by(instagram_id: sub_id)
+      return true
+    end
+  end
 end
