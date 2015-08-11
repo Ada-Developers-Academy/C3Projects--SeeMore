@@ -28,14 +28,13 @@ RSpec.describe SubscriptionsController, type: :controller do
     #   expect(response).to redirect_to(root_path)
     # end
 
-  # make this a put method?
-  describe "POST #unsubscribe" do
+  describe "PUT #unsubscribe" do
     let(:user) { create :user }
     let(:subscription) { create :subscription }
 
     before :each do
       session[:user_id] = user.id
-      post :unsubscribe, :id => subscription.id
+      put :unsubscribe, :id => subscription.id
       subscription.reload
     end
   
