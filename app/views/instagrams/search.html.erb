@@ -1,0 +1,8 @@
+<% @users.each do |user| %>
+  <p class="">
+    Name: <%= user["full_name"] %><br>
+    Username: <%= user["username"] %><br>
+    <%= image_tag(user["profile_picture"]) %>
+    <%= link_to "+", { controller: :instagrams, action: :create, instagram: { username: user["username"], provider_id: user["id"], image_url: user["profile_picture"] } }, method: :post, class: "btn btn-primary" %>
+  </p>
+<% end %>
