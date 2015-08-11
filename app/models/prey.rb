@@ -8,7 +8,7 @@ class Prey < ActiveRecord::Base
   after_create :seed_posts
 
   def update_posts
-    Post.update_tweets(uid) if tweeter?
+    Post.update_tweets(self) if tweeter?
     Post.update_grams(uid) if grammer?
   end
 

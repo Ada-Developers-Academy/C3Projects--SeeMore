@@ -15,9 +15,9 @@ class Post < ActiveRecord::Base
     # TODO: fill in :)
   end
 
-  def self.update_tweets(prey_uid)
-    last_tweet_uid = Prey.find_by(uid: prey_uid).posts.last.uid
-    tweets = TwitterClient.fetch_tweets(prey_uid, { since_id: last_tweet_uid })
+  def self.update_tweets(prey)
+    last_tweet_uid = prey.posts.maximum(:uid)
+    tweets = TwitterClient.fetch_tweets(prey.uid, { since_id: last_tweet_uid })
     create_many_tweets_from_api(tweets)
   end
 
