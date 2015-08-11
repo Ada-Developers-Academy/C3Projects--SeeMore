@@ -14,7 +14,9 @@ class Gram < ActiveRecord::Base
       last_post_id = account.grams.last.try :ig_id
 
       unless last_post_id == nil
+        response = HTTParty.get("https://api.instagram.com/v1/users/#{account.ig_user_id}/media/recent/?access_token=#{ENV['INSTAGRAM_ACCESS_TOKEN']}")
         instagram_posts << instagram_client.user_recent_media(account.ig_user_id, { min_id: last_post_id })
+        raise
       else # we have no posts of theirs on record
         instagram_posts << instagram_client.user_recent_media(account.ig_user_id, { count: 5 })
       end
@@ -27,7 +29,7 @@ class Gram < ActiveRecord::Base
     number_of_posts = posts.count
     count = 0
 
-    until count >= number_of_posts
+    posts.each do |key, value|
       post = posts[count]
       account = InstagramUser.where(ig_user_id: post[0][:user][:id])[0]
 
