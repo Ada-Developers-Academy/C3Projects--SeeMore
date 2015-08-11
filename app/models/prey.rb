@@ -5,31 +5,26 @@ class Prey < ActiveRecord::Base
   has_many :posts
 
   validates :uid, :provider, presence: true
-  after_create :seed_tweets
+  after_create :seed_posts
 
-  def update_tweets
-    Post.update_tweets(uid)
+  def update_posts
+    Post.update_tweets(uid) if tweeter?
+    Post.update_grams(uid) if grammer?
   end
 
-  def self.create_from_username(username)
-    prey = TwitterClient.find_user(username)
-    Prey.create(create_params_from_api(prey))
+  def tweeter?
+    provider == "twitter"
+  end
+
+  def grammer?
+    provider == "instagram"
   end
 
   private
 
-  def seed_tweets
-    Post.seed_tweets(self.uid)
-  end
-
-  def self.create_params_from_api(prey)
-    { uid: prey.id,
-      name: prey.name,
-      username: prey.screen_name,
-      provider: "twitter",
-      photo_url: prey.profile_image_url_https.to_s,
-      profile_url: prey.url.to_s
-    }
+  def seed_posts
+    Post.seed_tweets(self.uid) if self.tweeter?
+    Post.seed_grams(self.uid) if self.grammer?
   end
 
 end

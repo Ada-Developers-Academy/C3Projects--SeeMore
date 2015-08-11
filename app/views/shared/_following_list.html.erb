@@ -1,0 +1,15 @@
+<ul>
+  <% all_prey.each do |prey| %>
+    <li>
+      <%= image_tag prey.photo_url %>
+      <%= link_to prey.username, prey.profile_url %>
+      <%= button_to "Unfollow", unfollow_path, class: "btn btn-danger btn",
+        method: :patch,
+        params: {
+          uid: prey.id,
+          provider: prey.provider
+        }
+      %>
+    </li>
+  <% end %>
+</ul>
