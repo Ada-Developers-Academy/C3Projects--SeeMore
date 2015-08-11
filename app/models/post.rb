@@ -2,6 +2,8 @@ require 'twitter_client'
 require 'instagram_client'
 
 class Post < ActiveRecord::Base
+  SEED_COUNT = 5
+
   belongs_to :prey
   has_many :media
 
@@ -11,7 +13,7 @@ class Post < ActiveRecord::Base
 
   # TWEETS --------------------------------------------------------------------
 
-  def self.seed_tweets(prey_uid, count = 5)
+  def self.seed_tweets(prey_uid, count = SEED_COUNT)
     tweets = TwitterClient.fetch_tweets(prey_uid, { count: count })
     create_many_tweets_from_api(tweets)
   end
@@ -24,8 +26,8 @@ class Post < ActiveRecord::Base
 
   # GRAMS ---------------------------------------------------------------------
 
-  def self.seed_grams(prey_uid)
-    grams = InstagramClient.seed_grams(prey_uid)
+  def self.seed_grams(prey_uid, count = SEED_COUNT)
+    grams = InstagramClient.seed_grams(prey_uid, count)
     create_many_grams_from_api(grams)
   end
 
@@ -70,7 +72,7 @@ class Post < ActiveRecord::Base
 
   def self.create_gram_params_from_api(gram)
     { uid: gram["id"],
-      body: gram["caption"]["text"],
+      body: (gram["caption"]["text"] unless gram["caption"].nil?),
       post_time: convert_unix_to_datetime(gram["created_time"]),
       prey_id: Prey.find_by(uid: gram["user"]["id"]).id,
       url: gram["link"],
