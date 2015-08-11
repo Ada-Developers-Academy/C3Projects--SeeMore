@@ -10,6 +10,9 @@
    <div class="feed">
     <%= image_tag post["images"]["low_resolution"]["url"], class: "left" %>
     <div class="right">
+      <h3>
+        <%= link_to post["caption"]["from"]["username"], instagram_feed_path(params[:feed_id]) %>
+      </h3>
       <p>
         <% if post["caption"] %>
           <%= post["caption"]["text"] %>
@@ -17,7 +20,7 @@
           No description provided.
         <% end %>
       </p>
-      <span class="badge"><%= post["likes"]["count"] %> likes</span><br />
+      <span class="badge"><%= number_with_delimiter(post["likes"]["count"], :delimiter => ',') %> likes</span><br />
     </div>
     <div class="date">
       <%= Time.at(post["created_time"].to_i) %>

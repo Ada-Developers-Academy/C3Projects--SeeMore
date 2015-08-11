@@ -7,22 +7,32 @@
   </p>
 <% else %>
   <% @posts.each do |post| %>
-     <div class="feed">
-      <%= image_tag post.content, class: "left" %>
+    <div class="feed">
+      <% if post.feed.platform == "Instagram" %>
+        <%= image_tag post.content, class: "left" %>
+      <% elsif post.feed.platform == "Vimeo" %>
+        <div class="left">
+          <%= post.content.html_safe %>
+        </div>
+      <% end %>
       <div class="right">
         <h3>
-          <%= post.feed.name %>
+          <% if post.feed.platform == "Instagram" %>
+            <%= link_to post.feed.name, instagram_feed_path(post.feed.platform_feed_id) %>
+          <% elsif post.feed.platform == "Vimeo" %>
+            <%= link_to post.feed.name, vimeo_feed_path(post.feed.platform_feed_id) %>
+          <% end %>
         </h3>
         <p>
           <% if post.description %>
-            <%= post.description %>
+            <%= shorten(post.description) %>
           <% else %>
             No description provided.
           <% end %>
         </p>
       </div>
       <div class="date">
-          <%= post.date_posted %>
+        <%= post.date_posted %>
       </div>
     </div>
   <% end %>
