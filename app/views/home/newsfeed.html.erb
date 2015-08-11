@@ -2,15 +2,8 @@
 
 <%= render partial: "shared/errors" %>
 <%= link_to 'Search Users', search_path, class: "btn btn-default" %>
+<%= link_to 'Update Feed', get_new_posts_path, method: :post, class: "btn btn-success" %>
 
 <% if @rev_posts %>
   <%= render partial: "shared/update" %>
 <% end %>
-<!-- <blockquote class="twitter-tweet">
-  <p lang="en" dir="ltr">Where are they now: Beast Jesus edition.</p>&mdash; Alice Rhomieux (@rhomieux) <a href="https://twitter.com/rhomieux/status/629789712799002625">August 7, 2015</a></blockquote> -->
-
- <%#= raw @tweet_html %>
-
-<%= link_to 'Update Feed', get_new_posts_path, method: :post, class: "btn btn-success" %>
-
-<%= link_to 'My Subscriptions', subscriptions_path, method: :get, class: "btn btn-primary" %>
