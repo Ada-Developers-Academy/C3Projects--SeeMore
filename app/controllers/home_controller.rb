@@ -2,7 +2,7 @@ class HomeController < ApplicationController
 
   def index
     if logged_in?
-      @posts = @user.posts
+      @posts = @user.posts.order(posted_at: :desc)
     end
   end
 
