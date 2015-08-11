@@ -67,4 +67,21 @@ RSpec.describe SessionsController, type: :controller do
       # end # context
     end # using intsagram auth
   end #create describe
+
+  describe "DELETE #destroy" do
+    let(:user) { create :user }
+
+    before :each do
+      session[:user_id] = user.id
+      delete :destroy
+    end
+
+    it "removes the current_user's id from sessions" do
+      expect(session[:user_id]).to be_nil
+    end
+
+    it "redirects to the signin page" do
+      expect(response).to redirect_to signin_path
+    end
+  end
 end
