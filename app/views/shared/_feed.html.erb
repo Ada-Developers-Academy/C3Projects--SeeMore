@@ -10,6 +10,7 @@
    <div class="feed">
     <%= image_tag post["images"]["low_resolution"]["url"], class: "left" %>
     <div class="right">
+      <span class="badge"><%= post["likes"]["count"] %> likes</span><br />
       <p>
         <% if post["caption"] %>
           <%= post["caption"]["text"] %>
