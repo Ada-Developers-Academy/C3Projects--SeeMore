@@ -28,7 +28,7 @@
                   <% else %>
                     <span class="fa fa-twitter fa-1x" aria-hidden="true" data-toggle="tooltip"></span>
                   <% end %>
-                  <%= link_to image_tag(post.photo, class: "ig_image"), post.link %>
+                  <%= link_to image_tag(post.media_url, class: "ig_image"), post.link %>
                   <div class="caption">
                     <h5>Posted by: <%= post.username %></h5>
                       <p><%= post.text %></p>
