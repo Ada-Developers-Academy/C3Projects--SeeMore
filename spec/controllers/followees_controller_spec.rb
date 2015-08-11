@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'support/vcr_setup'
 
 RSpec.describe FolloweesController, type: :controller do
   let(:user) { create :user }
@@ -23,8 +24,11 @@ RSpec.describe FolloweesController, type: :controller do
 
   describe "POST #twitter_users_redirect" do
     context "search term entered" do
+      
       before :each do
-        post :twitter_users_redirect, user: "pig", source: "twitter"
+        VCR.use_cassette 'controller/followees_controller/twitter_users_redirect' do
+          response = post :twitter_users_redirect, user: "pig", source: "twitter"
+        end
       end
 
       it "redirects to search_results_path if params[:user]" do
