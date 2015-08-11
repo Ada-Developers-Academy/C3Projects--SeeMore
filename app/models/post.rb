@@ -36,6 +36,12 @@ class Post < ActiveRecord::Base
     create_many_grams_from_api(grams)
   end
 
+  def self.update_grams(prey_uid)
+    last_gram_uid = Prey.find_by(uid: prey_uid).posts.last.uid
+    grams = InstagramClient.update_grams(prey_uid, last_gram_uid)
+    create_many_grams_from_api(grams)
+  end
+
   def self.create_many_grams_from_api(grams)
     grams.each do |gram|
       post = Post.create(create_gram_params_from_api(gram))

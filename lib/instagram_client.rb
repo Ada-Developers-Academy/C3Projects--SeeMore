@@ -14,8 +14,8 @@ class InstagramClient
     # about the grams...each index in the array corresponds to a new gram
   end
 
-  def self.update_grams(prey_uid, last_gram_id)
-    result = HTTParty.get(INSTAGRAM_FETCH_GRAMS_URI + "#{prey_uid}/media/recent/?access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}&min_id=#{last_gram_id}")
+  def self.update_grams(prey_uid, last_gram_uid)
+    result = HTTParty.get(INSTAGRAM_FETCH_GRAMS_URI + "#{prey_uid}/media/recent/?access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}&min_id=#{last_gram_uid}")
     return result["data"]
   end
 end
