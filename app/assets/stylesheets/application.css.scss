@@ -98,6 +98,10 @@
   border-top-right-radius:20px;
 }
 
+.search-header {
+  border-radius: 20px;
+}
+
 .left {
   max-width: 300px;
   float: left;
@@ -119,6 +123,22 @@
 .date {
   clear: both;
   text-align: center;
+}
+
+.search-result {
+  margin: 20px;
+}
+
+.center, .row {
+  margin: auto;
+}
+
+a{
+  color: #080;
+}
+
+a:hover{
+  color: #66b766;
 }
 
 html, body {

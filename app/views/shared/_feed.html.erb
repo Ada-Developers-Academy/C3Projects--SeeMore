@@ -4,13 +4,12 @@
   <br>
   <h2 class="text-center green"><%= posts.last["caption"]["from"]["username"] %>'s feed
     <% if params[:feed_id] %>
-      <%= link_to "Subscribe", subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
+      <%= link_to "Subscribe", instagram_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
     <% end %></h2>
   <% posts.each_with_index do |post, index| %>
    <div class="feed">
     <%= image_tag post["images"]["low_resolution"]["url"], class: "left" %>
     <div class="right">
-      <span class="badge"><%= post["likes"]["count"] %> likes</span><br />
       <p>
         <% if post["caption"] %>
           <%= post["caption"]["text"] %>
@@ -18,6 +17,7 @@
           No description provided.
         <% end %>
       </p>
+      <span class="badge"><%= post["likes"]["count"] %> likes</span><br />
     </div>
     <div class="date">
       <%= Time.at(post["created_time"].to_i) %>
