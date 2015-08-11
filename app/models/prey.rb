@@ -10,7 +10,7 @@ class Prey < ActiveRecord::Base
   scope :last_post_uid, -> (prey_uid) { Prey.find_by(uid: prey_uid).posts.maximum(:uid) }
 
   def update_posts
-    Post.update_tweets(self) if tweeter?
+    Post.update_tweets(uid) if tweeter?
     Post.update_grams(uid) if grammer?
   end
 
