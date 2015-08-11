@@ -10,12 +10,20 @@ class HomeController < ApplicationController
   def signin; end
 
   def newsfeed
-    #### uncomment below for debugging example code
-    @posts = []
-    @current_user.followees.each do |f|
-      f.posts.each do |p|
-        @posts << p.embed_html
+      subscriptions = @current_user.subscriptions
+    if subscriptions.count == 0
+      flash[:errors] = "You have no subscriptions! Search users to subscribe to."
+    else
+      @rev_posts = []
+      subscriptions.each do |s|
+        start = s.created_at
+        s.followee.posts.each do |p|
+          if p.native_created_at >= start
+            @rev_posts << p.embed_html
+          end
+        end
       end
+      @rev_posts.sort_by { |post| post["native_created_at"] }
     end
   end
 

@@ -19,6 +19,8 @@
 
 .header {
   margin: 5px;
+  background-image: url("Newspaper.jpg");
+  background-size: contain;
 }
 
 .button {
@@ -29,6 +31,30 @@
   text-align: center;
 }
 
+.news-text, h1 {
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+}
+
 .search-results {
-  list-style-type: none
+  list-style-type: none;
+}
+
+.twitter-results img {
+  list-style-type: none;
+  border-radius: 10px;
+  border: 2px solid #3366CC;
+  padding: 2px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 5px;
+}
+
+.bkgd {
+  background-image: url("Coffee.jpg");
+  background-size: 100%;
+}
+
+.search-bkgd {
+  background-image: url("coffee_table.jpg");
+  background-size: 100%;
 }

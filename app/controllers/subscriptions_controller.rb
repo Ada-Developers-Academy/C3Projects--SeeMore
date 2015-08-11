@@ -30,7 +30,8 @@ class SubscriptionsController < ApplicationController
     { source: params[:source],
       username: params[:username],
       id: params[:id],
-      picture: params[:profile_picture]
+      picture: params[:profile_picture],
+      avatar_url: params[:avatar_url]
     }
   end
 end
