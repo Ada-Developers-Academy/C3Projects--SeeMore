@@ -47,20 +47,19 @@ class HomeController < ApplicationController
       posts = get_posts_from_API(source, followee, last_post_id)
 
       # twitter vs instagram
-      if source == "twitter"
-        posts.each do |post|
-          post_hash = find_twitter_params(post, followee)
-          Post.create(post_hash)
+      if posts && posts.count > 0
+        if source == "twitter"
+          posts.each do |post|
+            post_hash = find_twitter_params(post, followee)
+            Post.create(post_hash)
+          end
+        elsif source == "instagram"
+          posts.each do |post|
+            post_hash = find_instagram_params(post, followee)
+            Post.create(post_hash)
+          end
         end
-      elsif source == "instagram"
-        posts.each do |post|
-          post_hash = find_instagram_params(post, followee)
-          Post.create(post_hash)
-        end
-      end
 
-      # id attr might be dif for instagram
-      if posts.count > 0
         new_last_post_id = source == "twitter" ? posts.first.id : posts.first["id"]
         sub.followee.update!(last_post_id: new_last_post_id)
       end
@@ -104,8 +103,9 @@ class HomeController < ApplicationController
       end
     elsif source == "instagram"
       if followee.last_post_id
+        real_last_id = (followee.last_post_id.to_i + 1).to_s
         response = HTTParty.get(
-          INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?min_id=" + last_post_id + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
+          INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?min_id=" + real_last_id + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
       else
         response = HTTParty.get(
           INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?count=" + "5" + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
