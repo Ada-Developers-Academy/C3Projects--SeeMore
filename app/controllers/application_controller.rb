@@ -7,10 +7,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user
-  helper_method :require_signin
-
+  before_action :current_user
+  before_action :require_signin
   before_action :twitter_client
+
+  TWITTER = "twitter"
+  INSTAGRAM = "instagram"
 
   private
 
@@ -32,5 +34,9 @@ class ApplicationController < ActionController::Base
       # flash[:errors] = MESSAGES[:not_signed_in]
       redirect_to signin_path
     end
+  end
+
+  def convert_instagram_time(time)
+    Time.at(time.to_i)
   end
 end
