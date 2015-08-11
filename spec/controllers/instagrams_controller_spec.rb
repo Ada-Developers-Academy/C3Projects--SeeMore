@@ -18,7 +18,7 @@ RSpec.describe InstagramsController, type: :controller do
     context "invalid params" do
       it "redirects to search page" do
         post :search, instagram: { username: nil }
-        expect(response).to redirect_to(search_path)
+        expect(response).to redirect_to("feeds/search")
       end
 
       it "displays an error message" do
