@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   root 'home#newsfeed'
 
-  get '/refresh', to: 'home#refresh', as: 'refresh' 
-
   get '/signin', to: 'home#signin', as: 'signin'
   delete 'signout', to: 'sessions#destroy', as: 'signout'
 
