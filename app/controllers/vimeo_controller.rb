@@ -21,8 +21,8 @@ class VimeoController < ApplicationController
     feed_info_url = BASE_URI + params[:feed_id] + FEED_END_URI
     json_string_results = HTTParty.get(feed_info_url, :headers => TOKEN_HEADER)
     json_results = JSON.parse(json_string_results)
+
     @posts = json_results["data"]
-    # raise
     flash.now[:error] = "This feed does not have any public posts." unless @posts
   end
 
