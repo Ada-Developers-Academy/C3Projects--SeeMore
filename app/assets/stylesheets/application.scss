@@ -87,6 +87,8 @@ p.navbar-text {
 
 .user{
   // padding-left: 20px;
+  margin-bottom: 10px;
+  border-bottom: solid 1px #CABCBC;
 }
 
 .prof-pic {
@@ -100,8 +102,14 @@ p.navbar-text {
 }
 
 .caption {
-
+  margin: 0 60px 20px 60px;
+  text-align: center;
+  font-weight: 500;
 }
+
+// .fa-comment-o {
+//   margin-left: 75px;
+// }
 
 // Form gains a margin when shrinking window.
 // .navbar-form {
