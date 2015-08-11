@@ -20,7 +20,7 @@ class HomeController < ApplicationController
     @all_posts = []
     subscriptions.each do |s|
       start = s.created_at
-      s.posts.each do |p|
+      s.followee.posts.each do |p|
         if p.created_at >= start
           @all_posts << p
         end
