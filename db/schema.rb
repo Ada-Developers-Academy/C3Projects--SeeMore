@@ -36,10 +36,11 @@ ActiveRecord::Schema.define(version: 20150810221759) do
     t.integer "user_id",      null: false
   end
 
-  add_index "instagrams_users", ["instagram_id", "user_id"], name: "index_instagrams_users_on_instagram_id_and_user_id", unique: true
+  add_index "instagrams_users", ["instagram_id"], name: "index_instagrams_users_on_instagram_id"
+  add_index "instagrams_users", ["user_id"], name: "index_instagrams_users_on_user_id"
 
   create_table "tweet_posts", force: :cascade do |t|
-    t.string   "post_id"
+    t.integer  "post_id"
     t.datetime "posted_at"
     t.text     "text"
     t.string   "media_url"
@@ -61,7 +62,8 @@ ActiveRecord::Schema.define(version: 20150810221759) do
     t.integer "user_id",  null: false
   end
 
-  add_index "tweets_users", ["tweet_id", "user_id"], name: "index_tweets_users_on_tweet_id_and_user_id", unique: true
+  add_index "tweets_users", ["tweet_id"], name: "index_tweets_users_on_tweet_id"
+  add_index "tweets_users", ["user_id"], name: "index_tweets_users_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "username"

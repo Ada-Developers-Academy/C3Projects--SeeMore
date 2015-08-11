@@ -19,27 +19,19 @@
       <%= render partial: "instagrams/refresh_feed" %>
       <!-- Instagram Actual Feed here -->
       <div class="feed col-sm-4 center">
-        <% if @posts %>
-          <% @posts.each do |post| %>
+        <% if @all_posts %>
+          <% @all_posts.each do |post| %>
             <div class="thumbnail">
-              <%= link_to image_tag(post["data"]["images"]["standard_resolution"]["url"], class: "ig_image"), post["data"]["link"]%>
+              <%= link_to image_tag(post.photo, class: "ig_image"), post.link%>
               <div class="caption">
-                <h5>Posted by: <%= post["data"]["user"]["username"] %></h5>
-                <% unless post["data"]["caption"].nil? %>
-                  <p><%= post["data"]["caption"]["text"] %></p>
-                <% end %>
-                <em><%= Time.at(post["data"]["created_time"].to_i).strftime("%m/%d/%Y at %I:%M%p") %></em>
+                <h5>Posted by: <%= post.username %></h5>
+                  <p><%= post.text %></p>
+                <em><%= post.date_time.strftime("%m/%d/%Y at %I:%M%p") %></em>
               </div>
             </div>
+
           <% end %>
         <% end %>
     <% end %>
-    <!-- Actual Feed here -->
-    <% if @user %>
-      <% @feed.each do |tweet| %>
-          <h4><%= tweet.user.screen_name %></h4>
-        <p><%= tweet.text %>
-        <%= tweet.created_at %></p>
-      <% end  %>
-    <% end %>
+
 </div>
