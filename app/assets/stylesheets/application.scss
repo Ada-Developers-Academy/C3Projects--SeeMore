@@ -25,15 +25,13 @@ body {
 .container-fluid {
   width: 58%;
   background-color: rgb(255, 255, 204);
-  border-radius: .45rem;
-  // margin-top: -2px;
   background-position: fixed;
 }
 
 header {
-  border-bottom: 1px black solid;
+  border-bottom: 3px solid;
+  border-color: rgba(49, 53, 53, 1);
   background-color: #FF0000;
-  z-index: 10;
 }
 
 
@@ -128,12 +126,3 @@ p.navbar-text {
   text-align: center;
   font-weight: 500;
 }
-
-//   margin-left: 75px;
-// }
-
-// Form gains a margin when shrinking window.
-// .navbar-form {
-//   margin-top: 1px;
-//   margin-bottom: 1px;
-// }
