@@ -1,5 +1,5 @@
 <div class="feed">
-<%= link_to "BUTTON", refresh_ig_path %>
+<%= link_to "Refresh Feed", refresh_ig_path, class: "btn btn-primary" %>
 <br>
 <% if logged_in? && @user.subscriptions.blank? %>
   <h4>You have not fed the beast yet. Use the search window
