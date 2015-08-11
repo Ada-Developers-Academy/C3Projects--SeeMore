@@ -1,8 +1,8 @@
 <% if posts.nil? || posts.empty? %>
   <h2>This feed doesn't have any posts. ;_;</h2>
 <% else %>
-  <br><br>
-  <h2 class="text-center feed green"><%= posts.last["caption"]["from"]["username"] %>'s feed
+  <br>
+  <h2 class="text-center green"><%= posts.last["caption"]["from"]["username"] %>'s feed
     <% if params[:feed_id] %>
       <%= link_to "Subscribe", subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
     <% end %></h2>
