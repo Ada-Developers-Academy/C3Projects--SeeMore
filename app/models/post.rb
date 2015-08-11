@@ -9,7 +9,6 @@ class Post < ActiveRecord::Base
 
   #Scope
   # scope :
-
   def self.create_twitter_posts(subscription_twitter_ids)
     subscription_twitter_ids.each do |id, tweets|
       tweets.each do |tweet|

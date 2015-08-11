@@ -1,4 +1,6 @@
 <div class="feed">
+  <%= link_to "Refresh Twitter", refresh_twi_path %>
+
 <% if logged_in? && @user.subscriptions.blank? %>
   <h4>You have not fed the beast yet. Use the search window
   to satiate the beast!</h4>
