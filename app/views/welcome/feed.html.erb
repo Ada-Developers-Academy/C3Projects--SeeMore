@@ -1,33 +1,35 @@
-<% if current_user.avatar %>
-  <%= image_tag current_user.avatar %>
-<% end %>
-
-<h2 class="text-center"><%= current_user.name %>'s feed</h2>
-
+<br>
+<h2 class="text-center green"><%= current_user.name %>'s feed</h2>
 <% if @posts.nil? || @posts.empty? %>
   <p>
     You haven't subscribed to any feeds yet. Find some interesting feeds to
     follow by searching Instagram or Vimeo users with the above search box!
   </p>
 <% else %>
-  <% @posts.each_with_index do |post, index| %>
-    <div class="col-sm-8 col-sm-offset-2 text-center">
-      <h3>
-        <%= post.feed.name %><br />
-        <small><%= post.date_posted %></small>
-      </h3>
+  <% @posts.each do |post| %>
+    <div class="feed">
       <% if post.feed.platform == "Instagram" %>
-        <%= image_tag post.content %>
+        <%= image_tag post.content, class: "left" %>
       <% elsif post.feed.platform == "Vimeo" %>
-        <%= post.content.html_safe %>
+        <div class="left">
+          <%= post.content.html_safe %>
+        </div>
       <% end %>
-      <p>
-        <% if post.description %>
-          <%= post.description %>
-        <% else %>
-          No description provided.
-        <% end %>
-      </p>
+      <div class="right">
+        <h3>
+          <%= post.feed.name %>
+        </h3>
+        <p>
+          <% if post.description %>
+            <%= post.description %>
+          <% else %>
+            No description provided.
+          <% end %>
+        </p>
+      </div>
+      <div class="date">
+        <%= post.date_posted %>
+      </div>
     </div>
   <% end %>
 <% end %>
