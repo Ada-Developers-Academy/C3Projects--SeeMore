@@ -44,8 +44,11 @@ class IgSubscriptionsController < ApplicationController
       end
     end
 
-    newed_posts = response.first["data"].map do |content|
-      assign_post(content)
+    newed_posts = []
+    response.each do |all_posts_for_subscriber|
+      all_posts_for_subscriber["data"].each do |content_of_single_post|
+        newed_posts << assign_post(content_of_single_post)
+      end
     end
 
     check_database(newed_posts)
