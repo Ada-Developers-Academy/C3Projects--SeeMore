@@ -60,10 +60,13 @@ class HomeController < ApplicationController
       end
 
       # id attr might be dif for instagram
-      new_last_post_id = source == "twitter" ? posts.first.id : posts.first["id"]
-
-      sub.followee.update!(last_post_id: new_last_post_id)
+      if posts.count > 0
+        new_last_post_id = source == "twitter" ? posts.first.id : posts.first["id"]
+        sub.followee.update!(last_post_id: new_last_post_id)
+      end
     end
+
+    redirect_to root_path
   end
   
 
@@ -85,7 +88,7 @@ class HomeController < ApplicationController
     post_hash[:followee_id] = followee.id
     post_hash[:source] = followee.source
     post_hash[:embed_html] = get_instagram_embed_html(post)
-    
+
     return post_hash
   end
 
