@@ -32,7 +32,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.update_grams(prey_uid)
-    last_gram_uid = Prey.find_by(uid: prey_uid).posts.last.uid
+    last_gram_uid = Prey.last_post_uid(prey_uid)
     grams = InstagramClient.update_grams(prey_uid, last_gram_uid)
     create_many_grams_from_api(grams)
   end
@@ -62,8 +62,6 @@ class Post < ActiveRecord::Base
   # GRAMS ---------------------------------------------------------------------
 
   def self.create_many_grams_from_api(grams)
-    # Instagram API returns most recent post first, but we want it in reverse
-    grams.reverse!
     grams.each do |gram|
       post = Post.create(create_gram_params_from_api(gram))
       Medium.create(url: gram["images"]["standard_resolution"]["url"], post_id: post.id)
