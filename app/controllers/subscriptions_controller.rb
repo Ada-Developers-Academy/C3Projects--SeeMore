@@ -17,8 +17,9 @@ class SubscriptionsController < ApplicationController
 
   def unsubscribe
     # adds current time to unsubscribe_date
-    @subscription = Subscription.find(params[:id])
-    @subscription.update(unsubscribe_date: Time.now)
+    subscription = Subscription.find(params[:id])
+    subscription.update!(unsubscribe_date: Time.now)
+    redirect_to subscriptions_path
   end
 
   private
