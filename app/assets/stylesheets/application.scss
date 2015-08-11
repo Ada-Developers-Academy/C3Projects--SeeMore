@@ -17,7 +17,6 @@ body {
   // Exactly 50px because first (top) navbar is exactly 50px according to Bootstrap.
   // Any more than 50px and there will be white space between the first and second navbars.
   padding-top: 50px;
-  background-color: #FFFFCC;
 }
 
 .jumbotron {
@@ -81,11 +80,12 @@ p.navbar-text {
   border: none;
 }
 
-.feed {
-  // background-color: white;
-}
+// section {
+//   background-image: url('mouths.png');
 
-.user{
+// }
+
+.user {
   // padding-left: 20px;
   margin-bottom: 10px;
   border-bottom: solid 1px #CABCBC;
@@ -107,7 +107,15 @@ p.navbar-text {
   font-weight: 500;
 }
 
-// .fa-comment-o {
+.caption::before {
+
+  // content: "<i class='fa fa-comment-o'></i>";
+}
+
+.col-md-6 {
+  background-color: white;
+}
+
 //   margin-left: 75px;
 // }
 

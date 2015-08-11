@@ -1,6 +1,5 @@
-<div class="feed">
+<section class="feed">
 <%= link_to "Refresh Feed", refresh_ig_path, class: "btn btn-primary" %>
-<br>
 <% if logged_in? && @user.subscriptions.blank? %>
   <h4>You have not fed the beast yet. Use the search window
   to satiate the beast!</h4>
@@ -18,16 +17,16 @@
           <% end %>
         <%= post.username %>
         </div>
-    <% unless post.image.empty? %>
-      <% post.image.each do |image| %>
-        <%= image_tag(image, class: "img-rounded fix-width") %>
+      <% unless post.image.empty? %>
+        <% post.image.each do |image| %>
+          <%= image_tag(image, class: "img-rounded fix-width") %>
+        <% end %>
       <% end %>
-    <% end %>
-    <div class="caption text-center">
-      <%= post.text %>
+      <div class="caption text-center">
+        <%= post.text %>
+      </div>
     </div>
   </div>
-</div>
 <% end %>
 
 <% else %>
@@ -42,4 +41,4 @@
     </p>
   </div>
 <% end %>
-</div>
+</section>
