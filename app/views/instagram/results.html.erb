@@ -1,7 +1,7 @@
 <h1 class ="green search-header">Search results for <%= @query %>:</h1>
 <div class="result">
 <% unless @results.empty? %>
-    <% @results.each_with_index do |result, index| %>
+    <% @results.each do |result| %>
       <div class="col-sm-3 search-result">
         <h3>
           <%= link_to result["username"], instagram_feed_path(result["id"]) %>
