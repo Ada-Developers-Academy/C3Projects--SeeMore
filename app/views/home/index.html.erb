@@ -1,7 +1,4 @@
-<!-- This is broken if a person is signing in for the first time and doesn't already follow anyone.
-This is why the @user.subscriptions.blank? is a thing-->
-<!-- The .blank? I put in because everything kept breaking surrounding this code, so I purposefully made it so it would never be true and never try and display this code -->
-  <%= link_to "BUTTON", refresh_ig_path %>
+<%= link_to "BUTTON", refresh_ig_path %>
 <% if logged_in? && @user.subscriptions.blank? %>
   <h4>You have not fed the beast yet. Use the search window
   to satiate the beast!</h4>
