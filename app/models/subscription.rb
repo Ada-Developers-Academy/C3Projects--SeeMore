@@ -51,4 +51,13 @@ class Subscription < ActiveRecord::Base
       return subscription
     end
   end
+
+  def self.already_subscribed?(user, id)
+    user = User.find(user)
+    subscriptions = user.subscriptions
+
+    if subscriptions.find_by(twitter_id: id) || subscriptions.find_by(instagram_id: id)
+      return true
+    end
+  end
 end
