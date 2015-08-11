@@ -1,7 +1,8 @@
 <nav class="header">
   <div class="navbar navbar-default">
     <div class="navbar-header">
-      <%= link_to "FeedMe", root_path, class: "navbar-brand" %>
+      <%= link_to "FeedMe", root_path, class: "navbar-brand news-text" %>
+      <p class="news-text"> The news feed you actually care about</p>
     </div>
     <div class="nav navbar-nav navbar-right button">
       <% if session[:user_id] %>

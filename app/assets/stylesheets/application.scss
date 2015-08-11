@@ -29,6 +29,10 @@
   text-align: center;
 }
 
+.news-text, h1 {
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+}
+
 .search-results {
   list-style-type: none;
 }
@@ -41,4 +45,14 @@
   width: 60px;
   height: 60px;
   margin-bottom: 5px;
+}
+
+.bkgd {
+  background-image: url("Coffee.jpg");
+  background-size: 100%;
+}
+
+.search-bkgd {
+  background-image: url("coffee_table.jpg");
+  background-size: 100%;
 }
