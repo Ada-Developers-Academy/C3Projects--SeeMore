@@ -10,6 +10,7 @@ class InstagramUser < ActiveRecord::Base
     account.username = ig_user["username"]
     account.profile_pic = ig_user["profile_picture"]
     account.fullname = ig_user["full_name"]
+    account.ig_user_id = ig_user["id"]
 
     return account.save ?  account : nil
   end
