@@ -52,5 +52,4 @@ class VimeoController < ApplicationController
       feed_hash[:platform_feed_id] = params[:feed_id]
       return feed_hash
     end
->>>>>>> 98104ccc1d44e8b747f12b9401e70a68f399cd20
 end
