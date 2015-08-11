@@ -3,6 +3,10 @@ require 'support/vcr_setup'
 
 RSpec.describe FeedsController, type: :controller do
 
+  describe "GET index" do
+    
+  end
+
   describe "GET feeds#search" do
     it "loads the search form" do
       get :search, provider: 'instagram'
