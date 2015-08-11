@@ -6,7 +6,7 @@
       <%= button_to "Unfollow", unfollow_path, class: "btn btn-danger btn",
         method: :patch,
         params: {
-          uid: prey.id,
+          uid: prey.uid,
           provider: prey.provider
         }
       %>
