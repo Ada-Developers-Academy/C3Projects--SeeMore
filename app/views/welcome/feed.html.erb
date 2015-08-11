@@ -16,7 +16,11 @@
         <%= post.feed.name %><br />
         <small><%= post.date_posted %></small>
       </h3>
-      <%= image_tag post.content %>
+      <% if post.feed.platform == "Instagram" %>
+        <%= image_tag post.content %>
+      <% elsif post.feed.platform == "Vimeo" %>
+        <%= post.content.html_safe %>
+      <% end %>
       <p>
         <% if post.description %>
           <%= post.description %>
