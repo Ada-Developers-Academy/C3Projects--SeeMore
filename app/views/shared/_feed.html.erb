@@ -1,21 +1,11 @@
-<% if params[:feed_id] %>
-  <%= link_to "Subscribe", subscribe_path(params[:feed_id]), method: "post", class: "btn btn-info btn-xs" %>
-<% end %>
-
 <div class="row">
   <% if posts.nil? || posts.empty? %>
     <h2>This feed doesn't have any posts. ;_;</h2>
   <% else %>
-    <% posts.each_with_index do |post, index| %>
-      <% if index % 3 == 0 %>
-        </div><div class="row">
-      <% end %>
-
-      <div class="col-sm-4">
-        <% if display_author %>
-          AUTHOR INFO HERE
-        <% end %>
-        <%= image_tag post["images"]["low_resolution"]["url"] %>
+    <% @posts.each_with_index do |post, index| %>
+     <div class="feed">
+      <%= image_tag post["images"]["low_resolution"]["url"], class: "left" %>
+      <div class="right">
         <p>
           <% if post["caption"] %>
             <%= post["caption"]["text"] %>
@@ -24,6 +14,7 @@
           <% end %>
         </p>
       </div>
-    <% end %>
+    </div>
+  <% end %>
   <% end %>
 </div>
