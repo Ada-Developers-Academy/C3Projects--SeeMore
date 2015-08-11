@@ -5,7 +5,7 @@ RSpec.describe VimeoController, type: :controller do
 
   describe '#call_api' do
     let(:query) { "cupcakes" }
-    let(:user) { FactoryGirl.create(:au_user)}
+    let(:user) { create :au_user}
     it "gets a response from an api" do
       VCR.use_cassette "spec/vcr" do
         session[:user_id] = user.id
@@ -47,7 +47,7 @@ RSpec.describe VimeoController, type: :controller do
     end
 
     context "individual_feed" do
-      let(:feed) { FactoryGirl.create(:user_vimeo)}
+      let(:feed) { create :user_vimeo}
       context "feed that has posts" do
         before :each do
           VCR.use_cassette("/vimeo_feed") do
@@ -71,7 +71,7 @@ RSpec.describe VimeoController, type: :controller do
       end
 
       context "feed that doesn't have posts" do
-        let(:invalid_feed) { FactoryGirl.create(:invalid_vimeo_feed)}
+        let(:invalid_feed) { create :invalid_vimeo_feed }
         it "sends an error message" do
           VCR.use_cassette "/vimeo_feed" do
             get :individual_feed, feed_id: invalid_feed.id
@@ -83,7 +83,7 @@ RSpec.describe VimeoController, type: :controller do
     end
 
     context "subscribe" do
-      let(:feed) { FactoryGirl.create(:user_vimeo)}
+      let(:feed) { create :user_vimeo}
       it "associates the feed with the user" do
         VCR.use_cassette("/subscribe") do
           post :subscribe, feed_id: feed.id
