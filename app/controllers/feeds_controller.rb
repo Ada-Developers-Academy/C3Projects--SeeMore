@@ -6,7 +6,7 @@ class FeedsController < ApplicationController
   def index
     @user = User.find_by(id: session[:user_id])
     @posts = []
-    if @user && @user.instagrams
+    if @user.instagrams
       @user.instagram_posts.each do |post|
         @posts << HTTParty.get(INSTAGRAM_URI + "media/" + post.post_id + "?access_token=#{session[:access_token]}")
       end
@@ -14,7 +14,7 @@ class FeedsController < ApplicationController
       @posts.reverse!
     end
 
-    if @user && @user.tweets
+    if @user.tweets
       # @people = []
       # # will eventually combine Instagram and Twitter feeds into one, then sort both together by posted_at time
       # # @people << Instagram.find(@user.instagram_ids)
