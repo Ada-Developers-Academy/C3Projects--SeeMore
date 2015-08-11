@@ -62,6 +62,9 @@ RSpec.describe SubscriptionsController, type: :controller do
       expect(response).to render_template "index"
     end
 
+    it "retrieves a collection of followee objects in @subscriptions" do
+      expect(assigns(:subscriptions).count).to eq 2
+    end
   end
 
 end
