@@ -68,27 +68,27 @@ RSpec.describe FeedsController, type: :controller do
       session[:user_id] = @user.id
     end
 
-    let(:twitter){ { user_name: 'beyonce', profile_image_url: 'fancy.jpg', screen_name: 'queen_beyonce' } }
-
     it "follows a twitter user" do
-      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, params: twitter
+      post :tw_follow, tw_user: @twitter_user.tw_user_id_str
       expect(@user.tw_users).to include(@twitter_user)
     end
 
     it "has a user name attribute" do
-      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, params: twitter
+      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, user_name: 'beyonce'
       @twitter_user.reload
-      expect(@twitter_user.user_name).to eq("beyonce")
+      expect(@twitter_user.user_name).to eq('beyonce')
     end
 
     it "has a profile image attribute" do
-      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, params: twitter
-      expect(@twitter_user.profile_image_url).to eq("fancy.jpg")
+      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, profile_image_url: 'http://fakeurl.org/fancy.jpg'
+      @twitter_user.reload
+      expect(@twitter_user.profile_image_url).to eq('http://fakeurl.org/fancy.jpg')
     end
 
     it "has a screen name attribute" do
-      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, params: twitter
-      expect(@twitter_user.screen_name).to eq("queen_bey")
+      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, screen_name: 'queen_beyonce'
+      @twitter_user.reload
+      expect(@twitter_user.screen_name).to eq('queen_beyonce')
     end
   end
 end
