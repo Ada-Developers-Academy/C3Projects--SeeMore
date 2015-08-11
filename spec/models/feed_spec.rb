@@ -86,11 +86,11 @@ RSpec.describe Feed, type: :model do
       expect(Feed.developer.count).to eq 1
     end
 
-    # it "populate_posts after_create method is run" do
+    # it "populate_posts after_create method" do
     #   auth = OmniAuth.config.mock_auth[:instagram]
     #   feed = create :feed
     #
-    #   expect(Post.where(feed_id: 1).count).to eq 1
+    #   # expect(Post.where(feed_id: 1).count).to eq 1
     # end
   end
 end
