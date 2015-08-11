@@ -67,5 +67,4 @@ RSpec.describe SubscriptionsController, type: :controller do
       expect(assigns(:subscriptions).count).to eq 2
     end
   end
-
 end
