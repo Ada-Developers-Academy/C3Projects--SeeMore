@@ -85,10 +85,21 @@ RSpec.describe FolloweesController, type: :controller do
   end
 
   describe "GET #search_results" do
-    it "renders the search template" do
-      VCR.use_cassette 'controller/followees_controller/search_results' do
-        response = get :search_results, source: "twitter", user: "cow"
-        expect(response).to render_template("search")
+    context "twitter search" do
+      it "renders the search template" do
+        VCR.use_cassette 'controller/followees_controller/search_results_twitter' do
+          response = get :search_results, source: "twitter", user: "cow"
+          expect(response).to render_template("search")
+        end
+      end
+    end
+
+    context "instagram search" do
+      it "renders the search template" do
+        VCR.use_cassette 'controller/followees_controller/search_results_instagram' do
+          response = get :search_results, source: "instagram", user: "pig"
+          expect(response).to render_template("search")
+        end
       end
     end
   end
