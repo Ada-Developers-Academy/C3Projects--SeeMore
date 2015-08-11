@@ -43,6 +43,14 @@ class IgSubscriptionsController < ApplicationController
     redirect_to root_path
   end
 
+  private
+
+  def assign_profile_pic(subscription)
+    subscription.profile_pic = params[:profile_pic]
+
+    subscription.save
+  end
+
   # Returns a single HTTParty object for a single subscription.
   def single_subscription_httparty_object(subscription)
     access_token = session[:access_token]
@@ -58,13 +66,5 @@ class IgSubscriptionsController < ApplicationController
       responses << single_subscription_httparty_object(subscription)
     end
     return responses # this is an array of HTTParty objects
-  end
-
-  private
-
-  def assign_profile_pic(subscription)
-    subscription.profile_pic = params[:profile_pic]
-
-    subscription.save
   end
 end
