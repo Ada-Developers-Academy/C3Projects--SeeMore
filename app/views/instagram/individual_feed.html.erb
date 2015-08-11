@@ -6,7 +6,7 @@
     <% if params[:feed_id] %>
       <%= link_to "Subscribe", instagram_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
     <% end %></h2>
-  <% @posts.each_with_index do |post, index| %>
+  <% @posts.each do |post| %>
    <div class="feed">
     <%= image_tag post["images"]["low_resolution"]["url"], class: "left" %>
     <div class="right">
