@@ -28,6 +28,11 @@ class IgSubscriptionsController < ApplicationController
 
     @user.associate_subscription(subscription)
 
+    response = []
+    response << single_subscription_httparty_object(subscription)
+    newed_posts = Post.new_all_instagram_posts(response)
+    Post.create_all_instagram_posts(newed_posts)
+
     flash[:notice] = "Subscribed successfully!"
 
     redirect_to root_path
