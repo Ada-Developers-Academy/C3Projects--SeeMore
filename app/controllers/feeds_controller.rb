@@ -6,31 +6,26 @@ class FeedsController < ApplicationController
   def index
     @user = User.find_by(id: session[:user_id])
 
-    @posts = []
+    @ig_feed = []
     if @user && @user.instagrams
       @user.instagram_posts.each do |post|
-        @posts << HTTParty.get(INSTAGRAM_URI + "media/" + post.post_id + "?access_token=#{session[:access_token]}")
+        @ig_feed << HTTParty.get(INSTAGRAM_URI + "media/" + post.post_id + "?access_token=#{session[:access_token]}")
       end
-      @posts.flatten!
+      @ig_feed.flatten!
     end
 
-    @feed = []
+    @tweet_feed = []
     if @user && @user.tweets
       user_tweets = @user.tweet_posts
-
-
-    #  usernames = @user.tweets.map &:username
-    user_tweets.each do |user_tweet|
-      @feed << user_tweet
-        #@twitter.client.user_timeline(username)
-    end
-      # @feed.flatten!
+      user_tweets.each do |user_tweet|
+        @tweet_feed << user_tweet
+      end
     end
 
     Struct.new("Ninja", :username, :media_url, :text, :date_time, :avatar, :provider, :link)
 
     @all_posts = []
-    @posts.each do |ig_post|
+    @ig_feed.each do |ig_post|
       username = ig_post["data"]["user"]["username"]
       media_url = InstagramPost.find_by(post_id: ig_post["data"]["id"]).image_url
       date_time = Time.at(ig_post["data"]["created_time"].to_i)
@@ -42,17 +37,14 @@ class FeedsController < ApplicationController
       else
         text = ""
       end
-
       @all_posts.push(Struct::Ninja.new(username, media_url, text, date_time, avatar, provider, link))
     end
 
-    @feed.each do |tweet_post|
-      # p = TwitterPost.find_by(post_id:
-      #username = tweet_post.user.screen_name
+    @tweet_feed.each do |tweet_post|
       username = tweet_post.tweet.username
       text = tweet_post.text
       date_time = tweet_post.posted_at
-      media_url = tweet_post.media_url #tweet_post.profile_image_url(size = :bigger)
+      media_url = tweet_post.media_url
       avatar = tweet_post.tweet.image_url
       provider = "Twitter"
       link = nil
