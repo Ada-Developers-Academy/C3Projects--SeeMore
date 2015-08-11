@@ -16,8 +16,8 @@
       <div class="collapse navbar-collapse navbar-nav navbar-right" id="navbar-collapse">
         <%= form_tag(search_path, method: :get, class: "navbar-form navbar-left", role: "search") do %>
         <%= link_to(
-          content_tag( :i, nil, class: 'fa fa-refresh fa-2x'),
-         url:refresh_ig_path) %>
+          content_tag(:i, nil, class: 'fa fa-refresh fa-2x'),
+          refresh_ig_path) %>
           <%= text_field_tag :search, params[:search], placeholder: "Users on", class: "form-control" %>
           <%= select_tag :website, options_for_select([['Twitter', 'twitter'], ['Instagram', 'instagram']]), class: "form-control" %>
           <%= submit_tag "Search", class:"btn btn-default" %>
