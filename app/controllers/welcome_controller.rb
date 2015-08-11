@@ -21,7 +21,7 @@ class WelcomeController < ApplicationController
       flash[:error] = "Please select instagram or vimeo."
       redirect_to :back
     else
-      flash[:error] = "How about search a user name?"
+      flash[:error] = "Please search for a user name?"
       redirect_to :back
     end
   end
