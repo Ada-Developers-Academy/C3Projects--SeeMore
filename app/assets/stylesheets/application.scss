@@ -17,23 +17,29 @@ body {
   // Exactly 50px because first (top) navbar is exactly 50px according to Bootstrap.
   // Any more than 50px and there will be white space between the first and second navbars.
   padding-top: 50px;
-  background-image: url("mouths.png");
-  background-position: 25% 10.25%;
-  background-repeat: space repeat;
+  background-color: rgb(255, 255, 204);
 }
 
 .container-fluid {
   width: 58%;
-  background-color: rgb(255, 255, 204);
-  background-position: fixed;
+  background-color: #98FF28;
+  background-position: fixed no-repeat;
 }
 
 header {
-  border-bottom: 3px solid;
-  border-color: rgba(49, 53, 53, 1);
-  background-color: #FF0000;
+  background-color: rgba(255, 0, 0, .60);
 }
 
+.header1 {
+  float: left;
+  width: 20%;
+  margin: 5px;
+  box-sizing: border-box;
+}
+
+.header1:hover {
+  content: url("tongue-out.png");
+}
 
 .jumbotron {
   text-align: center;
@@ -47,6 +53,7 @@ header {
 
 // Style of the navbar(s).
 .navbar {
+  padding-left: 0;
   background-color: #FF0000;
   border: none;
   // Default is rounded borders, which looks weird with two navbars.
@@ -72,7 +79,12 @@ header {
 
 // To adjust the height of the second navbar, so it's not MASSIVE.
 .navbar.navbar-static-top {
-  min-height: 30px;
+  margin-top: 5px;
+  min-height: 35px;
+}
+
+.navbar.navbar-static-top p {
+  margin-top: 20px;
 }
 
 //Style for the webpage subtitle.
@@ -96,13 +108,13 @@ p.navbar-text {
   border: none;
 }
 
-
 .fa-refresh {
   margin-right: 5px;
 }
 
 .thumbnail {
   margin-top: 3rem;
+  width: 100%;
 }
 
 .user{
@@ -115,7 +127,6 @@ p.navbar-text {
   width: 50px;
   margin: 5px;
 }
-
 
 .fix-width {
   width: 350px;
