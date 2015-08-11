@@ -12,6 +12,9 @@ class ApplicationController < ActionController::Base
 
   before_action :twitter_client
 
+  TWITTER = "twitter"
+  INSTAGRAM = "instagram"
+
   private
 
   Instagram.configure do |config|
