@@ -10,6 +10,6 @@ class VimeoController < ApplicationController
                 
     auth = JSON.parse(HTTParty.get(SEARCH_URI + query + "&sort=relevant", :headers => TOKEN_HEADER ))
     @results = auth["data"]
-    raise
+    
   end
 end
