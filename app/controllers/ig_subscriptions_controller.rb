@@ -43,7 +43,7 @@ class IgSubscriptionsController < ApplicationController
         HTTParty.get(INSTA_URI + "#{subscription.instagram_id}/media/recent/?count=#{COUNT}&access_token=" + access_token)
       end
     end
-raise
+
     newed_posts = response.first["data"].map do |content|
       assign_post(content)
     end
