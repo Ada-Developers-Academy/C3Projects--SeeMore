@@ -98,19 +98,21 @@ class HomeController < ApplicationController
       if followee.last_post_id
         posts = @twitter_client.user_timeline(id, { since_id: last_post_id.to_i })
       else
-        posts = @twitter_client.user_timeline(id, { count: 5 } )
-        return posts
+        posts = @twitter_client.user_timeline(id, { count: 5 })
+        # return posts
       end
     elsif source == "instagram"
       if followee.last_post_id
-        real_last_id = (followee.last_post_id.to_i + 1).to_s
         response = HTTParty.get(
-          INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?min_id=" + real_last_id + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
+          INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?min_id=" + last_post_id + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
       else
         response = HTTParty.get(
           INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?count=" + "5" + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
       end
-        posts = response["data"]
+      posts = response["data"]
+      if posts && posts.count > 0
+        posts = posts[0..-2]
+      end
     end
 
     return posts
