@@ -12,3 +12,8 @@
  <%#= raw @tweet_html %>
 
 <%= link_to 'Update Feed', get_new_posts_path %>
+<% if @posts %>
+  <% @posts.each do |post| %>
+    <%= raw post %>
+  <% end %>
+<% end %>
