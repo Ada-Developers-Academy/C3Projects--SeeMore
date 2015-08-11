@@ -8,8 +8,7 @@ class HomeController < ApplicationController
   INSTA_OEMBED_URI = "http://api.instagram.com/oembed?omitscript=false&url="
   FIRST_POSTS_NUM = 5
 
-  def signin
-  end
+  def signin; end
 
   def newsfeed
     #### uncomment below for debugging example code
@@ -61,7 +60,7 @@ class HomeController < ApplicationController
 
     redirect_to root_path
   end
-  
+
 
   def find_twitter_params(post, followee)
     post_hash = {}
@@ -124,7 +123,7 @@ end
       # find last_post_id from that followee
     # if twitter...
     # if instagram...
-    
+
     # hit API
       # find all new posts for that followee since that last_post_id -> present
       # returns a JSON object of all of them--ish

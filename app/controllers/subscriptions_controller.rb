@@ -1,5 +1,4 @@
 class SubscriptionsController < ApplicationController
-  # before_action :find_user
   before_action :current_user
 
   def new; end
@@ -7,13 +6,13 @@ class SubscriptionsController < ApplicationController
 
   def create
     followee = Followee.find_or_create_by(followee_params)
-    Subscription.make_subscription(@current_user, followee)
-    
+    Subscription.find_or_create_subscription(@current_user, followee)
+
     redirect_to root_path
   end
 
   def index
-    @subscriptions = @user.followees
+    @subscriptions = @current_user.followees
   end
 
   def unsubscribe
@@ -23,10 +22,6 @@ class SubscriptionsController < ApplicationController
   end
 
   private
-
-  def find_user
-    @user = User.find(session[:user_id])
-  end
 
   def sub_params
     params.require(:subscriptions).permit(:id, :user_id, :followee_id)

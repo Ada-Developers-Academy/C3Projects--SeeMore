@@ -21,13 +21,21 @@ RSpec.describe Subscription, type: :model do
     end # context
   end #describe
 
-  describe ".make_subscription" do
+  describe ".find_or_create_subscription" do
     let!(:zynthia) { create :user, id: 1 }
     let!(:beyonce) { create :followee, id: 200, handle: "beyonce", source: "instagram" }
 
     it "creates valid subscription to existing followee & user" do
-      natgeo = Subscription.make_subscription(zynthia, beyonce)
+      natgeo = Subscription.find_or_create_subscription(zynthia, beyonce)
       expect(natgeo).to be_valid
+    end
+
+    it "does not remake existing subscription" do
+      natgeo = Subscription.find_or_create_subscription(zynthia, beyonce)
+      natgeo = Subscription.find_or_create_subscription(zynthia, beyonce)
+
+      expect(Subscription.count).to eq(1)
+      expect(Subscription.first).to eq(Subscription.last)
     end
   end
 
@@ -37,7 +45,7 @@ RSpec.describe Subscription, type: :model do
       let(:sub)   { create :subscription }
       let(:sub2)  { create :subscription, unsubscribe_date: "Sat, 02 Aug 2015 22:12:25 UTC +00:00" }
       let(:sub3)  { create :subscription, unsubscribe_date: "Sat, 01 Aug 2015 22:12:25 UTC +00:00" }
-    
+
       it "selects subscriptions that do not have an unsubscribe_date" do
         sub.reload
         sub2.reload
