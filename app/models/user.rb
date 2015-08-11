@@ -36,7 +36,8 @@ class User < ActiveRecord::Base
   end
 
   def ig_follow(ig_user)
-    InstagramUser.first_or_create_account(ig_user)
+    ig_user = InstagramUser.first_or_create_account(ig_user)
     self.instagram_users << ig_user
+    ig_user
   end
 end
