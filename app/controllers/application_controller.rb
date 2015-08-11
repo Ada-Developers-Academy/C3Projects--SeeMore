@@ -33,4 +33,8 @@ class ApplicationController < ActionController::Base
       redirect_to signin_path
     end
   end
+
+  def convert_instagram_time(time)
+    Time.at(time.to_i)
+  end
 end

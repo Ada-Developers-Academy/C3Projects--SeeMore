@@ -27,5 +27,8 @@ Rails.application.routes.draw do
   get '/instagram/:followee/posts', to: 'followees#insta_posts', as: "insta_posts"
   get '/twitter/:followee/posts', to: 'followees#twitter_posts', as: "twit_posts"
 
+  post '/posts', to: 'posts#create', as: 'posts'
+
+  post '/', to: 'home#get_new_posts', as: 'get_new_posts'
 
 end
