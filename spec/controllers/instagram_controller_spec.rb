@@ -7,14 +7,6 @@ RSpec.describe InstagramController, type: :controller do
       session[:user_id] = @user.id
     end
 
-    context "search" do
-      it "redirects to results path" do
-        @search_term = "potatoes"
-        post :search, search: { query: @search_term }
-        expect(response).to redirect_to(results_path(@search_term))
-      end
-    end
-
     context "results" do
       before :each do
         @search_term = "potatoes"
@@ -87,14 +79,6 @@ RSpec.describe InstagramController, type: :controller do
   end
 
   describe "unauthenticated / guest users" do
-    context "search" do
-      it "redirects to the root_path / login page" do
-        search_term = "potatoes"
-        post :search, search: { query: search_term }
-        expect(response).to redirect_to root_path
-      end
-    end
-
     context "results" do
       it "redirects to the root_path / login page" do
         search_term = "potatoes"

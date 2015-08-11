@@ -8,8 +8,14 @@ class Feed < ActiveRecord::Base
 
   # Feed URI constants ---------------------------------------------------------
   # TODO: consider whether this should remain as media/recent. just realized there might be a longer feed available.
-  INSTAGRAM_FEED_URI_A = "https://api.instagram.com/v1/users/" # ig's user_id == our feed_id
-  INSTAGRAM_FEED_URI_B = "/media/recent?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }"
+  INSTAGRAM_BASE_URI = "https://api.instagram.com/v1/users/" # ig's user_id == our feed_id
+  INSTAGRAM_FEED_END_URI = "/media/recent?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }"
+  VIMEO_BASE_URI = "https://api.vimeo.com/users/" # vm's user_id == our feed_id
+  VIMEO_FEED_END_URI = "/videos?page=1&per_page=30"
+  VIMEO_TOKEN_HEADER = {
+                  "Accept" => "application/vnd.vimeo.*+json;version=3.2",
+                  "Authorization" => "bearer #{ ENV["VIMEO_ACCESS_TOKEN"] }"
+                }
 
   # Validations-----------------------------------------------------------------
   validates :name, :platform, :platform_feed_id, presence: true
@@ -32,9 +38,7 @@ class Feed < ActiveRecord::Base
   end
 
   def populate_instagram_feed
-    # OPTIMIZE: which of the following two lines is better?
-    # feed_url = "#{ INSTAGRAM_FEED_URI_A }#{ platform_feed_id }#{ INSTAGRAM_FEED_URI_B }"
-    feed_url = INSTAGRAM_FEED_URI_A + platform_feed_id.to_s + INSTAGRAM_FEED_URI_B
+    feed_url = INSTAGRAM_BASE_URI + platform_feed_id.to_s + INSTAGRAM_FEED_END_URI
     results = HTTParty.get(feed_url)
     posts = results["data"]
     posts.each do |post|
@@ -43,7 +47,13 @@ class Feed < ActiveRecord::Base
   end
 
   def populate_vimeo_feed
-    # TODO: handling for populating vimeo posts here
+    feed_url = VIMEO_BASE_URI + platform_feed_id.to_s + VIMEO_FEED_END_URI
+    json_string_results = HTTParty.get(feed_url, :headers => VIMEO_TOKEN_HEADER )
+    json_results = JSON.parse(json_string_results)
+    posts = json_results["data"]
+    posts.each do |post|
+      maybe_valid_post = Post.create(create_vimeo_post(post, self.id))
+    end
   end
 
   # Updating feeds -------------
@@ -65,9 +75,7 @@ class Feed < ActiveRecord::Base
     feed_post_ids = feed_posts.map { |post| post.post_id }
 
     # query the API
-    # OPTIMIZE: which of the following two lines is better?
     feed_url = INSTAGRAM_FEED_URI_A + platform_feed_id.to_s + INSTAGRAM_FEED_URI_B
-    # feed_url = "#{ INSTAGRAM_FEED_URI_A }#{ platform_feed_id }#{ INSTAGRAM_FEED_URI_B }"
     results = HTTParty.get(feed_url)
     new_posts = results["data"]
 
@@ -105,6 +113,20 @@ class Feed < ActiveRecord::Base
       post_hash[:description] = post_data["caption"]["text"] if post_data["caption"]
       post_hash[:content]     = post_data["images"]["low_resolution"]["url"]
       post_hash[:date_posted] = Time.at(post_data["created_time"].to_i)
+      post_hash[:feed_id]     = feed_id # feed id from local feed object
+      return post_hash
+    end
+
+    def create_vimeo_post(post_data, feed_id)
+      post_hash = {}
+
+      post_id = VimeoController.helpers.grab_id(post_data)
+
+      post_hash[:post_id]     = post_id # post id from vimeo
+      post_hash[:name]        = post_data["name"]
+      post_hash[:description] = post_data["description"] # FIXME: in description, if description nil we can just put name
+      post_hash[:content]     = post_data["embed"] # this is the HTML for embedding the video!
+      post_hash[:date_posted] = post_data["created_time"]
       post_hash[:feed_id]     = feed_id # feed id from local feed object
       return post_hash
     end

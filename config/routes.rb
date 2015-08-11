@@ -14,12 +14,13 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy", as: "logout"
 
   # feed routes
-  get "/feed/:feed_id", to: "instagram#individual_feed", as: "feed"
-  post "/feed/:feed_id/subscribe", to: "instagram#subscribe", as: "subscribe"
+  get "/instagram/feed/:feed_id", to: "instagram#individual_feed", as: "instagram_feed"
+  get "/vimeo/feed/:feed_id", to: "vimeo#individual_feed", as: "vimeo_feed"
+  post "/instagram/feed/:feed_id/subscribe", to: "instagram#subscribe", as: "instagram_subscribe"
+  post "/vimeo/feed/:feed_id/subscribe", to: "vimeo#subscribe", as: "vimeo_subscribe"
 
   # search routes
-  post "/search", to: "welcome#search", as: :search
+  post "/search", to: "welcome#search", as: "search"
   get "/instagram/:query", to: "instagram#results", as: "instagram_results"
-
-  get '/vimeo/:query', to: "vimeo#results", as: "vimeo_results"
+  get "/vimeo/:query", to: "vimeo#results", as: "vimeo_results"
 end

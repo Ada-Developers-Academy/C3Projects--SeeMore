@@ -1,6 +1,6 @@
 <% if current_user %>
   <% if params[:feed_id] %>
-    <%= link_to "Subscribe", instagram_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-info btn-xs" %>
+    <%= link_to "Subscribe", vimeo_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-info btn-xs" %>
   <% end %>
 
   <div class="row">
@@ -14,14 +14,14 @@
 
         <div class="col-sm-4">
           <h3>
-            <%= link_to post["user"]["username"], instagram_feed_path(params[:feed_id]) %>
-            <span class="badge"><%= post["likes"]["count"] %> likes</span><br />
-            <small><%= Time.at(post["created_time"].to_i) %></small>
+            <%= link_to post["name"], vimeo_feed_path(params[:feed_id]) %>
+            <span class="badge"><%= "oops does vimeo have likes?" %> likes</span><br />
+            <small><%= post["created_time"] %></small>
           </h3>
-          <%= image_tag post["images"]["low_resolution"]["url"] %>
+          <%= image_tag post["embed"] %>
           <p>
-            <% if post["caption"] %>
-              <%= post["caption"]["text"] %>
+            <% if post["description"] %>
+              <%= post["description"] %>
             <% else %>
               No description provided.
             <% end %>

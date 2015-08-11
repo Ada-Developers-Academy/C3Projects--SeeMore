@@ -1,5 +1,17 @@
-<h1>results</h1>
-<% @results.each do |result| %>
-  <%= result["name"] %>
-  <%= result["link"] %>
+<h1>Search results for <%= @query %>:</h1>
+
+<% unless @results.empty? %>
+  <div class="row">
+    <% @results.each_with_index do |result, index| %>
+      <% if index % 3 == 0 %>
+        </div><div class="row">
+      <% end %>
+      <div class="col-sm-4 search-result">
+        <h3>
+          <%= link_to result["name"], vimeo_feed_path(grab_id(result)) %>
+          <%= link_to "Subscribe", vimeo_subscribe_path(grab_id(result)), method: "post", class: "btn btn-info btn-xs" %>
+        </h3>
+      </div>
+    <% end %>
+  </div>
 <% end %>
