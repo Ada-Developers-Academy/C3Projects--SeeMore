@@ -10,37 +10,22 @@ class HomeController < ApplicationController
   def signin; end
 
   def newsfeed
-    # user = Followee.find(5)
-    # user_id = user.native_id.to_i
-    # tweet = @twitter_client.user_timeline(user_id, { count: 2 }).last
-    # @tweet_html = get_embed_html(tweet.id)
-    # raise
-    #### uncomment below for debugging example code
-    @posts = []
-    @current_user.followees.each do |f|
-      f.posts.each do |p|
-        @posts << p.embed_html
+      subscriptions = @current_user.subscriptions
+    if subscriptions.count == 0
+      flash[:errors] = "You have no subscriptions! Search users to subscribe to."
+    else
+      @rev_posts = []
+      subscriptions.each do |s|
+        start = s.created_at
+        s.followee.posts.each do |p|
+          if p.native_created_at >= start
+            @rev_posts << p.embed_html
+          end
+        end
       end
+      @rev_posts.sort_by { |post| post["native_created_at"] }
     end
   end
-
-  def refresh
-    # create new posts method
-    find_subscription_posts
-    render :newsfeed
-  end
-    @all_posts.sort_by { |post| post["native_created_at"] }
-  end
-
-  # def newsfeed
-    ### uncomment below for debugging example code
-    # @posts = []
-    # @current_user.followees.each do |f|
-      # f.posts.each do |p|
-        # @posts << p.embed_html
-      # end
-    # end
-  # end
 
   def get_twitter_embed_html(tweet_id)
     @twitter_client.oembed(tweet_id, { omit_script: true })[:html]
