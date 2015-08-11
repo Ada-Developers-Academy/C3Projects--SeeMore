@@ -42,6 +42,14 @@ RSpec.describe Post, type: :model do
       expect(post).to be_invalid
       expect(post.errors).to include(:provider)
     end
+
+    it "requires a unique uid" do
+      create(:post, uid: "123")
+      post2 = build(:post, uid: "123")
+
+      expect(post2).to be_invalid
+      expect(post2.errors).to include(:uid)
+    end
   end
 
   pending ".seed_tweets"

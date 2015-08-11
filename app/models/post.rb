@@ -6,6 +6,8 @@ class Post < ActiveRecord::Base
   has_many :media
 
   validates :uid, :post_time, :prey_id, :url, :provider, presence: true
+  # tweet and gram uids should never be the same. they are formatted differently
+  validates :uid, uniqueness: true
 
   # TWEETS --------------------------------------------------------------------
 
@@ -43,6 +45,8 @@ class Post < ActiveRecord::Base
   end
 
   def self.create_many_grams_from_api(grams)
+    # Instagram API returns most recent post first, but we want it in reverse
+    grams.reverse!
     grams.each do |gram|
       post = Post.create(create_gram_params_from_api(gram))
       Medium.create(url: gram["images"]["standard_resolution"]["url"], post_id: post.id)
