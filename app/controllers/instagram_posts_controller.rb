@@ -13,12 +13,14 @@ class InstagramPostsController < ApplicationController
       @all_posts.each do |post|
         params[:instagram_post] = {
           post_id: post[:post_id],
-          instagram_id: post[:ig_id]
+          instagram_id: post[:ig_id],
+          image_url: post[:image_url]
         }
         InstagramPost.find_or_create_by(instagram_post_params)
       end
     end
     redirect_to root_path
+    # raise
   end
 
   private
@@ -30,13 +32,13 @@ class InstagramPostsController < ApplicationController
     user.instagrams.each do |gram|
       ig_user_posts = HTTParty.get(INSTAGRAM_URI + "users/#{gram.provider_id}/media/recent?count=10&access_token=#{session[:access_token]}")
       all_post_ids = ig_user_posts["data"].each do |post|
-        @all_posts << { ig_id: gram.id, post_id: post["id"]}
+        @all_posts << { ig_id: gram.id, post_id: post["id"], image_url: post["images"]["low_resolution"]["url"] }
       end
     end
     return @all_posts
   end
 
   def instagram_post_params
-    params.require(:instagram_post).permit(:post_id, :instagram_id)
+    params.require(:instagram_post).permit(:post_id, :instagram_id, :image_url)
   end
 end

@@ -27,7 +27,7 @@
             <div class="row">
               <div class="col-sm-4 center">
                 <div class="thumbnail">
-                  <%= link_to image_tag(post["data"]["images"]["standard_resolution"]["url"]), post["data"]["link"] %>
+                  <%= link_to image_tag(InstagramPost.where(post_id: post["data"]["id"]).first.image_url), post["data"]["link"] %>
                   <div class="caption">
                     <h5>Posted by: <%= post["data"]["user"]["username"] %></h5>
                     <% unless post["data"]["caption"].nil? %>
