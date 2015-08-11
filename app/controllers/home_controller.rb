@@ -106,7 +106,7 @@ class HomeController < ApplicationController
       end
 
       posts = response["data"]
-      if posts && posts.count > 0
+      if posts && posts.count > 0 && last_post_id
         posts = posts[0..-2]
       end
     end
