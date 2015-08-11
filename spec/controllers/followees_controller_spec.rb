@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe FolloweesController, type: :controller do
+  let(:user) { create :user }
+
+  before :each do
+    session[:user_id] = user.id
+  end
+
   describe "GET #search" do
     before :each do
       get :search
