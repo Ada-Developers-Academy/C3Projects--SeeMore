@@ -13,7 +13,13 @@ class InstagramController < ApplicationController
   end
 
   def individual_feed # show
-    feed_url = FEED_URI_A + params[:feed_id] + FEED_URI_B
+    id = params[:feed_id]
+
+    feed_info_url = FEED_INFO_URI_A + id + FEED_INFO_URI_B
+    feed_info_results = HTTParty.get(feed_info_url)
+    @feed_name = feed_info_results["data"]["username"]
+
+    feed_url = FEED_URI_A + id + FEED_URI_B
     results = HTTParty.get(feed_url)
     @posts = results["data"]
     flash.now[:error] = "This feed does not have any public posts." unless @posts
@@ -26,7 +32,7 @@ class InstagramController < ApplicationController
     unless feed
       feed_info_url = FEED_INFO_URI_A + id + FEED_INFO_URI_B
       feed_info_results = HTTParty.get(feed_info_url)
-      feed = Feed.create(create_feed_attributes_from_API_junk(feed_info_results))
+      feed = Feed.create(create_feed_attributes(feed_info_results))
     end
 
     current_user.feeds << feed unless current_user.feeds.include?(feed)
@@ -34,7 +40,7 @@ class InstagramController < ApplicationController
   end
 
   private
-    def create_feed_attributes_from_API_junk(results) # best variable name ever!
+    def create_feed_attribute(results)
       feed_hash = {}
       feed_info = results["data"]
       feed_hash[:avatar]           = feed_info["profile_picture"] if feed_info["profile_picture"]
