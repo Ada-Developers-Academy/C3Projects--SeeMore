@@ -3,7 +3,7 @@ class Tweet < ActiveRecord::Base
   belongs_to :tw_users
 
   # Validations
-  validates :tw_created_at, :tw_user_id_str, presence: true
+  validates :tw_created_at, :tw_user_id_str, :tw_user_id, presence: true
   validates :tw_id_str, presence: true, uniqueness: true
 
   # Scope
