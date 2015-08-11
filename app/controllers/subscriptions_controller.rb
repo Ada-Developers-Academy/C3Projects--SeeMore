@@ -6,7 +6,7 @@ class SubscriptionsController < ApplicationController
 
   def create
     followee = Followee.find_or_create_by(followee_params)
-    Subscription.make_subscription(@current_user, followee)
+    Subscription.find_or_create_subscription(@current_user, followee)
 
     redirect_to root_path
   end
