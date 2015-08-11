@@ -44,7 +44,6 @@ RSpec.describe AuUser, type: :model do
         expect(user.uid).to eq(OmniAuth.config.mock_auth[:vimeo]["uid"])
       end
 
-
       it "controls for accounts without avatars" do
         expect(user.avatar).to eq (OmniAuth.config.mock_auth[:vimeo]["avatar"])
       end
