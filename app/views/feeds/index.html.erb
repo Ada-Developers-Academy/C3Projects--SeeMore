@@ -1,5 +1,12 @@
 <%= link_to "Search Twitter Users", search_path('twitter'), class: 'btn btn-default'  %>
 <%= link_to "Search Instagram Users", search_path('instagram'), class: 'btn btn-default' %>
-<% @tweets.each do |tweet| %>
-  <p><%= tweet.tw_text %></p>
-<% end %>
+
+<ul class="list-group">
+  <% @tweets.each do |tweet| %>
+    <li class="list-group-item">
+      <%= tw_user_lookup(tweet).screen_name %>
+      <%= tweet.tw_text %>
+      Retweets: <%= tweet.tw_retweet_count %>, Favs: <%= tweet.tw_favorite_count %>
+    </li>
+  <% end %>
+</ul>
