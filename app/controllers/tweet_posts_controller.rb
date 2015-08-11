@@ -29,9 +29,11 @@ class TweetPostsController < ApplicationController
     @all_posts = []
     usernames = user.tweets.map &:username
     usernames.each do |username|
-      tweet_user_posts = Twit.user_timeline(username)
+      tweet_user_posts = @twitter.client.user_timeline(username, count: 10)
       tweet_user_posts.each do |post|
-        @all_posts << {post_id: post.id, posted_at: post.created_at, text: post.text, media_url: post.entities.media.media_url, tweet_id: Tweet.find_by(provider_id: post.user.id) }
+        @all_posts << { post_id: post.id, posted_at: post.created_at, text: post.text, tweet_id: Tweet.find_by(provider_id: post.user.id).id
+        }
+        # , media_url: (post.media.first ? post.media.first.media_url : nil)
       end
     end
     return @all_posts

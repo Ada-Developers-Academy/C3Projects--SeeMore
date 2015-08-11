@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
     already_following_error: "Oops! You are already following that person."
   }
 
+  def twit
+    @twitter ||= Twit.new
+  end
+
   private
 
   def require_login
@@ -33,8 +37,6 @@ class ApplicationController < ActionController::Base
     render "feeds/search"
   end
 
-  def twit
-    @twitter ||= Twit.new
-  end
+
 
 end
