@@ -1,3 +1,34 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.user{
+  // padding-left: 20px;
+  margin-bottom: 10px;
+  border-bottom: solid 1px #CABCBC;
+}
+
+.prof-pic {
+  width: 50px;
+  margin: 5px;
+}
+
+
+.fix-width {
+  width: 350px;
+}
+
+.caption {
+  margin: 0 60px 20px 60px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.caption::before {
+
+  // content: "<i class='fa fa-comment-o'></i>";
+}
+
+.col-md-6 {
+  background-color: white;
+}
+

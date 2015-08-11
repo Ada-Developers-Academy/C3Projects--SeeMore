@@ -1,4 +1,4 @@
-<div class="feed">
+<section class="feed">
   <%= link_to "Refresh Twitter", refresh_twi_path %>
 
 <% if logged_in? && @user.subscriptions.blank? %>
@@ -7,7 +7,7 @@
 
 <% elsif logged_in? %>
   <% @posts.each do |post| %>
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-8 col-md-offset-2">
       <div class="thumbnail">
         <div class="user">
         <%= image_tag(post.subscription.profile_pic, class: "img-circle prof-pic") %>
@@ -18,16 +18,16 @@
           <% end %>
         <%= post.username %>
         </div>
-    <% unless post.image.empty? %>
-      <% post.image.each do |image| %>
-        <%= image_tag(image, class: "img-rounded fix-width") %>
+      <% unless post.image.empty? %>
+        <% post.image.each do |image| %>
+          <%= image_tag(image, class: "img-rounded fix-width") %>
+        <% end %>
       <% end %>
-    <% end %>
-    <div class="caption text-center">
-      <%= post.text %>
+      <div class="caption text-center">
+        <%= post.text %>
+      </div>
     </div>
   </div>
-</div>
 <% end %>
 
 <% else %>
@@ -42,4 +42,4 @@
     </p>
   </div>
 <% end %>
-</div>
+</section>
