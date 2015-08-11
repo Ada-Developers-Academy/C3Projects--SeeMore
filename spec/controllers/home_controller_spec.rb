@@ -40,14 +40,17 @@ RSpec.describe HomeController, type: :controller do
   # end
 
   describe "POST #get_new_posts" do
-    let(:followee) { create :followee }
+    let(:followee_twitter) { create :followee }
+    let(:followee_instagram) { create :followee, handle: "badgalriri", source: "instagram", native_id: 25945306 }
 
     context "updating feed after following new user" do
       it "adds posts to the database" do
         VCR.use_cassette 'controller/home_controller/get_new_posts' do
-          create :subscription, followee_id: followee.id, user_id: user.id
+          create :subscription, followee_id: followee_twitter.id, user_id: user.id
+          create :subscription, followee_id: followee_instagram.id, user_id: user.id
+
           post :get_new_posts
-          expect(Post.count).to eq 5
+          expect(Post.count).to eq 10
         end
       end
     end
