@@ -6,6 +6,9 @@ class Tweet < ActiveRecord::Base
   validates :tw_created_at, :tw_user_id_str, presence: true
   validates :tw_id_str, presence: true, uniqueness: true
 
+  # Scope
+  scope :chron_tweets, -> { order("tw_created_at DESC") }
+
   # Methods
   def self.update_timeline(user)
     followees = user.tw_users
