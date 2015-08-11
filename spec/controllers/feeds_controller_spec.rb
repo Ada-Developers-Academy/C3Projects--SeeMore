@@ -37,25 +37,58 @@ RSpec.describe FeedsController, type: :controller do
 
   describe "GET feeds#search_results" do
     let(:twitter_params){ { provider: 'twitter', search_term: 'donald trump' } }
-    let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
-
-    it "queries the correct API" do
-      VCR.use_cassette 'controller/twitter_api_response' do
-        get :search_results, twitter_params
-        expect(assigns(:results).first.id).to eq(25073877)
-      end
-
-      VCR.use_cassette 'controller/instagram_api_search' do
-        get :search_results, instagram_params
-        expect(assigns(:results).first.id).to eq("1105876259")
-      end
-    end
+  #   let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
+  #
+  #   it "queries the correct API" do
+  #     VCR.use_cassette 'controller/twitter_api_response' do
+  #       get :search_results, twitter_params
+  #       expect(assigns(:results).first.id).to eq(25073877)
+  #     end
+  #
+  #     VCR.use_cassette 'controller/instagram_api_search' do
+  #       get :search_results, instagram_params
+  #       expect(assigns(:results).first.id).to eq("1105876259")
+  #     end
+  #   end
 
     it "receives a response from the twitter api" do
       VCR.use_cassette 'controller/twitter_api_response' do
         get :search_results, twitter_params
         expect(assigns(:results).first.id).to eq(25073877)
       end
+    end
+  end
+
+  describe "POST #tw_follow" do
+
+    before(:each) do
+      request.env["HTTP_REFERER"] = "/"
+      @user = create :user
+      @twitter_user = create :tw_user
+      session[:user_id] = @user.id
+    end
+
+    it "follows a twitter user" do
+      post :tw_follow, tw_user: @twitter_user.tw_user_id_str
+      expect(@user.tw_users).to include(@twitter_user)
+    end
+
+    it "has a user name attribute" do
+      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, user_name: 'beyonce'
+      @twitter_user.reload
+      expect(@twitter_user.user_name).to eq('beyonce')
+    end
+
+    it "has a profile image attribute" do
+      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, profile_image_url: 'http://fakeurl.org/fancy.jpg'
+      @twitter_user.reload
+      expect(@twitter_user.profile_image_url).to eq('http://fakeurl.org/fancy.jpg')
+    end
+
+    it "has a screen name attribute" do
+      post :tw_follow, tw_user: @twitter_user.tw_user_id_str, screen_name: 'queen_beyonce'
+      @twitter_user.reload
+      expect(@twitter_user.screen_name).to eq('queen_beyonce')
     end
   end
 

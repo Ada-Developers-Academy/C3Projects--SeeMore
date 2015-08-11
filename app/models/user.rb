@@ -1,13 +1,20 @@
 class User < ActiveRecord::Base
   # Associations
+
   has_many :tweets
   has_and_belongs_to_many :instagram_users
   has_many :grams, through: :instagram_users
   #Validations
+
+  has_and_belongs_to_many :tw_users
+  has_many :tweets, through: :tw_users
+
+  # Validations
+
   validates :avatar_url,:uid,:provider,  presence: true
   validates :username, presence: true, uniqueness: true
 
-#Methods -----------------------------------------------------------------------
+  # Methods
   # def self.find_or_create_from_instagram(response)
   #   auth_uid = response['id']
   #   auth_provider = 'instagram'
@@ -34,6 +41,7 @@ class User < ActiveRecord::Base
     # TODO: raise an error here instead of `nil`
     return user.save ? user : nil
   end
+
 
   def ig_follow(ig_user)
     InstagramUser.first_or_create_account(ig_user)

@@ -48,19 +48,31 @@ ActiveRecord::Schema.define(version: 20150810230817) do
   add_index "instagram_users_users", ["instagram_user_id"], name: "index_instagram_users_users_on_instagram_user_id"
   add_index "instagram_users_users", ["user_id"], name: "index_instagram_users_users_on_user_id"
 
-  create_table "tweets", force: :cascade do |t|
+  create_table "tw_users", force: :cascade do |t|
     t.string   "tw_user_id_str"
-    t.string   "tw_user_name_str"
-    t.string   "tw_user_profile_image_url"
-    t.string   "tw_user_screen_name"
+    t.string   "user_name"
+    t.string   "profile_image_url"
+    t.string   "screen_name"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "tw_users_users", id: false, force: :cascade do |t|
+    t.integer "tw_user_id", null: false
+    t.integer "user_id",    null: false
+  end
+
+  add_index "tw_users_users", ["tw_user_id", "user_id"], name: "index_tw_users_users_on_tw_user_id_and_user_id"
+  add_index "tw_users_users", ["user_id", "tw_user_id"], name: "index_tw_users_users_on_user_id_and_tw_user_id"
+
+  create_table "tweets", force: :cascade do |t|
     t.string   "tw_id_str"
     t.string   "tw_text"
     t.string   "tw_created_at"
     t.integer  "tw_retweet_count"
     t.integer  "tw_favorite_count"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "users", force: :cascade do |t|

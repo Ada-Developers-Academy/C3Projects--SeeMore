@@ -2,6 +2,10 @@ class SessionsController < ApplicationController
   # ew, but a necessary ew :(
   skip_before_filter :verify_authenticity_token, only: :create
 
+  MESSAGES = {
+    signout_success: "Peep ya later!"
+  }
+
   def new
     # go to Instagram for authorization & confirmation
     redirect_to Instagram.authorize_url(:redirect_uri => callback_url)
@@ -30,7 +34,9 @@ class SessionsController < ApplicationController
   def destroy
     reset_session
 
-    redirect_to feeds_path
+    flash[:success] = MESSAGES[:signout_success]
+
+    redirect_to root_path
   end
 
 end
