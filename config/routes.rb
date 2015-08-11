@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   # need to limit the subscription paths
   resources :subscriptions
 
-  post "/unsubscribe/:id", to: "subscriptions#unsubscribe", as: "unsubscribe"
+  put "/unsubscribe/:id", to: "subscriptions#unsubscribe", as: "unsubscribe"
 
   # this route is for de-bugging fetching a user's posts. Prob will delete later
   get '/instagram/:followee/posts', to: 'followees#insta_posts', as: "insta_posts"

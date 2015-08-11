@@ -15,7 +15,6 @@ class HomeController < ApplicationController
       flash[:errors] = "You have no subscriptions! Search users to subscribe to."
     else
       @rev_posts = []
-      @thing = 5
       subscriptions.each do |s|
         start = s.created_at
         s.followee.posts.each do |p|
@@ -115,7 +114,7 @@ class HomeController < ApplicationController
       end
 
       posts = response["data"]
-      if posts && posts.count > 0
+      if posts && posts.count > 0 && last_post_id
         posts = posts[0..-2]
       end
     end
