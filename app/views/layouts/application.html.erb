@@ -7,6 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+  <div class="welcome-image">
+    <%= image_tag "search.jpg", class: "welcome_image" %>
+  </div>
+
   <div class="container">
     <header>
       <% if session[:stalker_id] %>
@@ -28,6 +33,7 @@
       <% end %>
     </header>
 
+
     <% if flash[:message] %>
       <% flash[:message].each do |key, value| %>
         <h4 class="alert alert-success"><%= key.to_s.titlecase %>: <%= value %></h4>
@@ -41,7 +47,6 @@
     <% end %>
 
     <%= yield %>
-
-  </div>
+</div>
 </body>
 </html>
