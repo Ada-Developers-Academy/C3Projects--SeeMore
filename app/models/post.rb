@@ -1,42 +1,55 @@
 require 'twitter_client'
+require 'instagram_client'
 
 class Post < ActiveRecord::Base
+  SEED_COUNT = 5
+
   belongs_to :prey
   has_many :media
 
   validates :uid, :post_time, :prey_id, :url, :provider, presence: true
+  # tweet and gram uids should never be the same. they are formatted differently
+  validates :uid, uniqueness: true
 
-  def self.seed_tweets(prey_uid, count = 5)
+  # TWEETS --------------------------------------------------------------------
+
+  def self.seed_tweets(prey_uid, count = SEED_COUNT)
     tweets = TwitterClient.fetch_tweets(prey_uid, { count: count })
     create_many_tweets_from_api(tweets)
   end
 
-  def self.seed_grams(prey_uid, count = 5)
-    # TODO: fill in :)
-  end
-
-  def self.update_tweets(prey)
-    last_tweet_uid = prey.posts.maximum(:uid)
-    tweets = TwitterClient.fetch_tweets(prey.uid, { since_id: last_tweet_uid })
+  def self.update_tweets(prey_uid)
+    last_tweet_uid = Prey.last_post_uid(prey_uid)
+    tweets = TwitterClient.fetch_tweets(prey_uid, { since_id: last_tweet_uid })
     create_many_tweets_from_api(tweets)
   end
 
+  # GRAMS ---------------------------------------------------------------------
+
+  def self.seed_grams(prey_uid, count = SEED_COUNT)
+    grams = InstagramClient.seed_grams(prey_uid, count)
+    create_many_grams_from_api(grams)
+  end
+
   def self.update_grams(prey_uid)
-    # TODO: fill in :)
+    last_gram_uid = Prey.last_post_uid(prey_uid)
+    grams = InstagramClient.update_grams(prey_uid, last_gram_uid)
+    create_many_grams_from_api(grams)
   end
 
   private
+  # TWEETS --------------------------------------------------------------------
 
   def self.create_many_tweets_from_api(tweets)
     tweets.each do |tweet|
-      post_id = Post.create(tweet_create_params_from_api(tweet)).id
+      post_id = Post.create(create_tweet_params_from_api(tweet)).id
       tweet.media.each do |medium|
         Medium.create(url: medium.media_url_https.to_s, post_id: post_id)
       end
     end
   end
 
-  def self.tweet_create_params_from_api(tweet)
+  def self.create_tweet_params_from_api(tweet)
     { uid: tweet.id,
       body:  tweet.text,
       post_time: tweet.created_at,
@@ -46,4 +59,22 @@ class Post < ActiveRecord::Base
     }
   end
 
+  # GRAMS ---------------------------------------------------------------------
+
+  def self.create_many_grams_from_api(grams)
+    grams.each do |gram|
+      post = Post.create(create_gram_params_from_api(gram))
+      Medium.create(url: gram["images"]["standard_resolution"]["url"], post_id: post.id)
+    end
+  end
+
+  def self.create_gram_params_from_api(gram)
+    { uid: gram["id"],
+      body: (gram["caption"]["text"] unless gram["caption"].nil?),
+      post_time: gram["created_time"],
+      prey_id: Prey.find_by(uid: gram["user"]["id"]).id,
+      url: gram["link"],
+      provider: "instagram"
+    }
+  end
 end
