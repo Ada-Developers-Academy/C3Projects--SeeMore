@@ -15,3 +15,11 @@
   <p lang="en" dir="ltr">Where are they now: Beast Jesus edition.</p>&mdash; Alice Rhomieux (@rhomieux) <a href="https://twitter.com/rhomieux/status/629789712799002625">August 7, 2015</a></blockquote> -->
 
  <%#= raw @tweet_html %>
+
+<%= link_to 'Update Feed', get_new_posts_path, method: :post %>
+
+<% if @posts %>
+  <% @posts.each do |post| %>
+    <%= raw post %>
+  <% end %>
+<% end %>

@@ -7,4 +7,5 @@ class Post < ActiveRecord::Base
 
   # Scopes ---------------------------------------------------------------------
   scope :chron_sort, -> { order('native_created_at')}
+
 end
