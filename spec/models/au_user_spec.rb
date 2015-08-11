@@ -38,9 +38,15 @@ RSpec.describe AuUser, type: :model do
   end
 
   describe "omni auth model method" do
-    it "assigns values to the user via the provider" do
-      au_user = AuUser.new
-      expect(au_user.create_with_omniauth(      OmniAuth.config.mock_auth[:vimeo]).uid).to eq(OmniAuth.config.mock_auth[:vimeo]["uid"])
+    context "auth hash without avatar" do
+      let (:user) { AuUser.create_with_omniauth(OmniAuth.config.mock_auth[:vimeo]) }
+      it "assigns values to the user via the provider" do
+        expect(user.uid).to eq(OmniAuth.config.mock_auth[:vimeo]["uid"])
+      end
+
+      it "controls for accounts without avatars" do
+        expect(user.avatar).to eq (OmniAuth.config.mock_auth[:vimeo]["avatar"])
+      end
     end
   end
 end

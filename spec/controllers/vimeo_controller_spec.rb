@@ -1,6 +1,20 @@
 require 'rails_helper'
+require 'webmock/rspec'
 
 RSpec.describe VimeoController, type: :controller do
+
+  describe '#call_api' do
+    let(:query) { "cupcakes" }
+    let(:user) { create :au_user}
+    it "gets a response from an api" do
+      VCR.use_cassette "spec/vcr" do
+        session[:user_id] = user.id
+        get :results, query: query
+        expect(assigns(:results).first["name"]).to eq "Cupcake"
+      end
+    end
+  end
+
   describe "authenticated users" do
     before :each do
       @user = create :au_user
@@ -10,7 +24,9 @@ RSpec.describe VimeoController, type: :controller do
     context "results" do
       before :each do
         @search_term = "potatoes"
-        get :results, query: @search_term
+        VCR.use_cassette("/vimeo_user") do
+          get :results, query: @search_term
+        end
       end
 
       it "responds successfully" do
@@ -31,11 +47,12 @@ RSpec.describe VimeoController, type: :controller do
     end
 
     context "individual_feed" do
+      let(:feed) { create :user_vimeo}
       context "feed that has posts" do
         before :each do
-          feed = create :feed
-          # FIXME: add VCR here to mimic posts
-          get :individual_feed, feed_id: feed.id
+          VCR.use_cassette("/vimeo_feed") do
+            get :individual_feed, feed_id: feed.id
+          end
         end
 
         it "responds successfully" do
@@ -46,15 +63,19 @@ RSpec.describe VimeoController, type: :controller do
           expect(response).to render_template("individual_feed")
         end
 
-        it "assigns @posts" # FIXME: add VCR here to mimic posts
+        it "assigns @posts" do
+          expect(assigns(:posts).first["name"]).to eq "Light Therapy"
+        end
 
         it "displays { FILL_ME_IN } results" # FIXME: how many results do we want to display?
       end
 
       context "feed that doesn't have posts" do
+        let(:invalid_feed) { create :invalid_vimeo_feed }
         it "sends an error message" do
-          feed = create :feed
-          get :individual_feed, feed_id: feed.id
+          VCR.use_cassette "/vimeo_feed" do
+            get :individual_feed, feed_id: invalid_feed.id
+          end
 
           expect(flash[:error]).not_to be_nil
         end
@@ -62,18 +83,24 @@ RSpec.describe VimeoController, type: :controller do
     end
 
     context "subscribe" do
+      let(:feed) { create :user_vimeo}
       it "associates the feed with the user" do
-        feed = create :feed
-        post :subscribe, feed_id: feed.id
-        expect(@user.feeds).to include(feed)
+        VCR.use_cassette("/subscribe") do
+          post :subscribe, feed_id: feed.id
+          expect(@user.feeds).to include(feed)
+        end
       end
 
-      it "creates a new database entry if the feed is not found" # FIXME: add VCR here to mimic posts
+      it "creates a new database entry if the feed is not found" do
+        post :subscribe, feed_id: feed.id
+        expect(Feed.count).to eq(1)
+      end 
 
       it "redirects to the user's feed" do
-        feed = create :feed
-        post :subscribe, feed_id: feed.id
-        expect(response).to redirect_to root_path
+        VCR.use_cassette("/subscribe") do
+          post :subscribe, feed_id: feed.id
+          expect(response).to redirect_to root_path
+        end
       end
     end
   end
@@ -104,3 +131,4 @@ RSpec.describe VimeoController, type: :controller do
     end
   end
 end
+
