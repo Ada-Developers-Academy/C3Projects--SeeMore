@@ -21,6 +21,7 @@
         <!-- Manage feed button -->
         <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
         <%= render partial: "instagrams/refresh_feed" %>
+        <%= link_to "Refresh Twitter Feed", { controller: :tweet_posts, action: :create }, method: :post, class: "btn btn-primary" %>
         <!-- Instagram Actual Feed here -->
         <% if @posts %>
           <% @posts.each do |post| %>
