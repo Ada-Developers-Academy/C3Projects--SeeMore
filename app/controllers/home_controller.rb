@@ -11,13 +11,20 @@ class HomeController < ApplicationController
 
   def signin; end
 
-  # def newsfeed
+  def newsfeed
     # user = Followee.find(5)
     # user_id = user.native_id.to_i
     # tweet = @twitter_client.user_timeline(user_id, { count: 2 }).last
-  #   @tweet_html = get_embed_html(tweet.id)
-  #   # raise
-  # end
+    # @tweet_html = get_embed_html(tweet.id)
+    # raise
+    #### uncomment below for debugging example code
+    @posts = []
+    @current_user.followees.each do |f|
+      f.posts.each do |p|
+        @posts << p.embed_html
+      end
+    end
+  end
 
   def refresh
     # create new posts method
