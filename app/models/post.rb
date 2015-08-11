@@ -49,25 +49,23 @@ class Post < ActiveRecord::Base
     return post
   end
 
-
-
-
-
-  def self.create_twitter_posts(tweet_array, subscription)
-    tweet_array.each do |tweet|
-      unless self.find_by(content_id: tweet.id)
-        media_array = []
-        tweet.media.as_json.each do |media|
-          media_array << media["media_url_https"]
+  def self.create_twitter_posts(subscription_twitter_ids)
+    subscription_twitter_ids.each do |id, tweets|
+      tweets.each do |tweet|
+        unless self.find_by(content_id: tweet.id)
+          media_array = []
+          tweet.media.as_json.each do |media|
+            media_array << media["media_url_https"]
+          end
+          create(
+            username: tweet.user.screen_name,
+            text: tweet.text,
+            posted_at: tweet.as_json["created_at"],
+            content_id: tweet.id,
+            image: media_array,
+            subscription_id: id
+            )
         end
-        create(
-          username: tweet.user.screen_name,
-          text: tweet.text,
-          posted_at: tweet.as_json["created_at"],
-          content_id: tweet.id,
-          image: media_array,
-          subscription_id: subscription.id
-        )
       end
     end
   end
