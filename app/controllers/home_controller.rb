@@ -9,30 +9,29 @@ class HomeController < ApplicationController
 
   def signin; end
 
-  def refresh
+  def newsfeed
     subscriptions = @current_user.subscriptions
-    @all_posts = []
+    @rev_posts = []
     subscriptions.each do |s|
       start = s.created_at
-      s.posts.each do |p|
+      s.followee.posts.each do |p|
         if p.created_at >= start
-          @all_posts << p
+          @rev_posts << p.embed_html
         end
       end
     end
-    @all_posts.sort_by { |post| post["native_created_at"] }
-    render :newsfeed
+    @rev_posts.sort_by { |post| post["native_created_at"] }
   end
 
-  def newsfeed
-    #### uncomment below for debugging example code
-    @posts = []
-    @current_user.followees.each do |f|
-      f.posts.each do |p|
-        @posts << p.embed_html
-      end
-    end
-  end
+  # def newsfeed
+    ### uncomment below for debugging example code
+    # @posts = []
+    # @current_user.followees.each do |f|
+      # f.posts.each do |p|
+        # @posts << p.embed_html
+      # end
+    # end
+  # end
 
   def get_twitter_embed_html(tweet_id)
     @twitter_client.oembed(tweet_id, { omit_script: true })[:html]

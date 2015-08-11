@@ -1,14 +1,8 @@
 <h1>NewsFeed</h1>
 
-<p>Logged in user is: <%= @current_user.name %></p>
-
-<p>(put posts here)</p>
-
 <%= link_to 'Search Users', search_path, class: "btn btn-default" %>
 
-<%= link_to 'Update', refresh_path, method: :post, class: "btn btn-default" %>
-
-<% if @all_posts %>
+<% if @rev_posts %>
   <%= render partial: "shared/update" %>
 <% end %>
 <!-- <blockquote class="twitter-tweet">
@@ -16,7 +10,9 @@
 
  <%#= raw @tweet_html %>
 
-<%= link_to 'Update Feed', get_new_posts_path, method: :post %>
+<%= link_to 'Update Feed', get_new_posts_path, method: :post, class: "btn btn-success" %>
+
+<%= link_to 'My Subscriptions', subscriptions_path, method: :get, class: "btn btn-primary" %>
 
 <% if @posts %>
   <% @posts.each do |post| %>
