@@ -45,6 +45,7 @@ RSpec.describe Post, type: :model do
   end
 
   pending ".seed_tweets"
+  pending ".seed_grams"
   pending ".update_tweets"
-  pending ".create_many_from_api"
+  pending ".update_grams"
 end

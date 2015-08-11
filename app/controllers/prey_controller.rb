@@ -1,24 +1,41 @@
 class PreyController < ApplicationController
   before_action :set_stalker
-  before_action :set_prey
+  before_action :find_or_create_prey
 
   def create
-    if @prey.nil?
-      @prey = Prey.create_from_username(params[:username])
+    if @stalker.prey << @prey
+      flash[:message] = { success: "You are now following #{@prey.username}!" }
+    else
+      flash[:error] = { error: "We don't know what happened. We're very very sorry! >_>" }
     end
-    @stalker.prey << @prey
+
     redirect_to root_path
   end
 
   def unfollow
-    @stalker.prey.delete(@prey)
+    if @stalker.prey.delete(@prey)
+      flash[:message] = { success: "You have unsubscribed." }
+    else
+      flash[:error] = { error: "We don't know what happened. We're very very sorry! >_>" }
+    end
+
     redirect_to dashboard_path(@stalker.id)
   end
 
   private
 
-  def set_prey
-    @prey = Prey.find_by(username: params[:username])
+  def find_or_create_prey
+    @prey = Prey.create_with(create_params)
+    .find_or_create_by(uid: params[:uid], provider: params[:provider])
+
+    unless @prey.persisted?
+      flash[:error] = { error: "We don't know what happened. We're very very sorry! >_>" }
+      redirect_to dashboard_path(session[:stalker_id])
+    end
+  end
+
+  def create_params
+    params.permit(:uid, :name, :username, :provider, :photo_url, :profile_url)
   end
 
   def set_stalker
