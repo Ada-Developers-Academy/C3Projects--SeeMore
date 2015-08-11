@@ -85,6 +85,20 @@ RSpec.describe Feed, type: :model do
       expect(Feed.count).to eq 4
       expect(Feed.developer.count).to eq 1
     end
+  end
+
+    describe 'populates posts after create method' do
+
+      it "gets a response from an api" do
+        user = create :au_user
+        session[:user_id] = user.id
+
+        VCR.use_cassette "spec/vcr" do
+          feed = create :feed
+          expect(Post.where(feed_id: 1).count).to eq 1
+        end
+      end
+   end
 
     # it "populate_posts after_create method" do
     #   auth = OmniAuth.config.mock_auth[:instagram]
@@ -92,5 +106,4 @@ RSpec.describe Feed, type: :model do
     #
     #   # expect(Post.where(feed_id: 1).count).to eq 1
     # end
-  end
 end
