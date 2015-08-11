@@ -5,7 +5,7 @@ class Prey < ActiveRecord::Base
   has_many :posts
 
   validates :uid, :provider, presence: true
-  after_create :seed_tweets
+  after_create :seed_posts
 
   def update_tweets
     Post.update_tweets(uid)
@@ -18,8 +18,12 @@ class Prey < ActiveRecord::Base
 
   private
 
-  def seed_tweets
-    Post.seed_tweets(self.uid)
+  def seed_posts
+    if self.provider == "twitter"
+      Post.seed_tweets(self.uid)
+    elsif self.provider == "instagram"
+      Post.seed_grams(self.uid)
+    end
   end
 
   def self.create_params_from_api(prey)

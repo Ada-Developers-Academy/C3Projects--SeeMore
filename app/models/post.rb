@@ -31,8 +31,8 @@ class Post < ActiveRecord::Base
 
   # GRAMS --------------------------------------------------------------------
 
-  def self.seed_grams(user_uid)
-    grams = InstagramClient.seed_grams(user_uid)
+  def self.seed_grams(prey_uid)
+    grams = InstagramClient.seed_grams(prey_uid)
     create_many_grams_from_api(grams)
   end
 

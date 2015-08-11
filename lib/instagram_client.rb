@@ -8,14 +8,14 @@ class InstagramClient
     return results["data"]
   end
 
-  def self.seed_grams(user_uid)
-    result = HTTParty.get(INSTAGRAM_FETCH_GRAMS_URI + "#{user_uid}/media/recent/?access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}&count=#{SEED_COUNT}")
+  def self.seed_grams(prey_uid)
+    result = HTTParty.get(INSTAGRAM_FETCH_GRAMS_URI + "#{prey_uid}/media/recent/?access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}&count=#{SEED_COUNT}")
     return result["data"] # this returns an array of hashes with information
     # about the grams...each index in the array corresponds to a new gram
   end
 
-  def self.update_grams(user_uid, last_gram_id)
-    result = HTTParty.get(INSTAGRAM_FETCH_GRAMS_URI + "#{user_uid}/media/recent/?access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}&min_id=#{last_gram_id}")
+  def self.update_grams(prey_uid, last_gram_id)
+    result = HTTParty.get(INSTAGRAM_FETCH_GRAMS_URI + "#{prey_uid}/media/recent/?access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}&min_id=#{last_gram_id}")
     return result["data"]
   end
 end
