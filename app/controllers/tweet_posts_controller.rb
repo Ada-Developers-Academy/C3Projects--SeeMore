@@ -1,8 +1,9 @@
 class TweetPostsController < ApplicationController
+  before_action :require_login, only: [:create]
 
   def create
     user = User.find_by(id: session[:user_id])
-    if user.tweets
+    if user && user.tweets
       get_posts(user)
 
       @all_posts.each do |post|

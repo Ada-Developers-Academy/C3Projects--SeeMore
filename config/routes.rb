@@ -23,5 +23,4 @@ Rails.application.routes.draw do
   resources :instagram_posts, only: [:create]
   resources :tweet_posts, only: [:create]
 
-
 end
