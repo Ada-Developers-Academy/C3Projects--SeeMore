@@ -34,21 +34,6 @@ class Post < ActiveRecord::Base
     end
   end
 
-  # private
-  def self.newed_instagram_post(json_content)
-    post = Post.new(
-      image: [json_content["images"]["low_resolution"]["url"]],
-      posted_at: Time.at(json_content["created_time"].to_i),
-      username: json_content["user"]["username"],
-      content_id: json_content["id"],
-      subscription_id: Subscription.find_by(instagram_id: json_content["user"]["id"]).id
-    )
-    unless json_content["caption"].nil?
-      post.text = json_content["caption"]["text"]
-    end
-    return post
-  end
-
   def self.create_twitter_posts(subscription_twitter_ids)
     subscription_twitter_ids.each do |id, tweets|
       tweets.each do |tweet|
@@ -71,6 +56,21 @@ class Post < ActiveRecord::Base
   end
 
   private
+
+  def self.newed_instagram_post(json_content)
+    post = Post.new(
+      image: [json_content["images"]["low_resolution"]["url"]],
+      posted_at: Time.at(json_content["created_time"].to_i),
+      username: json_content["user"]["username"],
+      content_id: json_content["id"],
+      subscription_id: Subscription.find_by(instagram_id: json_content["user"]["id"]).id
+    )
+    unless json_content["caption"].nil?
+      post.text = json_content["caption"]["text"]
+    end
+    return post
+  end
+
       # def self.in_database(id)
       #   where(content_id: id)
       # end
