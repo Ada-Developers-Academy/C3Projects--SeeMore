@@ -26,13 +26,10 @@ RSpec.describe FolloweesController, type: :controller do
     context "search term entered" do
 
       before :each do
-        VCR.use_cassette 'controller/followees_controller/twitter_users_redirect' do
-          response = post :twitter_users_redirect, user: "pig", source: "twitter"
-        end
+        response = post :twitter_users_redirect, user: "pig", source: "twitter"
       end
 
       it "redirects to search_results_path if params[:user]" do
-        # expect(response).to have_http_status(302)
         expect(response).to redirect_to(search_results_path("twitter", "pig"))
       end
 
@@ -58,7 +55,7 @@ RSpec.describe FolloweesController, type: :controller do
   describe "POST #instagram_users_redirect" do
     context "search term entered" do
       before :each do
-        post :instagram_users_redirect, user: "obama", source: "instagram"
+        response = post :instagram_users_redirect, user: "obama", source: "instagram"
       end
 
       it "redirects to search_results_path if params[:user]" do
