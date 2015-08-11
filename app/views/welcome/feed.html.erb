@@ -25,7 +25,7 @@
         </h3>
         <p>
           <% if post.description %>
-            <%= only_250_characters(post.description) %>
+            <%= shorten(post.description) %>
           <% else %>
             No description provided.
           <% end %>

@@ -20,7 +20,7 @@
           No description provided.
         <% end %>
       </p>
-      <span class="badge"><%= post["likes"]["count"] %> likes</span><br />
+      <span class="badge"><%= number_with_delimiter(post["likes"]["count"], :delimiter => ',') %> likes</span><br />
     </div>
     <div class="date">
       <%= Time.at(post["created_time"].to_i) %>
