@@ -35,4 +35,9 @@ class User < ActiveRecord::Base
       return true
     end
   end
+
+  # Returns an ActiveRecord of all instagram subscriptions for that user.
+  def instagram_subscriptions
+    self.subscriptions.where.not(instagram_id: nil)
+  end
 end

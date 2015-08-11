@@ -34,36 +34,30 @@ class IgSubscriptionsController < ApplicationController
   end
 
   def refresh_recent_ig
-    access_token = session[:access_token]
+    user_subs = @user.instagram_subscriptions
 
-    users_subs = @user.subscriptions
-
-    response = []
-    users_subs.each do |subscription|
-      if subscription.instagram_id.present?
-        response << HTTParty.get(INSTA_URI + "#{subscription.instagram_id}/media/recent/?count=#{COUNT}&access_token=" + access_token)
-      end
-    end
-
-    newed_posts = []
-    response.each do |all_posts_for_subscriber|
-      all_posts_for_subscriber["data"].each do |content_of_single_post|
-        newed_posts << assign_post(content_of_single_post)
-      end
-    end
-
-    check_database(newed_posts)
+    response = multiple_subscription_httparty_objects(user_subs)
+    newed_posts = Post.new_all_instagram_posts(response)
+    Post.create_all_instagram_posts(newed_posts)
 
     redirect_to root_path
   end
 
-
-  def check_database(content_array)
-    content_array.each do |content|
-      if Post.where(content_id: content.content_id).empty?
-        content.save
-      end
+  # Returns a single HTTParty object for a single subscription.
+  def single_subscription_httparty_object(subscription)
+    access_token = session[:access_token]
+    if subscription.instagram_id.present?
+      return HTTParty.get(INSTA_URI + "#{subscription.instagram_id}/media/recent/?count=#{COUNT}&access_token=" + access_token)
     end
+  end
+
+  # Returns an array with multiple subscription HTTParty objects (only for Instagram).
+  def multiple_subscription_httparty_objects(array_of_subscriptions)
+    responses = []
+    array_of_subscriptions.each do |subscription|
+      responses << single_subscription_httparty_object(subscription)
+    end
+    return responses # this is an array of HTTParty objects
   end
 
   private
@@ -72,19 +66,5 @@ class IgSubscriptionsController < ApplicationController
     subscription.profile_pic = params[:profile_pic]
 
     subscription.save
-  end
-
-  def assign_post(content)
-    post = Post.new(
-      image: [content["images"]["low_resolution"]["url"]],
-      posted_at: Time.at(content["created_time"].to_i),
-      username: content["user"]["username"],
-      content_id: content["id"],
-      subscription_id: Subscription.find_by(instagram_id: content["user"]["id"]).id
-    )
-    unless content["caption"].nil?
-      post.text = content["caption"]["text"]
-    end
-    return post
   end
 end

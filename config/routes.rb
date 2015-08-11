@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   # TEMP ROUTE:
   get '/refresh_ig', to: 'ig_subscriptions#refresh_recent_ig'
+  get '/refresh_twi', to: 'twi_subscriptions#refresh_tweets'
 
   post "/auth/:provider/callback", to: "sessions#create"
   get '/auth/:provider/callback', to: 'sessions#create'
