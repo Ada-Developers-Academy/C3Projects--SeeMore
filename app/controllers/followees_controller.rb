@@ -7,13 +7,14 @@ class FolloweesController < ApplicationController
 
   include ActionView::Helpers::OutputSafetyHelper
 
-  def new
-    @followee = Followee.new
-  end
+  ######## remove all these?
+  # def new
+  #   @followee = Followee.new
+  # end
 
-  def create; end
+  # def create; end
 
-  def destroy; end
+  # def destroy; end
 
   def search; end   # this renders the search page
 
@@ -51,13 +52,13 @@ class FolloweesController < ApplicationController
   end
 
 ###########################################
-  private
-  def find
-    @followees = [@current_user.followees]
-  end
+  ## remove these too??
+  # private
+  # def find
+  #   @followees = [@current_user.followees]
+  # end
 
-  def followee_params
-    params.require(:followee).permit(:handle, :source, :avatar_url)
-  end
-
+  # def followee_params
+  #   params.require(:followee).permit(:handle, :source, :avatar_url)
+  # end
 end
