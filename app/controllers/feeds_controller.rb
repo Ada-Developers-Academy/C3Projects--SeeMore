@@ -1,5 +1,6 @@
 class FeedsController < ApplicationController
   def index
+    raise
     # user = User.find(session[:user_id])
     # instagram_client = Instagram.client(:access_token => session[:access_token])
     # instagram_posts = []
@@ -33,9 +34,7 @@ class FeedsController < ApplicationController
     if params[:provider] == 'twitter'
       @results = @twit_init.client.user_search(@search_term)
     elsif params[:provider] == 'instagram'
-      # TODO: move to ApplicationController & make an instance var like @twit_init?
-      instagram_client = Instagram.client(:access_token => session[:access_token])
-      @results = instagram_client.user_search(@search_term)
+      @results = @instagram_client.user_search(@search_term)
     else
       # guard
       # TODO: send flash notices
