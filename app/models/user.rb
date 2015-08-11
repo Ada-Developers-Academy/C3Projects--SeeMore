@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   validates_presence_of :uid, :provider
   validates_uniqueness_of :uid
 
+  # Scopes
+  # scope :sorted_order, -> { order(posted_at: :desc) }
+
   def self.find_or_create_user(auth_hash)
     uid = auth_hash["uid"]
     provider = auth_hash["provider"]
