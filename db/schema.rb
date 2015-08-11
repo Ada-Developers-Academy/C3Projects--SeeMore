@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810230817) do
+ActiveRecord::Schema.define(version: 20150811184407) do
 
   create_table "grams", force: :cascade do |t|
     t.string   "tags"
@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 20150810230817) do
     t.string   "ig_user_pic"
     t.string   "ig_user_id"
     t.string   "ig_user_fullname"
-    t.integer  "user_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "instagram_user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "instagram_users", force: :cascade do |t|
