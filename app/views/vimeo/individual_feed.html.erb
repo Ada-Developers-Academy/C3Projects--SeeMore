@@ -1,0 +1,33 @@
+<% if current_user %>
+  <% if params[:feed_id] %>
+    <%= link_to "Subscribe", vimeo_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-info btn-xs" %>
+  <% end %>
+
+  <div class="row">
+    <% if @posts.nil? || @posts.empty? %>
+      <h2>This feed doesn't have any posts. ;_;</h2>
+    <% else %>
+      <% @posts.each_with_index do |post, index| %>
+        <% if index % 3 == 0 %>
+          </div><div class="row">
+        <% end %>
+
+        <div class="col-sm-4">
+          <h3>
+            <%= link_to post["name"], vimeo_feed_path(params[:feed_id]) %>
+            <span class="badge"><%= "oops does vimeo have likes?" %> likes</span><br />
+            <small><%= post["created_time"] %></small>
+          </h3>
+          <%= image_tag post["embed"] %>
+          <p>
+            <% if post["description"] %>
+              <%= post["description"] %>
+            <% else %>
+              No description provided.
+            <% end %>
+          </p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
