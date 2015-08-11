@@ -18,7 +18,7 @@
             <span class="badge"><%= "oops does vimeo have likes?" %> likes</span><br />
             <small><%= post["created_time"] %></small>
           </h3>
-          <%= image_tag post["embed"] %>
+          <%= resize_video(post).html_safe %>
           <p>
             <% if post["description"] %>
               <%= post["description"].first(100) %>

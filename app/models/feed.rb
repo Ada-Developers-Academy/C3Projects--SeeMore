@@ -121,13 +121,16 @@ class Feed < ActiveRecord::Base
       post_hash = {}
 
       post_id = VimeoController.helpers.grab_id(post_data)
-
       post_hash[:post_id]     = post_id # post id from vimeo
+
+      content = VimeoController.helpers.resize_video(post_data)
+      post_hash[:content]     = content # this is iframe video embedding code
+
       post_hash[:name]        = post_data["name"]
       post_hash[:description] = post_data["description"] # FIXME: in description, if description nil we can just put name
-      post_hash[:content]     = post_data["embed"] # this is the HTML for embedding the video!
       post_hash[:date_posted] = post_data["created_time"]
       post_hash[:feed_id]     = feed_id # feed id from local feed object
+
       return post_hash
     end
 end
