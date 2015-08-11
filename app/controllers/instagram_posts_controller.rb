@@ -3,7 +3,7 @@ require 'httparty'
 class InstagramPostsController < ApplicationController
   before_action :require_login, only: [:create]
 
-  def create
+  def self.create
     user = User.find_by(id: session[:user_id])
     if user && user.instagrams
       get_posts(user)
