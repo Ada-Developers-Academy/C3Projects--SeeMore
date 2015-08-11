@@ -1,7 +1,7 @@
 class FolloweesController < ApplicationController
   INSTA_URI = "https://api.instagram.com/v1/users/search?"
   INSTA_USER_COUNT = "3"
-  
+
   before_action :find, only: [:destroy]
   helper_method :get_embedded_html_instagram
 
@@ -15,8 +15,7 @@ class FolloweesController < ApplicationController
 
   def destroy; end
 
-  # this renders the search page
-  def search; end
+  def search; end   # this renders the search page
 
   def instagram_users_redirect
     if params[:user].present?
@@ -52,7 +51,7 @@ class FolloweesController < ApplicationController
 ###########################################
   private
   def find
-    @followees = [User.find(session[:user_id]).followees]
+    @followees = [@current_user.followees]
   end
 
   def followee_params
