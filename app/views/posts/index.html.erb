@@ -28,7 +28,23 @@
       <% end %>
 
       <% if post.prey.provider == "instagram" %>
-        <% # TODO: fill in gram display %>
+        <%= image_tag post.prey.photo_url %>
+
+        <h4>
+          <%= post.prey.name %>
+          <small>@<%= post.prey.username %> * <%= time_ago_in_words(post.post_time) %> ago</small>
+          <%= link_to "See Original", post.url, class: "btn btn-default" %>
+        </h4>
+
+        <%= post.body %>
+
+        <% if post.media.any? %>
+          <% post.media.each do |medium| %>
+            <%= link_to medium.url, class: "post_img" do %>
+              <%= image_tag medium.url %>
+            <% end %>
+          <% end %>
+        <% end %>
       <% end %>
     </li>
   <% end %>
