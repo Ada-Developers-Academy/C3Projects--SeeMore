@@ -1,11 +1,7 @@
 class FolloweesController < ApplicationController
   USER_COUNT = 3
 
-  # INSTA_USER_DETAILS_URI = "https://api.instagram.com/v1/users/"
-
   before_action :find, only: [:destroy]
-  # helper_method :get_embedded_html_instagram
-  helper_method :private_user?, :already_following?
 
   include ActionView::Helpers::OutputSafetyHelper
 
@@ -38,10 +34,5 @@ class FolloweesController < ApplicationController
     @results = ApiHelper.user_search(@query, USER_COUNT, @source)
 
     render 'search'
-  end
-
-
-  def already_following?(followee_id)
-    @current_user.followees.find_by(native_id: followee_id) ? true : false
   end
 end
