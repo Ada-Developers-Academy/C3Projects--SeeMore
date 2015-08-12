@@ -9,14 +9,14 @@
     <div class="row post">
       <% if post.prey.provider == "twitter" %>
         <div class="row post-header">
-          <div class="col-md-2">
+          <div class="col-md-2 col-xs-4">
             <%= image_tag post.prey.photo_url, class: "profile-image-thumbnail" %>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-8 col-xs-4">
             <h5><%= post.prey.name %></h5>
             <small>@<%= post.prey.username %></small>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 col-xs-4">
             <i class="fa fa-twitter fa-2x pull-right"></i>
           </div>
         </div>
