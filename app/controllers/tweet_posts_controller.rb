@@ -34,21 +34,9 @@ class TweetPostsController < ApplicationController
       tweet_user_posts.each do |post|
         @all_posts << { post_id: post.id, posted_at: post.created_at, text: post.text, tweet_id: Tweet.find_by(provider_id: post.user.id).id
         }
-        # , media_url: (post.media.first ? post.media.first.media_url : nil)
       end
     end
     return @all_posts
   end
 
 end
-
-# to get @user's feed
-  # first, find all @user's people from Tweet table
-  # for each person, retrieve all TweetPosts with that tweet_id fk, push them into a collection
-    # (if none yet, aka first time following that person, then just fetch/create from API)
-    # else, from all people's tweet_posts, find max posted_at time (most recent time)
-    # pass that time also into Twitter API call to fetch tweets made since, save those to db
-    # display tweets from db
-
-  # from those people, give Twitter API their username to retrieve their tweets
-  # for each person, call self.find_or_create_from_twitter_api on the API response to save all their tweets to the db

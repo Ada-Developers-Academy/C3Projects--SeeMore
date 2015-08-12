@@ -5,10 +5,9 @@ class TweetsController < ApplicationController
     if params[:tweet][:username].present?
       username = params[:tweet][:username]
       @users = @twitter.client.user_search(username)
-      # @feed = Twit.user_timeline(username)
       return render "feeds/search"
     else
-      redirect_to search_path, flash: { error: MESSAGES[:no_username] }
+      redirect_to "feeds/search", flash: { error: MESSAGES[:no_username] }
     end
   end
 

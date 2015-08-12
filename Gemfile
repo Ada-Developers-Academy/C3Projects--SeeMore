@@ -74,6 +74,14 @@ group :development, :test do
 
   # Test coverage
   gem 'simplecov', require: false
+
+  # VCR for API requests
+  gem 'vcr', '~> 2.9.3'
+
+end
+
+group :test do
+  gem 'webmock'
 end
 
 group :production do

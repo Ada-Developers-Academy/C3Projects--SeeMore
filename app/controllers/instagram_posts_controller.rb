@@ -20,7 +20,6 @@ class InstagramPostsController < ApplicationController
       end
     end
     redirect_to root_path
-    # raise
   end
 
   private

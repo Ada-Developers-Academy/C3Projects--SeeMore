@@ -1,32 +1,41 @@
 require 'rails_helper'
-require 'airborne'
+require 'twit'
+
 
 RSpec.describe TweetsController, type: :controller do
   describe "POST #search" do
     context "valid params" do
-      xit "searches users in Twitter API" do
-        post :search, tweet: { username: "name" }
-        expect()
+      before :each do
+        VCR.use_cassette 'twitter_response' do
+          post :search, tweet: { username: "acmei" }
+        end
+      end
+
+      it 'searches users in Twitter API' do
+        expect(assigns(:users).first["username"]).to eq("acmei")
       end
 
       it "renders search template" do
-        post :search, tweet: { username: "name" }
         expect(response).to render_template("feeds/search")
       end
     end
 
     context "invalid params" do
+      before :each do
+        VCR.use_cassette 'twitter_response' do
+          post :search, tweet: { username: nil }
+        end
+      end
+
       it "redirects to search page" do
-        post :search, tweet: { username: nil }
-        expect(response).to redirect_to(search_path)
+        expect(response).to redirect_to("feeds/search")
       end
 
       it "displays an error message" do
-        post :search, tweet: { username: nil }
         expect(flash[:error]).to_not be nil
       end
     end
-  end
+  end # POST #search
 
   describe "POST #create" do
     context "login required" do
