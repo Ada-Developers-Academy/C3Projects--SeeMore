@@ -1,14 +1,16 @@
 FactoryGirl.define do
   factory :instagram_post do
     post_id "555555555"
+    post_url "http://www.imapost.com"
     instagram_id 1
-    created_at Time.now
+    posted_at Time.now
     image_url "http://www.imagehere.com"
   end
 
   factory :tweet_post do
     post_id "444444444"
     posted_at  Time.now
+    post_url "http://www.imapost.com"
     text "I am tweeting now."
     media_url "http://www.imagehere.com"
     tweet_id 1

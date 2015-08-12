@@ -30,7 +30,7 @@ RSpec.describe FeedsController, type: :controller do
       end
     end
   end
-end
+
 
   ## FROM TWEET POSTS
   context "Tweet Posts" do
@@ -113,3 +113,6 @@ end
         end
       end
       # ADD INVALID PARAMS
+    end
+  end
+end

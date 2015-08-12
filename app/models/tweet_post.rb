@@ -4,7 +4,7 @@ class TweetPost < ActiveRecord::Base
   has_many :users, through: :tweet
 
   # Validations ----------------------------------------------
-  validates :post_id, :posted_at, :tweet_id, :post_url, presence: true
-  validates :post_id, uniqueness: true
+  validates :post_id, :posted_at, :tweet_id, presence: true
+  validates :post_id, :post_url, uniqueness: true
 
 end

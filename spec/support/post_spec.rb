@@ -22,6 +22,29 @@ RSpec.shared_examples "a post" do
       expect(post2.errors.keys).to include(:post_id)
     end
 
+    it "requires a post_url" do
+      post = build described_class, post_url: nil
+
+      expect(post).not_to be_valid
+      expect(post.errors.keys).to include(:post_url)
+    end
+
+    it "post_url must be unique" do
+      create described_class
+      post2 = build described_class
+
+      expect(post2).not_to be_valid
+      expect(described_class.count).to be 1
+      expect(post2.errors.keys).to include(:post_url)
+    end
+
+    it "requires posted_at" do
+      post = build described_class, posted_at: nil
+
+      expect(post).not_to be_valid
+      expect(post.errors.keys).to include(:posted_at)
+    end
+
     it "requires a foreign key for the corresponding social media user model" do
       post = build described_class, foreign_key => nil
 
