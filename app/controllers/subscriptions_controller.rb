@@ -10,7 +10,12 @@ class SubscriptionsController < ApplicationController
   end
 
   def index
-    @subscriptions = @current_user.followees
+    active_subscriptions = @current_user.subscriptions.active
+    @followees = []
+    active_subscriptions.each do |subscript|
+      @followees << subscript.followee
+    end
+    return @followees
   end
 
   def unsubscribe
