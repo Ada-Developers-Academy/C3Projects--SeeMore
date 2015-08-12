@@ -114,7 +114,7 @@ class FeedsController < ApplicationController
     @all_posts = []
     usernames = user.tweets.map &:username
     usernames.each do |username|
-      tweet_user_posts = @twitter.client.user_timeline(username, count: 10)
+      tweet_user_posts = @twitter.client.user_timeline(username, count: 15)
       tweet_user_posts.each do |post|
         @all_posts << { 
           post_id: post.id, 
@@ -133,7 +133,7 @@ class FeedsController < ApplicationController
     # all followed instagram users
     @all_posts = []
     user.instagrams.each do |gram|
-      ig_user_posts = HTTParty.get(INSTAGRAM_URI + "users/#{gram.provider_id}/media/recent?count=10&access_token=#{session[:access_token]}")
+      ig_user_posts = HTTParty.get(INSTAGRAM_URI + "users/#{gram.provider_id}/media/recent?count=15&access_token=#{session[:access_token]}")
       all_post_ids = ig_user_posts["data"].each do |post|
         @all_posts << { 
           ig_id: gram.id, 
