@@ -27,7 +27,10 @@ class TwitterApi
     client.user_timeline(id, timeline_options(last_post_id))
   end
 
-  # put in TwitterMapper
+  private
+  # put in TwitterMapper ?
+  ### we're leaving this here because it is called by #get_posts above
+  ### and we don't want to create a dependency in this class on the TwitterMapper class
   def timeline_options(last_post_id)
     last_post_id ? { since_id: last_post_id.to_i } : { count: FIRST_POSTS }
   end
