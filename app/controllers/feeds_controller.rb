@@ -6,13 +6,21 @@ class FeedsController < ApplicationController
     @instagram_posts = user.grams
 
     Tweet.update_timeline(user)
-    @tweets = user.tweets.chron_tweets
+    # @tweets = user.tweets.chron_tweets
+
+    @tweets = user.tweets
 
     @posts = []
 
-    @posts << @instagram_posts
+
+
+    # @posts << @instagram_posts
 
     @posts << @tweets
+
+    @posts.sort_by{ |post| post[:created_time]}
+
+    raise
 
   end
 
