@@ -1,9 +1,11 @@
-<h1>STALK UR TEXT</h1>
+<div class="text-right">
 
-<h2>Welcome, <%= @stalker.username %>!</h2>
+<h4>Welcome, <%= @stalker.username %>!</h4>
+</div>
 
 <div class="text-center">
-    <%= link_to "Update Feed", update_feed_path, method: "post", class: "btn btn-primary" %>
+  <h1>STALK UR TEXT</h1>
+  <%= link_to "Update Feed", update_feed_path, method: "post", class: "btn btn-primary" %>
 </div>
 
 <div class="col-md-8 col-md-offset-2">
