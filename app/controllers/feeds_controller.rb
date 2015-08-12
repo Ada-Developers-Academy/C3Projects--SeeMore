@@ -92,7 +92,8 @@ class FeedsController < ApplicationController
           posted_at: post[:posted_at],
           text: post[:text],
           media_url: post[:media_url],
-          tweet_id: post[:tweet_id]
+          tweet_id: post[:tweet_id],
+          post_url: post[:post_url]
         }
         TweetPost.find_or_create_by(tweet_post_params)
       end
@@ -119,7 +120,7 @@ class FeedsController < ApplicationController
           post_id: post.id, 
           posted_at: post.created_at, 
           text: post.text, 
-          post_url: post.link, 
+          post_url: post.url.to_s, 
           tweet_id: Tweet.find_by(provider_id: post.user.id).id
         }
       end
