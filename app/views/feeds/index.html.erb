@@ -1,4 +1,17 @@
-<% @instagram_posts.each do |post| %>
+<% @posts.each do |post| %>
+  <% if post.class == Tweet %>
+    <%= raw tweet_oembed(post) %>
+  <% elsif post.class == Gram %>
+    <% response = HTTParty.get("http://api.instagram.com/oembed?url=http://instagr.am/#{post.link[22,20]}") %>
+    <%= raw response["html"] %>
+  <% end %>
+<% end %>
+
+
+
+
+
+<!-- <% @instagram_posts.each do |post| %>
 <% response = HTTParty.get("http://api.instagram.com/oembed?url=http://instagr.am/#{post.link[22,20]}") %>
 <%= raw response["html"] %>
 <% end %>
@@ -7,4 +20,4 @@
   <% @tweets.each do |tweet| %>
       <%= raw tweet_oembed(tweet) %>
   <% end %>
-</ul>
+</ul> -->
