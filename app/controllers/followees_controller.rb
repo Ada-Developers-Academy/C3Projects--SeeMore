@@ -34,7 +34,7 @@ class FolloweesController < ApplicationController
     when INSTAGRAM
       @results = InstagramApi.new.user_search(@query, USER_COUNT)
     when TWITTER
-      @results = @twitter_client.user_search(@query, { count: USER_COUNT })
+      @results = TwitterApi.new.user_search(@query, USER_COUNT)
     end
 
     render 'search'
