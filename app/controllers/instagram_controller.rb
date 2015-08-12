@@ -17,8 +17,8 @@ class InstagramController < ApplicationController
       @posts = feed.posts.only_thirty
 
     else
-      feed_info_results = InstagramAPI.instagram_feed_info(id)
-      @feed_name = feed_info_results["username"]
+      feed_info = InstagramAPI.instagram_feed_info(id)
+      @feed_name = feed_info["username"]
 
       @posts = InstagramAPI.instagram_feed(id)
       flash.now[:error] = "This feed does not have any public posts." unless @posts
@@ -33,21 +33,21 @@ class InstagramController < ApplicationController
       feed_info = InstagramAPI.instagram_feed_info(id)
       feed_attributes = create_feed_attributes(feed_info)
       feed = Feed.create(feed_attributes)
-      # raise
     end
 
     current_user.feeds << feed unless current_user.feeds.include?(feed)
-    redirect_to root_path
+    redirect_to :back
   end
 
   private
     def create_feed_attributes(feed_info)
       feed_hash = {}
+
       feed_hash[:avatar]           = feed_info["profile_picture"] if feed_info["profile_picture"]
       feed_hash[:name]             = feed_info["username"]
-      # raise
       feed_hash[:platform]         = "Instagram"
       feed_hash[:platform_feed_id] = params[:feed_id]
+
       return feed_hash
     end
 end

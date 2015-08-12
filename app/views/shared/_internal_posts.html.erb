@@ -17,11 +17,7 @@
       </h3>
       <p>
         <% if post.description %>
-          <% if shorten %>
-            <%= shorten(post.description) %>
-          <% else %>
-            <%= post.description %>
-          <% end %>
+          <%= post.description %>
         <% else %>
           No description provided.
         <% end %>

@@ -8,8 +8,19 @@ class VimeoController < ApplicationController
   end
 
   def individual_feed
-    @posts = VimeoAPI.vimeo_feed(params[:feed_id])
-    flash.now[:error] = "This feed does not have any public posts." unless @posts
+    id = params[:feed_id]
+    feed = Feed.find_by(platform_feed_id: id, platform: "Vimeo")
+
+    if feed
+      feed.update_feed
+      @internal = true
+      @posts = feed.posts.only_thirty
+
+    else
+      @posts = VimeoAPI.vimeo_feed(params[:feed_id])
+      @feed_name = @posts.first["name"]
+      flash.now[:error] = "This feed does not have any public posts." unless @posts
+    end
   end
 
   def subscribe
@@ -23,7 +34,7 @@ class VimeoController < ApplicationController
     end
 
     current_user.feeds << feed unless current_user.feeds.include?(feed)
-    redirect_to root_path
+    redirect_to :back
   end
 
   private

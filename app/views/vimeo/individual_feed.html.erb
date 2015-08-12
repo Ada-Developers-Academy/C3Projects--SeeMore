@@ -1,32 +1,40 @@
-<% if params[:feed_id] %>
-  <%= link_to "Subscribe", vimeo_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
-<% end %>
+<h2 class="text-center green">
+  <%= @feed_name %>'s feed
+  <% if params[:feed_id] %>
+    <br />
+    <%= link_to "Subscribe", vimeo_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
+  <% end %>
+</h2>
 
 <% if @internal %>
-  <%= render partial: "shared/internal_posts", locals: { posts: @posts, shorten: false } %>
-
+  <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>
 <% else %>
+
   <% if @posts.nil? || @posts.empty? %>
     <h2>This feed doesn't have any posts. ;_;</h2>
   <% else %>
-    <% @posts.each_with_index do |post, index| %>
-
-      <h2 class="text-center green"><%= @feed_name %>'s feed
-
-      <div class="col-sm-4">
-        <h3>
-          <%= link_to post["name"], vimeo_feed_path(params[:feed_id]) %>
-          <span class="badge"><%= "oops does vimeo have likes?" %> likes</span><br />
-          <small><%= post["created_time"] %></small>
-        </h3>
-        <%= resize_video(post).html_safe %>
-        <p>
-          <% if post["description"] %>
-            <%= post["description"] %>
-          <% else %>
-            No description provided.
-          <% end %>
-        </p>
+    <br />
+    <% @posts.each do |post| %>
+      <div class="feed">
+        <div class="left">
+          <%= resize_video(post).html_safe %>
+        </div>
+        <div class="right">
+          <h3>
+            <%= link_to post["name"], vimeo_feed_path(params[:feed_id]) %>
+          </h3>
+          <p>
+            <% if post["description"] %>
+              <%= post["description"] %>
+            <% else %>
+              No description provided.
+            <% end %>
+          </p>
+          <span class="badge"><%= number_with_delimiter(post["metadata"]["connections"]["likes"]["total"], :delimiter => ',') %> likes</span><br />
+        </div>
+        <div class="date">
+          <%= Time.at(post["created_time"].to_i) %>
+        </div>
       </div>
     <% end %>
   <% end %>

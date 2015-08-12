@@ -46,16 +46,13 @@ class Feed < ActiveRecord::Base
 
   # Updating feeds -------------
 
-  def update_feed # FIXME: test update_feed
+  def update_instagram_feed
+    # grab the dusty, old posts
     feed_posts = self.posts
     feed_post_ids = feed_posts.map { |post| post.post_id }
 
     # query the API
-    if platform == "Instagram" || platform == "Developer"
-      new_posts = InstagramAPI.instagram_feed(platform_feed_id)
-    elsif platform == "Vimeo"
-      new_posts = VimeoAPI.vimeo_feed(platform_feed_id)
-    end
+    new_posts = InstagramAPI.instagram_feed(platform_feed_id)
 
     # create new posts from data
     updated_posts = []
@@ -75,6 +72,43 @@ class Feed < ActiveRecord::Base
       unless updated_posts.include? post
         post.destroy
       end
+    end
+  end
+
+  def update_vimeo_feed
+    # grab the dusty, old posts
+    feed_posts = self.posts
+    feed_post_ids = feed_posts.map { |post| post.post_id }
+
+    # query the API
+    new_posts = VimeoAPI.vimeo_feed(platform_feed_id)
+
+    # create new posts from data
+    updated_posts = []
+    new_posts.each do |post|
+      post_id = post["id"]
+      if feed_post_ids.include? post_id
+        new_post = Post.find_by(post_id: post_id).update(create_vimeo_post(post, self.id))
+      else
+        new_post = Post.create(create_vimeo_post(post, self.id))
+      end
+
+      updated_posts.push(new_post)
+    end
+
+    # delete any posts that are no longer present
+    feed_posts.each do |post|
+      unless updated_posts.include? post
+        post.destroy
+      end
+    end
+  end
+
+  def update_feed # FIXME: test update_feed
+    if (platform == "Instagram") || (platform == "Developer")
+      update_instagram_feed
+    elsif platform == "Vimeo"
+      update_vimeo_feed
     end
   end
 
@@ -99,6 +133,8 @@ class Feed < ActiveRecord::Base
 
       content = VimeoController.helpers.resize_video(post_data)
       post_hash[:content]     = content # this is iframe video embedding code
+
+      post_hash[:likes]       = post_data["metadata"]["connections"]["likes"]["total"]
 
       post_hash[:name]        = post_data["name"]
       post_hash[:description] = post_data["description"] # FIXME: in description, if description nil we can just put name

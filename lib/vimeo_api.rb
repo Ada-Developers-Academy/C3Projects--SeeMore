@@ -7,18 +7,22 @@ module FriendFaceAPIs
       feed_id = feed_id.to_s
       feed_url = vimeo_feed_uri(feed_id)
       results = vimeo_json_request(feed_url)
+      raise
+      return results["data"]
     end
 
     def self.vimeo_feed_info(feed_id)
       feed_id = feed_id.to_s
       feed_url = vimeo_feed_base + feed_id
       results = vimeo_json_request(feed_url)
+      return results
     end
 
-    def self.vimeo_query(search_term)
+    def self.vimeo_search(search_term)
       search_term.gsub!(/(\s+)/, "+")
       search_url = vimeo_search_uri + search_term
       results = vimeo_json_request(search_url)
+      return results["data"]
     end
 
 
