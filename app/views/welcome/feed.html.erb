@@ -25,7 +25,7 @@
         </h3>
         <p>
           <% if post.description %>
-            <%= post.description.first(100) %>
+            <%= post.short_description %>
           <% else %>
             No description provided.
           <% end %>
