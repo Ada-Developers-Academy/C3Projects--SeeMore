@@ -3,8 +3,6 @@ class HomeController < ApplicationController
 
   include ActionView::Helpers::OutputSafetyHelper
 
-  FIRST_POSTS_NUM = 5
-
   def signin; end
 
   def newsfeed
