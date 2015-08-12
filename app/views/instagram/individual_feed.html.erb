@@ -2,7 +2,7 @@
   <h2>This feed doesn't have any posts. ;_;</h2>
 <% else %>
   <br>
-  <h2 class="text-center green"><%= @posts.last["caption"]["from"]["username"] %>'s feed
+  <h2 class="text-center green"><%= @feed_name %>'s feed
     <% if params[:feed_id] %>
       <%= link_to "Subscribe", instagram_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
     <% end %></h2>
@@ -10,6 +10,9 @@
    <div class="feed">
     <%= image_tag post["images"]["low_resolution"]["url"], class: "left" %>
     <div class="right">
+      <h3>
+        <%= link_to @feed_name, instagram_feed_path(params[:feed_id]) %>
+      </h3>
       <p>
         <% if post["caption"] %>
           <%= post["caption"]["text"] %>
@@ -17,7 +20,7 @@
           No description provided.
         <% end %>
       </p>
-      <span class="badge"><%= post["likes"]["count"] %> likes</span><br />
+      <span class="badge"><%= number_with_delimiter(post["likes"]["count"], :delimiter => ',') %> likes</span><br />
     </div>
     <div class="date">
       <%= Time.at(post["created_time"].to_i) %>

@@ -73,24 +73,25 @@
   padding: 10px;
   max-width: 600px;
   background: rgba(255,255,255,0.9);
+  border-top: 1px solid #fff;
   border-left: 1px solid #e6f3e6;
   border-right: 1px solid #e6f3e6;
   border-bottom: 1px solid #e6f3e6;
   box-sizing: border-box;
 }
 
-.feed:hover{
+.feed:hover {
   background: rgba(255, 255, 255, 1);
   border: 1px dotted #4cae4c;
   border-radius: 5px;
 }
 
-.results{
+.results {
   max-width: 80%;
   margin: auto;
 }
 
-.col-sm-3{
+.col-sm-3 {
   background: rgba(255,255,255,0.9);
   padding: 10px;
   border-radius: 10px;
@@ -105,8 +106,8 @@
   border-left: 1px solid #e6f3e6;
   border-right: 1px solid #e6f3e6;
   border-bottom: 1px solid #e6f3e6;
-  border-top-left-radius:20px;
-  border-top-right-radius:20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 .search-header {
@@ -123,13 +124,23 @@
   box-sizing: border-box;
 }
 
+.left img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
 .right {
-  max-width: 45%;
-  margin: 10px;
+  max-width: 50%;
+  width: 50%;
+  padding: 10px;
   float: left;
   display: inline-block;
   text-align: left;
   box-sizing: border-box;
+}
+
+.right h3 {
+  margin: 0;
 }
 
 .date {
@@ -145,12 +156,16 @@
   margin: 5px;
 }
 
-a{
+a {
   color: #080;
 }
 
-a:hover{
+a:hover {
   color: #66b766;
+}
+
+.center{
+  text-align: center;
 }
 
 html, body {
