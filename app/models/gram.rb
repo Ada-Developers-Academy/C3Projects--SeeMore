@@ -14,7 +14,7 @@ class Gram < ActiveRecord::Base
       unless last_post_id == nil
         response = HTTParty.get("https://api.instagram.com/v1/users/#{account.ig_user_id}/media/recent/?min_id=#{last_post_id}&access_token=#{ENV['INSTAGRAM_ACCESS_TOKEN']}")
       else # we have no posts of theirs on record
-        response = HTTParty.get("https://api.instagram.com/v1/users/#{account.ig_user_id}/media/recent/?count=5&access_token=#{ENV['INSTAGRAM_ACCESS_TOKEN']}")       
+        response = HTTParty.get("https://api.instagram.com/v1/users/#{account.ig_user_id}/media/recent/?count=5&access_token=#{ENV['INSTAGRAM_ACCESS_TOKEN']}")
       end
       posts = response["data"] #this is an array of hashes.
       Gram.save_posts(posts)
@@ -28,10 +28,9 @@ class Gram < ActiveRecord::Base
 
       new_gram = Gram.new
 
-
       new_gram[:tags]               = post["tags"]
       new_gram[:media_type]         = post["type"]
-      new_gram[:created_time]       = post["created_time"]
+      new_gram[:created_time]       = Time.at(post["created_time"])
       new_gram[:link]               = post["link"]
       new_gram[:likes]              = post["likes"]["count"]
       new_gram[:image_url]          = post["images"]["standard_resolution"]["url"] # 640px
