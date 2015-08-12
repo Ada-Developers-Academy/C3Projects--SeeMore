@@ -31,7 +31,8 @@ class InstagramHelper
       body: (gram["caption"]["text"] unless gram["caption"].nil?),
       post_time: Time.at(gram["created_time"].to_i).to_datetime,
       url: gram["link"],
-      provider: "instagram"
+      provider: "instagram",
+      media: [gram["images"]["standard_resolution"]["url"]]
     }
   end
 

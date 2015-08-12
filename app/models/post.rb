@@ -13,54 +13,45 @@ class Post < ActiveRecord::Base
 
   # TWEETS --------------------------------------------------------------------
 
-  def self.seed_tweets(prey_uid, count = SEED_COUNT, prey_id)
+  def self.seed_tweets(prey_uid, prey_id, count = SEED_COUNT)
     tweets = TwitterClient.fetch_tweets(prey_uid, { count: count })
-    create_many_tweets(tweets, prey_id)
+    create_many_posts(tweets, prey_id)
   end
 
   def self.update_tweets(prey_uid, prey_id)
     last_tweet_uid = Prey.last_post_uid(prey_uid)
     tweets = TwitterClient.fetch_tweets(prey_uid, { since_id: last_tweet_uid })
-    create_many_tweets(tweets, prey_id)
+    create_many_posts(tweets, prey_id)
   end
 
   # GRAMS ---------------------------------------------------------------------
 
-  def self.seed_grams(prey_uid, count = SEED_COUNT)
+  def self.seed_grams(prey_uid, prey_id, count = SEED_COUNT)
     grams = InstagramClient.seed_grams(prey_uid, count)
-    create_many_grams(grams)
+    create_many_posts(grams, prey_id)
   end
 
   def self.update_grams(prey_uid, prey_id)
     last_gram_uid = Prey.last_post_uid(prey_uid)
     grams = InstagramClient.update_grams(prey_uid, last_gram_uid)
-    create_many_grams(grams, prey_id)
+    create_many_posts(grams, prey_id)
   end
 
   private
-  # TWEETS --------------------------------------------------------------------
 
-  def self.create_many_tweets(tweets, prey_id)
-    tweets.each do |tweet|
-      media = tweet[:media]
-      tweet.delete(:media)
+  def self.create_many_posts(posts, prey_id)
+    return if posts.nil?
+    posts.each do |post_hash|
+      media = post_hash[:media]
+      post_hash.delete(:media)
 
-      post = Post.new(tweet)
+      post = Post.new(post_hash)
       post.prey_id = prey_id
       post.save
 
-      media.each do |medium|
-        Medium.create(url: medium, post_id: post.id)
+      media.each do |medium_url|
+        Medium.create(url: medium_url, post_id: post.id)
       end
-    end
-  end
-
-  # GRAMS ---------------------------------------------------------------------
-
-  def self.create_many_grams(grams)
-    grams.each do |gram|
-      post = Post.create(create_gram_params_from_api(gram))
-      Medium.create(url: gram["images"]["standard_resolution"]["url"], post_id: post.id)
     end
   end
 end
