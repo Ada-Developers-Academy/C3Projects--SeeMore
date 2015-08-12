@@ -1,3 +1,4 @@
+require 'pry'
 class TwiSubscriptionsController < ApplicationController
   before_action :redirect_if_not_allowed
   before_action :twitter_api_object
