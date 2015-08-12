@@ -24,4 +24,4 @@
 /spec/vcr_cassettes/
 
 # since we won't need to seed this in production...
-/db/seeds
+/db/seed
