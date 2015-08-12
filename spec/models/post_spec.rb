@@ -60,4 +60,28 @@ RSpec.describe Post, type: :model do
       expect(no_sub.errors.keys).to include(:subscription_id)
     end
   end
+
+  describe "post model methods" do
+    context "#create_instagram_post" do
+      before :each do
+        create :post
+      end
+
+      it "saves a new post to the db if it does not already exist " do
+        newed_post = build :post, content_id: "7890"
+
+        Post.create_instagram_post(newed_post)
+
+        expect(Post.count).to eq 2
+      end
+
+      it "does not save a newed post if the content id already exists" do
+        newed_post = build :post
+
+        Post.create_instagram_post(newed_post)
+
+        expect(Post.count).to eq 1
+      end
+    end
+  end
 end
