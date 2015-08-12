@@ -46,7 +46,8 @@
   font-weight: bold;
 }
 
-.search-results {
+.search-results,
+.twitter-results {
   list-style-type: none;
 }
 
@@ -72,4 +73,9 @@
 .search-bkgd, .newsfeed {
   background-image: url("coffee_table.jpg");
   background-size: 100%;
+}
+
+.search-results form,
+.twitter-results form {
+  display: inline-block;
 }

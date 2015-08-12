@@ -2,8 +2,11 @@ class FolloweesController < ApplicationController
   INSTA_URI = "https://api.instagram.com/v1/users/search?"
   USER_COUNT = 3
 
+  INSTA_USER_DETAILS_URI = "https://api.instagram.com/v1/users/"
+
   before_action :find, only: [:destroy]
-  helper_method :get_embedded_html_instagram
+  # helper_method :get_embedded_html_instagram
+  helper_method :private_user?, :already_following?
 
   include ActionView::Helpers::OutputSafetyHelper
 
@@ -40,5 +43,16 @@ class FolloweesController < ApplicationController
     end
 
     render 'search'
+  end
+
+  def private_user?(user_id)
+    response = HTTParty.get(INSTA_USER_DETAILS_URI + "#{user_id}" + "/relationship?access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
+    privacy_boolean = response["data"]["target_user_is_private"]
+
+    return privacy_boolean
+  end
+
+  def already_following?(followee_id)
+    @current_user.followees.find_by(native_id: followee_id) ? true : false
   end
 end
