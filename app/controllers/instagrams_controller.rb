@@ -18,7 +18,7 @@ class InstagramsController < ApplicationController
         return render "feeds/search"
       end
     else
-      redirect_to "feeds/search", flash: { error: MESSAGES[:no_username] }
+      redirect_to search_path, flash: { error: MESSAGES[:no_username] }
     end
   end
 
