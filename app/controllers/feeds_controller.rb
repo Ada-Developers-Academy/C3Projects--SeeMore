@@ -3,25 +3,15 @@ class FeedsController < ApplicationController
     user = User.find(session[:user_id])
 
     Gram.collect_latest_posts(user)
-    @instagram_posts = user.grams
+    @instagram_posts = user.grams.flatten
 
     Tweet.update_timeline(user)
-    # @tweets = user.tweets.chron_tweets
-
-    @tweets = user.tweets
+    @tweets = user.tweets.flatten
 
     @posts = []
-
-
-
-    # @posts << @instagram_posts
-
-    @posts << @tweets
-
-    @posts.sort_by{ |post| post[:created_time]}
-
-    raise
-
+    @posts = @tweets + @instagram_posts
+    @posts = @posts.sort_by { |post| post[:created_time] }
+    @posts.reverse!
   end
 
   def search; end
