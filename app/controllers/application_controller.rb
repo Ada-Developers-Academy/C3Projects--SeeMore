@@ -1,7 +1,11 @@
 require 'twitter'
 require 'instagram'
+# to keep api logic modular
 require 'twitter_api'
 require 'instagram_api'
+require 'instagram_mapper'
+require 'twitter_mapper'
+require 'api_helper'
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
