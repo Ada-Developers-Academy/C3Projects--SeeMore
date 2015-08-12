@@ -44,9 +44,6 @@ class VimeoController < ApplicationController
   private
     def create_feed_attributes(feed_info)
       feed_hash = {}
-
-      # FIXME: Brenna's magic avatar thing
-      # feed_hash[:avatar]           = feed_info["profile_picture"] if feed_info["profile_picture"]
       feed_hash[:name]             = feed_info["name"]
       feed_hash[:platform]         = "Vimeo"
       feed_hash[:platform_feed_id] = params[:feed_id]
