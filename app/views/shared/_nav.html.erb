@@ -1,5 +1,5 @@
 <nav class="container navbar navbar-default">
-  <% if @user %>
+  <% if @user && session[:user_id]%>
     <div class ="navbar-text navbar-left"><%= @user.username %></div>
   <% end %>
   <ul class="nav navbar-nav navbar-right">

@@ -3,7 +3,7 @@
   <h1 class="header">NinjaPartay</h1>
     <% if session[:user_id].nil? %>
       <h3 class="login-header">Choose Your Weapon</h3>
-        <%= link_to login_path(provider: :instagram) do %>
+        <%= link_to login_path(provider: :instagram, class: "hey") do %>
             <span class="fa fa-instagram fa-5x col-sm-1 center ig-icon" aria-hidden="true" data-toggle="tooltip" title="instagram login"></span>
         <% end %>
         <%= link_to login_path(provider: :twitter) do %>
@@ -30,7 +30,9 @@
               </div>
             <% end %>
         <% else %>
-          <h2><%= "Add targets. Currently tracking no one" %></h2>
+          <div class="feed col-sm-4 center">
+            <h4 class="none"><%= link_to "Add targets. Currently tracking no one", search_path %></h4>
+          </div>
         <% end %>
         </div>
     <% end %>
