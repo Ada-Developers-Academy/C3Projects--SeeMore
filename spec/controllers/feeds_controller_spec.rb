@@ -20,23 +20,22 @@ RSpec.describe FeedsController, type: :controller do
     end
 
     # NOT WORKING
-    # describe "GET #index" do
-    #   context "people feed display" do
-    #     it "renders the home page" do
-    #       VCR.use_cassette 'all_posts_response' do
-    #         session[:user_id] = @user.id
-    #         create :tweet_post
-    #         create :instagram_post
-    #         binding.pry
-    #
-    #         get :index
-    #
-    #         expect(response).to be_success
-    #         expect(response).to have_http_status(200)
-    #       end
-    #     end
-    #   end
-    # end
+    describe "GET #index" do
+      context "people feed display" do
+        it "renders the home page" do
+          VCR.use_cassette 'all_posts_response' do
+            session[:user_id] = @user.id
+            session[:access_token] = ENV['INSTAGRAM_ACCESS_TOKEN']
+            create :tweet_post
+            create :instagram_post
+            get :index
+
+            expect(response).to be_success
+            expect(response).to have_http_status(200)
+          end
+        end
+      end
+    end
 
     describe "GET #search" do
       context "people feed display" do
