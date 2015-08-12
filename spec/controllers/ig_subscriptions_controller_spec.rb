@@ -78,6 +78,17 @@ RSpec.describe IgSubscriptionsController, type: :controller do
       end
     end
 
+    it "should create 0 posts when a user has not subscriptions & refreshes" do
+      VCR.use_cassette('instagram refresh 2') do
+        log_in
+        user = User.first
+        get :refresh_ig
+
+        expect(Post.count).to eq 0
+        expect(user.posts.count).to eq 0
+      end
+    end
+
     it "redirect to twitter refresh action" do
       log_in
       get :refresh_ig
