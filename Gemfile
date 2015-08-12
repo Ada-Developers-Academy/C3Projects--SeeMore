@@ -67,13 +67,20 @@ group :development, :test do
 
   # Rspec
   gem 'rspec-rails'
-  gem 'airborne'
 
   # Factory Girl
   gem 'factory_girl_rails', '~> 4.0'
 
   # Test coverage
   gem 'simplecov', require: false
+
+  # VCR for API requests
+  gem 'vcr', '~> 2.9.3'
+
+end
+
+group :test do
+  gem 'webmock'
 end
 
 group :production do

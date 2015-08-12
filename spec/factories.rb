@@ -23,7 +23,7 @@ FactoryGirl.define do
 
   factory :instagram do
     username "Ada"
-    provider_id "1357"
+    provider_id "1356"
     user_ids 1
   end
 
