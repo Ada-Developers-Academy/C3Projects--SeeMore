@@ -37,7 +37,7 @@ RSpec.describe SubscriptionsController, type: :controller do
       put :unsubscribe, :id => subscription.id
       subscription.reload
     end
-  
+
     it "adds unsubscribe_date" do
       expect(subscription.unsubscribe_date).to_not be_nil
     end
@@ -62,9 +62,22 @@ RSpec.describe SubscriptionsController, type: :controller do
     it "renders index template" do
       expect(response).to render_template "index"
     end
+  end
 
-    it "retrieves a collection of followee objects in @subscriptions" do
-      expect(assigns(:subscriptions).count).to eq 2
+  describe "find_followees" do
+    let(:user) { create :user }
+
+    before :each do
+      session[:user_id] = user.id
+      followee1 = create :followee
+      followee2 = create :followee
+      create :subscription, followee_id: followee1.id, user_id: user.id
+      create :subscription, followee_id: followee2.id, user_id: user.id
+      get :index
+    end
+
+    it "returns an array of followees user's actively following" do
+
     end
   end
 end

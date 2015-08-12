@@ -16,11 +16,4 @@ class Subscription < ActiveRecord::Base
     subscription.save ? subscription : false
   end
 
-
-  # def self.active_followees(user)
-  #     subscriptions = user.subscriptions.active
-  #     followee_ids = subscriptions.map { |subscript| subscript.followee_id  }
-  #     raise
-  # end
-
 end
