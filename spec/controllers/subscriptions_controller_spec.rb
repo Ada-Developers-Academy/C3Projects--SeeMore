@@ -52,32 +52,30 @@ RSpec.describe SubscriptionsController, type: :controller do
 
     before :each do
       session[:user_id] = user.id
-      followee1 = create :followee
-      followee2 = create :followee
-      create :subscription, followee_id: followee1.id, user_id: user.id
-      create :subscription, followee_id: followee2.id, user_id: user.id
+      @followee1 = create :followee
+      @followee2 = create :followee
+      create :subscription, followee_id: @followee1.id, user_id: user.id
+      create :subscription, followee_id: @followee2.id, user_id: user.id
       get :index
     end
 
     it "renders index template" do
       expect(response).to render_template "index"
     end
-  end
-
-  describe "find_followees" do
-    let(:user) { create :user }
-
-    before :each do
-      session[:user_id] = user.id
-      followee1 = create :followee
-      followee2 = create :followee
-      create :subscription, followee_id: followee1.id, user_id: user.id
-      create :subscription, followee_id: followee2.id, user_id: user.id
-      get :index
-    end
 
     it "returns an array of followees user's actively following" do
+      expect(assigns[:followees].count).to eq(2)
+      expect(assigns[:followees].first).to eq(@followee1)
+      expect(assigns[:followees].last).to eq(@followee2)
+    end
 
+    it "returns only active subscription followees" do
+      followee3 = create :followee
+      create :subscription, followee_id: followee3.id, user_id: user.id, unsubscribe_date: "Sat, 01 Aug 2015 22:12:25 UTC +00:00"
+
+      expect(assigns[:followees].count).to eq(2)
+      expect(assigns[:followees].first).to eq(@followee1)
+      expect(assigns[:followees].last).to eq(@followee2)
     end
   end
 end
