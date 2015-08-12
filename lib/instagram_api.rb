@@ -39,11 +39,10 @@ class InstagramApi
     posts = response["data"]
   end
 
+  private
+  ### we're leaving this here because it is called by #get_posts above
+  ### and we don't want to create a dependency in this class on the InstagramMapper class
   def assign_number_of_posts(last_post_id)
     last_post_id ? "min_id=#{last_post_id}" : "count=#{FIRST_POSTS}"
-  end
-
-  def self.convert_instagram_time(time)
-    Time.at(time.to_i)
   end
 end

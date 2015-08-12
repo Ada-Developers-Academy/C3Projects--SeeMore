@@ -17,7 +17,7 @@ class Post < ActiveRecord::Base
       posts = get_posts_from_API(followee)
 
       # this should be a Post model method
-      if posts && posts.count > 0      
+      if posts && posts.count > 0
         create_from_API(posts, followee, source)
         Followee.update_last_post_id!(posts, followee, source)
       end
@@ -55,7 +55,7 @@ class Post < ActiveRecord::Base
     when ApplicationController::TWITTER
       twitter_params(post, followee)
     when ApplicationController::INSTAGRAM
-      instagram_params(post, followee)
+      InstagramMapper.format_params(post, followee)
     end
   end
 
@@ -67,18 +67,6 @@ class Post < ActiveRecord::Base
     post_hash[:followee_id] = followee.id
     post_hash[:source] = followee.source
     post_hash[:embed_html] = TwitterApi.new.embed_html_without_js(post.id)
-
-    return post_hash
-  end
-
-  # put in InstagramMapper
-  def self.instagram_params(post, followee)
-    post_hash = {}
-    post_hash[:native_id] = post["id"]
-    post_hash[:native_created_at] = InstagramApi.convert_instagram_time(post["created_time"])
-    post_hash[:followee_id] = followee.id
-    post_hash[:source] = followee.source
-    post_hash[:embed_html] = InstagramApi.new.embed_html_with_js(post)
 
     return post_hash
   end
