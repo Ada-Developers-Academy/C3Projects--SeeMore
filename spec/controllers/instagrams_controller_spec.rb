@@ -26,11 +26,27 @@ RSpec.describe InstagramsController, type: :controller do
       end
 
       it "redirects to search page" do
-        expect(response).to redirect_to("feeds/search")
+        expect(response).to redirect_to(search_path)
       end
 
       it "displays an error message" do
         expect(flash[:error]).to_not be nil
+      end
+    end
+
+    context "params not found" do
+      before :each do
+        VCR.use_cassette 'instagram_no_response' do
+          post :search, instagram: { username: "xisoweze" }
+        end
+      end
+
+      it "displays an error message" do
+        expect(flash[:error]).to_not be nil
+      end
+
+      it "redirects to the search page" do
+        expect(response).to redirect_to(search_path)
       end
     end
   end # POST #search
@@ -65,6 +81,11 @@ RSpec.describe InstagramsController, type: :controller do
       it "redirects to root_path" do
         expect(response).to redirect_to(root_path)
         expect(response).to have_http_status(302)
+      end
+
+      it "throws an error when trying re-follow the same person" do
+        post :create, instagram: attributes_for(:instagram)
+        expect(flash[:error]).to_not be nil
       end
     end
 
