@@ -24,5 +24,17 @@ RSpec.describe Tweet, type: :model do
       tweet.valid?
       expect(tweet.errors.keys).to include(:tw_created_at)
     end
+
+    it "requires a tweet tw_user_id_str" do
+      tweet = build :tweet, tw_user_id_str: nil
+      tweet.valid?
+      expect(tweet.errors.keys).to include(:tw_user_id_str)
+    end
+
+    it "requires a tweet tw_user_id foreign key" do
+      tweet = build :tweet, tw_user_id: nil
+      tweet.valid?
+      expect(tweet.errors.keys).to include(:tw_user_id)
+    end
   end
 end

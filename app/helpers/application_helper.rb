@@ -8,4 +8,14 @@ module ApplicationHelper
     matches = our_user.tw_users.where(tw_user_id_str: id)
     matches.exists?
   end
+
+  def tw_user_lookup(tweet)
+    TwUser.find(tweet.tw_user_id)
+  end
+
+  def tw_prettify(time)
+    time = time.to_datetime
+    time.strftime ("%c")
+  end
+
 end
