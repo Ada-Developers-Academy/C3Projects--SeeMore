@@ -1,6 +1,8 @@
+# include these gems to work with social media APIs
 require 'twitter'
 require 'instagram'
-# to keep api logic modular
+
+# include the below classes to keep api logic modular
 require 'twitter_api'
 require 'instagram_api'
 require 'instagram_mapper'
