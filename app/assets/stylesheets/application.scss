@@ -19,7 +19,7 @@
 
 .header {
   margin: 5px;
-  background-image: url("Newspaper.jpg");
+  background: image-url("Newspaper.jpg");
   background-size: contain;
 }
 
@@ -50,12 +50,12 @@
 }
 
 .bkgd {
-  background-image: url("Coffee.jpg");
+  background: image-url("Coffee.jpg");
   background-size: 100%;
 }
 
 .search-bkgd {
-  background-image: url("coffee_table.jpg");
+  background: image-url("coffee_table.jpg");
   background-size: 100%;
 }
 
