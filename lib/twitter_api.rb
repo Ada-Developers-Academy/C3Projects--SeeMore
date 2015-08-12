@@ -3,7 +3,7 @@ class TwitterApi
 
   # the number of posts to get
   # the first time you update your feed after following someone
-  FIRST_POSTS = 5
+  FIRST_POSTS = 1
 
   def initialize
     @client = Twitter::REST::Client.new do |config|

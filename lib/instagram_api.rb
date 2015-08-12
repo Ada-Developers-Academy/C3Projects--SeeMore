@@ -7,7 +7,7 @@ class InstagramApi
 
   # the number of posts to get
   # the first time you update your feed after following someone
-  FIRST_POSTS = "5"
+  FIRST_POSTS = "1"
 
   def user_search(query, count)
     response = HTTParty.get(INSTA_URI + query + "&count=" + count.to_s + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
