@@ -15,8 +15,8 @@ class TwitterClient
     match.first
   end
 
-  def self.fetch_tweets(user_uid, options = {})
-      CLIENT.user_timeline(user_uid.to_i, options)
+  def self.fetch_tweets(prey_uid, options = {})
+      CLIENT.user_timeline(prey_uid.to_i, options)
     # TODO: client.user_timeline(user, { since_id: ?, count: ?, include_rts: true } )
   end
 end
