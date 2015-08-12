@@ -6,50 +6,44 @@ class Gram < ActiveRecord::Base
   scope :latest_posts, ->(limit) { order('created_at DESC').limit(limit) }
 
 # Methods ----------------------------------------------------------------------
-  def self.collect_latest_posts(user, instagram_client)
+  def self.collect_latest_posts(user)
     following_accounts = user.instagram_users
-    instagram_posts = []
 
     following_accounts.each do |account|
       last_post_id = account.grams.last.try :ig_id
-
       unless last_post_id == nil
-        response = HTTParty.get("https://api.instagram.com/v1/users/#{account.ig_user_id}/media/recent/?access_token=#{ENV['INSTAGRAM_ACCESS_TOKEN']}")
-        instagram_posts << instagram_client.user_recent_media(account.ig_user_id, { min_id: last_post_id })
-        raise
+        response = HTTParty.get("https://api.instagram.com/v1/users/#{account.ig_user_id}/media/recent/?min_id=#{last_post_id}&access_token=#{ENV['INSTAGRAM_ACCESS_TOKEN']}")
       else # we have no posts of theirs on record
-        instagram_posts << instagram_client.user_recent_media(account.ig_user_id, { count: 5 })
+        response = HTTParty.get("https://api.instagram.com/v1/users/#{account.ig_user_id}/media/recent/?count=5&access_token=#{ENV['INSTAGRAM_ACCESS_TOKEN']}")       
       end
+      posts = response["data"] #this is an array of hashes.
+      Gram.save_posts(posts)
     end
 
-    Gram.save_posts(instagram_posts, user)
   end
 
-  def self.save_posts(posts, user)
-    number_of_posts = posts.count
-    count = 0
-
-    posts.each do |key, value|
-      post = posts[count]
-      account = InstagramUser.where(ig_user_id: post[0][:user][:id])[0]
+  def self.save_posts(posts)
+    posts.each do |post|
+      account = InstagramUser.find_by(ig_user_id: post["user"]["id"])
 
       new_gram = Gram.new
-      new_gram[:tags] = post[0][:tags]
-      new_gram[:media_type] = post[0][:type]
-      new_gram[:created_time] = post[0][:created_time]
-      new_gram[:link] = post[0][:link]
-      new_gram[:likes] = post[0][:likes][:count]
-      new_gram[:image_url] = post[0][:images][:standard_resolution][:url] # 640px
-      new_gram[:caption] = post[0][:caption][:text]
-      new_gram[:ig_id] = post[0][:id]
-      new_gram[:ig_username] = post[0][:user][:username]
-      new_gram[:ig_user_pic] = post[0][:user][:profile_picture]
-      new_gram[:ig_user_id] = post[0][:user][:id]
-      new_gram[:ig_user_fullname] = post[0][:user][:full_name]
-      new_gram[:instagram_user_id] = account.id
+
+
+      new_gram[:tags]               = post["tags"]
+      new_gram[:media_type]         = post["type"]
+      new_gram[:created_time]       = post["created_time"]
+      new_gram[:link]               = post["link"]
+      new_gram[:likes]              = post["likes"]["count"]
+      new_gram[:image_url]          = post["images"]["standard_resolution"]["url"] # 640px
+      new_gram[:caption]            = post["caption"]["text"] if post["caption"]
+      new_gram[:ig_id]              = post["id"]
+      new_gram[:ig_username]        = post["user"]["username"]
+      new_gram[:ig_user_pic]        = post["user"]["profile_picture"]
+      new_gram[:ig_user_id]         = post["user"]["id"]
+      new_gram[:ig_user_fullname]   = post["user"]["full_name"]
+      new_gram[:instagram_user_id]  = account.id
 
       new_gram.save
-      count += 1
     end
   end
 end

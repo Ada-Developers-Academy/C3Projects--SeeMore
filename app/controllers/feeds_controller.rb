@@ -1,7 +1,7 @@
 class FeedsController < ApplicationController
   def index
     user = User.find(session[:user_id])
-    Gram.collect_latest_posts(user, @instagram_client)
+    Gram.collect_latest_posts(user)
     @instagram_posts = user.grams
   end
 
@@ -45,17 +45,19 @@ class FeedsController < ApplicationController
     redirect_to :back
   end
 
-  private
-
-  def twitter_params
-    params.permit(:tw_user_id_str, :user_name, :screen_name, :profile_image_url)
-  end
-
   def ig_follow
     user = User.find(session[:user_id])
     ig_account = params # hash of info
     ig_account = user.ig_follow(ig_account) # InstagramAccount obj
     redirect_to :back
   end
+
+  private
+
+  def twitter_params
+    params.permit(:tw_user_id_str, :user_name, :screen_name, :profile_image_url)
+  end
+
+
 
 end

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
  
   post '/tw_follow/:tw_user',      to: 'feeds#tw_follow',      as: 'tw_follow'
 
-  get '/instagram_follow', to: 'feeds#ig_follow' #fake
+  get '/instagram_follow',        to: 'feeds#ig_follow' #fake
   post '/instagram_follow',       to: 'feeds#ig_follow',       as:  'ig_follow'
 
 end
