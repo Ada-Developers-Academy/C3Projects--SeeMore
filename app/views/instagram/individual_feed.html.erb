@@ -1,12 +1,13 @@
-<h2 class="text-center green">
-  <%= @feed_name %>'s feed
-  <% if params[:feed_id] %>
-    <br />
-    <%= link_to "Subscribe", instagram_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
-  <% end %>
-</h2>
 
 <% if @internal %>
+  <h2 class="text-center green">
+    <%= @feed_name %>'s feed
+    <% if params[:feed_id] %>
+      <br />
+      <%= link_to "Subscribe", instagram_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
+    <% end %>
+  </h2>
+  
   <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>
 <% else %>
 
@@ -28,6 +29,7 @@
               No description provided.
             <% end %>
           </p>
+          post_data["metadata"]["connections"]["likes"]["total"]
           <span class="badge"><%= number_with_delimiter(post["likes"]["count"], :delimiter => ',') %> likes</span><br />
         </div>
         <div class="date">

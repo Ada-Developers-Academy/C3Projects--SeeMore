@@ -1,12 +1,12 @@
-<h2 class="text-center green">
-  <%= @feed_name %>'s feed
-  <% if params[:feed_id] %>
-    <br />
-    <%= link_to "Subscribe", vimeo_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
-  <% end %>
-</h2>
-
 <% if @internal %>
+  <h2 class="text-center green">
+    <%= @feed_name %>'s feed
+    <% if params[:feed_id] %>
+      <br />
+      <%= link_to "Subscribe", vimeo_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
+    <% end %>
+  </h2>
+
   <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>
 <% else %>
 
@@ -14,27 +14,32 @@
     <h2>This feed doesn't have any posts. ;_;</h2>
   <% else %>
     <br />
+    <h2 class="text-center green">
+      <%= @feed_name %>'s feed
+      <% if current_user.feeds.include?(params[:feed_id]) != true%>
+        <%= link_to "Subscribe", vimeo_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
+      <% end %>
+    </h2>
     <% @posts.each do |post| %>
       <div class="feed">
-        <div class="left">
+        <h3 class="center">
+          <%= link_to post["user"]["name"], vimeo_feed_path(params[:feed_id]) %>
+          <br />
+          <small><%= post["created_time"] %></small>
+        </h3>
+        <div class= "center">
           <%= resize_video(post).html_safe %>
         </div>
-        <div class="right">
-          <h3>
-            <%= link_to post["name"], vimeo_feed_path(params[:feed_id]) %>
-          </h3>
-          <p>
-            <% if post["description"] %>
-              <%= post["description"] %>
-            <% else %>
-              No description provided.
-            <% end %>
-          </p>
-          <span class="badge"><%= number_with_delimiter(post["metadata"]["connections"]["likes"]["total"], :delimiter => ',') %> likes</span><br />
-        </div>
-        <div class="date">
-          <%= Time.at(post["created_time"].to_i) %>
-        </div>
+        <p>
+          <% if post["description"] %>
+            <%= post["description"] %>
+          <% else %>
+            No description provided.
+          <% end %>
+        </p>
+        <span class="badge">
+          <%= number_with_delimiter(post["metadata"]["connections"]["likes"]["total"], :delimiter => ',') %> likes
+        </span>
       </div>
     <% end %>
   <% end %>

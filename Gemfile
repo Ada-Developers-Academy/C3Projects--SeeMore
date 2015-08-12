@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'dotenv-rails', groups: [:development, :test]
-
+gem 'pg', group: :production
 gem "omniauth"
 gem "omniauth-instagram"
 gem "omniauth-vimeo"
@@ -40,8 +40,6 @@ gem 'httparty'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # gem "webmock"
-  gem "vcr"
   gem "better_errors" # These two are just for debugging
   gem "binding_of_caller"
   gem "rspec-rails"
@@ -57,4 +55,9 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+group :test do
+  gem "webmock"
+  gem "vcr"
 end

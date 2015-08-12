@@ -15,10 +15,11 @@ class VimeoController < ApplicationController
       feed.update_feed
       @internal = true
       @posts = feed.posts.only_thirty
+      @feed_name = feed.name
 
     else
       @posts = VimeoAPI.vimeo_feed(params[:feed_id])
-      @feed_name = @posts.first["name"]
+      @feed_name = @posts.first["user"]["name"]
       flash.now[:error] = "This feed does not have any public posts." unless @posts
     end
   end

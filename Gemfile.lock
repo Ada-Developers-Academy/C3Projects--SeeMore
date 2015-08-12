@@ -125,6 +125,7 @@ GEM
       omniauth (~> 1.2)
     omniauth-vimeo (2.0.0)
       omniauth-oauth2
+    pg (0.18.2)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -236,6 +237,7 @@ DEPENDENCIES
   omniauth
   omniauth-instagram
   omniauth-vimeo
+  pg
   pry-rails
   rails (= 4.2.3)
   rspec-rails
@@ -248,6 +250,10 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   vcr
   web-console (~> 2.0)
+<<<<<<< HEAD
+=======
+  webmock
+>>>>>>> 4ae7af363055cce8c5957f0ba812e5505aae81bd
 
 BUNDLED WITH
    1.10.6
