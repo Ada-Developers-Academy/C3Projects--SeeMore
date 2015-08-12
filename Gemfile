@@ -4,6 +4,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'pg', group: :production
 gem "omniauth"
 gem "omniauth-instagram"
+gem 'whenever', :require => false
 gem "omniauth-vimeo"
 gem "bootstrap-sass"
 gem 'google-webfonts'
