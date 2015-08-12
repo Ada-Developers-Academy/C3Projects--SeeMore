@@ -41,6 +41,12 @@
   text-align: center;
 }
 
+.center-posts {
+  text-align: center;
+  padding-left: auto;
+  padding-right: auto;
+}
+
 .news-text, h1 {
   font-family: Copperplate, "Copperplate Gothic Light", fantasy;
   font-weight: bold;
@@ -70,7 +76,7 @@
   background-size: 100%;
 }
 
-.search-bkgd, .newsfeed {
+body {
   background-image: url("coffee_table.jpg");
   background-size: 100%;
 }

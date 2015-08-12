@@ -15,12 +15,20 @@ class HomeController < ApplicationController
       @rev_posts = []
       subscriptions.each do |s|
         start = s.created_at
-        s.followee.posts.each do |p|
+        posts = s.followee.posts
+        posts_per_sub = []
+        posts.each do |p|
           if p.native_created_at >= start
-            @rev_posts << p
+            posts_per_sub << p
           end
         end
+        if posts_per_sub.count == 0
+          posts_per_sub << posts.last
+        end
+        @rev_posts << posts_per_sub
       end
+      @rev_posts.flatten!
+      @rev_posts.delete_if { |post| post == nil }
       @rev_posts.sort_by! { |post| post.native_created_at }
       @rev_posts.reverse!
     end

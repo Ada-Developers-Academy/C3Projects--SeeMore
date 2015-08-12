@@ -1,5 +1,7 @@
 
 <% @rev_posts.each do |p| %>
   <!-- "raw" tells the browser that it is to be embedded as html -->
-  <%= raw p.embed_html %>
+  <div class="center-posts">
+    <%= raw p.embed_html %>
+  </div>
   <% end %>
