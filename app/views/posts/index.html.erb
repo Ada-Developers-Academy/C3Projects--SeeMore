@@ -4,46 +4,98 @@
 
 <%= button_to "Update Feed", update_feed_path, class: "btn btn-primary"  %>
 
-<% @posts.each do |post| %>
-  <div class="">
-      <% if post.prey.provider == "twitter" %>
+<div class="col-md-8 col-md-offset-2">
+  <% @posts.each do |post| %>
+  <div class="row post">
+    <% if post.prey.provider == "twitter" %>
+      <div class="row">
+        <div class="col-md-2">
           <%= image_tag post.prey.photo_url %>
-
-          <h4>
-            <%= post.prey.name %>
-            <small>@<%= post.prey.username %> * <%= time_ago_in_words(post.post_time) %> ago</small>
-            <%= link_to "See Original", post.url, class: "btn btn-default" %>
-          </h4>
-
-          <%= post.body %>
-
-          <% if post.media.any? %>
-            <% post.media.each do |medium| %>
-              <%= link_to medium.url, class: "post_img" do %>
-                <%= image_tag medium.url %>
-              <% end %>
-            <% end %>
-          <% end %>
-      <% end %>
-
-      <% if post.prey.provider == "instagram" %>
-        <%= image_tag post.prey.photo_url, size: "50x50" %>
-
-        <h4>
+        </div>
+        <div class="col-md-8">
           <%= post.prey.name %>
-          <small>@<%= post.prey.username %> * <%= time_ago_in_words(post.post_time) %> ago</small>
-          <%= link_to "See Original", post.url, class: "btn btn-default" %>
-        </h4>
+          <small>@<%= post.prey.username %> </small>
+        </div>
+        <div class="col-md-2">
+          <i class="fa fa-twitter fa-2x pull-right"></i>
+        </div>
+      </div>
 
-        <% if post.media.any? %>
-          <% post.media.each do |medium| %>
-            <%= link_to medium.url do %>
-              <%= image_tag medium.url, size: "400x400" %>
-            <% end %>
-          <% end %>
+      <div class="row">
+        <div class="col-md-9 time-ago">
+          * <%= time_ago_in_words(post.post_time) %> ago
+        </div>
+        <div class="col-md-3">
+          <%= link_to "See Original", post.url, class: "btn btn-default btn-xs pull-right" %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <p><%= post.body %></p>
+        </div>
+      </div>
+
+      <% if post.media.any? %>
+        <% post.media.each do |medium| %>
+          <div class="row">
+            <div class="col-md-12">
+              <%= link_to medium.url, class: "post-img" do %>
+                  <div class="col-md-12">
+                    <%= image_tag medium.url %>
+                  </div>
+              <% end %>
+            </div>
+          </div>
         <% end %>
-
-        <p><%= post.body %></p>
       <% end %>
+    <% end %>
+
+
+
+    <% if post.prey.provider == "instagram" %>
+      <div class="row">
+        <div class="col-md-2">
+          <%= image_tag post.prey.photo_url, size: "50x50" %>
+        </div>
+        <div class="col-md-8">
+          <%= post.prey.name %>
+          <small>@<%= post.prey.username %></small>
+        </div>
+        <div class="col-md-2">
+          <i class="fa fa-instagram fa-2x pull-right"></i>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-9 time-ago">
+         * <%= time_ago_in_words(post.post_time) %> ago
+        </div>
+        <div class="col-md-3">
+          <%= link_to "See Original", post.url, class: "btn btn-default btn-xs pull-right" %>
+        </div>
+      </div>
+
+      <% if post.media.any? %>
+        <% post.media.each do |medium| %>
+        <div class="row">
+          <div class="col-md-12">
+            <%= link_to medium.url do %>
+            <div class="col-md-12">
+              <%= image_tag medium.url, size: "400x400" %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+        <% end %>
+      <% end %>
+
+      <div class="row">
+        <div class="col-md-12">
+          <p><%= post.body %></p>
+        </div>
+      </div>
+    <% end %>
   </div>
-<% end %>
+  <% end %>
+</div>

@@ -40,7 +40,7 @@
   border-radius: 5px;
 }
 
-.post_img img {
+.post-img img {
   width: 100%;
   vertical-align: middle;
 }
@@ -48,7 +48,6 @@
 nav a {
   margin-left: 5px;
 }
-
 
 .welcome_image {
   position: fixed;
@@ -61,5 +60,24 @@ nav a {
 
 .home_icon {
   float: left;
+}
 
+.media-object {
+  height: 48px;
+  width: 48px;
+}
+
+.post {
+  border: 1px gray solid;
+  padding: 35px;
+  margin: 30px;
+}
+
+.post p {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.time-ago {
+  font-style: italic;
 }
