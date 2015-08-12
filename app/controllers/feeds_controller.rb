@@ -7,6 +7,13 @@ class FeedsController < ApplicationController
 
     Tweet.update_timeline(user)
     @tweets = user.tweets.chron_tweets
+
+    @posts = []
+
+    @posts << @instagram_posts
+
+    @posts << @tweets
+
   end
 
   def search; end
