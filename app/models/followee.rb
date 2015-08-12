@@ -28,4 +28,13 @@ class Followee < ActiveRecord::Base
       TwitterApi.new.user_search(query, count)
     end
   end
+
+  def self.update_last_post_id!(posts, followee, source)
+    new_last_post_id = assign_last_post_id(posts, followee, source)
+    followee.update!(last_post_id: new_last_post_id)
+  end
+
+  def self.assign_last_post_id(posts, followee, source)
+    source == ApplicationController::TWITTER ? posts.first.id : posts.first["id"]
+  end
 end

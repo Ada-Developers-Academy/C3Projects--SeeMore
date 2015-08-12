@@ -60,8 +60,5 @@ class Post < ActiveRecord::Base
       post_hash = post_params(post, followee, source)
       create(post_hash)
     end
-
-    new_last_post_id = source == ApplicationController::TWITTER ? posts.first.id : posts.first["id"]
-    followee.update!(last_post_id: new_last_post_id)
   end
 end
