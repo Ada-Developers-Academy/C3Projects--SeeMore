@@ -26,10 +26,6 @@ class HomeController < ApplicationController
     end
   end
 
-  # def get_twitter_embed_html(tweet_id)
-  #   @twitter_client.oembed(tweet_id, { omit_script: true })[:html]
-  # end
-
   def get_new_posts
     active_subscriptions = @current_user.subscriptions.active
 
@@ -91,11 +87,7 @@ class HomeController < ApplicationController
     case source
     when TWITTER
       id = followee.native_id.to_i
-      if last_post_id
-        posts = TwitterApi.new.client.user_timeline(id, { since_id: last_post_id.to_i })
-      else
-        posts = TwitterApi.new.client.user_timeline(id, { count: 5 })
-      end
+      posts = TwitterApi.new.get_posts(id, last_post_id)
     when INSTAGRAM
       id = followee.native_id
       posts = InstagramApi.new.get_posts(id, last_post_id)
