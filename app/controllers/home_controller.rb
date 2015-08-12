@@ -35,19 +35,10 @@ class HomeController < ApplicationController
 
       posts = get_posts_from_API(followee)
 
-      # twitter vs instagram
       if posts && posts.count > 0
-        case source
-        when TWITTER
-          posts.each do |post|
-            post_hash = find_twitter_params(post, followee)
-            Post.create(post_hash)
-          end
-        when INSTAGRAM
-          posts.each do |post|
-            post_hash = find_instagram_params(post, followee)
-            Post.create(post_hash)
-          end
+        posts.each do |post|
+          post_hash = Post.post_params(post, followee, source)
+          Post.create(post_hash)
         end
 
         new_last_post_id = source == TWITTER ? posts.first.id : posts.first["id"]
@@ -56,28 +47,6 @@ class HomeController < ApplicationController
     end
 
     redirect_to root_path
-  end
-
-  def find_twitter_params(post, followee)
-    post_hash = {}
-    post_hash[:native_id] = post.id
-    post_hash[:native_created_at] = post.created_at
-    post_hash[:followee_id] = followee.id
-    post_hash[:source] = followee.source
-    post_hash[:embed_html] = TwitterApi.new.embed_html_without_js(post.id)
-
-    return post_hash
-  end
-
-  def find_instagram_params(post, followee)
-    post_hash = {}
-    post_hash[:native_id] = post["id"]
-    post_hash[:native_created_at] = convert_instagram_time(post["created_time"])
-    post_hash[:followee_id] = followee.id
-    post_hash[:source] = followee.source
-    post_hash[:embed_html] = InstagramApi.new.embed_html_with_js(post)
-
-    return post_hash
   end
 
   def get_posts_from_API(followee)
