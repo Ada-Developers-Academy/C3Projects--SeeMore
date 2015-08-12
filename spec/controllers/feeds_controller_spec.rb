@@ -4,7 +4,19 @@ require 'support/vcr_setup'
 RSpec.describe FeedsController, type: :controller do
 
   describe "GET index" do
-    
+    before :each do
+      user = create :user
+      session[:user_id] = user.id
+      get :index
+    end
+    it "responds successfully" do
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
+    end
+
+    it "renders the index view" do
+      expect(response).to render_template(:index)
+    end
   end
 
   describe "GET feeds#search" do
@@ -41,19 +53,20 @@ RSpec.describe FeedsController, type: :controller do
 
   describe "GET feeds#search_results" do
     let(:twitter_params){ { provider: 'twitter', search_term: 'donald trump' } }
-  #   let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
-  #
-  #   it "queries the correct API" do
-  #     VCR.use_cassette 'controller/twitter_api_response' do
-  #       get :search_results, twitter_params
-  #       expect(assigns(:results).first.id).to eq(25073877)
-  #     end
-  #
-  #     VCR.use_cassette 'controller/instagram_api_search' do
-  #       get :search_results, instagram_params
-  #       expect(assigns(:results).first.id).to eq("1105876259")
-  #     end
-  #   end
+    # let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
+    #
+    # This test fails because of the instagram api
+    # it "queries the correct API" do
+    #   VCR.use_cassette 'controller/twitter_api_response' do
+    #     get :search_results, twitter_params
+    #     expect(assigns(:results).first.id).to eq(25073877)
+    #   end
+    #
+    #   VCR.use_cassette 'controller/instagram_api_search' do
+    #     get :search_results, instagram_params
+    #     expect(assigns(:results).first.id).to eq("1105876259")
+    #   end
+    # end
 
     it "receives a response from the twitter api" do
       VCR.use_cassette 'controller/twitter_api_response' do
