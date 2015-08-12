@@ -17,12 +17,12 @@ body {
   // Exactly 50px because first (top) navbar is exactly 50px according to Bootstrap.
   // Any more than 50px and there will be white space between the first and second navbars.
   padding-top: 50px;
-  background-color: rgb(255, 255, 204);
+  background-color: #4FD5D6;
 }
 
 .container-fluid {
-  width: 58%;
-  background-color: #98FF28;
+  width: 70%;
+  background-color:  #CDFFFF;
   background-position: fixed no-repeat;
 }
 
@@ -62,7 +62,7 @@ header {
 
 .navbar-default .navbar-brand {
   font-family: 'Rock Salt', cursive;
-  color: #FFFFCC;
+  color: #CDFFFF;
 }
 
 .navbar-default .navbar-brand:hover {
@@ -70,7 +70,7 @@ header {
 }
 
 .navbar-default .navbar-text {
-  color: #FFFFCC;
+  color: #CDFFFF;
 }
 
 .navbar-brand {
@@ -136,4 +136,10 @@ p.navbar-text {
   margin: 0 60px 20px 60px;
   text-align: center;
   font-weight: 500;
+}
+
+footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }

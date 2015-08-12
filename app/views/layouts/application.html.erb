@@ -19,9 +19,12 @@
     <div class="alert alert-danger"><%= flash[:error] %></div>
   <% end %>
 
-  <div class="container-fluid">
+  <div class="container-fluid" >
     <%= yield %>
   </div>
 
+  <footer>
+    <a href="#top"><i class="fa fa-arrow-up fa-4x"></i></a>
+  </footer>
 </body>
 </html>
