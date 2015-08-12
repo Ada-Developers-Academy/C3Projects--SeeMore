@@ -10,8 +10,8 @@ RSpec.describe StalkersController, type: :controller do
     before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]}
     let!(:stalker) {Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:twitter])}
     it "renders the dashboard_path if user is logged in via twitter" do
-     session[:stalker_id] = 1
-      get :index, stalker_id: 1
+     session[:stalker_id] = stalker.id
+      get :index, stalker_id: stalker.id
       expect(response).to render_template :index
     end
 
@@ -19,8 +19,8 @@ RSpec.describe StalkersController, type: :controller do
     before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:instagram]}
     let!(:stalker) {Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:instagram])}
     it "renders the dashboard_path if user is logged in via instagram" do
-     session[:stalker_id] = 1
-      get :index, stalker_id: 1
+     session[:stalker_id] = stalker.id
+      get :index, stalker_id: stalker.id
       expect(response).to render_template :index
     end
 
@@ -28,8 +28,8 @@ RSpec.describe StalkersController, type: :controller do
   before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:vimeo]}
   let!(:stalker) {Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:vimeo])}
   it "renders the dashboard_path if user is logged in via vimeo" do
-   session[:stalker_id] = 1
-    get :index, stalker_id: 1
+   session[:stalker_id] = stalker.id
+    get :index, stalker_id: stalker.id
     expect(response).to render_template :index
   end
 end
