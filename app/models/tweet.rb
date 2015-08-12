@@ -21,12 +21,14 @@ class Tweet < ActiveRecord::Base
         # get the last 5 tweets and save them to the database for a new followee
         recent_tweets = @twit_init.client.user_timeline(id).take(5)
       else
+        #Sort the tweet by time
+        followee_tweets = Tweet.where(tw_user_id_str: id)
+        followee_tweets = followee_tweets.chron_tweets
         # the twitter id of the last saved tweet by that followee
-        last_id = Tweet.where(tw_user_id_str: id).last.tw_id_str.to_i
+        last_id = followee_tweets.first.tw_id_str.to_i
         # fetches their recent tweets
         recent_tweets = @twit_init.client.user_timeline(id, since_id: last_id)
       end
-
       self.tweet_factory(recent_tweets, followee.id)
     end
   end
