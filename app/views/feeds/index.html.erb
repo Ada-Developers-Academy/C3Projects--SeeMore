@@ -10,6 +10,11 @@
             <span class="fa fa-twitter fa-5x col-sm-1 center twitter-icon" aria-hidden="true" data-toggle="tooltip" title="twitter login"></span>
         <% end %>
     <% else %>
+
+        <%# link_to "Refresh", root_path, class: "btn btn-default btn-feed" %>
+        <%= link_to root_path, class: "btn btn-default btn-feed" do %>
+          <i class="glyphicon glyphicon-repeat"></i>
+        <% end %>
         <!-- Feed -->
         <% if @all_posts && !@all_posts.empty? %>
           <div class="feed col-sm-4 center">
