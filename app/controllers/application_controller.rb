@@ -1,6 +1,7 @@
 require 'twitter'
-require 'twitter_client'
 require 'instagram'
+require 'twitter_api'
+require 'instagram_api'
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
@@ -9,7 +10,6 @@ class ApplicationController < ActionController::Base
 
   before_action :current_user
   before_action :require_signin
-  before_action :twitter_client
 
   TWITTER = "twitter"
   INSTAGRAM = "instagram"
@@ -21,10 +21,6 @@ class ApplicationController < ActionController::Base
     config.client_secret = ENV["INSTAGRAM_CLIENT_SECRET"]
   end
 
-  def twitter_client
-    @twitter_client ||= TwitterClient.new.client
-  end
-
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
@@ -34,9 +30,5 @@ class ApplicationController < ActionController::Base
       # flash[:errors] = MESSAGES[:not_signed_in]
       redirect_to signin_path
     end
-  end
-
-  def convert_instagram_time(time)
-    Time.at(time.to_i)
   end
 end

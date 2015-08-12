@@ -1,5 +1,4 @@
 class FolloweesController < ApplicationController
-  INSTA_URI = "https://api.instagram.com/v1/users/search?"
   USER_COUNT = 3
 
   INSTA_USER_DETAILS_URI = "https://api.instagram.com/v1/users/"
@@ -34,13 +33,9 @@ class FolloweesController < ApplicationController
   def search_results
     @query = params[:user]
     @source = params[:source]
-    case params[:source]
-    when INSTAGRAM
-      response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&count=" + USER_COUNT.to_s + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
-      @results = response["data"]
-    when TWITTER
-      @results = @twitter_client.user_search(@query, { count: USER_COUNT })
-    end
+
+    # call a ApiHelper class method that directs the flow to the correct Api
+    @results = Followee.user_search(@query, USER_COUNT, @source)
 
     render 'search'
   end

@@ -91,9 +91,9 @@ RSpec.describe HomeController, type: :controller do
         end
       end
 
-      it "adds 2 Twitter posts to the database" do
-        expect(Post.where(source: "twitter").count).to eq 2
-      end
+      # it "adds 2 Twitter posts to the database" do
+      #   expect(Post.where(source: "twitter").count).to eq 2
+      # end
 
       it "adds 2 Instagram posts to the database" do
         expect(Post.where(source: "instagram").count).to eq 2
