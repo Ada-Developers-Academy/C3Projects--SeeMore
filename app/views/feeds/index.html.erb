@@ -8,7 +8,8 @@
         <% end %>
         <%= link_to login_path(provider: :twitter) do %>
             <span class="fa fa-twitter fa-5x col-sm-1 center twitter-icon" aria-hidden="true" data-toggle="tooltip" title="twitter login"></span>
-        <% end %></div>
+        <% end %>
+        </div>
     <% else %>
         <!-- Feed -->
         <% if @all_posts && !@all_posts.empty? %>
@@ -29,11 +30,11 @@
                 </div>
               </div>
             <% end %>
+          </div>
         <% else %>
           <div class="feed col-sm-4 center">
             <h4 class="no-targets"><%= link_to "Add targets. Currently tracking no one", search_path %></h4>
           </div>
         <% end %>
-        </div>
     <% end %>
 </div>
