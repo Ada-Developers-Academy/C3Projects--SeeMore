@@ -12,21 +12,7 @@ RSpec.describe SubscriptionsController, type: :controller do
     it "creates a new subscription" do
       expect(Subscription.count).to eq(1)
     end
-      # it "redirect_to user_path" do
-      #   post :create, user: create(:user), followee: create(:followee)
-      #   expect(response).to redirect_to(user_path(session[:user_id]))
-      #   # undefined method `user_id' for nil:NilClass??
-      # end
-      # post :create, :user zynthia :followee beyonce
-      # expect{post :create, subscription: FactoryGirl.attributes_for(:subscription)}.to change(Subscription, :count).by(1)
-
   end # create
-
-    # it "redirect_to root_path" do
-    #   post :create
-    #
-    #   expect(response).to redirect_to(root_path)
-    # end
 
   describe "PUT #unsubscribe" do
     let(:user) { create :user }
@@ -37,7 +23,7 @@ RSpec.describe SubscriptionsController, type: :controller do
       put :unsubscribe, :id => subscription.id
       subscription.reload
     end
-  
+
     it "adds unsubscribe_date" do
       expect(subscription.unsubscribe_date).to_not be_nil
     end
@@ -52,10 +38,10 @@ RSpec.describe SubscriptionsController, type: :controller do
 
     before :each do
       session[:user_id] = user.id
-      followee1 = create :followee
-      followee2 = create :followee
-      create :subscription, followee_id: followee1.id, user_id: user.id
-      create :subscription, followee_id: followee2.id, user_id: user.id
+      @followee1 = create :followee
+      @followee2 = create :followee
+      create :subscription, followee_id: @followee1.id, user_id: user.id
+      create :subscription, followee_id: @followee2.id, user_id: user.id
       get :index
     end
 
@@ -63,8 +49,19 @@ RSpec.describe SubscriptionsController, type: :controller do
       expect(response).to render_template "index"
     end
 
-    it "retrieves a collection of followee objects in @subscriptions" do
-      expect(assigns(:subscriptions).count).to eq 2
+    it "returns an array of followees user's actively following" do
+      expect(assigns[:followees].count).to eq(2)
+      expect(assigns[:followees].first).to eq(@followee1)
+      expect(assigns[:followees].last).to eq(@followee2)
+    end
+
+    it "returns only active subscription followees" do
+      followee3 = create :followee
+      create :subscription, followee_id: followee3.id, user_id: user.id, unsubscribe_date: "Sat, 01 Aug 2015 22:12:25 UTC +00:00"
+
+      expect(assigns[:followees].count).to eq(2)
+      expect(assigns[:followees].first).to eq(@followee1)
+      expect(assigns[:followees].last).to eq(@followee2)
     end
   end
 end

@@ -16,12 +16,13 @@ class HomeController < ApplicationController
       subscriptions.each do |s|
         start = s.created_at
         s.followee.posts.each do |p|
-          # if p.native_created_at >= start
-            @rev_posts << p.embed_html
-          # end
+          if p.native_created_at >= start
+            @rev_posts << p
+          end
         end
       end
-      @rev_posts.sort_by { |post| post["native_created_at"] }
+      @rev_posts.sort_by! { |post| post.native_created_at }
+      @rev_posts.reverse!
     end
   end
 

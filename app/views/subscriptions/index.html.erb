@@ -1,13 +1,19 @@
 <h1 class="center"><%= @current_user.name.capitalize %>'s Subscriptions </h1>
-<ul class="search-results">
-<% @subscriptions.each do |s| %>
-    <li><%= link_to image_tag(s.avatar_url, class: "img-thumbnail", size: "50x50") %>
-    <%= link_to s.handle %>
-    <% if s.source == "instagram" %>
-      <%= link_to image_tag("app/assets/images/insta.png", class: "img-thumbnail", size: "20x20") %>
-    <% else %>
-      <%= link_to image_tag("app/assets/images/tweet.png", class: "img-thumbnail", size: "20x20") %>
+  <ul class="search-results">
+  <% if !flash.empty? %>
+    <%= flash[:notice] %>
     <% end %>
-  <%= link_to "Unsubscribe" %></li>
-<% end %>
-</ul>
+
+  <% @followees.each do |f| %>
+    <li>
+      <% if f.source == "instagram" %>
+        <%= image_tag("insta.png", class: "img-thumbnail", size: "35x35") %>
+      <% else %>
+        <%= image_tag("tweet.png", class: "img-thumbnail", size: "35x35") %>
+      <% end %>
+      <%= image_tag(f.avatar_url, class: "img-thumbnail", size: "50x50") %>
+      <%= f.handle %>
+      <%= link_to "Unsubscribe", unsubscribe_path(f.subscriptions.where(user_id: @current_user.id).first.id), method: :put, class: "btn btn-danger btn-sm" %>
+    </li>
+  <% end %>
+  </ul>
