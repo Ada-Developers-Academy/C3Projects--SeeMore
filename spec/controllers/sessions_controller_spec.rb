@@ -9,7 +9,6 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
-
   describe "GET #create_vimeo" do
     context "when using vimeo authorization" do
       context "is successful" do
@@ -32,14 +31,14 @@ RSpec.describe SessionsController, type: :controller do
 
         it "assigns the session[:user_id]" do
           get :create_vimeo, provider: :vimeo
-         
+
           expect(session[:user_id]).to eq (AuUser.first).id
         end
       end
     end
   end
 
-  describe "#destory" do 
+  describe "#destory" do
     let(:user) { FactoryGirl.create(:au_user)}
     it "destroys a session" do
       session[:user_id] = user.id
@@ -47,5 +46,4 @@ RSpec.describe SessionsController, type: :controller do
       expect(session[:user_id]).to eq nil
     end
   end
-
 end

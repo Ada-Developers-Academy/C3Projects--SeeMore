@@ -45,6 +45,13 @@ class Feed < ActiveRecord::Base
   end
 
   # Updating feeds -------------
+  def update_feed # FIXME: test update_feed
+    if (platform == "Instagram") || (platform == "Developer")
+      update_instagram_feed
+    elsif platform == "Vimeo"
+      update_vimeo_feed
+    end
+  end
 
   def update_instagram_feed
     # grab the dusty, old posts
@@ -101,14 +108,6 @@ class Feed < ActiveRecord::Base
       unless updated_posts.include? post
         post.destroy
       end
-    end
-  end
-
-  def update_feed # FIXME: test update_feed
-    if (platform == "Instagram") || (platform == "Developer")
-      update_instagram_feed
-    elsif platform == "Vimeo"
-      update_vimeo_feed
     end
   end
 

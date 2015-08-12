@@ -1,10 +1,13 @@
 require 'rails_helper'
+require 'webmock/rspec'
 
 RSpec.describe Feed, type: :model do
 
   # Associations--------------------------------------------------------
   describe "Associations" do
     before :each do
+      # Skip the populate_posts method, so It doesn't have to use the internet
+      allow_any_instance_of(Feed).to receive(:populate_posts)
       @feed = create :feed
     end
 
@@ -28,6 +31,7 @@ RSpec.describe Feed, type: :model do
   # Validations--------------------------------------------------------
   describe "validations" do
     before :each do
+      allow_any_instance_of(Feed).to receive(:populate_posts)
       @feed = create :feed
     end
 
@@ -56,20 +60,24 @@ RSpec.describe Feed, type: :model do
 
   # Scopes--------------------------------------------------------
   describe "scopes" do
+    before :each do
+      allow_any_instance_of(Feed).to receive(:populate_posts)
+    end
+
     it "shows just feed where platform is instagram" do
-      @feed1 = create :feed
-      @feed2 = create :feed, platform: "vimeo"
-      @feed3 = create :feed, platform: "vimeo"
-      @feed4 = create :feed
+      @feed1 = create :feed, platform: "Instagram"
+      @feed2 = create :feed, platform: "Vimeo"
+      @feed3 = create :feed, platform: "Vimeo"
+      @feed4 = create :feed, platform: "Instagram"
 
       expect(Feed.count).to eq 4
       expect(Feed.instagram.count).to eq 2
     end
 
     it "shows just feed where platform is vimeo" do
-      @feed1 = create :feed, platform: "vimeo"
-      @feed2 = create :feed, platform: "vimeo"
-      @feed3 = create :feed, platform: "vimeo"
+      @feed1 = create :feed, platform: "Vimeo"
+      @feed2 = create :feed, platform: "Vimeo"
+      @feed3 = create :feed, platform: "Vimeo"
       @feed4 = create :feed
 
       expect(Feed.count).to eq 4
@@ -77,20 +85,24 @@ RSpec.describe Feed, type: :model do
     end
 
     it "shows just feed where platform is developer" do
-      @feed1 = create :feed, platform: "developer"
-      @feed2 = create :feed, platform: "vimeo"
-      @feed3 = create :feed, platform: "vimeo"
+      @feed1 = create :feed, platform: "Developer"
+      @feed2 = create :feed, platform: "Vimeo"
+      @feed3 = create :feed, platform: "Vimeo"
       @feed4 = create :feed
 
       expect(Feed.count).to eq 4
       expect(Feed.developer.count).to eq 1
     end
+  end
 
-    # it "populate_posts after_create method is run" do
-    #   auth = OmniAuth.config.mock_auth[:instagram]
-    #   feed = create :feed
-    #
-    #   expect(Post.where(feed_id: 1).count).to eq 1
-    # end
+  describe 'populates posts after create method' do
+    it "gets a response from an api" do
+
+      VCR.use_cassette("user_instagram", record: :new_episodes) do
+        feed = create :user_instagram
+      end
+
+      expect(Post.count).to eq 19
+    end
   end
 end

@@ -94,7 +94,7 @@ RSpec.describe VimeoController, type: :controller do
       it "creates a new database entry if the feed is not found" do
         post :subscribe, feed_id: feed.id
         expect(Feed.count).to eq(1)
-      end 
+      end
 
       it "redirects to the user's feed" do
         VCR.use_cassette("/subscribe") do
@@ -131,4 +131,3 @@ RSpec.describe VimeoController, type: :controller do
     end
   end
 end
-
