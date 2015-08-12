@@ -19,10 +19,32 @@ RSpec.describe ApplicationHelper, type: :helper do
 
     context "when you're already following a Twitter user" do
       it "returns true after a following? check" do
-        create :tw_user
-        twitter_user = TwUser.find(1)
+        twitter_user = create :tw_user
         @our_user.tw_users << [twitter_user]
         expect(helper.following?("100")).to be(true)
+      end
+    end
+  end
+
+  describe "following an Instagram user" do
+    before(:each) do
+      @our_user = create :user
+      session[:user_id] = @our_user.id
+      params[:provider] = "instagram"
+    end
+
+    context "when you haven't followed an Instagram user yet" do
+      it "returns false after a following? check" do
+        # If a user has just signed in / signed up and searched for Twitter users
+        expect(helper.following?("12345678")).to be(false)
+      end
+    end
+
+    context "when you're already following an Instagram user" do
+      it "returns true after a following? check" do
+        instagram_user = create :instagram_user
+        @our_user.instagram_users << [instagram_user]
+        expect(helper.following?("12345678")).to be(true)
       end
     end
   end
