@@ -1,6 +1,5 @@
 require 'rails_helper'
 require 'support/vcr_setup'
-require 'pry'
 
 RSpec.describe HomeController, type: :controller do
   let(:log_in) {

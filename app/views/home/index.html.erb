@@ -34,9 +34,11 @@
   <div class="jumbotron">
     <h1>WELCOME TO <strong>BEAST MODE!</strong></h1>
     <p class="beast-mode">You must to sign in to feed the beast.</p>
+  <% unless Rails.env.production? %>
     <p>
       <%= link_to "Sign In via Developer", "/auth/developer", class: "btn btn-primary" %>
     </p>
+  <% end %>
     <p>
       <%= link_to "Sign In via Instagram", "/auth/instagram", class: "btn btn-primary" %>
     </p>
