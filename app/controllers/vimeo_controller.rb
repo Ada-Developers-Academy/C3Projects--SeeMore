@@ -15,7 +15,7 @@ class VimeoController < ApplicationController
       feed.update_feed
       @internal = true
       @posts = feed.posts.only_thirty
-      @feed_name = feed.name
+      @feed = feed
 
     else
       @posts = VimeoAPI.vimeo_feed(params[:feed_id])
@@ -38,12 +38,17 @@ class VimeoController < ApplicationController
     redirect_to :back
   end
 
+  def unsubscribe
+    feed_id = params[:feed_id]
+    feed = Feed.find_by(platform_feed_id: feed_id, platform: "Vimeo")
+    current_user.unsubscribe(feed.id)
+    redirect_to :back
+  end
+
   private
     def create_feed_attributes(feed_info)
       feed_hash = {}
 
-      # FIXME: Brenna's magic avatar thing
-      # feed_hash[:avatar]           = feed_info["profile_picture"] if feed_info["profile_picture"]
       feed_hash[:name]             = feed_info["name"]
       feed_hash[:platform]         = "Vimeo"
       feed_hash[:platform_feed_id] = params[:feed_id]

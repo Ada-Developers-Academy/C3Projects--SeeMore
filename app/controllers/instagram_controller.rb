@@ -15,6 +15,7 @@ class InstagramController < ApplicationController
       feed.update_feed
       @internal = true
       @posts = feed.posts.only_thirty
+      @feed = feed
 
     else
       feed_info = InstagramAPI.instagram_feed_info(id)
@@ -36,6 +37,13 @@ class InstagramController < ApplicationController
     end
 
     current_user.feeds << feed unless current_user.feeds.include?(feed)
+    redirect_to :back
+  end
+
+  def unsubscribe
+    feed_id = params[:feed_id].to_i
+    feed = Feed.find_by(platform_feed_id: feed_id, platform: "Instagram")
+    current_user.unsubscribe(feed.id)
     redirect_to :back
   end
 

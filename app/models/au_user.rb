@@ -4,11 +4,10 @@ class AuUser < ActiveRecord::Base
 
   validates :uid, :provider, :name, :presence => true
 
-  def unsubscribe(id)
+  def unsubscribe(id) # FIXME: test this Jeri
     feed = Feed.find(id)
-    feeds.delete(feed)
-
-    feed.destroy if feed.au_users.nil?
+    self.feeds.delete(feed)
+    feed.destroy if feed.au_users.empty?
   end
 
   def self.create_with_omniauth(auth)
