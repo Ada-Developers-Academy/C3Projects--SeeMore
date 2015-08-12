@@ -46,6 +46,7 @@ header {
   text-align: center;
   background-color: #FF0000;
   color: #FFFFCC;
+  margin-top: 20px;
 }
 
 .beast-mode {
@@ -145,4 +146,8 @@ footer {
   position: fixed;
   width: 100%;
   bottom: 0;
+}
+
+footer a{
+  float: right;
 }
