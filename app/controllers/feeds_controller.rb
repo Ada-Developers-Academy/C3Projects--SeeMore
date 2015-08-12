@@ -129,6 +129,7 @@ class FeedsController < ApplicationController
     @all_posts = []
     user.instagrams.each do |gram|
       ig_user_posts = HTTParty.get(INSTAGRAM_URI + "users/#{gram.provider_id}/media/recent?count=10&access_token=#{session[:access_token]}")
+      raise
       all_post_ids = ig_user_posts["data"].each do |post|
         @all_posts << { ig_id: gram.id, post_id: post["id"], image_url: post["images"]["low_resolution"]["url"] }
       end
