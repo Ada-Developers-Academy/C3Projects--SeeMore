@@ -14,13 +14,8 @@ class TwitterApi
     client.user_search(user, options = {count: count})
   end
 
-  def user_timeline(user)
-    # followee = Followee.find_by(handle: user)
-    # last_tweet_id = Posts.find_by(followee_id: followee.id).last
-    # client.user_timeline(user, options = {since_id: last_tweet_id} ) # - use this one in real setting
-    client.user_timeline(user)
-    # default returns the 20 most recent tweets of the user
-    # set the since_id parameter to the greatest ID of all the Tweets your application has already processed
-    # can search by user_id or screen_name
+  def embed_html_without_js(tweet_id)
+    client.oembed(tweet_id, { omit_script: true })[:html]
   end
+
 end
