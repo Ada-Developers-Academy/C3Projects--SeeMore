@@ -1,15 +1,15 @@
 <%= form_for :search, url: search_path do |f| %>
 
   <div class="row">
-    <%= f.text_field :query, placeholder: "search by user name" %>
+    <%= f.text_field :query, placeholder: "user name" %>
     <label>
       Instagram
-        <%= f.radio_button :platform, "instagram" %>
+        <%= f.radio_button :platform, "Instagram" %>
     </label>
 
     <label>
       Vimeo
-      <%= f.radio_button :platform, "vimeo" %>
+      <%= f.radio_button :platform, "Vimeo" %>
     </label>
     <%= f.submit "Search", class: "btn btn-success" %>
   </div>
