@@ -29,7 +29,6 @@ class IgSubscriptionsController < ApplicationController
 
       flash[:error] = "This user is private and thus spared."
 
-
       redirect_to root_path
     else
 
