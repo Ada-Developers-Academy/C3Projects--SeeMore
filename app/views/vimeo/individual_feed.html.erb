@@ -10,7 +10,6 @@
   <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>
 <% else %>
   <% unless @posts.nil? || @posts.empty? %>
-    <br />
     <h2 class="text-center green">
       <%= @feed_name %>'s feed
       <% if current_user.feeds.include?(params[:feed_id]) != true%>

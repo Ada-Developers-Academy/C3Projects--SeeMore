@@ -82,10 +82,12 @@
   border-radius: 5px;
 }
 
-.green {
+.header {
   color: #4cae4c;
   font-family: 'Ubuntu', sans-serif;
   margin: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
   padding: 10px;
   max-width: 600px;
   background: rgba(255, 255, 255, 1);
@@ -96,12 +98,17 @@
   border-top-right-radius: 20px;
 }
 
+.green {
+  color: #4cae4c;
+}
+
 .brand {
   font-family: "Ubuntu", sans-serif;
 }
 .search-header {
   margin-top: 15px;
   margin-bottom: 15px;
+  border: 1px solid #e6f3e6;
   border-radius: 20px;
 }
 
