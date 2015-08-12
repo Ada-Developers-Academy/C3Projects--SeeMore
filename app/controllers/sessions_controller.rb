@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   # ew, but a necessary ew :(
   skip_before_filter :verify_authenticity_token, only: :create
-  before_action :require_logged_out
+  before_action :require_logged_out, except: [:destroy]
 
   MESSAGES = {
     signout_success: "Peep ya later!"
