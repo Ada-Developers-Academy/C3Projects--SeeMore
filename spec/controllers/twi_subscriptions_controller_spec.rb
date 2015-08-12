@@ -4,8 +4,8 @@ require 'support/vcr_setup'
 
 RSpec.describe TwiSubscriptionsController, type: :controller do
   let(:log_in) {
-    logged_user = create :user
-    session[:user_id] = logged_user.id
+    @logged_user = create :user
+    session[:user_id] = @logged_user.id
   }
 
   describe "#index" do
@@ -62,6 +62,23 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
         post :create, twitter_id: "494335393"
 
         expect(assigns(:user).subscriptions).to include(Subscription.find_by(twitter_id: "494335393"))
+      end
+    end
+  end
+
+  describe "twi_subscriptions#refresh_twi" do
+    it "creates new posts" do
+      VCR.use_cassette('twitter feed refresh') do
+        log_in
+        twi_sub = (create :twi_sub, twitter_id: "494335393")
+        @logged_user.subscriptions << twi_sub
+        @logged_user.subscriptions << (create :ig_sub)
+
+        get :refresh_twi
+
+        post = Post.last
+
+        expect(post.subscription.id).to eq twi_sub.id
       end
     end
   end
