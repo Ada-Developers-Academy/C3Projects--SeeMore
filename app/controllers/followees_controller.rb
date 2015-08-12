@@ -6,7 +6,7 @@ class FolloweesController < ApplicationController
 
   before_action :find, only: [:destroy]
   # helper_method :get_embedded_html_instagram
-  helper_method :private_user?
+  helper_method :private_user?, :already_following?
 
   include ActionView::Helpers::OutputSafetyHelper
 
@@ -50,5 +50,9 @@ class FolloweesController < ApplicationController
     privacy_boolean = response["data"]["target_user_is_private"]
 
     return privacy_boolean
+  end
+
+  def already_following?(followee_id)
+    @current_user.followees.find_by(native_id: followee_id) ? true : false
   end
 end
