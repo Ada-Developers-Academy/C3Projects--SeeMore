@@ -6,7 +6,8 @@ class SubscriptionsController < ApplicationController
     followee = Followee.find_or_create_by(followee_params)
     Subscription.find_or_create_subscription(@current_user, followee)
 
-    redirect_to root_path
+    # redirect_to root_path
+    redirect_to :back
   end
 
   def index
@@ -23,7 +24,8 @@ class SubscriptionsController < ApplicationController
     # adds current time to unsubscribe_date
     subscription = Subscription.find(params[:id])
     subscription.update!(unsubscribe_date: Time.now)
-    redirect_to subscriptions_path, flash[:notice] = "You have successfully unsubscribed."
+    # redirect_to subscriptions_path, flash[:notice] = "You have successfully unsubscribed."
+    redirect_to :back
   end
 
   private
