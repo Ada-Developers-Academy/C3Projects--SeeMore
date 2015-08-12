@@ -11,10 +11,12 @@ module VimeoHelper
     return embed_code
   end
 
-  # def resize_video_main_feed(result_hash)
-  #   embed_code = result_hash["content"]
-  #   embed_code.gsub!(/(width="\d{2,4}")/, 'width="50%"')
-  #   embed_code.gsub!(/(height="\d{2,4}")/, 'height="100%"')
-  #   return embed_code
-  # end
+  def user_already_vimeo?(platform_feed_id) # FIXME: test Jeri
+    feed = Feed.find_by(platform_feed_id: platform_feed_id.to_i, platform: "Vimeo")
+    if feed
+      return feed.au_users.include? current_user
+    else
+      return nil
+    end
+  end
 end

@@ -4,6 +4,13 @@ class AuUser < ActiveRecord::Base
 
   validates :uid, :provider, :name, :presence => true
 
+  def unsubscribe(id)
+    feed = Feed.find(id)
+    feeds.delete(feed)
+
+    feed.destroy if feed.au_users.nil?
+  end
+
   def self.create_with_omniauth(auth)
     create! do |au_user|
       au_user.provider = auth["provider"]
