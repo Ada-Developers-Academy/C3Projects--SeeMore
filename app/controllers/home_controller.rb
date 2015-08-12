@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   skip_before_action :require_signin, only: [:signin]
-  # before_action :twitter_api, only: [:get_new_posts, :find_twitter_params, :get_posts_from_API]
 
   include ActionView::Helpers::OutputSafetyHelper
 

@@ -11,8 +11,6 @@ class ApplicationController < ActionController::Base
   before_action :current_user
   before_action :require_signin
 
-  # helper_action :twitter_api
-
   TWITTER = "twitter"
   INSTAGRAM = "instagram"
 
@@ -22,10 +20,6 @@ class ApplicationController < ActionController::Base
     config.client_id = ENV["INSTAGRAM_CLIENT_ID"]
     config.client_secret = ENV["INSTAGRAM_CLIENT_SECRET"]
   end
-
-  # def twitter_api
-  #   @twitter_api ||= TwitterApi.new
-  # end
 
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
