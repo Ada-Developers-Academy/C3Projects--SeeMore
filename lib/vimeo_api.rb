@@ -7,7 +7,6 @@ module FriendFaceAPIs
       feed_id = feed_id.to_s
       feed_url = self.vimeo_feed_uri(feed_id)
       results = self.vimeo_json_request(feed_url)
-      raise
       return results["data"]
     end
 
