@@ -39,8 +39,6 @@ gem 'httparty'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-  gem "webmock", groups: [:test]
-  gem "vcr", groups: [:test]
 group :development, :test do
   gem "better_errors" # These two are just for debugging
   gem "binding_of_caller"
@@ -57,4 +55,9 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+group :test do
+  gem "webmock"
+  gem "vcr"
 end

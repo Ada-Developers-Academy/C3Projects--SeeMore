@@ -6,8 +6,15 @@ module VimeoHelper
 
   def resize_video(result_hash)
     embed_code = result_hash["embed"]["html"]
-    embed_code.gsub!(/(width="\d{2,4}")/, 'width="100%"')
-    embed_code.gsub!(/(height="\d{2,4}")/, 'height="75%"')
+    embed_code.gsub!(/(width="\d{2,4}")/, 'width="50%"')
+    embed_code.gsub!(/(height="\d{2,4}")/, 'height="100%"')
     return embed_code
   end
+
+  # def resize_video_main_feed(result_hash)
+  #   embed_code = result_hash["content"]
+  #   embed_code.gsub!(/(width="\d{2,4}")/, 'width="50%"')
+  #   embed_code.gsub!(/(height="\d{2,4}")/, 'height="100%"')
+  #   return embed_code
+  # end
 end
