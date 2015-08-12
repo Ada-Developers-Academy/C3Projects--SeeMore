@@ -5,7 +5,11 @@ class TweetsController < ApplicationController
     if params[:tweet][:username].present?
       username = params[:tweet][:username]
       @users = @twitter.client.user_search(username)
-      return render "feeds/search"
+      if @users.empty?
+        return redirect_to search_path, flash: { error: MESSAGES[:no_username] }
+      else
+        return render "feeds/search"
+      end
     else
       redirect_to "feeds/search", flash: { error: MESSAGES[:no_username] }
     end

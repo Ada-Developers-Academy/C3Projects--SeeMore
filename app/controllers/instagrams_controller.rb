@@ -11,9 +11,13 @@ class InstagramsController < ApplicationController
       response = HTTParty.get(INSTAGRAM_URI + "users/search?q=#{instagram_search}&client_id=#{ENV["INSTAGRAM_ID"]}")
       @users = response["data"]
 
-      return render "feeds/search"
+      if @users.empty?
+        return redirect_to search_path, flash: { error: MESSAGES[:no_username] }
+      else
+        return render "feeds/search"
+      end
     else
-      redirect_to "feeds/search", flash: { error: MESSAGES[:no_username] }
+      redirect_to search_path, flash: { error: MESSAGES[:no_username] }
     end
   end
 
