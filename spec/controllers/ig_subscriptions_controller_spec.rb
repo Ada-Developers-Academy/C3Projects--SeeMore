@@ -1,6 +1,5 @@
 require 'rails_helper'
 require 'support/vcr_setup'
-require 'pry'
 
 RSpec.describe IgSubscriptionsController, type: :controller do
   let(:log_in) {
