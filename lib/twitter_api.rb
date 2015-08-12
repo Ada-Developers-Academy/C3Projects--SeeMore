@@ -24,7 +24,7 @@ class TwitterApi
   end
 
   def get_posts(id, last_post_id)
-    posts = client.user_timeline(id, timeline_options(last_post_id))
+    client.user_timeline(id, timeline_options(last_post_id))
   end
 
   # put in TwitterMapper
