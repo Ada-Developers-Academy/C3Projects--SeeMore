@@ -1,64 +1,91 @@
-<body class="search-bkgd">
-<h1>Search</h1>
+<section class="search-bkgd">
+  <h1>Search</h1>
 
-<%= render partial: "shared/errors" %>
-<br>
-<p>Search Twitter Users:</p>
+  <%= render partial: "shared/errors" %>
+  <br>
 
-<%= form_tag twitter_users_redirect_path, options: {class: "form-inline", role:"form"} do %>
-  <div class="form-group">
-  <%= label_tag :user %>
-  <%= text_field_tag :user %>
-  <%= hidden_field_tag :source, "twitter" %>
+  <p>Search Twitter Users:</p>
+  <%= form_tag twitter_users_redirect_path, options: {class: "form-inline", role:"form"} do %>
+    <div class="form-group">
+      <%= label_tag :user %>
+      <%= text_field_tag :user %>
+      <%= hidden_field_tag :source, "twitter" %>
 
-  <%= submit_tag 'Look up Twitter Users', class: "btn btn-default" %>
-<% end %>
-  </div>
-<p>Search Instagram Users:</p>
-<%= form_tag instagram_users_redirect_path, options: {class: "form-inline", role: "form"} do %>
-  <div class="form-group">
-  <%= label_tag :user %>
-  <%= text_field_tag :user %>
-  <%= hidden_field_tag :source, "instagram" %>
+      <%= submit_tag 'Look up Twitter Users', class: "btn btn-default" %>
+    </div>
+  <% end %> 
+  
+  <p>Search Instagram Users:</p>
+  <%= form_tag instagram_users_redirect_path, options: {class: "form-inline", role: "form"} do %>
+    <div class="form-group">
+      <%= label_tag :user %>
+      <%= text_field_tag :user %>
+      <%= hidden_field_tag :source, "instagram" %>
 
-  <%= submit_tag "Look up Instagram Users", class: "btn btn-default" %>
-<% end %>
-</div>
+      <%= submit_tag "Look up Instagram Users", class: "btn btn-default" %>
+    </div>
+  <% end %> 
 
   <% if action_name == "search_results" %>
-  <div class="panel panel-default panel-change">
-    <div class="panel panel-heading">
-    <h1 id="top"><%= @source.capitalize %> user results for "<%= @query %>"</h1>
-  </div>
-    <% if params[:source] == "instagram" %>
-      <ul class="search-results">
-        <% @results.each do |user| %>
-          <li>
-            <%= image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
-            @<%= user["username"] %>
-            <%= form_tag subscriptions_path(user) do %>
-              <%= hidden_field_tag :source, "instagram" %>
-              <%= submit_tag "Subscribe", class: "btn btn-default" %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    <% elsif params[:source] == "twitter" %>
-      <ul class="twitter-results">
-        <% @results.each do |user| %>
-          <li><%= image_tag(user.profile_image_url) %>
-          @<%= user.screen_name %></li>
-          <%= form_tag subscriptions_path(user), class: "btn btn-default" do %>
-            <%= hidden_field_tag :id, user.id %>
-            <%= hidden_field_tag :avatar_url, user.profile_image_url.to_s %>
-            <%= hidden_field_tag :username, user.screen_name %>
-            <%= hidden_field_tag :source, "twitter" %>
-            <%= submit_tag "Subscribe", class: "btn btn-default" %>
-          <% end %>
-        <% end %>
-      </ul>
-    <% end %>
+    <div class="panel panel-default panel-change">
+      <div class="panel panel-heading">
+        <h1 id="top"><%= @source.capitalize %> user results for "<%= @query %>"</h1>
+      </div>
+
+      <% if params[:source] == "instagram" %>
+        <ul class="search-results">
+          <% @results.each do |user| %>
+            <li>
+              <%= image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
+              @<%= user["username"] %>
+
+              <!-- Cannot subscribe to private user accounts -->
+              <% if private_user?(user["id"]) %>
+                <%= link_to "Private User", root_path, class: "btn btn-default disabled"%>
+              
+              <!-- Can 'unsubscribes' from user accounts you already follow -->
+              <% elsif already_following?(user["id"]) %>
+                <%= link_to "Unsubscribe", "#", class: "btn btn-danger" %>
+
+              <!-- Can subscribe to public user accounts -->
+              <% else %>
+                <%= form_tag subscriptions_path(user) do %>
+                  <%= hidden_field_tag :source, "instagram" %>
+                  <%= submit_tag "Subscribe", class: "btn btn-success" %>
+                <% end %>
+              <% end %> 
+            </li>
+          <% end %> 
+        </ul>
+
+      <% elsif params[:source] == "twitter" %>
+        <ul class="twitter-results">
+          <% @results.each do |user| %>
+            <li>
+              <%= image_tag(user.profile_image_url) %>
+              @<%= user.screen_name %>
+
+              <!-- Can 'unsubscribes' from user accounts you already follow -->
+              <% if already_following?(user.id) %>
+                <%= link_to "Unsubscribe", "#", class: "btn btn-danger" %>
+
+              <!-- Can subscribe to public user accounts -->
+              <% else %>
+                <%= form_tag subscriptions_path(user) do %>
+                  <%= hidden_field_tag :id, user.id %>
+                  <%= hidden_field_tag :avatar_url, user.profile_image_url.to_s %>
+                  <%= hidden_field_tag :username, user.screen_name %>
+                  <%= hidden_field_tag :source, "twitter" %>
+                  <%= submit_tag "Subscribe", class: "btn btn-success" %>
+                <% end %>
+              <% end %> 
+            </li>
+          <% end %> 
+        </ul>
+      <% end %> <!-- if :source -->
+    </div> <!-- .panel-change -->
+  <% end %> <!-- search_results render -->
+  
   <%= link_to "Back to top", "#top", class: "link-to-top" %>
-  <% end %>
-</div>
-</body>
+
+</section>
