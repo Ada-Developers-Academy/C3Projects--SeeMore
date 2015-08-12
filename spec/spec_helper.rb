@@ -48,6 +48,12 @@ RSpec.configure do |config|
       info: {email: "a@b.com", name: "Ada"},
       credentials: { token: 'token' }
     })
+    OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
+      :provider => 'twitter',
+      :uid => '12345',
+      info: {email: "a@b.com", name: "Ada"},
+      credentials: { token: 'token' }
+    })
   end
 
   Dir["./spec/support/**/*.rb"].sort.each { |f| require f}
