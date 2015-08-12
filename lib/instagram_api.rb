@@ -13,7 +13,7 @@ class InstagramApi
     return response["data"]
   end
 
-  def get_embed_html(post)
+  def embed_html_with_js(post)
     link = post["link"]
     response = HTTParty.get(INSTA_OEMBED_URI + link)
 
