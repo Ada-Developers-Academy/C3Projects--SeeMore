@@ -1,5 +1,4 @@
 class FeedsController < ApplicationController
-
   before_action :set_user, only: [ :index, :tw_follow, :ig_follow ]
 
   def index
@@ -44,7 +43,6 @@ class FeedsController < ApplicationController
 
 
   def tw_follow
-    # binding.pry
     id = params[:tw_user]
     twitter_user = TwUser.find_or_create_by(tw_user_id_str: id)
     # TODO: Refactor so these assignments happen in another method
