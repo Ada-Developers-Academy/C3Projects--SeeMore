@@ -3,7 +3,9 @@ class PreyController < ApplicationController
   before_action :find_or_create_prey
 
   def create
-    if @stalker.prey << @prey
+    if @stalker.prey.include?(@prey)
+      flash[:message] = { success: "You were already following #{@prey.username}!" }
+    elsif @stalker.prey << @prey
       flash[:message] = { success: "You are now following #{@prey.username}!" }
     else
       flash[:error] = { error: "We don't know what happened. We're very very sorry! >_>" }
