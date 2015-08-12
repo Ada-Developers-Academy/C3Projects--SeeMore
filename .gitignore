@@ -19,3 +19,6 @@
 
 # Ignore .env always
 .env
+
+# Ignore all VCR cassettes
+/spec/support/vcr_cassettes
