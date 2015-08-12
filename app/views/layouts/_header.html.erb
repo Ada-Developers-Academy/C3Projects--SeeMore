@@ -1,15 +1,17 @@
-<nav class="header">
-  <div class="navbar navbar-default header-img">
-    <div class="navbar-header">
-      <%= link_to "FeedMe", get_new_posts_path, method: :post, class: "navbar-brand news-text" %>
-      <p class="news-text"> The news feed you actually care about</p>
+<% unless current_page?("/signin") %>
+  <nav class="header">
+    <div class="navbar navbar-default header-img">
+      <div class="navbar-header">
+        <%= link_to "FeedMe", get_new_posts_path, method: :post, class: "navbar-brand news-text" %>
+        <p class="news-text"> The news feed you actually care about</p>
+      </div>
+      <div class="nav navbar-nav navbar-right button">
+        <% if session[:user_id] %>
+        <p class="news-text">Logged in as: <%= @current_user.name %></p>
+          <%= link_to 'My Subscriptions', subscriptions_path, method: :get, class: "btn btn-primary btn-sm" %>
+          <%= link_to "Logout", signout_path, method: :delete, class: "btn btn-default btn-sm" %>
+        <% end %>
+      </div>
     </div>
-    <div class="nav navbar-nav navbar-right button">
-      <% if session[:user_id] %>
-      <p class="news-text">Logged in as: <%= @current_user.name %></p>
-        <%= link_to 'My Subscriptions', subscriptions_path, method: :get, class: "btn btn-primary btn-sm" %>
-        <%= link_to "Logout", signout_path, method: :delete, class: "btn btn-default btn-sm" %>
-      <% end %>
-    </div>
-  </div>
-</nav>
+  </nav>
+<% end %>

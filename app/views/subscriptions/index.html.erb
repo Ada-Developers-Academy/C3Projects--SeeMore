@@ -1,8 +1,11 @@
 <h1 class="center"><%= @current_user.name.capitalize %>'s Subscriptions </h1>
   <ul class="search-results">
+
+  <div id="flash">
   <% if !flash.empty? %>
     <%= flash[:notice] %>
     <% end %>
+  </div>
 
   <% @followees.each do |f| %>
     <li>
