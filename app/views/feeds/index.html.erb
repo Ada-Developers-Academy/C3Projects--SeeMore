@@ -2,5 +2,6 @@
 <%= link_to "Search Instagram Users", search_path('instagram'), class: 'btn btn-default' %>
 
 <% @instagram_posts.each do |post| %>
-<%= post.caption %>
+<% response = HTTParty.get("http://api.instagram.com/oembed?url=http://instagr.am/#{post.link[22,20]}") %>
+<%= raw response["html"] %>
 <% end %>
