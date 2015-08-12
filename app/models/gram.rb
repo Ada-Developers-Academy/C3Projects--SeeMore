@@ -1,4 +1,6 @@
 class Gram < ActiveRecord::Base
+  #Validations-----------------------------------------------------------------
+  validates :ig_id, uniqueness: true  
   #Associations
   belongs_to :instagram_user
 
@@ -44,7 +46,11 @@ class Gram < ActiveRecord::Base
       new_gram[:ig_user_fullname]   = post["user"]["full_name"]
       new_gram[:instagram_user_id]  = account.id
 
-      new_gram.save
+      if new_gram.valid?
+        new_gram.save
+      else
+        next
+      end
     end
   end
 end
