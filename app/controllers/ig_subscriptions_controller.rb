@@ -22,19 +22,33 @@ class IgSubscriptionsController < ApplicationController
   def create
     @instagram_id = params[:instagram_id]
 
-    subscription = Subscription.find_or_create_ig_subscription(@instagram_id)
+    access_token = session[:access_token]
 
-    assign_profile_pic(subscription)
+    relationship_check = HTTParty.get(INSTA_URI + "#{params[:instagram_id]}/relationship?access_token=" + access_token)
+    if relationship_check["data"]["target_user_is_private"] == true && relationship_check["data"]["outgoing_status"] == "none"
 
-    @user.associate_subscription(subscription)
+      flash[:error] = "This user is private and thus spared."
 
-    response = []
-    response << single_subscription_httparty_object(subscription)
-    Post.create_all_instagram_posts(response)
 
-    flash[:notice] = "Subscribed successfully!"
+      redirect_to root_path
+    else
 
-    redirect_to root_path
+      subscription = Subscription.find_or_create_ig_subscription(@instagram_id)
+
+      assign_profile_pic(subscription)
+
+
+      @user.associate_subscription(subscription)
+
+
+      response = []
+      response << single_subscription_httparty_object(subscription)
+      Post.create_all_instagram_posts(response)
+
+      flash[:notice] = "Subscribed successfully!"
+
+      redirect_to root_path
+    end
   end
 
   def refresh_ig
