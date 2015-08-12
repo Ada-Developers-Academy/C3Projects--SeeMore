@@ -7,9 +7,9 @@ class Gram < ActiveRecord::Base
 
 # Methods ----------------------------------------------------------------------
   def self.collect_latest_posts(user)
-    following_accounts = user.instagram_users
+    followees = user.instagram_users
 
-    following_accounts.each do |account|
+    followees.each do |account|
       last_post_id = account.grams.last.try :ig_id
       unless last_post_id == nil
         response = HTTParty.get("https://api.instagram.com/v1/users/#{account.ig_user_id}/media/recent/?min_id=#{last_post_id}&access_token=#{ENV['INSTAGRAM_ACCESS_TOKEN']}")
@@ -17,6 +17,7 @@ class Gram < ActiveRecord::Base
         response = HTTParty.get("https://api.instagram.com/v1/users/#{account.ig_user_id}/media/recent/?count=5&access_token=#{ENV['INSTAGRAM_ACCESS_TOKEN']}")
       end
       posts = response["data"] #this is an array of hashes.
+      posts.reverse # changes it to ascending chronological order
       Gram.save_posts(posts)
     end
 
