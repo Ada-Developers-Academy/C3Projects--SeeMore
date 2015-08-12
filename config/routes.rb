@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   resources :ig_subscriptions, path: "instagram_results"
 
+  get "posts/:id", to: "posts#show", as: "posts"
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
