@@ -1,9 +1,7 @@
 class FolloweesController < ApplicationController
-  USER_COUNT = 3
-
-  before_action :find, only: [:destroy]
-
   include ActionView::Helpers::OutputSafetyHelper
+
+  USER_COUNT = 3
 
   def search; end   # this renders the search page
 
@@ -29,8 +27,6 @@ class FolloweesController < ApplicationController
   def search_results
     @query = params[:user]
     @source = params[:source]
-
-    # call a ApiHelper class method that directs the flow to the correct Api
     @results = ApiHelper.user_search(@query, USER_COUNT, @source)
 
     render 'search'
