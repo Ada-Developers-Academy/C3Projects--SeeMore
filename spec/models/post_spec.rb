@@ -63,22 +63,20 @@ RSpec.describe Post, type: :model do
   end
 
   describe "post model methods" do
-    context "create_all_instagram_posts" do
-      it "takes array of HTTParty objects, and finds in db or creates new posts" do
+    # context "create_all_instagram_posts" do
+    #   it "takes array of HTTParty objects, and finds in db or creates new posts" do
 
-      access_token = ENV["INSTAGRAM_ACCESS_TOKEN"]
-      INSTA_URI = "https://api.instagram.com/v1/users/"
-      COUNT = 15
-      subscription = create :ig_sub
+    #     VCR.use_cassette('instagram refresh 1') do
 
-      array_of_httparty_objects = []
-      array_of_httparty_objects << HTTParty.get(INSTA_URI + "#{subscription.instagram_id}/media/recent/?count=#{COUNT}&access_token=" + access_token)
+    #       array_of_httparty_objects = ENV["INSTAGRAM_RESPONSE"]
+    #       array_of_httparty_objects.to_a
 
-      Post.create_all_instagram_posts(array_of_httparty_objects)
+    #       Post.create_all_instagram_posts(array_of_httparty_objects)
 
-      expect(Post.count).to eq 15
-      end
-    end
+    #       expect(Post.count).to eq 15
+    #     end
+    #   end
+    # end
 
     context "#create_instagram_post" do
       before :each do
@@ -100,6 +98,10 @@ RSpec.describe Post, type: :model do
 
         expect(Post.count).to eq 1
       end
+    end
+
+    context "create_twitter_posts" do
+
     end
   end
 end
