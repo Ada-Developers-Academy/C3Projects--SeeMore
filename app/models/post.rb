@@ -8,15 +8,17 @@ class Post < ActiveRecord::Base
   # Scopes ---------------------------------------------------------------------
   scope :chron_sort, -> { order('native_created_at')}
 
-  def self.process_new_posts(subscription)
-    followee = subscription.followee
-    source = followee.source
+  def self.process_new_posts(subscriptions)
+    subscriptions.each do |subscription|
+      followee = subscription.followee
+      source = followee.source
 
-    posts = get_posts_from_API(followee)
+      posts = get_posts_from_API(followee)
 
-    if posts && posts.count > 0      
-      create_from_API(posts, followee, source)
-      Followee.update_last_post_id!(posts, followee, source)
+      if posts && posts.count > 0      
+        create_from_API(posts, followee, source)
+        Followee.update_last_post_id!(posts, followee, source)
+      end
     end
   end
 

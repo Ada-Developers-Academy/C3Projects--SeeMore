@@ -29,9 +29,7 @@ class HomeController < ApplicationController
   def get_new_posts
     active_subscriptions = @current_user.subscriptions.active
 
-    active_subscriptions.each do |subscription|
-      Post.process_new_posts(subscription)
-    end
+    Post.process_new_posts(active_subscriptions)
 
     redirect_to root_path
   end
