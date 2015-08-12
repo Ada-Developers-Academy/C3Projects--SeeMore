@@ -40,25 +40,29 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
 
   describe "#create" do
     it "redirects to the home page" do
-      log_in
-      post :create, twitter_id: "777"
+      VCR.use_cassette('twitter subscription creation') do
+        log_in
+        post :create, twitter_id: "494335393"
 
-      expect(subject).to redirect_to root_path
-      expect(response).to have_http_status(302)
+        expect(subject).to redirect_to root_path
+        expect(response).to have_http_status(302)
+      end
     end
 
     it "redirects to the home page if not logged in" do
-      post :create, twitter_id: "777"
+      post :create, twitter_id: "494335393"
 
       expect(subject).to redirect_to root_path
     end
 
     #associations method is adding the id to instragram, not twitter
     it "associates the twitter subscription with user" do
-      log_in
-      post :create, twitter_id: "777"
+      VCR.use_cassette('twitter subscription creation') do
+        log_in
+        post :create, twitter_id: "494335393"
 
-      expect(assigns(:user).subscriptions).to include(Subscription.find_by(twitter_id: "777"))
+        expect(assigns(:user).subscriptions).to include(Subscription.find_by(twitter_id: "494335393"))
+      end
     end
   end
 end
