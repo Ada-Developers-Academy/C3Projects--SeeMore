@@ -22,3 +22,6 @@
 
 # This is important because these contain the secrets.
 /spec/vcr_cassettes/
+
+# since we won't need to seed this in production...
+/db/seeds
