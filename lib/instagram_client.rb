@@ -5,7 +5,7 @@ class InstagramClient
   INSTAGRAM_FETCH_GRAMS_URI = "https://api.instagram.com/v1/users/"
 
   def self.user_search(search_term)
-    response = HTTParty.get(INSTAGRAM_SEARCH_USERS_URI + "q=#{search_term}")
+    response = HTTParty.get(INSTAGRAM_SEARCH_USERS_URI + "q=#{search_term.delet(" ")}")
     InstagramHelper.format_many_prey(response["data"])
   end
 
