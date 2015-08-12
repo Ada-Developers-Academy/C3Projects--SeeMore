@@ -56,6 +56,11 @@ class FeedsController < ApplicationController
     redirect_to :back
   end
 
+  def dismiss_alert
+    @alert = false
+    redirect_to :back
+  end
+
   private
 
   def twitter_params
