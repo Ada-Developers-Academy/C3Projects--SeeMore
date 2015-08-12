@@ -1,19 +1,17 @@
-<div class="container">
-
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <ul class="nav navbar-nav navbar-right">
-        <!-- <a name="#top"></a> -->
-        <% if session[:user_id].nil? %>
-        <li><%= link_to "Dev Login", login_path(provider: :developer) %></li>
-        <% else %>
-        <li><%= link_to "Follow People", search_path %></li>
-        <li><%= link_to "Assasinate", people_path %></li>
-        <li><%= link_to "Go Home", root_path, method: :get %></li>
-        <li><%= link_to "Logout", logout_path, method: :delete %></li>
-        <li><%= link_to "Dev Login", login_path(provider: :developer) %></li>
-        <% end %>
-      </ul>
-    </div>
-  </nav>
-</div>
+<nav class="container navbar navbar-default">
+    <ul class="nav navbar-nav navbar-right">
+      <!-- <a name="#top"></a> -->
+      <% if session[:user_id].nil? %>
+      <li><%= link_to "Dev Login", login_path(provider: :developer) %></li>
+      <% else %>
+      <% if @user %>
+        <li class ="navbar-text"><%= @user.username %></li>
+      <% end %>
+      <li><%= link_to "Stalk Targets", search_path %></li>
+      <li><%= link_to "Assasinate", people_path %></li>
+      <li><%= link_to "Go Home", root_path, method: :get %></li>
+      <li><%= link_to "Logout", logout_path, method: :delete %></li>
+      <li><%= link_to "Dev Login", login_path(provider: :developer) %></li>
+      <% end %>
+    </ul>
+</nav>
