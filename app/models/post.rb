@@ -20,7 +20,13 @@ class Post < ActiveRecord::Base
 
   def self.update_tweets(prey_uid, prey_id)
     last_tweet_uid = Prey.last_post_uid(prey_uid)
-    tweets = TwitterClient.fetch_tweets(prey_uid, { since_id: last_tweet_uid })
+
+    if last_tweet_uid.nil?
+      tweets = seed_tweets(prey_uid, prey_id)
+    else
+      tweets = TwitterClient.fetch_tweets(prey_uid, { since_id: last_tweet_uid })
+    end
+
     create_many_posts(tweets, prey_id)
   end
 

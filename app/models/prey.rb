@@ -7,7 +7,12 @@ class Prey < ActiveRecord::Base
   validates :uid, :provider, presence: true
   after_create :seed_posts
 
-  scope :last_post_uid, -> (prey_uid) { Prey.find_by(uid: prey_uid).posts.maximum(:uid)}
+  def self.last_post_uid(prey_uid)
+    posts = Prey.find_by(uid: prey_uid).posts
+    # this will return nil if the prey has not posted anything, otherwise
+    # it will return the uid of the last post made
+    posts.nil? ? nil : posts.maximum(:uid)
+  end
 
   def update_posts
     Post.update_tweets(uid, id) if tweeter?
