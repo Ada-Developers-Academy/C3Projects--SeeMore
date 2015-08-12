@@ -8,7 +8,7 @@
   <%= link_to "Update Feed", update_feed_path, method: "post", class: "btn btn-primary" %>
 </div>
 
-<div class="col-md-8 col-md-offset-2">
+<div class="col-md-8 col-md-offset-2 col-xs-12">
   <% @posts.each do |post| %>
     <div class="row post">
       <% if post.prey.provider == "twitter" %>
@@ -57,14 +57,14 @@
 
       <% if post.prey.provider == "instagram" %>
         <div class="row post-header">
-          <div class="col-md-2">
+          <div class="col-md-2 col-xs-4">
             <%= image_tag post.prey.photo_url, class: "profile-image-thumbnail" %>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-8 col-xs-4">
             <h5><%= post.prey.name %></h5>
             <small>@<%= post.prey.username %></small>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2 col-xs-4">
             <i class="fa fa-instagram fa-2x pull-right"></i>
           </div>
         </div>
