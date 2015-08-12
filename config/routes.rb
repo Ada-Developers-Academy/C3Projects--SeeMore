@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/search', to: 'home#search'
 
   get '/refresh_ig', to: 'ig_subscriptions#refresh_ig'
-  get '/refresh_twi', to: 'twi_subscriptions#refresh_tweets'
+  get '/refresh_twi', to: 'twi_subscriptions#refresh_twi'
 
   post "/auth/:provider/callback", to: "sessions#create"
   get '/auth/:provider/callback', to: 'sessions#create'
