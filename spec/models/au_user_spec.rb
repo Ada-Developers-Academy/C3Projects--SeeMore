@@ -3,24 +3,14 @@ require 'rails_helper'
 RSpec.describe AuUser, type: :model do
   context "creating a new user" do
     describe "validations" do
-
-      it "name is required" do
-        au_user = build :au_user, name: nil
-
-        expect(au_user).to_not be_valid
-        expect(au_user.errors.keys).to include(:name)
-      end
-
       it "uid is required" do
         au_user = build :au_user, uid: nil
-
         expect(au_user).to_not be_valid
         expect(au_user.errors.keys).to include(:uid)
       end
 
       it "provider is required" do
         au_user = build :au_user, provider: nil
-
         expect(au_user).to_not be_valid
         expect(au_user.errors.keys).to include(:provider)
       end
@@ -38,7 +28,7 @@ RSpec.describe AuUser, type: :model do
   end
 
   describe "omni auth model method" do
-    context "auth hash without avatar" do
+    context "Vimeo user" do
       let (:user) { AuUser.create_with_omniauth(OmniAuth.config.mock_auth[:vimeo]) }
       it "assigns values to the user via the provider" do
         expect(user.uid).to eq(OmniAuth.config.mock_auth[:vimeo]["uid"])
@@ -46,6 +36,14 @@ RSpec.describe AuUser, type: :model do
 
       it "controls for accounts without avatars" do
         expect(user.avatar).to eq (OmniAuth.config.mock_auth[:vimeo]["avatar"])
+      end
+    end
+
+    context "Instagram user" do
+      let (:user) { AuUser.create_with_omniauth(OmniAuth.config.mock_auth[:instagram]) }
+
+      it "assigns values to the user via the provider" do
+        expect(user.name).to eq(OmniAuth.config.mock_auth[:instagram]["info"]["nickname"])
       end
     end
   end
