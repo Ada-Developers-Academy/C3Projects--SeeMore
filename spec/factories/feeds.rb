@@ -7,12 +7,19 @@ FactoryGirl.define do
   end
 
   factory :user_instagram, class: Feed do
-    id 343005985
     name "johngreenwritesbooks"
     avatar nil
     platform "Instagram"
     platform_feed_id 343005985
   end
+
+  factory :no_post, class: Feed do
+    name "brenntilda"
+    avatar nil
+    platform "Instagram"
+    platform_feed_id 2038320544
+  end
+
 
   factory :user_vimeo, class: Feed do
     id 741273

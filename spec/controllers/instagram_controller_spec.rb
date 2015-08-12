@@ -9,7 +9,7 @@ RSpec.describe InstagramController, type: :controller do
 
     context "results" do
       before :each do
-        @search_term = "potatoes"
+        @search_term = "potato"
         get :results, query: @search_term
       end
 
@@ -33,6 +33,7 @@ RSpec.describe InstagramController, type: :controller do
     context "individual_feed" do
       context "feed that has posts" do
         before :each do
+          allow_any_instance_of(Feed).to receive(:populate_posts)
           feed = create :feed
           # FIXME: add VCR here to mimic posts
           get :individual_feed, feed_id: feed.id
@@ -46,15 +47,20 @@ RSpec.describe InstagramController, type: :controller do
           expect(response).to render_template("individual_feed")
         end
 
-        it "assigns @posts" # FIXME: add VCR here to mimic posts
+        it "assigns @posts"  # FIXME: add VCR here to mimic posts
 
         it "displays { FILL_ME_IN } results" # FIXME: how many results do we want to display?
       end
 
       context "feed that doesn't have posts" do
         it "sends an error message" do
-          feed = create :feed
-          get :individual_feed, feed_id: feed.id
+          # allow_any_instance_of(Feed).to receive(:populate_posts)
+
+          VCR.use_cassette("no_post") do
+            feed = create :no_post
+
+            get :individual_feed, feed_id: feed.id
+          end
 
           expect(flash[:error]).not_to be_nil
         end
@@ -62,24 +68,34 @@ RSpec.describe InstagramController, type: :controller do
     end
 
     context "subscribe" do
+
       it "associates the feed with the user" do
+
+        allow_any_instance_of(Feed).to receive(:populate_posts)
+        request.env["HTTP_REFERER"] = instagram_results_path("cats")
+
         feed = create :feed
         post :subscribe, feed_id: feed.id
         expect(@user.feeds).to include(feed)
       end
 
-      it "creates a new database entry if the feed is not found" # FIXME: add VCR here to mimic posts
+      # it "creates a new database entry if the feed is not found" # FIXME: add VCR here to mimic posts
 
       it "redirects to the user's feed" do
+        request.env["HTTP_REFERER"] = instagram_results_path("cats")
+
+        allow_any_instance_of(Feed).to receive(:populate_posts)
+
         feed = create :feed
         post :subscribe, feed_id: feed.id
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to instagram_results_path("cats")
       end
     end
   end
 
   describe "unauthenticated / guest users" do
     context "results" do
+
       it "redirects to the root_path / login page" do
         search_term = "potatoes"
         get :results, query: search_term
@@ -88,7 +104,9 @@ RSpec.describe InstagramController, type: :controller do
     end
 
     context "individual_feed" do
+
       it "redirects to the root_path / login page" do
+        allow_any_instance_of(Feed).to receive(:populate_posts)
         feed = create :feed
         get :individual_feed, feed_id: feed.id
         expect(response).to redirect_to root_path
@@ -97,6 +115,7 @@ RSpec.describe InstagramController, type: :controller do
 
     context "subscribe" do
       it "redirects to the root_path / login page" do
+        allow_any_instance_of(Feed).to receive(:populate_posts)
         feed = create :feed
         post :subscribe, feed_id: feed.id
         expect(response).to redirect_to root_path
