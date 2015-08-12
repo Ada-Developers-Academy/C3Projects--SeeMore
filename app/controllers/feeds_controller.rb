@@ -4,6 +4,10 @@ class FeedsController < ApplicationController
   before_action :require_login, only: [:people, :search]
   before_action :instagram_post_create, :tweet_post_create, only: [:index]
 
+  def search
+    @user = User.find_by(id: session[:user_id])
+  end
+
   def index
     @user = User.find_by(id: session[:user_id])
 
