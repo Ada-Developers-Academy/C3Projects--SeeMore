@@ -1,3 +1,23 @@
 // Place all the styles related to the feeds controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.search-wrapper {
+  margin-top: 70px;
+}
+
+.social-media-icon-bkgd {
+  content: '';
+  background-color: #fff;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.social-media-glyph {
+  width: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

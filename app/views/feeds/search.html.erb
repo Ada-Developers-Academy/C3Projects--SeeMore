@@ -1,10 +1,23 @@
-<h1>Who do you want to creep on?</h1>
+<div class="search-wrapper col-sm-6 center-block no-float">
+  <div class="social-media-icon-bkgd center-block">
+    <% if params[:provider] == 'instagram' %>
+      <%= image_tag('IG_logo', class: 'social-media-glyph center-block') %>
+    <% else %>
+      <%= image_tag('Twitter_logo', class: 'social-media-glyph center-block') %>
+    <% end %>
+  </div>
 
-<%= form_tag search_redirect_path do %>
-  <%= label_tag :search_term %>
-  <%= text_field_tag :search_term %>
+  <h1 class="text-center">Who do you want to creep on?</h1>
 
-  <%= hidden_field_tag :provider, params[:provider] %>
+  <br><br>
+  <%= form_tag search_redirect_path, class: 'col-sm-8 center-block no-float' do %>
+    <div class="form-group">
+      <%= label_tag :search_term, "Search Term" %>
+      <%= text_field_tag :search_term, nil, class: 'form-control' %>
+    </div>
 
-  <%= submit_tag "CREEP" %>
-<% end %>
+    <%= hidden_field_tag :provider, params[:provider] %>
+
+    <%= submit_tag "CREEP", class: 'btn btn-default center-block' %>
+  <% end %>
+</div>
