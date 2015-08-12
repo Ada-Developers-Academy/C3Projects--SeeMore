@@ -17,7 +17,7 @@ FactoryGirl.define do
   factory :tweet do
     tw_id_str "500"
     tw_text "Don't worry, Be Yonce"
-    tw_created_at "2015-08-06 15:07:59 -0700"
+    created_time "2015-08-06 15:07:59 -0700"
     tw_retweet_count 5
     tw_favorite_count 2
     tw_user_id_str "100"

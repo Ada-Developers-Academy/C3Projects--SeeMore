@@ -1,10 +1,7 @@
-<% @instagram_posts.each do |post| %>
-<% response = HTTParty.get("http://api.instagram.com/oembed?url=http://instagr.am/#{post.link[22,20]}") %>
-<%= raw response["html"] %>
-<% end %>
-
-<ul class="list-group">
-  <% @tweets.each do |tweet| %>
-      <%= raw tweet_oembed(tweet) %>
+<% @posts.each do |post| %>
+  <% if post.class == Tweet %>
+    <%= raw tweet_oembed(post).html %>
+  <% elsif post.class == Gram %>
+    <%= raw gram_oembed(post)["html"] %>
   <% end %>
-</ul>
+<% end %>
