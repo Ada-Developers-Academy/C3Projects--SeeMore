@@ -25,7 +25,7 @@
                     <span class="fa fa-twitter fa-lg icon" aria-hidden="true" data-toggle="tooltip"></span> <%= post.username %></h5>
                     <p><%= post.text %></p>
                   <% end %>
-                  <em><%= post.date_time.strftime("%m/%d/%Y at %I:%M%p") %></em>
+                  <span class="posted-at text-muted"><%= post.date_time.strftime("%a, %B %e, %Y at %I:%M%P %Z") %></span>
                 </div>
               </div>
             <% end %>
