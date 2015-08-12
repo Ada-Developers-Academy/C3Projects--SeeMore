@@ -3,6 +3,10 @@ require 'support/vcr_setup'
 
 RSpec.describe FeedsController, type: :controller do
 
+  describe "GET index" do
+    
+  end
+
   describe "GET feeds#search" do
     it "loads the search form" do
       get :search, provider: 'instagram'
@@ -89,6 +93,14 @@ RSpec.describe FeedsController, type: :controller do
       post :tw_follow, tw_user: @twitter_user.tw_user_id_str, screen_name: 'queen_beyonce'
       @twitter_user.reload
       expect(@twitter_user.screen_name).to eq('queen_beyonce')
+    end
+  end
+
+  describe "#ig_follow" do
+    let(:user){create :user}
+    let(:instagram_user){create :instagram_user}
+
+    it "creates an association between user and IG account"do
     end
   end
 end

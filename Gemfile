@@ -64,6 +64,7 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'awesome_print'
 end
 
 group :test do

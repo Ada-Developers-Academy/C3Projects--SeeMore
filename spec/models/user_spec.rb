@@ -50,4 +50,14 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#ig_follow" do
+    let(:user) { create :user }
+    let(:ig_user) { create :instagram_user }
+
+    it "creates an association between the user and IG account" do
+      user.ig_follow(ig_user)
+      expect(user.instagram_users).to include ig_user
+    end
+  end
 end

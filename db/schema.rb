@@ -13,6 +13,41 @@
 
 ActiveRecord::Schema.define(version: 20150811204309) do
 
+  create_table "grams", force: :cascade do |t|
+    t.string   "tags"
+    t.string   "media_type"
+    t.string   "created_time"
+    t.string   "link"
+    t.integer  "likes"
+    t.string   "image_url"
+    t.string   "caption"
+    t.string   "ig_id"
+    t.string   "ig_username"
+    t.string   "ig_user_pic"
+    t.string   "ig_user_id"
+    t.string   "ig_user_fullname"
+    t.integer  "instagram_user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "instagram_users", force: :cascade do |t|
+    t.string   "username"
+    t.string   "profile_pic"
+    t.string   "ig_user_id"
+    t.string   "fullname"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "instagram_users_users", id: false, force: :cascade do |t|
+    t.integer "instagram_user_id"
+    t.integer "user_id"
+  end
+
+  add_index "instagram_users_users", ["instagram_user_id"], name: "index_instagram_users_users_on_instagram_user_id"
+  add_index "instagram_users_users", ["user_id"], name: "index_instagram_users_users_on_user_id"
+
   create_table "tw_users", force: :cascade do |t|
     t.string   "tw_user_id_str"
     t.string   "user_name"

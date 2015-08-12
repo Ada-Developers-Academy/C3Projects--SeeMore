@@ -1,6 +1,10 @@
 class FeedsController < ApplicationController
   def index
     user = User.find(session[:user_id])
+
+    Gram.collect_latest_posts(user)
+    @instagram_posts = user.grams
+
     Tweet.update_timeline(user)
     @tweets = user.tweets.chron_tweets
   end
@@ -23,15 +27,14 @@ class FeedsController < ApplicationController
     if params[:provider] == 'twitter'
       @results = @twit_init.client.user_search(@search_term)
     elsif params[:provider] == 'instagram'
-      # TODO: move to ApplicationController & make an instance var like @twit_init?
-      instagram_client = Instagram.client(:access_token => session[:access_token])
-      @results = instagram_client.user_search(@search_term)
+      @results = @instagram_client.user_search(@search_term)
     else
       # guard
       # TODO: send flash notices
       redirect_to search_path(params[:provider])
     end
   end
+
 
   def tw_follow
     # binding.pry
@@ -43,6 +46,13 @@ class FeedsController < ApplicationController
 
     our_user = User.find(session[:user_id])
     our_user.tw_users << [twitter_user]
+    redirect_to :back
+  end
+
+  def ig_follow
+    user = User.find(session[:user_id])
+    ig_account = params # hash of info
+    ig_account = user.ig_follow(ig_account) # InstagramAccount obj
     redirect_to :back
   end
 
