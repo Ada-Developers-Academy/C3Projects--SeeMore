@@ -1,11 +1,12 @@
 require 'rails_helper'
 require 'support/vcr_setup'
+require 'pry'
 
 RSpec.describe IgSubscriptionsController, type: :controller do
   let(:log_in) {
     logged_user = create :user
     session[:user_id] = logged_user.id
-    session[:access_token] = "1234454433"
+    session[:access_token] = ENV["INSTAGRAM_ACCESS_TOKEN"]
   }
 
   describe "#index" do
@@ -56,6 +57,37 @@ RSpec.describe IgSubscriptionsController, type: :controller do
       expect(assigns(:user).subscriptions).to include(Subscription.find_by(instagram_id: "777"))
     end
   end
+
+  describe "#refresh_ig" do
+    it "should create 15 posts when a user has a single subscription & refreshes" do
+      VCR.use_cassette('instagram refresh 1') do
+        log_in
+        user = User.first
+        user.subscriptions << (create :ig_sub)
+        get :refresh_ig
+
+        expect(Post.count).to eq 15
+        expect(user.posts.count).to eq 15
+      end
+    end
+
+    it "redirect to twitter refresh action" do
+      log_in
+      get :refresh_ig
+
+      expect(response).to redirect_to refresh_twi_path
+    end
+  end
+
+  # describe "#single_subscription_httparty_object" do
+  #   it "DOES SOEMTHING" do
+  #     log_in
+  #     subscription = create :ig_sub
+  #     testing = IgSubscriptionsController.new
+  #
+  #     expect(testing.send(:single_subscription_httparty_object, subscription)).to eq HTTParty
+  #   end
+  # end
 
   # will need to refactor using this setup for VCR use- only
   # for tests that will hit the API

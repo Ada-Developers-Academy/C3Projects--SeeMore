@@ -12,7 +12,7 @@ FactoryGirl.define do
   end
 
   factory :ig_sub, class: Subscription do
-    instagram_id "123456"
+    instagram_id "215892539" # LOLCATSPICZ ID
   end
 
   factory :nil_sub, class: Subscription do

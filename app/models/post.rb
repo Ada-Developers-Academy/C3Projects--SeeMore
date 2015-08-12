@@ -10,6 +10,7 @@ class Post < ActiveRecord::Base
   # Model Methods
 
   # Checks with the database to make sure all the posts don't already exist.
+  # The HTTParty objects is seperate subscribers for a user.
   def self.create_all_instagram_posts(array_of_httparty_objects)
     newed_post_array = new_all_instagram_posts(array_of_httparty_objects)
     newed_post_array.each do |newed_post|
@@ -67,6 +68,7 @@ class Post < ActiveRecord::Base
       return post
     end
 
+    # Array of HTTParty objects is an array of subscriptions.
     def self.new_all_instagram_posts(array_of_httparty_objects)
       newed_posts = []
       array_of_httparty_objects.each do |all_posts_for_subscriber|
