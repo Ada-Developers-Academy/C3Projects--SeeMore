@@ -63,10 +63,19 @@ RSpec.describe Post, type: :model do
   end
 
   describe "post model methods" do
-    context "create_all_instagram_posts" do
-      it "takes array of HTTParty objects, and finds in db or creates new posts" do
+    context "#create_all_instagram_posts" do
 
-        VCR.use_cassette('instagram refresh 2') do
+      # It took SOOO LONG to figure out how to make this work.
+      # Kept getting a Webmock error.
+
+      # NOTE: In order to get this spec to work with the current config
+      # you'll need to go into the spec_helper.rb file and temporarily uncomment
+      # 'require webmock' and 'WebMock.allow_net_connect!'
+      # run rspec so VCR can record the response
+      # then recomment out those two...
+      it "takes array of HTTParty objects, and finds in db or creates new posts (* SEE COMMENTS ABOVE SPEC)" do
+
+        VCR.use_cassette('instagram refresh create_all_instagram_posts') do
           INSTA_URI = "https://api.instagram.com/v1/users/"
           COUNT = 15
           subscription = (create :ig_sub)
