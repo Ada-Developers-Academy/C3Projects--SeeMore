@@ -10,7 +10,7 @@ class HomeController < ApplicationController
   def signin; end
 
   def newsfeed
-      subscriptions = @current_user.subscriptions
+      subscriptions = @current_user.subscriptions.active
     if subscriptions.count == 0
       flash[:errors] = "You have no subscriptions! Search users to subscribe to."
     else
@@ -18,9 +18,9 @@ class HomeController < ApplicationController
       subscriptions.each do |s|
         start = s.created_at
         s.followee.posts.each do |p|
-          if p.native_created_at >= start
+          # if p.native_created_at >= start
             @rev_posts << p.embed_html
-          end
+          # end
         end
       end
       @rev_posts.sort_by { |post| post["native_created_at"] }
@@ -99,15 +99,9 @@ class HomeController < ApplicationController
       end
     when INSTAGRAM
       id = followee.native_id
-      response = InstagramApi.new.get_posts(id, last_post_id)
-
-      # move this logic into the get_posts method?
-      posts = response["data"]
-      if posts && posts.count > 0 && last_post_id
-        posts = posts[0..-2]
-      end
+      posts = InstagramApi.new.get_posts(id, last_post_id)
     end
 
-    return posts
+    posts
   end
 end
