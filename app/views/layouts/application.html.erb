@@ -3,9 +3,11 @@
 <head>
   <title>Creep Peep</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= favicon_link_tag 'sun_glasses' %>
 
   <%= csrf_meta_tags %>
-  <script>window.twttr = (function(d, s, id) {
+  <script>
+    window.twttr = (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0],
       t = window.twttr || {};
     if (d.getElementById(id)) return t;
@@ -20,15 +22,16 @@
     };
 
     return t;
-  }(document, "script", "twitter-wjs"));</script>
+    }(document, "script", "twitter-wjs"));
+  </script>
 </head>
 <body>
-<div class="container-fluid">
+  <div class="container-fluid">
 
-<%= render "shared/header" %>
-<%= render 'shared/flash_messages' %>
+  <%= render "shared/header" %>
+  <%= render 'shared/flash_messages' %>
 
-<%= yield %>
+  <%= yield %>
 </div>
 </body>
 </html>
