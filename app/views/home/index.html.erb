@@ -16,7 +16,7 @@
           <% else %>
             <i class="fa fa-instagram"></i>
           <% end %>
-        <%= link_to "#{post.username}", posts_path(post.username) %>
+        <%= link_to "#{post.username}", posts_path(post.username, username: post.username) %>
         </div>
       <% unless post.image.empty? %>
         <% post.image.each do |image| %>
