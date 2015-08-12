@@ -9,7 +9,16 @@ RSpec.describe StalkersController, type: :controller do
 
     before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]}
     let!(:stalker) {Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:twitter])}
-    it "renders the dashboard_path if user is logged in" do
+    it "renders the dashboard_path if user is logged in via twitter" do
+     session[:stalker_id] = 1
+      get :index, stalker_id: 1
+      expect(response).to render_template :index
+    end
+
+
+    before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:instagram]}
+    let!(:stalker) {Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:instagram])}
+    it "renders the dashboard_path if user is logged in via instagram" do
      session[:stalker_id] = 1
       get :index, stalker_id: 1
       expect(response).to render_template :index
