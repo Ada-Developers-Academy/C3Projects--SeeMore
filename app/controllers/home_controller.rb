@@ -35,7 +35,10 @@ class HomeController < ApplicationController
 
       posts = Post.get_posts_from_API(followee)
 
-      Post.create_from_API(posts, followee, source) if posts && posts.count > 0
+      if posts && posts.count > 0      
+        Post.create_from_API(posts, followee, source)
+        Followee.update_last_post_id!(posts, followee, source)
+      end
     end
 
     redirect_to root_path
