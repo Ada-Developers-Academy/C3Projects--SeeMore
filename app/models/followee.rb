@@ -21,16 +21,6 @@ class Followee < ActiveRecord::Base
     followee.save ? followee : false
   end
 
-  # this goes in api helper
-  def self.user_search(query, count, source)
-    case source
-    when ApplicationController::INSTAGRAM
-      InstagramApi.new.user_search(query, count)
-    when ApplicationController::TWITTER
-      TwitterApi.new.user_search(query, count)
-    end
-  end
-
   # stay in model
   def self.update_last_post_id!(posts, followee, source)
     new_last_post_id = (source == ApplicationController::TWITTER) ? posts.first.id : posts.first["id"]

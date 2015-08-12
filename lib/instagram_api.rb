@@ -2,6 +2,8 @@ class InstagramApi
   INSTA_URI = "https://api.instagram.com/v1/users/search?q="
   INSTA_USER_POSTS_URI = "https://api.instagram.com/v1/users/"
   INSTA_OEMBED_URI = "http://api.instagram.com/oembed?omitscript=false&url="
+  INSTA_USER_DETAILS_URI = "https://api.instagram.com/v1/users/"
+
 
   # the number of posts to get
   # the first time you update your feed after following someone
@@ -11,6 +13,13 @@ class InstagramApi
     response = HTTParty.get(INSTA_URI + query + "&count=" + count.to_s + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
 
     return response["data"]
+  end
+
+  def private_user?(user_id)
+    response = HTTParty.get(INSTA_USER_DETAILS_URI + "#{user_id}" + "/relationship?access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
+    privacy_boolean = response["data"]["target_user_is_private"]
+
+    return privacy_boolean
   end
 
   def embed_html_with_js(post)
@@ -30,8 +39,8 @@ class InstagramApi
     number_of_posts_query = assign_number_of_posts(last_post_id)
 
     response = HTTParty.get(
-      INSTA_USER_POSTS_URI + id + 
-      "/media/recent/?" + number_of_posts_query + 
+      INSTA_USER_POSTS_URI + id +
+      "/media/recent/?" + number_of_posts_query +
       "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"]
     )
     posts = response["data"]
@@ -50,7 +59,7 @@ class InstagramApi
   end
 
   def posts_retrieved_from_old_user?(posts, last_post_id)
-    # If the retrieved posts collection is not nil, not empty, 
+    # If the retrieved posts collection is not nil, not empty,
     # and there is a last_post_id.
     true if posts && posts.count > 0 && last_post_id
   end
