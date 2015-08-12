@@ -27,7 +27,7 @@ class InstagramController < ApplicationController
 
   def subscribe # new
     id = params[:feed_id]
-    feed = Feed.find_by(platform_feed_id: id, platform: "instagram")
+    feed = Feed.find_by(platform_feed_id: id, platform: "Instagram")
 
     unless feed
       feed_info_url = FEED_INFO_URI_A + id + FEED_INFO_URI_B

@@ -59,8 +59,8 @@ RSpec.describe Feed, type: :model do
   describe "scopes" do
     it "shows just feed where platform is instagram" do
       @feed1 = create :feed
-      @feed2 = create :feed, platform: "vimeo"
-      @feed3 = create :feed, platform: "vimeo"
+      @feed2 = create :feed, platform: "Vimeo"
+      @feed3 = create :feed, platform: "Vimeo"
       @feed4 = create :feed
 
       expect(Feed.count).to eq 4
@@ -68,9 +68,9 @@ RSpec.describe Feed, type: :model do
     end
 
     it "shows just feed where platform is vimeo" do
-      @feed1 = create :feed, platform: "vimeo"
-      @feed2 = create :feed, platform: "vimeo"
-      @feed3 = create :feed, platform: "vimeo"
+      @feed1 = create :feed, platform: "Vimeo"
+      @feed2 = create :feed, platform: "Vimeo"
+      @feed3 = create :feed, platform: "Vimeo"
       @feed4 = create :feed
 
       expect(Feed.count).to eq 4
@@ -78,9 +78,9 @@ RSpec.describe Feed, type: :model do
     end
 
     it "shows just feed where platform is developer" do
-      @feed1 = create :feed, platform: "developer"
-      @feed2 = create :feed, platform: "vimeo"
-      @feed3 = create :feed, platform: "vimeo"
+      @feed1 = create :feed, platform: "Developer"
+      @feed2 = create :feed, platform: "Vimeo"
+      @feed3 = create :feed, platform: "Vimeo"
       @feed4 = create :feed
 
       expect(Feed.count).to eq 4
@@ -93,7 +93,7 @@ RSpec.describe Feed, type: :model do
       it "gets a response from an api" do
         feed = create :feed
 
-        VCR.use_cassette "spec/vcr/instagram" do
+        VCR.use_cassette("feed", record: :new_episodes) do
           feed.populate_posts
         end
 

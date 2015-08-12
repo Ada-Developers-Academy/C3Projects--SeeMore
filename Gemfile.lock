@@ -260,8 +260,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-<<<<<<< HEAD
    1.10.4
-=======
-   1.10.6
->>>>>>> 19dff6255216a30e80f61c78b9d84c7c385f0896

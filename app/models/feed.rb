@@ -21,9 +21,9 @@
   validates :name, :platform, :platform_feed_id, presence: true
 
   # Scopes ---------------------------------------------------------------------
-  scope :developer, -> { where(platform: "developer") }
-  scope :instagram, -> { where(platform: "instagram") }
-  scope :vimeo, -> { where(platform: "vimeo") }
+  scope :developer, -> { where(platform: "Developer") }
+  scope :instagram, -> { where(platform: "Instagram") }
+  scope :vimeo, -> { where(platform: "Vimeo") }
 
   # Instance Methods -----------------------------------------------------------
 
@@ -31,7 +31,6 @@
 
   def populate_posts
     if platform == "Instagram" || platform == "Developer"
-      raise
       populate_instagram_feed
     elsif platform == "Vimeo"
       populate_vimeo_feed
@@ -60,9 +59,9 @@
   # Updating feeds -------------
 
   def check_for_updates
-    if platform == "instagram" || platform == "developer"
+    if platform == "Instagram" || platform == "Developer"
       update_instagram_feed
-    elsif platform == "vimeo"
+    elsif platform == "Vimeo"
       update_vimeo_feed
     else
       update_instagram_feed

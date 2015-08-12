@@ -28,7 +28,7 @@ class VimeoController < ApplicationController
 
   def subscribe # new
     id = params[:feed_id]
-    feed = Feed.find_by(platform_feed_id: id, platform: "vimeo")
+    feed = Feed.find_by(platform_feed_id: id, platform: "Vimeo")
 
     unless feed
       feed_info_url = FEED_INFO_URI + id
