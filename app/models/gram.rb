@@ -30,7 +30,7 @@ class Gram < ActiveRecord::Base
 
       new_gram[:tags]               = post["tags"]
       new_gram[:media_type]         = post["type"]
-      new_gram[:created_time]       = Time.at(post["created_time"])
+      new_gram[:created_time]       = Time.at(post["created_time"].to_i)
       new_gram[:link]               = post["link"]
       new_gram[:likes]              = post["likes"]["count"]
       new_gram[:image_url]          = post["images"]["standard_resolution"]["url"] # 640px
