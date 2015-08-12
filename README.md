@@ -1,4 +1,5 @@
 # SeeMore
+# FriendFace Project (Brenna, Jerry, Katie, Victoria)
 
 ![SeeMore](http://www.theirishduck.info/wp-content/uploads/2013/06/plant.png)
 

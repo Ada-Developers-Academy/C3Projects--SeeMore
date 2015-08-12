@@ -1,0 +1,167 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+.jumbotron {
+  width: 100%;
+  background: url("background.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.panel-body {
+  padding-top: 400px;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+.white {
+  color: #fff;
+}
+
+#top.nav {
+  padding-top: 5px;
+  margin-bottom: 5px;
+}
+
+#top.nav h2 a {
+  background-color: #080; // dark green
+  color: #fff; // white
+  border-radius: 5px;
+  font-size: 26px;
+  margin: 2px;
+  padding: 15px;
+  text-decoration: none;
+}
+
+#top.nav h2 {
+  padding: 0;
+  margin: 0;
+}
+
+#top.nav input[type="radio"] {
+  margin: 0 5px;
+}
+
+#top.nav input[type="text"] {
+  font-size: 18px;
+  height: 36px;
+  width: 200px;
+}
+
+.profile {
+  height: 150px;
+  width: 150px;
+}
+
+.feed {
+  margin: auto;
+  padding: 10px;
+  max-width: 600px;
+  background: rgba(255,255,255,0.75);
+  border-top: 1px solid #fff;
+  border-left: 1px solid #e6f3e6;
+  border-right: 1px solid #e6f3e6;
+  border-bottom: 1px solid #e6f3e6;
+  box-sizing: border-box;
+}
+
+.feed:hover {
+  background: rgba(255, 255, 255, 1);
+  border: 1px dotted #4cae4c;
+  border-radius: 5px;
+}
+
+.green {
+  color: #4cae4c;
+  margin: auto;
+  padding: 10px;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 1);
+  border-left: 1px solid #e6f3e6;
+  border-right: 1px solid #e6f3e6;
+  border-bottom: 1px solid #e6f3e6;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.search-header {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 20px;
+}
+
+.left {
+  max-width: 50%;
+  float: left;
+  display: inline-block;
+  margin-bottom: 10px;
+  border: 2px solid #e6f3e6;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.left img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.right {
+  max-width: 50%;
+  width: 50%;
+  padding: 10px;
+  float: left;
+  display: inline-block;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.right h3 {
+  margin: 0;
+}
+
+.date {
+  clear: both;
+  text-align: center;
+}
+
+.search-result {
+  margin: 10px;
+  background: rgba(255,255,255,0.75);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.btn-sm {
+  margin: 5px;
+}
+
+a {
+  color: #080;
+}
+
+a:hover {
+  color: #66b766;
+}
+
+.center{
+  text-align: center;
+}
+
+html, body {
+  background: url('congruent.png');
+}

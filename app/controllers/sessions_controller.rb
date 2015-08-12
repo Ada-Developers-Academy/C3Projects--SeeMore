@@ -1,0 +1,29 @@
+class SessionsController < ApplicationController
+  skip_before_action :require_login, only: [:create, :create_instagram, :create_vimeo]
+
+  def create
+    auth_hash = request.env['omniauth.auth']
+    session[:user_id] = auth_hash["info"]["last_name"]
+  end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_path :flash => "Signed Out!"
+  end
+
+  def create_instagram
+    auth = request.env["omniauth.auth"]
+    au_user = AuUser.find_by_provider_and_uid(auth["provider"], auth["uid"]) || AuUser.create_with_omniauth(auth)
+    session[:user_id] = au_user.id
+    flash[:success] = "You've been signed in, #{ au_user.name }!"
+    redirect_to root_url
+  end
+
+  def create_vimeo
+    auth = request.env["omniauth.auth"]
+    au_user = AuUser.find_by_provider_and_uid(auth["provider"], auth["uid"]) || AuUser.create_with_omniauth(auth)
+    session[:user_id] = au_user.id
+    flash[:success] = "You've been signed in, #{ au_user.name }!"
+    redirect_to root_url
+  end
+end
