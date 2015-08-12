@@ -1,0 +1,3 @@
+class TwitterMapper
+
+end
