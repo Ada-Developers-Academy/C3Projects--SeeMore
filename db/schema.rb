@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812174826) do
+ActiveRecord::Schema.define(version: 20150812182803) do
 
   create_table "grams", force: :cascade do |t|
     t.string   "tags"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20150812174826) do
   create_table "tweets", force: :cascade do |t|
     t.string   "tw_id_str"
     t.string   "tw_text"
-    t.string   "created_time"
+    t.datetime "created_time"
     t.integer  "tw_retweet_count"
     t.integer  "tw_favorite_count"
     t.datetime "created_at",        null: false
