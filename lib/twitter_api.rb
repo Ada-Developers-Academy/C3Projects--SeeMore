@@ -14,7 +14,6 @@ class TwitterApi
     end
   end
 
-  # these three stay in Api class
   def user_search(user, count=3)
     client.user_search(user, options = {count: count})
   end
@@ -28,8 +27,7 @@ class TwitterApi
   end
 
   private
-  # put in TwitterMapper ?
-  ### we're leaving this here because it is called by #get_posts above
+  ### we're leaving this method here because it is called by #get_posts above
   ### and we don't want to create a dependency in this class on the TwitterMapper class
   def timeline_options(last_post_id)
     last_post_id ? { since_id: last_post_id.to_i } : { count: FIRST_POSTS }

@@ -1,5 +1,4 @@
 class TwitterMapper
-  # put in TwitterMapper
   def self.format_params(post, followee)
     post_hash = {}
     post_hash[:native_id] = post.id

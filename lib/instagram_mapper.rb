@@ -13,7 +13,6 @@ class InstagramMapper
     last_post_id ? posts[0..-2] : posts
   end
 
-  # put in InstagramMapper
   def self.format_params(post, followee)
     post_hash = {}
     post_hash[:native_id] = post["id"]
