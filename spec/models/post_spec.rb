@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'httparty'
 
 RSpec.describe Post, type: :model do
     let(:twisub) { build(:twi_sub) }
@@ -62,6 +63,23 @@ RSpec.describe Post, type: :model do
   end
 
   describe "post model methods" do
+    context "create_all_instagram_posts" do
+      it "takes array of HTTParty objects, and finds in db or creates new posts" do
+
+      access_token = ENV["INSTAGRAM_ACCESS_TOKEN"]
+      INSTA_URI = "https://api.instagram.com/v1/users/"
+      COUNT = 15
+      subscription = create :ig_sub
+
+      array_of_httparty_objects = []
+      array_of_httparty_objects << HTTParty.get(INSTA_URI + "#{subscription.instagram_id}/media/recent/?count=#{COUNT}&access_token=" + access_token)
+
+      Post.create_all_instagram_posts(array_of_httparty_objects)
+
+      expect(Post.count).to eq 15
+      end
+    end
+
     context "#create_instagram_post" do
       before :each do
         create :post
