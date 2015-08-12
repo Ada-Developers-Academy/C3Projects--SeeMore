@@ -30,17 +30,29 @@ RSpec.describe HomeController, type: :controller do
     end
   end
 
-  # will need to refactor using this setup for VCR use
-  # only on tests that would make an API call
-  describe "twitter search" do
-    it "redirects to twitter results index" do
-      VCR.use_cassette('twitter search') do
+  describe "search form" do
+    context "twitter search" do
+      it "redirects to twitter results index" do
          get :search, { website: "twitter", search: "tinder" }
 
          expect(response).to redirect_to twi_subscriptions_path(params: {twitter_search: "tinder"})
-         binding.pry
-         # expect(@results.first.screen_name).to eq "Tinder"
-       end
-     end
+      end
+    end
+
+    context "instagram search" do
+      it "redirects to instragram results index" do
+         get :search, { website: "instagram", search: "kittens" }
+
+         expect(response).to redirect_to ig_subscriptions_path(params: {instagram_search: "kittens"})
+      end
+    end
+
+    context "no search input" do
+      it "redirects to home page" do
+         get :search, { website: "twitter", search: "" }
+
+         expect(response).to redirect_to root_path
+      end
+    end
   end
 end
