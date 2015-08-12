@@ -3,8 +3,6 @@ class HomeController < ApplicationController
 
   include ActionView::Helpers::OutputSafetyHelper
 
-  INSTA_USER_POSTS_URI = "https://api.instagram.com/v1/users/"
-  INSTA_OEMBED_URI = "http://api.instagram.com/oembed?omitscript=false&url="
   FIRST_POSTS_NUM = 5
 
   def signin; end
