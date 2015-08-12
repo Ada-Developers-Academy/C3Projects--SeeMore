@@ -20,7 +20,7 @@ RSpec.describe Subscription, type: :model do
       igsub.save
       user.subscriptions << igsub
 
-      expect(user.subscriptions.first.instagram_id).to eq "123456"
+      expect(user.subscriptions.first.instagram_id).to eq "215892539"
       expect(igsub.users.first.uid).to eq "789"
     end
 
@@ -98,7 +98,7 @@ RSpec.describe Subscription, type: :model do
       it "finds subscription by instagram_id" do
         igsub.save
 
-        expect(Subscription.find_instagram_id("123456")).to eq igsub
+        expect(Subscription.find_instagram_id("215892539")).to eq igsub
       end
 
       it "returns an empty ActiveRecord object if instagram_id doesn't exist" do
@@ -112,16 +112,16 @@ RSpec.describe Subscription, type: :model do
     context "#find_or_create_ig_subscription" do
 
       it "if subscription does not exist, it creates it" do
-        Subscription.find_or_create_ig_subscription("123456")
+        Subscription.find_or_create_ig_subscription("215892539")
 
         expect(Subscription.count).to eq 1
-        expect(Subscription.first.instagram_id).to eq "123456"
+        expect(Subscription.first.instagram_id).to eq "215892539"
       end
 
       it "if subscription does exist, it finds & returns it" do
         igsub.save
 
-        expect(Subscription.find_or_create_ig_subscription("123456")).to eq igsub
+        expect(Subscription.find_or_create_ig_subscription("215892539")).to eq igsub
       end
     end
   end

@@ -15,7 +15,7 @@ RSpec.describe User, type: :model do
       igsub.users << user
 
       expect(igsub.users.first.uid).to eq "789"
-      expect(user.subscriptions.first.instagram_id).to eq "123456"
+      expect(user.subscriptions.first.instagram_id).to eq "215892539"
     end
 
     it "a user has and belongs to a subscription from twitter" do
