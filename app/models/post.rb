@@ -19,6 +19,7 @@ class Post < ActiveRecord::Base
   end
 
   def self.update_tweets(prey_uid)
+
     last_tweet_uid = Prey.last_post_uid(prey_uid)
     tweets = TwitterClient.fetch_tweets(prey_uid, { since_id: last_tweet_uid })
     create_many_tweets_from_api(tweets)

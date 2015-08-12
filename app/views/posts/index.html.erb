@@ -2,6 +2,8 @@
 
 <h2>Welcome, <%= @stalker.username %>!</h2>
 
+<%= button_to "Update Feed", update_feed_path, class: "btn btn-primary"  %>
+
 <% @posts.each do |post| %>
   <div class="">
       <% if post.prey.provider == "twitter" %>
