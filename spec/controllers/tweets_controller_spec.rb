@@ -57,7 +57,7 @@ RSpec.describe TweetsController, type: :controller do
 
       it "creates a twitter record" do
         expect(Tweet.count).to eq(1)
-        expect(Tweet.first.username).to eq("Ada")
+        expect(Tweet.first.username).to eq("adaninjaparty")
       end
 
       it "associates with a user" do
