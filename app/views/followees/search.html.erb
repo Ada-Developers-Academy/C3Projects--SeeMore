@@ -31,9 +31,11 @@
         <li>
           <%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
           <%= link_to "@#{user["username"]}" %>
-          <%= form_tag subscriptions_path(user) do %>
-            <%= hidden_field_tag :source, "instagram" %>
-            <%= submit_tag "Subscribe" %>
+          <% unless private_user?(user["id"]) %>
+            <%= form_tag subscriptions_path(user) do %>
+              <%= hidden_field_tag :source, "instagram" %>
+              <%= submit_tag "Subscribe" %>
+            <% end %>
           <% end %>
         </li>
       <% end %>
