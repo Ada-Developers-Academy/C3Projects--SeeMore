@@ -1,32 +1,39 @@
 require 'rails_helper'
 
 RSpec.describe InstagramsController, type: :controller do
-
   describe "POST #search" do
     context "valid params" do
-      xit "searches users in Instagram API" do
-        post :search, instagram: { username: "name" }
-        expect()
+      before :each do
+        VCR.use_cassette 'instagram_response' do
+          post :search, instagram: { username: "acmei" }
+        end
+      end
+
+      it 'searches users in Instagram API' do
+        expect(assigns(:users).first["username"]).to eq("acmei")
       end
 
       it "renders search template" do
-        post :search, instagram: { username: "name" }
         expect(response).to render_template("feeds/search")
       end
     end
 
     context "invalid params" do
+      before :each do
+        VCR.use_cassette 'instagram_response' do
+          post :search, instagram: { username: nil }
+        end
+      end
+
       it "redirects to search page" do
-        post :search, instagram: { username: nil }
         expect(response).to redirect_to("feeds/search")
       end
 
       it "displays an error message" do
-        post :search, instagram: { username: nil }
         expect(flash[:error]).to_not be nil
       end
     end
-  end
+  end # POST #search
 
   describe "POST #create" do
     context "login required" do
@@ -92,7 +99,7 @@ RSpec.describe InstagramsController, type: :controller do
         @instagrammer = create :instagram
       end
 
-      it "unfollows a tweeter" do
+      it "unfollows an instagrammer" do
         delete :destroy, id: @instagrammer.id
 
         expect(@user.instagrams.count).to eq(0)
