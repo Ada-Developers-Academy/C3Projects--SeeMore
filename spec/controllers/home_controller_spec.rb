@@ -47,9 +47,17 @@ RSpec.describe HomeController, type: :controller do
       end
     end
 
-    context "no search input" do
-      it "redirects to home page" do
+    context "empty search input" do
+      it "redirects to home page if search field empty" do
          get :search, { website: "twitter", search: "" }
+
+         expect(response).to redirect_to root_path
+      end
+    end
+
+    context "no search input" do
+      it "redirects to home page if search from url" do
+         get :search
 
          expect(response).to redirect_to root_path
       end
