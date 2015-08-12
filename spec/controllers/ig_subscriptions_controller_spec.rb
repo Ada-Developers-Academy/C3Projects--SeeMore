@@ -25,22 +25,27 @@ RSpec.describe IgSubscriptionsController, type: :controller do
     end
 
     #how to test this without using actual access token????
-    it "assigns @results if logged in" do
-      log_in
+    it "assigns @response if logged in" do
+      VCR.use_cassette('instagram assigns response') do
+        log_in
 
-      get :index, instagram_search: "lilagrc"
+        get :index, instagram_search: "lilagrc"
 
-      expect(assigns(:results)).to_not be_nil
+
+        expect(assigns(:response)).to_not be_nil
+      end
     end
   end
 
   describe "#create" do
     it "redirects to the home page" do
-      log_in
-      post :create, instagram_id: "777"
+      VCR.use_cassette('instagram #create redirects home') do
+        log_in
+        post :create, instagram_id: "777"
 
-      expect(subject).to redirect_to root_path
-      expect(response).to have_http_status(302)
+        expect(subject).to redirect_to root_path
+        expect(response).to have_http_status(302)
+      end
     end
 
     it "redirects to the home page if not logged in" do
@@ -51,10 +56,12 @@ RSpec.describe IgSubscriptionsController, type: :controller do
 
     #associations method is adding the id to instragram, not twitter
     it "associates the twitter subscription with user" do
-      log_in
-      post :create, instagram_id: "777"
+      VCR.use_cassette('instagram #create associates sub with user') do
+        log_in
+        post :create, instagram_id: "777"
 
-      expect(assigns(:user).subscriptions).to include(Subscription.find_by(instagram_id: "777"))
+        expect(assigns(:user).subscriptions).to include(Subscription.find_by(instagram_id: "777"))
+      end
     end
   end
 
