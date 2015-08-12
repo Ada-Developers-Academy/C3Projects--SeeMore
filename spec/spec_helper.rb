@@ -37,6 +37,13 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 
+  # TRYING TO GET METHOD TAKING IN AN ARRAY OF HTTPARTY
+  # config.before(:each) do
+  #   stub_request(:get, /api.instagram.com/).
+  #     with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Ruby'}).
+  #     to_return(status: 200, body: "stubbed response", headers: {})
+  # end
+
   config.before(:suite) do
   # Once you have enabled test mode, all requests
   # to OmniAuth will be short circuited
