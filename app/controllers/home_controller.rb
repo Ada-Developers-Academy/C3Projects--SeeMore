@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   skip_before_action :require_signin, only: [:signin]
+  # before_action :twitter_api, only: [:get_new_posts, :find_twitter_params, :get_posts_from_API]
 
   include ActionView::Helpers::OutputSafetyHelper
 
@@ -25,9 +26,9 @@ class HomeController < ApplicationController
     end
   end
 
-  def get_twitter_embed_html(tweet_id)
-    @twitter_client.oembed(tweet_id, { omit_script: true })[:html]
-  end
+  # def get_twitter_embed_html(tweet_id)
+  #   @twitter_client.oembed(tweet_id, { omit_script: true })[:html]
+  # end
 
   def get_new_posts
     active_subscriptions = @current_user.subscriptions.active
@@ -67,7 +68,7 @@ class HomeController < ApplicationController
     post_hash[:native_created_at] = post.created_at
     post_hash[:followee_id] = followee.id
     post_hash[:source] = followee.source
-    post_hash[:embed_html] = get_twitter_embed_html(post.id)
+    post_hash[:embed_html] = TwitterApi.new.embed_html_without_js(post.id)
 
     return post_hash
   end
@@ -78,7 +79,7 @@ class HomeController < ApplicationController
     post_hash[:native_created_at] = convert_instagram_time(post["created_time"])
     post_hash[:followee_id] = followee.id
     post_hash[:source] = followee.source
-    post_hash[:embed_html] = InstagramApi.new.get_embed_html(post)
+    post_hash[:embed_html] = InstagramApi.new.embed_html_with_js(post)
 
     return post_hash
   end
@@ -91,9 +92,9 @@ class HomeController < ApplicationController
     when TWITTER
       id = followee.native_id.to_i
       if last_post_id
-        posts = @twitter_client.user_timeline(id, { since_id: last_post_id.to_i })
+        posts = TwitterApi.new.client.user_timeline(id, { since_id: last_post_id.to_i })
       else
-        posts = @twitter_client.user_timeline(id, { count: 5 })
+        posts = TwitterApi.new.client.user_timeline(id, { count: 5 })
       end
     when INSTAGRAM
       id = followee.native_id
