@@ -63,6 +63,17 @@ RSpec.describe IgSubscriptionsController, type: :controller do
         expect(assigns(:user).subscriptions).to include(Subscription.find_by(instagram_id: "777"))
       end
     end
+
+    it "user can't subscribe to private IG user they don't follow IRL" do
+      VCR.use_cassette('instagram cannot follow private user') do
+        log_in
+        post :create, instagram_id: "19274450"
+
+        expect(response).to redirect_to root_path
+        expect(flash[:error]).to be_present
+      end
+    end
+
   end
 
   describe "#refresh_ig" do
