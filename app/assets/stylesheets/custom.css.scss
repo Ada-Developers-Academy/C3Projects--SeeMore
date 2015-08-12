@@ -52,16 +52,12 @@ h1 {
   font-size: 6em;
 }
 
-h1, h2, h3, h4, .search-header, .woo a, .no-targets a, .navbar-default .navbar-text, .navbar-default .navbar-nav > li > a {
+h1, h2, h3, h4, .search-header, .page-links a, .no-targets a, .navbar-default .navbar-text, .navbar-default .navbar-nav > li > a {
     font-family: 'Orbitron', sans-serif;
     text-align: center;
     color: rgb(255,255,255);
   }
 
-.posted-at {
-  font-size: 0.7em;
-  font-style: italic;
-}
 
 .navbar {
   margin-bottom: 0;
@@ -74,7 +70,7 @@ h1, h2, h3, h4, .search-header, .woo a, .no-targets a, .navbar-default .navbar-t
   font-family: 'Orbitron', sans-serif;
 }
 
-.woo a:hover, .no-targets a:hover {
+.page-links a:hover, .no-targets a:hover {
   text-decoration: none;
   color: #F00;
 }
@@ -84,20 +80,15 @@ h1, h2, h3, h4, .search-header, .woo a, .no-targets a, .navbar-default .navbar-t
   font-family: 'Orbitron', sans-serif;
 }
 
-.tweet-post a:link {
-  color: black;
-}
 
 .tweet-post a:hover {
-  color: red;
+  color: #F00;
   text-decoration: none;
-
 }
 
-.tweet-post a:visited {
-  color: black;
-
-
+.posted-at {
+  font-size: 0.7em;
+  font-style: italic;
 }
 // buttons
 
