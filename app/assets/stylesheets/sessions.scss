@@ -2,16 +2,22 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+body {
+  color: #afbec5;
+}
+
 .login-wrapper {
   position: relative;
   height: 700px;
+
 }
 
 .login-card {
   height: 500px;
-  padding: 15px;
-  background-color: white;
-  border: 1px solid gray;
+  padding: 25px;
+  background-color: rgb(34, 34, 34);
+  // border: 1px solid gray;
   // border-radius: 5px;
   // box-shadow: 3px 3px 3px gray;
 
@@ -19,6 +25,7 @@
   position: absolute;
   top: 50%;
   margin-top: -(500px + (15px * 2)) / 2; /* half of height & padding */
+
 }
 
 .login-content {

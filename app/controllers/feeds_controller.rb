@@ -1,8 +1,12 @@
 class FeedsController < ApplicationController
   def index
     user = User.find(session[:user_id])
+
     Gram.collect_latest_posts(user)
     @instagram_posts = user.grams
+
+    Tweet.update_timeline(user)
+    @tweets = user.tweets.chron_tweets
   end
 
   def search; end
@@ -57,7 +61,4 @@ class FeedsController < ApplicationController
   def twitter_params
     params.permit(:tw_user_id_str, :user_name, :screen_name, :profile_image_url)
   end
-
-
-
 end

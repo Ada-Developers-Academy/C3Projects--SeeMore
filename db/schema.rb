@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811184407) do
+ActiveRecord::Schema.define(version: 20150811204309) do
 
   create_table "grams", force: :cascade do |t|
     t.string   "tags"
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(version: 20150811184407) do
     t.integer  "tw_favorite_count"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.string   "tw_user_id_str"
+    t.integer  "tw_user_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,7 +1,10 @@
-<%= link_to "Search Twitter Users", search_path('twitter'), class: 'btn btn-default'  %>
-<%= link_to "Search Instagram Users", search_path('instagram'), class: 'btn btn-default' %>
-
 <% @instagram_posts.each do |post| %>
 <% response = HTTParty.get("http://api.instagram.com/oembed?url=http://instagr.am/#{post.link[22,20]}") %>
 <%= raw response["html"] %>
 <% end %>
+
+<ul class="list-group">
+  <% @tweets.each do |tweet| %>
+      <%= raw tweet_oembed(tweet) %>
+  <% end %>
+</ul>
