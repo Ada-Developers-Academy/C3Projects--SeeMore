@@ -29,7 +29,19 @@ RSpec.describe FeedsController, type: :controller do
         end
       end
     end
+
+    describe "GET #search" do
+      context "people feed display" do
+        it "renders the home page" do
+          get :search
+
+          expect(response).to be_success
+          expect(response).to have_http_status(200)
+        end
+      end
+    end
   end
+
 
 
   ## FROM TWEET POSTS
