@@ -28,19 +28,22 @@ class IgSubscriptionsController < ApplicationController
 
     @user.associate_subscription(subscription)
 
+    response = []
+    response << single_subscription_httparty_object(subscription)
+    Post.create_all_instagram_posts(response)
+
     flash[:notice] = "Subscribed successfully!"
 
     redirect_to root_path
   end
 
-  def refresh_recent_ig
+  def refresh_ig
     user_subs = @user.instagram_subscriptions
 
     response = multiple_subscription_httparty_objects(user_subs)
-    newed_posts = Post.new_all_instagram_posts(response)
-    Post.create_all_instagram_posts(newed_posts)
+    Post.create_all_instagram_posts(response)
 
-    redirect_to root_path
+    redirect_to refresh_twi_path
   end
 
   private

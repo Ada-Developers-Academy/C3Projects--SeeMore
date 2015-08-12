@@ -10,18 +10,9 @@ class Post < ActiveRecord::Base
   #Scope
   # scope :
 
-  def self.new_all_instagram_posts(array_of_httparty_objects)
-    newed_posts = []
-    array_of_httparty_objects.each do |all_posts_for_subscriber|
-      all_posts_for_subscriber["data"].each do |single_post_json|
-        newed_posts << newed_instagram_post(single_post_json)
-      end
-    end
-    return newed_posts
-  end
-
   # Checks with the database to make sure all the posts don't already exist.
-  def self.create_all_instagram_posts(newed_post_array)
+  def self.create_all_instagram_posts(array_of_httparty_objects)
+    newed_post_array = new_all_instagram_posts(array_of_httparty_objects)
     newed_post_array.each do |newed_post|
       create_instagram_post(newed_post)
     end
@@ -56,6 +47,16 @@ class Post < ActiveRecord::Base
   end
 
   private
+
+  def self.new_all_instagram_posts(array_of_httparty_objects)
+    newed_posts = []
+    array_of_httparty_objects.each do |all_posts_for_subscriber|
+      all_posts_for_subscriber["data"].each do |single_post_json|
+        newed_posts << newed_instagram_post(single_post_json)
+      end
+    end
+    return newed_posts
+  end
 
   def self.newed_instagram_post(json_content)
     post = Post.new(
