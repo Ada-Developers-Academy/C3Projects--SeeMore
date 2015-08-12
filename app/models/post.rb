@@ -35,7 +35,7 @@ class Post < ActiveRecord::Base
       posts = TwitterApi.new.get_posts(id, last_post_id)
     when ApplicationController::INSTAGRAM
       id = followee.native_id
-      posts = InstagramApi.new.get_posts(id, last_post_id)
+      posts = InstagramMapper.get_posts(id, last_post_id)
     end
 
     posts
