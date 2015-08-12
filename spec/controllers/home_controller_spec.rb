@@ -52,6 +52,7 @@ RSpec.describe HomeController, type: :controller do
          get :search, { website: "twitter", search: "" }
 
          expect(response).to redirect_to root_path
+         expect(flash[:error]).to be_present
       end
     end
 
@@ -60,6 +61,7 @@ RSpec.describe HomeController, type: :controller do
          get :search
 
          expect(response).to redirect_to root_path
+         expect(flash[:error]).to be_present
       end
     end
   end

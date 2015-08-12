@@ -63,6 +63,17 @@ RSpec.describe IgSubscriptionsController, type: :controller do
         expect(assigns(:user).subscriptions).to include(Subscription.find_by(instagram_id: "777"))
       end
     end
+
+    it "user can't subscribe to private IG user they don't follow IRL" do
+      VCR.use_cassette('instagram cannot follow private user') do
+        log_in
+        post :create, instagram_id: "19274450"
+
+        expect(response).to redirect_to root_path
+        expect(flash[:error]).to be_present
+      end
+    end
+
   end
 
   describe "#refresh_ig" do
@@ -75,6 +86,17 @@ RSpec.describe IgSubscriptionsController, type: :controller do
 
         expect(Post.count).to eq 15
         expect(user.posts.count).to eq 15
+      end
+    end
+
+    it "should create 0 posts when a user has not subscriptions & refreshes" do
+      VCR.use_cassette('instagram refresh 2') do
+        log_in
+        user = User.first
+        get :refresh_ig
+
+        expect(Post.count).to eq 0
+        expect(user.posts.count).to eq 0
       end
     end
 
