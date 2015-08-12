@@ -35,11 +35,11 @@ body {
 }
 
 .feed {
-  margin-top: 20px;
+  margin: 20px auto;
   background-color: rgba(0,0,0,.7);
   background-repeat: repeat;
   width: 500px;
-  padding: 10px 0;
+  padding: 10px 10px;
 }
 
 .ig_image {
@@ -49,15 +49,36 @@ body {
 // typography
 
 h1 {
-  font-size: 7em;
+  font-size: 6em;
 }
 
-h1, h2, h3, h4, .search, .none a, a, .navbar-default .navbar-text, .navbar-default .navbar-nav > li > a {
+h1, h2, h3, h4, .search-header, a, .none a, .navbar-default .navbar-text, .navbar-default .navbar-nav > li > a {
   font-family: 'Orbitron', sans-serif;
   text-align: center;
   color: rgb(255,255,255);
 }
 
+
+.posted-at {
+  font-size: 0.7em;
+  font-style: italic;
+}
+
+.navbar {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.navbar-inverse {
+  background-color: rgba(0,0,0,.5);
+  border: none;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.search {
+  margin-top: 10px;
+  font-family: 'Orbitron', sans-serif;
+}
 
 a:hover {
   text-decoration: none;
@@ -67,24 +88,6 @@ a:hover {
 a:active {
   color: rgb(255,255,255);
 }
-
-.posted-at {
-  font-size: 0.7em;
-  font-style: italic;
-}
-
-.navbar {
-  margin-bottom: 0;
-  padding-bottom: 12px;
-  width: 100%;
-}
-
-.navbar-default {
-  background-color: rgba(0,0,0,.5);
-  border: none;
-  font-family: 'Orbitron', sans-serif;
-}
-
 
 // buttons
 
@@ -96,9 +99,6 @@ a:active {
   margin-left: 10px;
 }
 
-.search {
-  margin-top: 10px;
-}
 
 // search results
 
@@ -109,6 +109,7 @@ a:active {
   width: 240px;
   margin: 10px;
   font-size: 14px;
+  color: rgb(255,255,255);
 }
 
 .photo-size {
