@@ -1,5 +1,5 @@
 class InstagramController < ApplicationController
-  SEARCH_URI = "https://api.instagram.com/v1/users/search?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }&count=10"
+  SEARCH_URI = "https://api.instagram.com/v1/users/search?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }&count=30"
   FEED_INFO_URI_A = "https://api.instagram.com/v1/users/" # then user_id (for us: feed_id)
   FEED_INFO_URI_B = "?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }"
   FEED_URI_A = "https://api.instagram.com/v1/users/" # then user_id (for us: feed_id)
@@ -14,20 +14,29 @@ class InstagramController < ApplicationController
 
   def individual_feed # show
     id = params[:feed_id]
+    feed = Feed.find_by(platform_feed_id: id, platform: "Instagram")
 
-    feed_info_url = FEED_INFO_URI_A + id + FEED_INFO_URI_B
-    feed_info_results = HTTParty.get(feed_info_url)
-    @feed_name = feed_info_results["data"]["username"]
+    if feed
+      feed.check_for_updates
+      @internal = true
+      @posts = feed.posts.only_thirty
 
-    feed_url = FEED_URI_A + id + FEED_URI_B
-    results = HTTParty.get(feed_url)
-    @posts = results["data"]
-    flash.now[:error] = "This feed does not have any public posts." unless @posts
+    else
+      raise
+      feed_info_url = FEED_INFO_URI_A + id + FEED_INFO_URI_B
+      feed_info_results = HTTParty.get(feed_info_url)
+      @feed_name = feed_info_results["data"]["username"]
+
+      feed_url = FEED_URI_A + id + FEED_URI_B
+      results = HTTParty.get(feed_url)
+      @posts = results["data"]
+      flash.now[:error] = "This feed does not have any public posts." unless @posts
+    end
   end
 
   def subscribe # new
     id = params[:feed_id]
-    feed = Feed.find_by(platform_feed_id: id, platform: "instagram")
+    feed = Feed.find_by(platform_feed_id: id, platform: "Instagram")
 
     unless feed
       feed_info_url = FEED_INFO_URI_A + id + FEED_INFO_URI_B

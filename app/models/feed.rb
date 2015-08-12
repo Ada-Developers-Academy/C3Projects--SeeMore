@@ -10,12 +10,6 @@ class Feed < ActiveRecord::Base
   # TODO: consider whether this should remain as media/recent. just realized there might be a longer feed available.
   INSTAGRAM_BASE_URI = "https://api.instagram.com/v1/users/" # ig's user_id == our feed_id
   INSTAGRAM_FEED_END_URI = "/media/recent?client_id=#{ ENV["INSTAGRAM_CLIENT_ID"] }"
-  VIMEO_BASE_URI = "https://api.vimeo.com/users/" # vm's user_id == our feed_id
-  VIMEO_FEED_END_URI = "/videos?page=1&per_page=30"
-  VIMEO_TOKEN_HEADER = {
-                  "Accept" => "application/vnd.vimeo.*+json;version=3.2",
-                  "Authorization" => "bearer #{ ENV["VIMEO_ACCESS_TOKEN"] }"
-                }
 
   # Validations-----------------------------------------------------------------
   validates :name, :platform, :platform_feed_id, presence: true
@@ -75,24 +69,24 @@ class Feed < ActiveRecord::Base
     feed_post_ids = feed_posts.map { |post| post.post_id }
 
     # query the API
-    feed_url = INSTAGRAM_FEED_URI_A + platform_feed_id.to_s + INSTAGRAM_FEED_URI_B
+    feed_url = INSTAGRAM_BASE_URI + platform_feed_id.to_s + INSTAGRAM_FEED_END_URI
     results = HTTParty.get(feed_url)
     new_posts = results["data"]
 
     # create new posts from data
     updated_posts = []
-    post_data.each do |post|
+    new_posts.each do |post|
       post_id = post["id"]
       new_post = Post.create(create_instagram_post(post, self.id)) unless feed_post_ids.include? post_id
       updated_posts.push(new_post)
     end
 
-    # delete any posts that are no longer present
-    feed_posts.each do |post|
-      unless updated_posts.include? post
-        post.destroy
-      end
-    end
+    # delete any posts that are no longer present # this doesn't seem to work right :(
+    # feed_posts.each do |post|
+    #   unless updated_posts.include? post
+    #     post.destroy
+    #   end
+    # end
   end
 
   def update_vimeo_feed
@@ -107,11 +101,18 @@ class Feed < ActiveRecord::Base
 
   # Private methods ------------------------------------------------------------
   private
+    def vimeo_feed_info(feed_id)
+    end
+
+    def vimeo_feed(feed_id)
+    end
+
     def create_instagram_post(post_data, feed_id)
       post_hash = {}
       post_hash[:post_id]     = post_data["id"] # post id from instagram
       post_hash[:description] = post_data["caption"]["text"] if post_data["caption"]
       post_hash[:content]     = post_data["images"]["low_resolution"]["url"]
+      post_hash[:likes]       = post_data["likes"]["count"]
       post_hash[:date_posted] = Time.at(post_data["created_time"].to_i)
       post_hash[:feed_id]     = feed_id # feed id from local feed object
       return post_hash

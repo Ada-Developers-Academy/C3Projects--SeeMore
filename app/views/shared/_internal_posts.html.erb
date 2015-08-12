@@ -1,0 +1,35 @@
+<% posts.each do |post| %>
+  <div class="feed">
+    <% if post.feed.platform == "Instagram" %>
+      <%= image_tag post.content, class: "left" %>
+    <% elsif post.feed.platform == "Vimeo" %>
+      <div class="left">
+        <%= post.content.html_safe %>
+      </div>
+    <% end %>
+    <div class="right">
+      <h3>
+        <% if post.feed.platform == "Instagram" %>
+          <%= link_to post.feed.name, instagram_feed_path(post.feed.platform_feed_id) %>
+        <% elsif post.feed.platform == "Vimeo" %>
+          <%= link_to post.feed.name, vimeo_feed_path(post.feed.platform_feed_id) %>
+        <% end %>
+      </h3>
+      <p>
+        <% if post.description %>
+          <% if shorten %>
+            <%= shorten(post.description) %>
+          <% else %>
+            <%= post.description %>
+          <% end %>
+        <% else %>
+          No description provided.
+        <% end %>
+      </p>
+      <span class="badge"><%= number_with_delimiter(post.likes, :delimiter => ',') %> likes</span><br />
+    </div>
+    <div class="date">
+      <%= post.date_posted %>
+    </div>
+  </div>
+<% end %>

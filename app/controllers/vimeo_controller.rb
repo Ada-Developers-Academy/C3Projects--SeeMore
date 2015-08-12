@@ -23,6 +23,7 @@ class VimeoController < ApplicationController
     json_results = JSON.parse(json_string_results)
 
     @posts = json_results["data"]
+    # raise
     flash.now[:error] = "This feed does not have any public posts." unless @posts
   end
 

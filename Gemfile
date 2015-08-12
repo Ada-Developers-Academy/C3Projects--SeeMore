@@ -40,7 +40,7 @@ gem 'httparty'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem "webmock"
+  # gem "webmock"
   gem "vcr"
   gem "better_errors" # These two are just for debugging
   gem "binding_of_caller"
