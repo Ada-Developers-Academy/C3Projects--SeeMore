@@ -30,12 +30,8 @@ class FolloweesController < ApplicationController
   def search_results
     @query = params[:user]
     @source = params[:source]
-    case params[:source]
-    when INSTAGRAM
-      @results = InstagramApi.new.user_search(@query, USER_COUNT)
-    when TWITTER
-      @results = TwitterApi.new.user_search(@query, USER_COUNT)
-    end
+
+    @results = Followee.user_search(@query, USER_COUNT, @source)
 
     render 'search'
   end
