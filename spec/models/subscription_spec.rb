@@ -37,6 +37,18 @@ RSpec.describe Subscription, type: :model do
       expect(Subscription.count).to eq(1)
       expect(Subscription.first).to eq(Subscription.last)
     end
+
+    it "makes a subscription from previously unsubscribed followee" do
+      natgeo = Subscription.find_or_create_subscription(zynthia, beyonce)
+      # hard-wire unsubscribe date
+      natgeo.unsubscribe_date = (Time.now - 10000)
+      # re-subscribe
+      natgeo = Subscription.find_or_create_subscription(zynthia, beyonce)
+
+      expect(Subscription.count).to eq(1)
+      expect(Subscription.first).to eq(Subscription.last)
+      expect(natgeo.unsubscribe_date).to eq(nil)
+    end
   end
 
   describe "scopes" do

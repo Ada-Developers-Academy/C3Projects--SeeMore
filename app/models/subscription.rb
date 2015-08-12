@@ -10,8 +10,16 @@ class Subscription < ActiveRecord::Base
   scope :active, -> { where(unsubscribe_date: nil) }
 
   def self.find_or_create_subscription(current_user, followee)
-    # subscription = Subscription.new
-    subscription = self.find_or_initialize_by(user_id: current_user.id, followee_id: followee.id)
+    subscription = self.find_or_initialize_by(
+      user_id: current_user.id,
+      followee_id: followee.id
+    )
+
+    if !subscription.unsubscribe_date.nil?
+      # if user previously subscribed to followee
+      subscription.unsubscribe_date = nil
+      subscription.created_at = Time.now
+    end
 
     subscription.save ? subscription : false
   end
