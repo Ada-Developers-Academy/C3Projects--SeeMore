@@ -26,6 +26,6 @@ FactoryGirl.define do
     name "I like videos"
     avatar nil
     platform "Vimeo"
-    platform_feed_id 2
+    platform_feed_id 42645726
   end
 end
