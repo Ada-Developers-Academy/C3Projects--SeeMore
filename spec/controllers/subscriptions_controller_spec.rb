@@ -15,8 +15,9 @@ RSpec.describe SubscriptionsController, type: :controller do
   end # create
 
   describe "PUT #unsubscribe" do
-    let(:user) { create :user }
-    let(:subscription) { create :subscription }
+    let!(:user) { create :user }
+    let!(:followee) { create :followee, id: 100 }
+    let!(:subscription) { create :subscription }
 
     before :each do
       session[:user_id] = user.id
