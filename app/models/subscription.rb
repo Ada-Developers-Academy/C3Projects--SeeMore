@@ -17,11 +17,11 @@ class Subscription < ActiveRecord::Base
 
     if !subscription.unsubscribe_date.nil?
       # if user previously subscribed to followee
-      subscription.unsubscribe_date = nil
-      subscription.created_at = Time.now
+      subscription = Subscription.create!(user_id: current_user.id, followee_id: followee.id)
     end
+    subscription.save
 
-    subscription.save ? subscription : false
+    return subscription
   end
 
 end

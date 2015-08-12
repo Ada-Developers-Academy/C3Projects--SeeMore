@@ -24,30 +24,20 @@ RSpec.describe Subscription, type: :model do
   describe ".find_or_create_subscription" do
     let!(:zynthia) { create :user, id: 1 }
     let!(:beyonce) { create :followee, id: 200, handle: "beyonce", source: "instagram" }
+    let!(:sub2)  { create :subscription, user_id: zynthia.id, followee_id: beyonce.id, unsubscribe_date: "Sat, 02 Aug 2015 22:12:25 UTC +00:00" }
 
     it "creates valid subscription to existing followee & user" do
       natgeo = Subscription.find_or_create_subscription(zynthia, beyonce)
       expect(natgeo).to be_valid
     end
 
-    it "does not remake existing subscription" do
-      natgeo = Subscription.find_or_create_subscription(zynthia, beyonce)
-      natgeo = Subscription.find_or_create_subscription(zynthia, beyonce)
-
-      expect(Subscription.count).to eq(1)
-      expect(Subscription.first).to eq(Subscription.last)
-    end
-
-    it "makes a subscription from previously unsubscribed followee" do
-      natgeo = Subscription.find_or_create_subscription(zynthia, beyonce)
-      # hard-wire unsubscribe date
-      natgeo.unsubscribe_date = (Time.now - 10000)
+    it "makes new subscription from previously unsubscribed followee" do
       # re-subscribe
       natgeo = Subscription.find_or_create_subscription(zynthia, beyonce)
 
-      expect(Subscription.count).to eq(1)
-      expect(Subscription.first).to eq(Subscription.last)
-      expect(natgeo.unsubscribe_date).to eq(nil)
+      expect(Subscription.count).to eq(2)
+      expect(Subscription.first).to eq(sub2)
+      expect(Subscription.last).to eq(natgeo)
     end
   end
 
