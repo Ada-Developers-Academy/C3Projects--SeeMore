@@ -23,6 +23,23 @@ class TwitterHelper
     # returns nil if there are no tweets
     tweet_array.empty? ? nil : tweet_array
   end
+
+  def self.format_many_prey(prey)
+    prey.map do |p|
+      format_prey(p)
+    end
+  end
+
+  def self.format_prey(prey)
+    {
+      uid: prey.id,
+      name: prey.name,
+      username: prey.screen_name,
+      provider: "twitter",
+      photo_url: prey.profile_image_url_https.to_s.sub!('_normal', ''),
+      profile_url: prey.url.to_s
+    }
+  end
 end
 
 class InstagramHelper

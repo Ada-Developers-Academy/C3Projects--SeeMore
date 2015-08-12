@@ -9,16 +9,17 @@ class TwitterClient
   end
 
   def self.user_search(search_term)
-    CLIENT.user_search(search_term)
+    prey = CLIENT.user_search(search_term)
+    TwitterHelper.format_many_prey(prey)
   end
 
   def self.find_user(username)
-    match = CLIENT.user_search(username)
-    match.first
+    prey = CLIENT.user_search(username)
+    TwitterHelper.format_many_prey(prey).first
   end
 
   def self.fetch_tweets(prey_uid, options = {})
-      tweets = CLIENT.user_timeline(prey_uid.to_i, options)
-      TwitterHelper.format_many_tweets(tweets)
+    tweets = CLIENT.user_timeline(prey_uid.to_i, options)
+    TwitterHelper.format_many_tweets(tweets)
   end
 end
