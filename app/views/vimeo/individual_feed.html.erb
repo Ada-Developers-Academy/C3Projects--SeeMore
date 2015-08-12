@@ -2,19 +2,21 @@
   <h2>This feed doesn't have any posts. ;_;</h2>
 <% else %>
 <br>
-<h2 class="text-center green"><%= @feed_name %>'s feed
-  <% if params[:feed_id] %>
-    <%= link_to "Subscribe", instagram_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
+<h2 class="text-center green"><%= @posts.last["user"]["name"] %>'s feed
+  <% if current_user.feeds.include?(params[:feed_id]) != true%>
+    <%= link_to "Subscribe", vimeo_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
   <% end %>
 </h2>
   <% @posts.each do |post| %>
   <div class="feed">
     <h3 class="center">
-      <%= link_to post["name"], vimeo_feed_path(params[:feed_id]) %>
+      <%= link_to post["user"]["name"], vimeo_feed_path(params[:feed_id]) %>
       <br>
       <small><%= post["created_time"] %></small>
     </h3>
-    <%= post["embed"]["html"] %>
+    <div class= "center">
+      <%= resize_video(post).html_safe %>
+    </div>
     <p>
       <% if post["description"] %>
         <%= post["description"] %>
