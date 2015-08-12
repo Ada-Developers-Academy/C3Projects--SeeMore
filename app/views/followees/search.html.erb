@@ -44,8 +44,8 @@
                 <%= link_to "Private User", root_path, class: "btn btn-default disabled"%>
               
               <!-- Can 'unsubscribes' from user accounts you already follow -->
-              <% elsif already_following?(user["id"]) %>
-                <%= link_to "Unsubscribe", "#", class: "btn btn-danger" %>
+              <% elsif currently_following?(user["id"]) %>
+                <%= link_to "Unsubscribe", unsubscribe_path(find_subscription_id(user["id"])), method: :put, class: "btn btn-danger" %>
 
               <!-- Can subscribe to public user accounts -->
               <% else %>
