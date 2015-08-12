@@ -93,7 +93,7 @@ RSpec.describe Feed, type: :model do
       it "gets a response from an api" do
         feed = create :feed
 
-        VCR.use_cassette("spec/instagram_post, records: :new_episodes") do
+        VCR.use_cassette "spec/vcr/instagram" do
           feed.populate_posts
         end
 
