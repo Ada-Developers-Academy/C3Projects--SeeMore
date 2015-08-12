@@ -12,21 +12,7 @@ RSpec.describe SubscriptionsController, type: :controller do
     it "creates a new subscription" do
       expect(Subscription.count).to eq(1)
     end
-      # it "redirect_to user_path" do
-      #   post :create, user: create(:user), followee: create(:followee)
-      #   expect(response).to redirect_to(user_path(session[:user_id]))
-      #   # undefined method `user_id' for nil:NilClass??
-      # end
-      # post :create, :user zynthia :followee beyonce
-      # expect{post :create, subscription: FactoryGirl.attributes_for(:subscription)}.to change(Subscription, :count).by(1)
-
   end # create
-
-    # it "redirect_to root_path" do
-    #   post :create
-    #
-    #   expect(response).to redirect_to(root_path)
-    # end
 
   describe "PUT #unsubscribe" do
     let(:user) { create :user }
