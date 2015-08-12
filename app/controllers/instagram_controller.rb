@@ -40,7 +40,7 @@ class InstagramController < ApplicationController
   end
 
   private
-    def create_feed_attribute(results)
+    def create_feed_attributes(results)
       feed_hash = {}
       feed_info = results["data"]
       feed_hash[:avatar]           = feed_info["profile_picture"] if feed_info["profile_picture"]

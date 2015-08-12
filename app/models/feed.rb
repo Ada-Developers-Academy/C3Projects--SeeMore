@@ -31,6 +31,7 @@
 
   def populate_posts
     if platform == "Instagram" || platform == "Developer"
+      raise
       populate_instagram_feed
     elsif platform == "Vimeo"
       populate_vimeo_feed
