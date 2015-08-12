@@ -5,9 +5,6 @@ class Post < ActiveRecord::Base
   # Associations ---------------------------------------------------------------
   belongs_to :followee
 
-  # Scopes ---------------------------------------------------------------------
-  scope :chron_sort, -> { order('native_created_at')}
-
   def self.create_posts_and_update_followee(posts, followee, source)
     if posts && posts.count > 0
       create_from_API(posts, followee, source)
