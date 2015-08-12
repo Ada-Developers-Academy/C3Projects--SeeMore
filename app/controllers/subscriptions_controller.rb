@@ -23,7 +23,7 @@ class SubscriptionsController < ApplicationController
     # adds current time to unsubscribe_date
     subscription = Subscription.find(params[:id])
     subscription.update!(unsubscribe_date: Time.now)
-    redirect_to subscriptions_path
+    redirect_to subscriptions_path, flash[:notice] = "You have successfully unsubscribed."
   end
 
   private
