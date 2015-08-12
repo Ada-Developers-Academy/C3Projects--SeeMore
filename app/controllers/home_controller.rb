@@ -3,8 +3,6 @@ class HomeController < ApplicationController
 
   include ActionView::Helpers::OutputSafetyHelper
 
-  FIRST_POSTS_NUM = 5
-
   def signin; end
 
   def newsfeed
@@ -28,9 +26,7 @@ class HomeController < ApplicationController
 
   def get_new_posts
     active_subscriptions = @current_user.subscriptions.active
-
-    # Api helper method
-    Post.process_new_posts(active_subscriptions)
+    ApiHelper.process_new_posts(active_subscriptions)
 
     redirect_to root_path
   end
