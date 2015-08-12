@@ -7,6 +7,10 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 
 VCR.configure do |c|
+<<<<<<< HEAD
+=======
+  # c.ignore_request { |r| URI(r.uri).contain("/users/2/")}
+>>>>>>> 6217461cb9a4ed86fb322182bc41280db9a9470d
   c.allow_http_connections_when_no_cassette = true
   c.cassette_library_dir = 'spec/vcr'
   c.hook_into :webmock

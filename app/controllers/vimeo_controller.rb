@@ -18,7 +18,12 @@ class VimeoController < ApplicationController
       @feed_name = feed.name
 
     else
-      flash.now[:error] = "This feed does not have any public posts." unless @posts
+      if @posts
+        @posts = VimeoAPI.vimeo_feed(params[:feed_id])
+        @feed_name = @posts.first["user"]["name"]
+      else
+        flash.now[:error] = "This feed does not have any public posts."
+      end
     end
   end
 
