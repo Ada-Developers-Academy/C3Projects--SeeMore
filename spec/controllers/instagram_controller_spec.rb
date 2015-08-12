@@ -70,10 +70,11 @@ RSpec.describe InstagramController, type: :controller do
 
       it "creates a new database entry if the feed is not found" # FIXME: add VCR here to mimic posts
 
-      it "redirects to the user's feed" do
+      it "redirects the user from whence it came" do
+        request.env["HTTP_REFERER"] = instagram_results_path("cats")
         feed = create :feed
         post :subscribe, feed_id: feed.id
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to(instagram_results_path("cats"))
       end
     end
   end
