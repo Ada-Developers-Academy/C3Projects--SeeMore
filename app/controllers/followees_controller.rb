@@ -5,7 +5,7 @@ class FolloweesController < ApplicationController
 
   before_action :find, only: [:destroy]
   # helper_method :get_embedded_html_instagram
-  helper_method :private_user?, :already_following?
+  helper_method :private_user?, :currently_following?, :find_subscription_id
 
   include ActionView::Helpers::OutputSafetyHelper
 
@@ -47,7 +47,21 @@ class FolloweesController < ApplicationController
     return privacy_boolean
   end
 
-  def already_following?(followee_id)
-    @current_user.followees.find_by(native_id: followee_id) ? true : false
+  def currently_following?(native_id)
+    followee = find_followee(native_id)
+    if followee
+      @current_user.subscriptions.active_for_this_followee(followee.id).empty? ? false : true
+    else
+      return false
+    end
+  end
+
+  def find_subscription_id(native_id)
+    followee = find_followee(native_id)
+    subscription_id_to_unsubscribe = @current_user.subscriptions.active_for_this_followee(followee.id).first
+  end
+
+  def find_followee(native_id)
+    Followee.find_by(native_id: native_id)
   end
 end
