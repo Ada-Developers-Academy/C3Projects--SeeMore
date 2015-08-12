@@ -54,4 +54,8 @@ class InstagramApi
     # and there is a last_post_id.
     true if posts && posts.count > 0 && last_post_id
   end
+
+  def self.convert_instagram_time(time)
+    Time.at(time.to_i)
+  end
 end
