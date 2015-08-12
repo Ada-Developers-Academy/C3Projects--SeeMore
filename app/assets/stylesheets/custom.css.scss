@@ -41,6 +41,7 @@ body {
   background-repeat: repeat;
   width: 500px;
   padding-top: 10px;
+  border-radius: 4px;
 }
 
 .ig_image {
@@ -151,7 +152,8 @@ a:hover {
   color: rgba(255, 255, 255, 0.9);
 }
 
-.btn-feed:hover {
+a.btn-feed:hover,
+a.btn-feed:active {
   background-color: rgba(0, 0, 0, .8);
   color: rgba(255, 255, 255, 1);
 }
