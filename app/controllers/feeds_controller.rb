@@ -35,11 +35,7 @@ class FeedsController < ApplicationController
       avatar = nil
       provider = "Instagram"
       link = ig_post.post_url
-      unless ig_post.caption.nil?
-        text = ig_post.caption
-      else
-        text = ""
-      end
+      text = ig_post.caption
       @all_posts.push(Struct::Ninja.new(username, media_url, text, date_time, avatar, provider, link))
     end
 

@@ -37,6 +37,17 @@ RSpec.describe FeedsController, type: :controller do
     #     end
     #   end
     # end
+
+    describe "GET #search" do
+      context "people feed display" do
+        it "renders the home page" do
+          get :search
+
+          expect(response).to be_success
+          expect(response).to have_http_status(200)
+        end
+      end
+    end
   end
 
   context "Tweet Posts" do
@@ -56,8 +67,6 @@ RSpec.describe FeedsController, type: :controller do
           @tweet = create :tweet
           session[:user_id] = @user.id
           get :index
-          # NOTE: with VCR, this is no longer using the factory;
-          # it's getting an actual tweeter. Is this ok?
         end
       end
 

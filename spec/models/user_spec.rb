@@ -91,4 +91,48 @@ RSpec.describe User, type: :model do
     end
   end
 
+  context "user logging in with twitter" do
+    describe "validations" do
+      let(:tweet_user) { build :user, provider: :twitter }
+
+      it "is valid" do
+        expect(tweet_user).to be_valid
+      end
+
+      it "requires a username" do
+        tweet_user.username = nil
+        expect(tweet_user).to be_invalid
+      end
+
+      it "requires a uid" do
+        tweet_user.uid = nil
+        expect(tweet_user).to be_invalid
+      end
+
+      it "requires a provider" do
+        tweet_user.provider = nil
+        expect(tweet_user).to be_invalid
+      end
+    end
+
+    describe ".initialize_from_omniauth" do
+      let(:user) {
+        User.find_or_create_from_omniauth(OmniAuth.config.mock_auth[:twitter])
+      }
+
+      it "creates a valid user" do
+        expect(user).to be_valid
+      end
+
+      context "when it's invalid" do
+        it "returns nil" do
+          user = User.find_or_create_from_omniauth({
+            uid: "123", info: { }
+            })
+          expect(user).to be_nil
+        end
+      end
+    end
+  end
+
 end
