@@ -7,7 +7,7 @@ RSpec.describe VimeoController, type: :controller do
     let(:query) { "cupcakes" }
     let(:user) { create :au_user}
     it "gets a response from an api" do
-      VCR.use_cassette "spec/vcr" do
+      VCR.use_cassette "vimeo_query" do
         session[:user_id] = user.id
         get :results, query: query
         expect(assigns(:results).first["name"]).to eq "Cupcake"
@@ -73,7 +73,7 @@ RSpec.describe VimeoController, type: :controller do
       context "feed that doesn't have posts" do
         let(:invalid_feed) { create :invalid_vimeo_feed }
         it "sends an error message" do
-          VCR.use_cassette "/vimeo_feed" do
+          VCR.use_cassette "/vimeo_error" do
             get :individual_feed, feed_id: invalid_feed.id
           end
 
@@ -84,6 +84,9 @@ RSpec.describe VimeoController, type: :controller do
 
     context "subscribe" do
       let(:feed) { create :user_vimeo}
+      before(:each) do
+        request.env["HTTP_REFERER"] = instagram_results_path("cats")
+      end
       it "associates the feed with the user" do
         VCR.use_cassette("/subscribe") do
           post :subscribe, feed_id: feed.id
@@ -99,13 +102,14 @@ RSpec.describe VimeoController, type: :controller do
       it "redirects to the user's feed" do
         VCR.use_cassette("/subscribe") do
           post :subscribe, feed_id: feed.id
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to(instagram_results_path("cats"))
         end
       end
     end
   end
 
   describe "unauthenticated / guest users" do
+    let(:feed) { create :user_vimeo }
     context "results" do
       it "redirects to the root_path / login page" do
         search_term = "potatoes"
@@ -116,7 +120,6 @@ RSpec.describe VimeoController, type: :controller do
 
     context "individual_feed" do
       it "redirects to the root_path / login page" do
-        feed = create :feed
         get :individual_feed, feed_id: feed.id
         expect(response).to redirect_to root_path
       end
@@ -124,10 +127,8 @@ RSpec.describe VimeoController, type: :controller do
 
     context "subscribe" do
       it "redirects to the root_path / login page" do
-        request.env["HTTP_REFERER"] = instagram_results_path("cats")
-        feed = create :feed
         post :subscribe, feed_id: feed.id
-        expect(response).to redirect_to(instagram_results_path("cats"))
+        expect(response).to redirect_to root_path
       end
     end
   end
