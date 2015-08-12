@@ -33,7 +33,7 @@ class HomeController < ApplicationController
       followee = sub.followee
       source = followee.source
 
-      posts = get_posts_from_API(followee)
+      posts = Post.get_posts_from_API(followee)
 
       if posts && posts.count > 0
         posts.each do |post|
@@ -49,19 +49,19 @@ class HomeController < ApplicationController
     redirect_to root_path
   end
 
-  def get_posts_from_API(followee)
-    last_post_id = followee.last_post_id
-    source = followee.source
+  # def get_posts_from_API(followee)
+  #   last_post_id = followee.last_post_id
+  #   source = followee.source
 
-    case source
-    when TWITTER
-      id = followee.native_id.to_i
-      posts = TwitterApi.new.get_posts(id, last_post_id)
-    when INSTAGRAM
-      id = followee.native_id
-      posts = InstagramApi.new.get_posts(id, last_post_id)
-    end
+  #   case source
+  #   when TWITTER
+  #     id = followee.native_id.to_i
+  #     posts = TwitterApi.new.get_posts(id, last_post_id)
+  #   when INSTAGRAM
+  #     id = followee.native_id
+  #     posts = InstagramApi.new.get_posts(id, last_post_id)
+  #   end
 
-    posts
-  end
+  #   posts
+  # end
 end
