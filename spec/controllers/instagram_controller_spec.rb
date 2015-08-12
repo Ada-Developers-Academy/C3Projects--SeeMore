@@ -9,8 +9,13 @@ RSpec.describe InstagramController, type: :controller do
 
     context "results" do
       before :each do
-        @search_term = "potato"
-        get :results, query: @search_term
+        VCR.use_cassette("user_instagram") do
+          feed = create :user_instagram
+
+          @search_term = "potato"
+          get :results, query: @search_term
+        end
+
       end
 
       it "responds successfully" do
@@ -33,10 +38,13 @@ RSpec.describe InstagramController, type: :controller do
     context "individual_feed" do
       context "feed that has posts" do
         before :each do
-          allow_any_instance_of(Feed).to receive(:populate_posts)
-          feed = create :feed
-          # FIXME: add VCR here to mimic posts
-          get :individual_feed, feed_id: feed.id
+
+          VCR.use_cassette("user_instagram") do
+            feed = create :user_instagram
+
+            @search_term = "potato"
+            get :individual_feed, feed_id: feed.id
+          end
         end
 
         it "responds successfully" do
