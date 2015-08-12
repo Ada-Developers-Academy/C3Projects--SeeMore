@@ -26,6 +26,22 @@ RSpec.configure do |config|
     # to use the mock authentication hash.
     # A request to /auth/provider will redirect
     # immediately to /auth/provider/callback.
+    WebMock.stub_request(
+      :get, "https://api.instagram.com/v1/users//media/recent/?access_token=55660554.1677ed0.0fc5f4dcebd6423aaf65c817ca95b0dd&count=5"
+      )
+      .with(
+        :headers => {
+          'Accept'=>'*/*',
+          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'User-Agent'=>'Ruby'
+        }
+      )
+      .to_return(
+        :status => 200,
+        :body => "",
+        :headers => {}
+      )
+
 
     OmniAuth.config.test_mode = true
 

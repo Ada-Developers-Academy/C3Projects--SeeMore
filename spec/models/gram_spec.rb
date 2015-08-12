@@ -1,73 +1,46 @@
 require 'rails_helper'
 
 RSpec.describe Gram, type: :model do
-  # describe "scope #latest_posts(limit)" do
-  #   before :each do
-  #     3.times do
-  #       create :gram
-  #     end
+  describe "self.collect_latest_posts" do
+    before :each do
+      @user = create :user
+      params = {
+        username: 'instagram',
+        profile_pic: 'fake.jpg',
+        ig_user_id: '25025320',
+        fullname: 'Instagram'
+      }
+      ig_account = InstagramUser.first_or_create_account(params)
+      @user.instagram_users << ig_account
+    end
 
-  #     @post4 = create :gram
-  #     @post5 = create :gram
-  #   end
+    it "collects posts from Instagram" do
+      VCR.use_cassette 'model/gram_collect_posts' do
+        number_of_inital_posts = @user.grams.count
+        Gram.collect_latest_posts(@user)
 
-  #   it "retrieves the latest posts" do
-  #     posts = Gram.latest_posts(2)
+        expect(number_of_inital_posts).to eq 0
+        expect(@user.grams.count).to be > number_of_inital_posts
+      end
+    end
 
-  #     expect(posts).to include @post4
-  #     expect(posts).to include @post5
-  #   end
-
-  #   it "returns number of posts according to limit parameter" do
-  #     three_posts = Gram.latest_posts(3)
-  #     one_post = Gram.latest_posts(1)
-
-  #     expect(three_posts.count).to eq 3
-  #     expect(one_post.count).to eq 1
-  #   end
-
-  #   it "returns posts in reverse chronological order" do
-  #     posts = Gram.latest_posts(3)
-
-  #     expect(posts[0].created_at).to be > posts[1].created_at
-  #     expect(posts[1].created_at).to be > posts[2].created_at
-  #     expect(posts[2].created_at).to be < posts[0].created_at
-  #   end
-  # end
-
-  # describe "scope #whatsnew(min_id)" do
-  #   before :each do 
-  #     35.times do |i|
-  #       create :gram, ig_id: i
-  #     end
-  #   end
-
-
-  #   it "returns an array of Instagram posts" do
-  #     result = Gram.whatsnew(20)
-  #     expect(result).to be_a Array
-  #   end
-
-  #   it "does not return posts older than the given id" do
-  #     result= Gram.whatsnew(5)
-  #     expect(result).to_not include(1,2,3,4)
-  #   end
-
-  #   it "limits the returned Instagram posts count to 30" do
-  #     result = Gram.whatsnew(1)
-  #     expect(result.count).to eq(30)
-  #   end
-
-  #   it "returns posts in descending order" do
-
-  #   end
-
-
-  #   context "there are no new posts" do
-  #     it "returns an empty array" do
-  #     end
-  #   end
-
-  # end WE REALIZED THAT WE"RE WRITING UNNECCESARY SPECS BECAUSE THE GEM IS GONNA HANDLE THEM.
-  # ** SAD TROMBONE **
+    # it "collects posts newer than the given min_id" do
+    #
+    # end
+    #
+    # it "doesn't collect posts older than the given min_id" do
+    #
+    # end
+    #
+    # it "returns posts in descending chronological order" do
+    #
+    # end
+    #
+    # context "an account doesn't have saved IG posts " do
+    #
+    #   it "collects the latest 5 posts from Instagram" do
+    #
+    #   end
+    # end
+  end
 end
