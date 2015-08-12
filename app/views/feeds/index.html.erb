@@ -3,18 +3,13 @@
   <h1 class="header">NinjaPartay</h1>
     <% if session[:user_id].nil? %>
       <h3 class="login-header">Choose Your Weapon</h3>
-        <%= link_to login_path(provider: :instagram, class: "hey") do %>
+        <div class="woo"><%= link_to login_path(provider: :instagram, class: "hey") do %>
             <span class="fa fa-instagram fa-5x col-sm-1 center ig-icon" aria-hidden="true" data-toggle="tooltip" title="instagram login"></span>
         <% end %>
         <%= link_to login_path(provider: :twitter) do %>
             <span class="fa fa-twitter fa-5x col-sm-1 center twitter-icon" aria-hidden="true" data-toggle="tooltip" title="twitter login"></span>
-        <% end %>
+        <% end %></div>
     <% else %>
-
-        <%# link_to "Refresh", root_path, class: "btn btn-default btn-feed" %>
-        <%= link_to root_path, class: "btn btn-feed" do %>
-          <i class="glyphicon glyphicon-repeat"></i>
-        <% end %>
         <!-- Feed -->
         <% if @all_posts && !@all_posts.empty? %>
           <div class="feed col-sm-4 center">
@@ -26,9 +21,9 @@
                     <h5><span class="fa fa-instagram fa-lg icon" aria-hidden="true" data-toggle="tooltip"></span> <%= post.username %></h5>
                     <p><%= post.text %></p>
                   <% else %>
-                    <h5 class="lefts"><%= image_tag(post.avatar, class: "avatar") %>
+                    <h5 class="shift-left"><%= image_tag(post.avatar, class: "avatar") %>
                     <span class="fa fa-twitter fa-lg icon" aria-hidden="true" data-toggle="tooltip"></span> <%= post.username %></h5>
-                    <p><%= post.text %></p>
+                    <p class="tweet-post"><%=link_to "#{post.text}", post.link %></p>
                   <% end %>
                   <span class="posted-at text-muted"><%= post.date_time.strftime("%a, %B %e, %Y at %I:%M%P %Z") %></span>
                 </div>
@@ -36,7 +31,7 @@
             <% end %>
         <% else %>
           <div class="feed col-sm-4 center">
-            <h4 class="none"><%= link_to "Add targets. Currently tracking no one", search_path %></h4>
+            <h4 class="no-targets"><%= link_to "Add targets. Currently tracking no one", search_path %></h4>
           </div>
         <% end %>
         </div>

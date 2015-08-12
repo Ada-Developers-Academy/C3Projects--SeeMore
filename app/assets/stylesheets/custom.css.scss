@@ -52,12 +52,11 @@ h1 {
   font-size: 6em;
 }
 
-h1, h2, h3, h4, .search-header, a, .none a, .navbar-default .navbar-text, .navbar-default .navbar-nav > li > a {
-  font-family: 'Orbitron', sans-serif;
-  text-align: center;
-  color: rgb(255,255,255);
-}
-
+h1, h2, h3, h4, .search-header, .woo a, .no-targets a, .navbar-default .navbar-text, .navbar-default .navbar-nav > li > a {
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    color: rgb(255,255,255);
+  }
 
 .posted-at {
   font-size: 0.7em;
@@ -75,20 +74,31 @@ h1, h2, h3, h4, .search-header, a, .none a, .navbar-default .navbar-text, .navba
   font-family: 'Orbitron', sans-serif;
 }
 
+.woo a:hover, .no-targets a:hover {
+  text-decoration: none;
+  color: #F00;
+}
+
 .search {
   margin-top: 10px;
   font-family: 'Orbitron', sans-serif;
 }
 
-a:hover {
+.tweet-post a:link {
+  color: black;
+}
+
+.tweet-post a:hover {
+  color: red;
   text-decoration: none;
-  color: #F00;
+
 }
 
-a:active {
-  color: rgb(255,255,255);
-}
+.tweet-post a:visited {
+  color: black;
 
+
+}
 // buttons
 
 .ig-icon{
@@ -128,7 +138,7 @@ a:active {
   float: left;
 }
 
-.lefts {
+.shift-left {
   padding-right: 70px;
 }
 

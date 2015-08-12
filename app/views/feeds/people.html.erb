@@ -7,7 +7,7 @@
     <h3>Targets</h3>
     <% if !@user.instagrams.empty? || !@user.tweets.empty? %>
       <% @people.each do |person| %>
-        <div class="col-xs-3 well">
+        <div class="col-xs-3 well centers">
         <% if person.class == Instagram %>
             <span class="fa fa-instagram fa-lg icon" aria-hidden="true" data-toggle="tooltip"></span>
         <% else %>
@@ -16,10 +16,11 @@
         <%= person.username %><br><br>
         <%= image_tag(person.image_url, class: "photo-size") %><br><br>
         <%= link_to "X", polymorphic_path(person.class.name.downcase, id: person.id), method: :delete, class: "btn btn-danger" %>
+      </div>
       <% end %>
     <% else %>
       <div class="feed col-sm-4 center">
-        <h4 class="none"><%= link_to "Add targets. Currently tracking no one", search_path %></h4>
+        <h4 class="no-targets"><%= link_to "Add targets. Currently tracking no one", search_path %></h4>
       </div>
     <%end%>
 <% end %>
