@@ -30,15 +30,15 @@ RSpec.describe WelcomeController, type: :controller do
 
     context "search" do
       context "valid form input" do
-        it "redirects to instagram results path for instagram searches" do
+        it "redirects to Instagram results path for Instagram searches" do
           search_term = "potatoes"
-          post :search, search: { query: search_term, platform: "instagram" }
+          post :search, search: { query: search_term, platform: "Instagram" }
           expect(response).to redirect_to(instagram_results_path(search_term))
         end
 
-        it "redirects to vimeo results path for vimeo searches" do
+        it "redirects to Vimeo results path for Vimeo searches" do
           search_term = "potatoes"
-          post :search, search: { query: search_term, platform: "vimeo" }
+          post :search, search: { query: search_term, platform: "Vimeo" }
           expect(response).to redirect_to(vimeo_results_path(search_term))
         end
       end
@@ -77,7 +77,7 @@ RSpec.describe WelcomeController, type: :controller do
     context "search" do
       it "redirects to the root_path / login page" do
         search_term = "potatoes"
-        post :search, search: { query: search_term, platform: "instagram" }
+        post :search, search: { query: search_term, platform: "Instagram" }
         expect(response).to redirect_to root_path
       end
     end
