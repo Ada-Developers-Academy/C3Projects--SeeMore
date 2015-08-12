@@ -7,7 +7,6 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 
 VCR.configure do |c|
-
   # c.ignore_request { |r| URI(r.uri).contain("/users/2/")}
   c.allow_http_connections_when_no_cassette = true
   c.cassette_library_dir = 'spec/vcr'
