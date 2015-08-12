@@ -94,7 +94,7 @@ RSpec.describe VimeoController, type: :controller do
       it "creates a new database entry if the feed is not found" do
         post :subscribe, feed_id: feed.id
         expect(Feed.count).to eq(1)
-      end 
+      end
 
       it "redirects to the user's feed" do
         VCR.use_cassette("/subscribe") do
@@ -124,11 +124,11 @@ RSpec.describe VimeoController, type: :controller do
 
     context "subscribe" do
       it "redirects to the root_path / login page" do
+        request.env["HTTP_REFERER"] = instagram_results_path("cats")
         feed = create :feed
         post :subscribe, feed_id: feed.id
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to(instagram_results_path("cats"))
       end
     end
   end
 end
-

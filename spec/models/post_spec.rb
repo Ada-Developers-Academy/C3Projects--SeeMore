@@ -5,6 +5,7 @@ RSpec.describe Post, type: :model do
   # Associations--------------------------------------------------------
   describe "Associations" do
     it "belongs_to feed" do
+      allow_any_instance_of(Feed).to receive(:populate_posts)
       post = create :post
       feed = create :feed
 
