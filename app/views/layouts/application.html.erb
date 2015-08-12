@@ -37,7 +37,7 @@
           <%= link_to "Dashboard", dashboard_path(session[:stalker_id]), class: "btn btn-default navbar-btn navbar-right" %>
         </nav>
       <div class="text-right">
-        <h5>Welcome, <%= @stalker.username %>!</h5>
+        <h5>Welcome, <%= stalker_username(session[:stalker_id]) %>!</h5>
       </div>
       <% end %>
     </header>
