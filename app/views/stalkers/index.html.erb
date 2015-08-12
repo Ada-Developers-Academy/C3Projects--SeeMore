@@ -3,8 +3,14 @@
 
 <h3>Subscriptions</h3>
 
-<h4>Twitter</h4>
-<%= render 'shared/following_list', { all_prey: @twitter_prey } %>
+<div class="row">
+  <div class="col-md-6">
+  <h4>Twitter</h4>
+    <%= render 'shared/following_list', { all_prey: @twitter_prey } %>
+  </div>
 
-<h4>Instagram</h4>
-<%= render 'shared/following_list', { all_prey: @instagram_prey } %>
+  <div class="col-md-6">
+  <h4>Instagram</h4>
+    <%= render 'shared/following_list', { all_prey: @instagram_prey } %>
+  </div>
+</div>
