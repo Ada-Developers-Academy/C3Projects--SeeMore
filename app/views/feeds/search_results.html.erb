@@ -5,22 +5,28 @@
   <% if params[:provider] == 'twitter' %>
     <div class="thumbnail">
       <p><%= link_to user.screen_name, "http://twitter.com/#{user.screen_name}" %></p>
+
       <p><%= image_tag(user.profile_image_url) %></p>
-      <% if tw_following?(user.id) %>
+      
+      <% if following?(user.id) %>
         <p>Following!</p>
       <% else %>
         <p><%= button_to "Follow", tw_follow_path(user.id), params: { profile_image_url: user.profile_image_url,
         screen_name: user.screen_name, user_name: user.name}, class: "btn btn-success" %></p>
-        <!-- Add a link here once users and sessions are complete -->
       <% end %>
     </div>
 
   <% elsif params[:provider] == 'instagram' %>
     <div class="thumbnail">
       <p><%= link_to user.username,"http://www.instagram.com/#{user.username}" %></p>
+
       <p><%= image_tag(user.profile_picture) %></p>
-      <p><%= link_to "Follow", ig_follow_path(user), class: "btn btn-success"%></p>
-       <!-- Add a link here once users and sessions are complete -->
+      
+      <% if following?(user.id) %>
+        <p>Following!</p>
+      <% else %> 
+        <p><%= link_to "Follow", ig_follow_path(user), class: "btn btn-success"%></p>
+      <% end %>
     </div>
   <% end %>
 
