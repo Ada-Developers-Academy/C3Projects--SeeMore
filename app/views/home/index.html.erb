@@ -10,6 +10,7 @@
       <div class="thumbnail">
         <div class="user">
         <%= image_tag(post.subscription.profile_pic, class: "img-circle prof-pic") %>
+        <p class="posted-at"> posted <%= time_ago_in_words(post.posted_at) %> ago </p>
         <% if post.subscription.twitter_id.present? %>
             <i class="fa fa-twitter"></i>
           <% else %>
@@ -42,4 +43,3 @@
   </div>
 <% end %>
 </section>
-

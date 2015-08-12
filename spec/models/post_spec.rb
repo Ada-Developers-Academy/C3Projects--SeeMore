@@ -63,20 +63,33 @@ RSpec.describe Post, type: :model do
   end
 
   describe "post model methods" do
-    # context "create_all_instagram_posts" do
-    #   it "takes array of HTTParty objects, and finds in db or creates new posts" do
+    context "#create_all_instagram_posts" do
 
-    #     VCR.use_cassette('instagram refresh 1') do
+      # It took SOOO LONG to figure out how to make this work.
+      # Kept getting a Webmock error.
 
-    #       array_of_httparty_objects = ENV["INSTAGRAM_RESPONSE"]
-    #       array_of_httparty_objects.to_a
+      # NOTE: In order to get this spec to work with the current config
+      # you'll need to go into the spec_helper.rb file and temporarily uncomment
+      # 'require webmock' and 'WebMock.allow_net_connect!'
+      # run rspec so VCR can record the response
+      # then recomment out those two...
+      it "takes array of HTTParty objects, and finds in db or creates new posts (* SEE COMMENTS ABOVE SPEC)" do
 
-    #       Post.create_all_instagram_posts(array_of_httparty_objects)
+        VCR.use_cassette('instagram refresh create_all_instagram_posts') do
+          INSTA_URI = "https://api.instagram.com/v1/users/"
+          COUNT = 15
+          subscription = (create :ig_sub)
+          access_token = ENV["INSTAGRAM_ACCESS_TOKEN"]
 
-    #       expect(Post.count).to eq 15
-    #     end
-    #   end
-    # end
+          array_of_httparty_objects = []
+          array_of_httparty_objects << HTTParty.get(INSTA_URI + "#{subscription.instagram_id}/media/recent/?count=#{COUNT}&access_token=" + access_token)
+
+          Post.create_all_instagram_posts(array_of_httparty_objects)
+
+          expect(Post.count).to eq 15
+        end
+      end
+    end
 
     context "#create_instagram_post" do
       before :each do
