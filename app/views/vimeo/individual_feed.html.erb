@@ -10,7 +10,7 @@
   <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>
 <% else %>
   <% if @posts.nil? || @posts.empty? %>
-    <h2>This feed doesn't have any posts. ;_;</h2>
+    <h2 class="feed">This feed doesn't have any posts. ;_;</h2>
   <% else %>
     <br />
     <h2 class="text-center green">
