@@ -11,7 +11,7 @@
       <% if post.feed.platform == "Instagram" %>
         <%= image_tag post.content, class: "left" %>
       <% elsif post.feed.platform == "Vimeo" %>
-          <%= resize_video_feed(post).html_safe %>
+        <%= resize_video_main_feed(post).html_safe %>
       <% end %>
         <h3>
           <% if post.feed.platform == "Instagram" %>
