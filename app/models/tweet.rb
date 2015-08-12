@@ -37,7 +37,7 @@ class Tweet < ActiveRecord::Base
       our_tweet.tw_user_id_str = tweet.user.id
       our_tweet.tw_id_str = tweet.id.to_s
       our_tweet.tw_text = tweet.text
-      our_tweet.created_time = tweet.created_at
+      our_tweet.created_time = tweet.created_at.to_datetime
       our_tweet.tw_retweet_count = tweet.retweet_count
       our_tweet.tw_favorite_count = tweet.favorite_count
       our_tweet.tw_user_id = followee_id
