@@ -1,4 +1,4 @@
-class Feed < ActiveRecord::Base
+ class Feed < ActiveRecord::Base
   # Callbacks ------------------------------------------------------------------
   after_create :populate_posts
 

@@ -10,14 +10,14 @@ FactoryGirl.define do
     id 741273
     name "Riley Blakeway"
     avatar nil
-    platform "vimeo"
+    platform "Vimeo"
     platform_feed_id 741273
   end
 
   factory :invalid_vimeo_feed, class: Feed do
     name "I like videos"
     avatar nil
-    platform "vimeo"
+    platform "Vimeo"
     platform_feed_id 2
   end
 

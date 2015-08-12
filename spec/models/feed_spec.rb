@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'webmock/rspec'
 
 RSpec.describe Feed, type: :model do
 
@@ -90,13 +91,13 @@ RSpec.describe Feed, type: :model do
     describe 'populates posts after create method' do
 
       it "gets a response from an api" do
-        user = create :au_user
-        session[:user_id] = user.id
+        feed = create :feed
 
-        VCR.use_cassette "spec/vcr" do
-          feed = create :feed
-          expect(Post.where(feed_id: 1).count).to eq 1
+        VCR.use_cassette("spec/instagram_post, records: :new_episodes") do
+          feed.populate_posts
         end
+
+        expect(Post.count).to eq 1
       end
    end
 
