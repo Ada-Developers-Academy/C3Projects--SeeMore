@@ -31,11 +31,6 @@ class HomeController < ApplicationController
     @twitter_client.oembed(tweet_id, { omit_script: true })[:html]
   end
 
-  def get_instagram_embed_html(post)
-    link = post["link"]
-    HTTParty.get(INSTA_OEMBED_URI + link)["html"]
-  end
-
   def get_new_posts
     active_subscriptions = @current_user.subscriptions.active
 
@@ -85,7 +80,7 @@ class HomeController < ApplicationController
     post_hash[:native_created_at] = convert_instagram_time(post["created_time"])
     post_hash[:followee_id] = followee.id
     post_hash[:source] = followee.source
-    post_hash[:embed_html] = get_instagram_embed_html(post)
+    post_hash[:embed_html] = InstagramApi.new.get_embed_html(post)
 
     return post_hash
   end
@@ -103,14 +98,10 @@ class HomeController < ApplicationController
         posts = @twitter_client.user_timeline(id, { count: 5 })
       end
     when INSTAGRAM
-      if last_post_id
-        response = HTTParty.get(
-          INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?min_id=" + last_post_id + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
-      else
-        response = HTTParty.get(
-          INSTA_USER_POSTS_URI + followee.native_id + "/media/recent/?count=" + "5" + "&access_token=" + ENV["INSTAGRAM_ACCESS_TOKEN"])
-      end
+      id = followee.native_id
+      response = InstagramApi.new.get_posts(id, last_post_id)
 
+      # move this logic into the get_posts method?
       posts = response["data"]
       if posts && posts.count > 0 && last_post_id
         posts = posts[0..-2]
