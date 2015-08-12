@@ -17,8 +17,16 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
+.panel-change {
+  opacity: 0.8;
+}
+
 .header {
   margin: 5px;
+  padding-top: 10px;
+}
+
+.header-img {
   background-image: url("Newspaper.jpg");
   background-size: contain;
 }
@@ -33,6 +41,7 @@
 
 .news-text, h1 {
   font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+  font-weight: bold;
 }
 
 .search-results {
