@@ -33,13 +33,7 @@ class Followee < ActiveRecord::Base
 
   # stay in model
   def self.update_last_post_id!(posts, followee, source)
-    new_last_post_id = assign_last_post_id(posts, followee, source)
+    new_last_post_id = (source == ApplicationController::TWITTER) ? posts.first.id : posts.first["id"]
     followee.update!(last_post_id: new_last_post_id)
-  end
-
-  # put this into the method above
-  # remove followee, not used
-  def self.assign_last_post_id(posts, followee, source)
-    source == ApplicationController::TWITTER ? posts.first.id : posts.first["id"]
   end
 end
