@@ -61,4 +61,21 @@ class InstagramHelper
     # returns nil if there are no grams
     gram_array.empty? ? nil : gram_array
   end
+
+  def self.format_many_prey(prey)
+    prey.map do |p|
+      format_prey(p)
+    end
+  end
+
+  def self.format_prey(prey)
+    {
+      uid: prey["id"],
+      name: prey["full_name"],
+      username: prey["username"],
+      provider: "instagram",
+      photo_url: prey["profile_picture"],
+      profile_url: "http://instagram.com/#{prey['username']}" # OPTIMIZE: this line seems fragile!
+    }
+  end
 end
