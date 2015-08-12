@@ -39,8 +39,8 @@ RSpec.describe VimeoHelper, type: :helper do
     }
 
     let(:result_after) {
-      '<iframe src="http://website.com/best_video_ever" width="100%"
-        height="75%" frameborder="0" title="Best Video Ever"
+      '<iframe src="http://website.com/best_video_ever" width="50%"
+        height="100%" frameborder="0" title="Best Video Ever"
         webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>'
     }
 
