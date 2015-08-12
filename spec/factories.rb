@@ -28,8 +28,8 @@ FactoryGirl.define do
   end
 
   factory :tweet do
-    username "Ada"
-    provider_id "1357"
+    username "adaninjaparty"
+    provider_id "2660995584"
     user_ids 1
   end
 

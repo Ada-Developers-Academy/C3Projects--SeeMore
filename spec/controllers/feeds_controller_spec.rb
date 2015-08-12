@@ -45,36 +45,27 @@ RSpec.describe FeedsController, type: :controller do
 
       context "valid params" do
         before :each do
-          # NOT WORKING FOR TWEET POSTS - "Not Authorized."
           VCR.use_cassette 'twitter_posts_response' do
             @user = create :user
             @tweet = create :tweet
-            @twitter = Twit.new
             session[:user_id] = @user.id
-            # callback = "http://127.0.0.1:3000/auth/twitter/callback/"
-
-            get :index, twitter: @twitter.client, tweet_user_posts: @twitter.client.user_timeline #, callback_uri: callback
+            get :index
             # NOTE: with VCR, this is no longer using the factory;
             # it's getting an actual tweeter. Is this ok?
           end
         end
 
         it "creates tweet_post records" do
-          expect(TweetPost.count).to eq(15)
-          expect(TweetPost.first.post_id).to eq("1043242093253047729_1356")
+          expect(TweetPost.count).to eq(3)
+          expect(TweetPost.first.post_id).to eq("629361731651940352")
         end
 
-        xit "associates with a Twitter User" do
+        it "associates with a Twitter User" do
           expect(TweetPost.first.tweet).to eq(@tweet)
         end
 
-        xit "associates with a User" do
+        it "associates with a User" do
           expect(TweetPost.first.users).to include(@user)
-        end
-
-        xit "redirects to root_path" do
-          expect(response).to redirect_to(root_path)
-          expect(response).to have_http_status(302)
         end
       end
 
