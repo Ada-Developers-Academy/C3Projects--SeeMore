@@ -116,11 +116,11 @@ class FeedsController < ApplicationController
     usernames.each do |username|
       tweet_user_posts = @twitter.client.user_timeline(username, count: 15)
       tweet_user_posts.each do |post|
-        @all_posts << { 
-          post_id: post.id, 
-          posted_at: post.created_at, 
-          text: post.text, 
-          post_url: post.url.to_s, 
+        @all_posts << {
+          post_id: post.id,
+          posted_at: post.created_at,
+          text: post.text,
+          post_url: post.url.to_s,
           tweet_id: Tweet.find_by(provider_id: post.user.id).id
         }
       end
@@ -135,12 +135,12 @@ class FeedsController < ApplicationController
     user.instagrams.each do |gram|
       ig_user_posts = HTTParty.get(INSTAGRAM_URI + "users/#{gram.provider_id}/media/recent?count=15&access_token=#{session[:access_token]}")
       all_post_ids = ig_user_posts["data"].each do |post|
-        @all_posts << { 
-          ig_id: gram.id, 
-          posted_at: Time.at(post["created_time"].to_i), 
-          post_id: post["id"], 
-          post_url: post["link"], 
-          image_url: post["images"]["low_resolution"]["url"], 
+        @all_posts << {
+          ig_id: gram.id,
+          posted_at: Time.at(post["created_time"].to_i),
+          post_id: post["id"],
+          post_url: post["link"],
+          image_url: post["images"]["low_resolution"]["url"],
           caption: post["caption"] ? post["caption"]["text"] : nil
         }
       end
