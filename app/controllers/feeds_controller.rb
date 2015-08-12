@@ -62,7 +62,7 @@ class FeedsController < ApplicationController
   end
 
   def dismiss_alert
-    @alert = false
+    session[:alert_msg] = false
     redirect_to :back
   end
 
