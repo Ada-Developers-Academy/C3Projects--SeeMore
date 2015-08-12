@@ -1,7 +1,8 @@
-<header>
+<header id="top">
   <div class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
+      <%= image_tag("header-mouth.png", class: "header1") %>
       <%= link_to "THE BEAST", root_path, class: "navbar-brand" %>
       <% if logged_in? %>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">

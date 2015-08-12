@@ -17,28 +17,36 @@ body {
   // Exactly 50px because first (top) navbar is exactly 50px according to Bootstrap.
   // Any more than 50px and there will be white space between the first and second navbars.
   padding-top: 50px;
-  background-image: url("mouths.png");
-  background-position: 25% 10.25%;
-  background-repeat: space repeat;
+  background-color: #4FD5D6;
 }
 
 .container-fluid {
-  width: 58%;
-  background-color: rgb(255, 255, 204);
-  background-position: fixed;
+  width: 70%;
+  background-color:  #CDFFFF;
+  margin-top: -20px;
+  background-position: fixed no-repeat;
 }
 
 header {
-  border-bottom: 3px solid;
-  border-color: rgba(49, 53, 53, 1);
   background-color: #FF0000;
 }
 
+.header1 {
+  float: left;
+  width: 20%;
+  margin: 5px;
+  box-sizing: border-box;
+}
+
+.header1:hover {
+  content: url("tongue-out.png");
+}
 
 .jumbotron {
   text-align: center;
   background-color: #FF0000;
   color: #FFFFCC;
+  margin-top: 20px;
 }
 
 .beast-mode {
@@ -47,6 +55,7 @@ header {
 
 // Style of the navbar(s).
 .navbar {
+  padding-left: 0;
   background-color: #FF0000;
   border: none;
   // Default is rounded borders, which looks weird with two navbars.
@@ -55,7 +64,7 @@ header {
 
 .navbar-default .navbar-brand {
   font-family: 'Rock Salt', cursive;
-  color: #FFFFCC;
+  color: #CDFFFF;
 }
 
 .navbar-default .navbar-brand:hover {
@@ -63,7 +72,7 @@ header {
 }
 
 .navbar-default .navbar-text {
-  color: #FFFFCC;
+  color: #CDFFFF;
 }
 
 .navbar-brand {
@@ -72,7 +81,12 @@ header {
 
 // To adjust the height of the second navbar, so it's not MASSIVE.
 .navbar.navbar-static-top {
-  min-height: 30px;
+  margin-top: 5px;
+  min-height: 35px;
+}
+
+.navbar.navbar-static-top p {
+  margin-top: 20px;
 }
 
 //Style for the webpage subtitle.
@@ -96,13 +110,15 @@ p.navbar-text {
   border: none;
 }
 
-
 .fa-refresh {
   margin-right: 5px;
 }
 
+// Stuff for the feed!!!!!!!!!!!!!
+
 .thumbnail {
   margin-top: 3rem;
+  width: 100%;
 }
 
 .user{
@@ -116,7 +132,6 @@ p.navbar-text {
   margin: 5px;
 }
 
-
 .fix-width {
   width: 350px;
 }
@@ -125,4 +140,14 @@ p.navbar-text {
   margin: 0 60px 20px 60px;
   text-align: center;
   font-weight: 500;
+}
+
+footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+footer a{
+  float: right;
 }

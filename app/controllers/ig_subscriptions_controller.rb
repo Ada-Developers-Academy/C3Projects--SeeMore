@@ -30,8 +30,7 @@ class IgSubscriptionsController < ApplicationController
 
     response = []
     response << single_subscription_httparty_object(subscription)
-    newed_posts = Post.new_all_instagram_posts(response)
-    Post.create_all_instagram_posts(newed_posts)
+    Post.create_all_instagram_posts(response)
 
     flash[:notice] = "Subscribed successfully!"
 
@@ -42,8 +41,7 @@ class IgSubscriptionsController < ApplicationController
     user_subs = @user.instagram_subscriptions
 
     response = multiple_subscription_httparty_objects(user_subs)
-    newed_posts = Post.new_all_instagram_posts(response)
-    Post.create_all_instagram_posts(newed_posts)
+    Post.create_all_instagram_posts(response)
 
     redirect_to refresh_twi_path
   end
