@@ -1,7 +1,7 @@
 require 'twitter'
-require 'twitter_client'
-require 'instagram_api'
 require 'instagram'
+require 'twitter_api'
+require 'instagram_api'
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   before_action :require_signin
   before_action :twitter_client
 
-  helper_method :twitter_client_just
+  helper_method :twitter_api
 
   TWITTER = "twitter"
   INSTAGRAM = "instagram"
@@ -25,11 +25,11 @@ class ApplicationController < ActionController::Base
   end
 
   def twitter_client
-    @twitter_client ||= TwitterClient.new.client
+    @twitter_client ||= TwitterApi.new.client
   end
 
-  def twitter_client_just
-    @twitter_client ||= TwitterClient.new
+  def twitter_api
+    @twitter_api ||= TwitterApi.new
   end
 
   def current_user
