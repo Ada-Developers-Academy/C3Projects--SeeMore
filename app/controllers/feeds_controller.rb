@@ -1,12 +1,19 @@
 class FeedsController < ApplicationController
+
+  before_action :set_user, only: [ :index, :tw_follow, :ig_follow ]
+
   def index
-    user = User.find(session[:user_id])
+    # Upon refresh, fetch the latest Grams
+    Gram.collect_latest_posts(@user)
+    instagram_posts = @user.grams.flatten
+    # Upon refresh, fetch the latest Tweets
+    Tweet.update_timeline(@user)
+    tweets = @user.tweets.flatten
 
-    Gram.collect_latest_posts(user)
-    @instagram_posts = user.grams
-
-    Tweet.update_timeline(user)
-    @tweets = user.tweets.chron_tweets
+    posts = []
+    posts = tweets + instagram_posts
+    @posts = posts.sort_by { |post| post[:created_time] }
+    @posts.reverse!
   end
 
   def search; end
@@ -44,19 +51,21 @@ class FeedsController < ApplicationController
 
     twitter_user.update(twitter_params)
 
-    our_user = User.find(session[:user_id])
-    our_user.tw_users << [twitter_user]
+    @user.tw_users << [twitter_user]
     redirect_to :back
   end
 
   def ig_follow
-    user = User.find(session[:user_id])
     ig_account = params # hash of info
-    ig_account = user.ig_follow(ig_account) # InstagramAccount obj
+    ig_account = @user.ig_follow(ig_account) # InstagramAccount obj
     redirect_to :back
   end
 
   private
+
+  def set_user
+    @user = User.find(session[:user_id])
+  end
 
   def twitter_params
     params.permit(:tw_user_id_str, :user_name, :screen_name, :profile_image_url)

@@ -35,7 +35,7 @@ RSpec.describe ApplicationHelper, type: :helper do
 
   it "makes a datetime easier to read" do
     tweet = create :tweet
-    time = tweet.tw_created_at
+    time = tweet.created_time
     expect(helper.tw_prettify(time)).to eq("Thu Aug  6 15:07:59 2015")
   end
 

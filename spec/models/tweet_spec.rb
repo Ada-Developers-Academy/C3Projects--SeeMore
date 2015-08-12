@@ -22,9 +22,9 @@ RSpec.describe Tweet, type: :model do
     end
 
     it "requires a tweet created_at time" do
-      tweet = build :tweet, tw_created_at: nil
+      tweet = build :tweet, created_time: nil
       tweet.valid?
-      expect(tweet.errors.keys).to include(:tw_created_at)
+      expect(tweet.errors.keys).to include(:created_time)
     end
 
     it "requires a tweet tw_user_id_str" do
@@ -43,8 +43,8 @@ RSpec.describe Tweet, type: :model do
   describe "scope #chron_tweets" do
     it "returns the tweets in chronological order with most recent last" do
       tweet1 = create :tweet
-      tweet2 = create :tweet, tw_id_str: "600", tw_created_at: "2015-08-06 16:07:59 -0700"
-      tweet3 = create :tweet, tw_id_str: "700", tw_created_at: "2015-08-06 17:07:59 -0700"
+      tweet2 = create :tweet, tw_id_str: "600", created_time: "2015-08-06 16:07:59 -0700"
+      tweet3 = create :tweet, tw_id_str: "700", created_time: "2015-08-06 17:07:59 -0700"
       recent_tweets = [tweet3, tweet2, tweet1]
       expect(Tweet.all.chron_tweets).to eq(recent_tweets)
     end
@@ -69,7 +69,7 @@ RSpec.describe Tweet, type: :model do
           user = create :user
           tw_user = TwUser.create({ tw_user_id_str: "111868320" })
           user.tw_users << tw_user
-          tweet = Tweet.create({ tw_id_str: "631224940012765184", tw_created_at: "2015-08-11 22:05:27 +0000", tw_user_id: 1, tw_user_id_str: "111868320"})
+          tweet = Tweet.create({ tw_id_str: "631224940012765184", created_time: "2015-08-11 22:05:27 +0000", tw_user_id: 1, tw_user_id_str: "111868320"})
           VCR.use_cassette 'controller/twitter_timeline_following_api_response' do
             Tweet.update_timeline(user)
             expect(Tweet.all.count).to eq 2
