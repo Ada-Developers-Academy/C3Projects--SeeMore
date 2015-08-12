@@ -17,10 +17,20 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
+.panel-change {
+  opacity: 0.8;
+}
+
 .header {
   margin: 5px;
-  background: image-url("Newspaper.jpg");
+  padding-top: 10px;
+  color: white;
+}
+
+.header-img {
+  background-image: url("Newspaper.jpg");
   background-size: contain;
+  opacity: 0.8;
 }
 
 .button {
@@ -33,10 +43,16 @@
 
 .news-text, h1 {
   font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+  font-weight: bold;
 }
 
-.search-results {
+.search-results,
+.twitter-results {
   list-style-type: none;
+}
+
+.link-to-top {
+  color: white;
 }
 
 .twitter-results img {
@@ -54,8 +70,8 @@
   background-size: 100%;
 }
 
-.search-bkgd {
-  background: image-url("coffee_table.jpg");
+.search-bkgd, .newsfeed {
+  background-image: url("coffee_table.jpg");
   background-size: 100%;
 }
 
