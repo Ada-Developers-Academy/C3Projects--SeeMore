@@ -11,18 +11,26 @@
       <% if post.feed.platform == "Instagram" %>
         <%= image_tag post.content, class: "left" %>
       <% elsif post.feed.platform == "Vimeo" %>
-        <div class="left">
-          <%= post.content.html_safe %>
-        </div>
+          <%= resize_video_feed(post).html_safe %>
       <% end %>
-      <div class="right">
         <h3>
           <% if post.feed.platform == "Instagram" %>
-            <%= link_to post.feed.name, instagram_feed_path(post.feed.platform_feed_id) %>
+            <div class="right">
+              <%= link_to post.feed.name, instagram_feed_path(post.feed.platform_feed_id) %>
+            </div>
           <% elsif post.feed.platform == "Vimeo" %>
             <%= link_to post.feed.name, vimeo_feed_path(post.feed.platform_feed_id) %>
           <% end %>
         </h3>
+        <% if post.feed.platform == "Instagram" %>
+        <p class = "right">
+          <% if post.description %>
+            <%= shorten(post.description) %>
+          <% else %>
+            No description provided.
+          <% end %>
+        </p>
+        <% elsif post.feed.platform == "Vimeo" %>
         <p>
           <% if post.description %>
             <%= shorten(post.description) %>
@@ -30,7 +38,7 @@
             No description provided.
           <% end %>
         </p>
-      </div>
+        <% end %>
       <div class="date">
         <%= post.date_posted %>
       </div>

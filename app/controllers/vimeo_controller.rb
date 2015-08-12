@@ -12,7 +12,6 @@ class VimeoController < ApplicationController
 
   def results # index ?
     @query = params[:query]
-
     results = JSON.parse(HTTParty.get(SEARCH_URI + @query + "&sort=relevant", :headers => TOKEN_HEADER ))
     @results = results["data"]
   end
