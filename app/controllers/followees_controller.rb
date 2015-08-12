@@ -31,6 +31,7 @@ class FolloweesController < ApplicationController
     @query = params[:user]
     @source = params[:source]
 
+    # call a ApiHelper class method that directs the flow to the correct Api
     @results = Followee.user_search(@query, USER_COUNT, @source)
 
     render 'search'

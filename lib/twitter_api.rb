@@ -14,6 +14,7 @@ class TwitterApi
     end
   end
 
+  # these three stay in Api class
   def user_search(user, count=3)
     client.user_search(user, options = {count: count})
   end
@@ -26,6 +27,7 @@ class TwitterApi
     posts = client.user_timeline(id, timeline_options(last_post_id))
   end
 
+  # put in TwitterMapper
   def timeline_options(last_post_id)
     last_post_id ? { since_id: last_post_id.to_i } : { count: FIRST_POSTS }
   end
