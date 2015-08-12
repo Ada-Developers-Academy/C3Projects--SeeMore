@@ -1,0 +1,146 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+// body
+
+  // .jumbotron {
+  //     background: image-url("notso-2.png") no-repeat;
+  //     padding-bottom: 150px;
+  //     margin-bottom: 100px;
+  // }
+
+body {
+    background: image-url("bamboo.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: white;
+    font-size: 16px;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.content {
+  padding-top: 35px;
+}
+
+.center {
+  text-align: center;
+  margin: auto;
+  float: none;
+}
+
+.container {
+  height: 100%;
+}
+
+.feed {
+  margin-top: 20px;
+  background-color: rgba(0,0,0,.7);
+  background-repeat: repeat;
+  width: 500px;
+  padding-top: 10px;
+}
+
+.ig_image {
+  width: 250px;
+}
+
+// typography
+
+h1, h2, h3, .search {
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+}
+
+h1 {
+  font-size: 70px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.posted-at {
+  font-size: 0.7em;
+  font-style: italic;
+}
+
+// buttons
+
+.ig-icon{
+  margin-right: 20px;
+}
+
+.twitter-icon {
+  margin-left: 10px;
+}
+
+.search {
+  margin-top: 10px;
+}
+
+// search results
+
+.well {
+  background-color: rgba(0,0,0,.7);
+  text-align: center;
+  padding: 5px;
+  width: 240px;
+  margin: 10px;
+  font-size: 14px;
+}
+
+.photo-size {
+  width: 72px;
+}
+
+.ninja {
+  position: fixed;
+  left: 50px;
+  bottom: 100px;
+}
+
+.avatar {
+  width: 50px;
+  padding-top: 0;
+  float: left;
+}
+
+.lefts {
+  padding-right: 70px;
+
+}
+
+.twitter {
+  margin-top: 10px;
+
+}
+
+.navbar {
+  margin-bottom: 0;
+  padding-bottom: 12px;
+  width: 100%;
+}
+
+.navbar-default {
+  background-color: rgba(0,0,0,.5);
+  border: none;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: rgb(255,255,255);
+}
+
+.navbar-default .navbar-text {
+  color: rgb(255,255,255);
+
+}
+
+.left {
+  float: left;
+
+
+}

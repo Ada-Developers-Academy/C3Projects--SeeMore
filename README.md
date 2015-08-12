@@ -1,3 +1,6 @@
+Team: NinjaParty
+Members: Sally, Elsa, Wang, Anita
+
 # SeeMore
 
 ![SeeMore](http://www.theirishduck.info/wp-content/uploads/2013/06/plant.png)
