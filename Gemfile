@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'dotenv-rails', groups: [:development, :test]
-
+gem 'pg', group: :production
 gem "omniauth"
 gem "omniauth-instagram"
 gem "omniauth-vimeo"
