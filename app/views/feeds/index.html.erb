@@ -1,0 +1,9 @@
+<ul class="list-group">
+  <% @tweets.each do |tweet| %>
+    <li class="list-group-item">
+      <%= tw_prettify(tweet.tw_created_at) %> <%= tw_user_lookup(tweet).screen_name %>
+      <%= tweet.tw_text %>
+      Retweets: <%= tweet.tw_retweet_count %>, Favs: <%= tweet.tw_favorite_count %>
+    </li>
+  <% end %>
+</ul>

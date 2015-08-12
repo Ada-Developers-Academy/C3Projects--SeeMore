@@ -20,5 +20,7 @@ FactoryGirl.define do
     tw_created_at "2015-08-06 15:07:59 -0700"
     tw_retweet_count 5
     tw_favorite_count 2
+    tw_user_id_str "100"
+    tw_user_id 1
   end
 end
