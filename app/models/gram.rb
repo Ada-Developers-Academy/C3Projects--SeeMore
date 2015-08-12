@@ -1,6 +1,6 @@
 class Gram < ActiveRecord::Base
   #Validations-----------------------------------------------------------------
-  validates :ig_id, uniqueness: true  
+  validates :ig_id, uniqueness: true
   #Associations
   belongs_to :instagram_user
 
