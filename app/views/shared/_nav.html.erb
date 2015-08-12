@@ -3,12 +3,18 @@
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <!-- <a name="#top"></a> -->
-        <li><%= link_to "Dev Login", login_path(provider: :developer), class: "btn btn-primary" %></li>
         <% if session[:user_id].nil? %>
+        <li><%= link_to "Dev Login", login_path(provider: :developer), class: "btn btn-primary" %></li>
         <% else %>
-        <li><%= link_to "Go Home", root_path, method: :get, class: "btn btn-default" %></li>
+
+        <li><%= link_to "Follow People", search_path, class: "btn btn-primary" %></li>
+        <li><%= link_to "Assasinate", people_path, class: "btn btn-primary" %></li>
+        <li><%= link_to "Go Home", root_path, method: :get, class: "btn btn-primary" %></li>
         <li><%= link_to "Logout", logout_path, method: :delete, class: "btn btn-danger" %></li>
+        <li><%= link_to "Dev Login", login_path(provider: :developer), class: "btn btn-primary" %></li>
+
         <% end %>
+      </ul>
     </nav>
   </div>
 </div>
