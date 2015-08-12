@@ -5,49 +5,26 @@
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
 
-        <% if params[:client] == "instagram" %>
-          <%= link_to(image_tag(prey["profile_picture"], alt: "Profile Picture", size: "200"), "http://instagram.com/#{prey['username']}") %><br>
-          <div class="caption">
-            <center>
-              <h3>
-                <%= link_to prey["username"], "http://instagram.com/#{prey['username']}" %>
-                <br>
-                <%= button_to "Follow", follow_path, class: "btn btn-primary active",
-                  method: :post, params: {
-                    uid: prey["id"],
-                    name: prey["full_name"],
-                    username: prey["username"],
-                    provider: params["client"], # OPTIMIZE: this line seems fragile!
-                    photo_url: prey["profile_picture"],
-                    profile_url: "http://instagram.com/#{prey['username']}" # OPTIMIZE: this line seems fragile!
-                  }
-                %>
-              </h3>
-            </center>
-          </div>
-        <% end %>
+        <%= link_to(image_tag(prey[:photo_url], alt: "Profile Picture", size: "200x200"), prey[:profile_url]) %>
 
-        <% if params[:client] == "twitter" %>
-          <%= link_to(image_tag(large_image_url(prey), alt: "Profile Picture", size: "200x200"), prey.url.to_s) %>
-          <div class="caption">
-            <center>
-              <h3>
-                <%= link_to prey.username, prey.url.to_s %>
-                <br>
-                <%= button_to "Follow", follow_path, class: "btn btn-primary active",
-                  method: :post, params: {
-                    uid: prey.id,
-                    name: prey.name,
-                    username: prey.screen_name,
-                    provider: params["client"], # OPTIMIZE: this line seems fragile!
-                    photo_url: prey.profile_image_url_https.to_s,
-                    profile_url: prey.url.to_s
-                  }
-                %>
-              </h3>
-            </center>
-          </div>
-        <% end %>
+        <div class="caption">
+          <center>
+            <h3>
+              <%= link_to prey[:username], prey[:profile_url] %>
+              <br>
+              <%= button_to "Follow", follow_path, class: "btn btn-primary active",
+                method: :post, params: {
+                  uid: prey[:uid],
+                  name: prey[:name],
+                  username: prey[:username],
+                  provider: prey[:provider],
+                  photo_url: prey[:photo_url],
+                  profile_url: prey[:profile_url]
+                }
+              %>
+            </h3>
+          </center>
+        </div>
 
       </div>
     </div>

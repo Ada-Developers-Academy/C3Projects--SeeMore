@@ -1,3 +1,5 @@
+require 'api_helpers'
+
 class TwitterClient
   CLIENT = Twitter::REST::Client.new do |config|
     config.consumer_key = ENV["TWITTER_API_KEY"]
@@ -7,16 +9,17 @@ class TwitterClient
   end
 
   def self.user_search(search_term)
-    CLIENT.user_search(search_term)
+    prey = CLIENT.user_search(search_term)
+    TwitterHelper.format_many_prey(prey)
   end
 
   def self.find_user(username)
-    match = CLIENT.user_search(username)
-    match.first
+    prey = CLIENT.user_search(username)
+    TwitterHelper.format_many_prey(prey).first
   end
 
   def self.fetch_tweets(prey_uid, options = {})
-      CLIENT.user_timeline(prey_uid.to_i, options)
-    # TODO: client.user_timeline(user, { since_id: ?, count: ?, include_rts: true } )
+    tweets = CLIENT.user_timeline(prey_uid.to_i, options)
+    TwitterHelper.format_many_tweets(tweets)
   end
 end
