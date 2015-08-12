@@ -28,7 +28,7 @@ RSpec.describe AuUser, type: :model do
 
     describe "associations" do
       let(:au_user) { create :au_user }
-      let(:feed) { create :feed }
+      let(:feed) { create :user_instagram }
       let(:post) { create :post }
       it "authorized users have many feeds" do
         au_user.feeds << feed
