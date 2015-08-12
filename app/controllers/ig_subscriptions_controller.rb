@@ -29,7 +29,6 @@ class IgSubscriptionsController < ApplicationController
 
       flash[:error] = "This user is private and thus spared."
 
-
       redirect_to root_path
     else
 
@@ -37,9 +36,7 @@ class IgSubscriptionsController < ApplicationController
 
       assign_profile_pic(subscription)
 
-
       @user.associate_subscription(subscription)
-
 
       response = []
       response << single_subscription_httparty_object(subscription)
@@ -71,6 +68,7 @@ class IgSubscriptionsController < ApplicationController
   # Returns a single HTTParty object for a single subscription.
   def single_subscription_httparty_object(subscription)
     access_token = session[:access_token]
+
     if subscription.instagram_id.present?
       return HTTParty.get(INSTA_URI + "#{subscription.instagram_id}/media/recent/?count=#{COUNT}&access_token=" + access_token)
     end
