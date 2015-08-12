@@ -88,6 +88,7 @@
 
 .green {
   color: #4cae4c;
+  font-family: 'Ubuntu', sans-serif;
   margin: auto;
   padding: 10px;
   max-width: 600px;
@@ -99,6 +100,9 @@
   border-top-right-radius: 20px;
 }
 
+.brand {
+  font-family: "Ubuntu", sans-serif;
+}
 .search-header {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -132,6 +136,7 @@
 
 .right h3 {
   margin: 0;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .date {
@@ -148,6 +153,10 @@
 
 .btn-sm {
   margin: 5px;
+}
+
+p {
+  font-family: 'Droid Sans', sans-serif;
 }
 
 a {
