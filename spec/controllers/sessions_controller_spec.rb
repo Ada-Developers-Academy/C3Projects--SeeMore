@@ -9,7 +9,6 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
-
   describe "GET #create_instragram" do
     context "when using instagram authorization" do
       context "is successful" do
@@ -76,5 +75,4 @@ RSpec.describe SessionsController, type: :controller do
       expect(session[:user_id]).to eq nil
     end
   end
-
 end

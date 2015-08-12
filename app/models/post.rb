@@ -13,4 +13,8 @@ class Post < ActiveRecord::Base
   # addressing below comment re: pagination
   # OPTIMIZE: maybe we should account for pagination? we would need something
   # like next_thirty(which_page_number_we_want)
+
+  def short_description
+    description.first(425)
+  end
 end
