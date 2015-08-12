@@ -18,4 +18,7 @@ Rails.application.routes.draw do
 
   post "/follow" => "prey#create", as: "follow"
   patch "/unfollow", to: "prey#unfollow", as: "unfollow"
+
+  post "/", to: "posts#update_feed", as: "update_feed"
+
 end
