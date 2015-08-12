@@ -28,5 +28,4 @@ FactoryGirl.define do
     platform "Vimeo"
     platform_feed_id 2
   end
-
 end
