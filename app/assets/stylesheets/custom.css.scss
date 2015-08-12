@@ -15,7 +15,6 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    color: white;
     font-size: 16px;
     height: 100%;
     vertical-align: middle;
@@ -36,11 +35,11 @@ body {
 }
 
 .feed {
-  margin-top: 20px;
+  margin: 20px auto;
   background-color: rgba(0,0,0,.7);
   background-repeat: repeat;
   width: 500px;
-  padding-top: 10px;
+  padding: 10px 10px;
 }
 
 .ig_image {
@@ -49,24 +48,57 @@ body {
 
 // typography
 
-h1, h2, h3, .search {
-  font-family: 'Orbitron', sans-serif;
-  text-align: center;
-}
-
 h1 {
-  font-size: 70px;
+  font-size: 6em;
 }
 
-a:hover {
-  text-decoration: none;
-}
+h1, h2, h3, h4, .search-header, .woo a, .no-targets a, .navbar-default .navbar-text, .navbar-default .navbar-nav > li > a {
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    color: rgb(255,255,255);
+  }
 
 .posted-at {
   font-size: 0.7em;
   font-style: italic;
 }
 
+.navbar {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.navbar-inverse {
+  background-color: rgba(0,0,0,.5);
+  border: none;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.woo a:hover, .no-targets a:hover {
+  text-decoration: none;
+  color: #F00;
+}
+
+.search {
+  margin-top: 10px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.tweet-post a:link {
+  color: black;
+}
+
+.tweet-post a:hover {
+  color: red;
+  text-decoration: none;
+
+}
+
+.tweet-post a:visited {
+  color: black;
+
+
+}
 // buttons
 
 .ig-icon{
@@ -77,9 +109,6 @@ a:hover {
   margin-left: 10px;
 }
 
-.search {
-  margin-top: 10px;
-}
 
 // search results
 
@@ -90,6 +119,7 @@ a:hover {
   width: 240px;
   margin: 10px;
   font-size: 14px;
+  color: rgb(255,255,255);
 }
 
 .photo-size {
@@ -108,39 +138,14 @@ a:hover {
   float: left;
 }
 
-.lefts {
+.shift-left {
   padding-right: 70px;
-
 }
 
 .twitter {
   margin-top: 10px;
-
-}
-
-.navbar {
-  margin-bottom: 0;
-  padding-bottom: 12px;
-  width: 100%;
-}
-
-.navbar-default {
-  background-color: rgba(0,0,0,.5);
-  border: none;
-  font-family: 'Orbitron', sans-serif;
-}
-
-.navbar-default .navbar-nav > li > a {
-  color: rgb(255,255,255);
-}
-
-.navbar-default .navbar-text {
-  color: rgb(255,255,255);
-
 }
 
 .left {
   float: left;
-
-
 }

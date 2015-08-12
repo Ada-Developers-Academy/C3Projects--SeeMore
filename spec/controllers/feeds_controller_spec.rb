@@ -30,6 +30,7 @@ RSpec.describe FeedsController, type: :controller do
       end
     end
   end
+end
 
   ## FROM TWEET POSTS
   context "Tweet Posts" do
@@ -111,10 +112,4 @@ RSpec.describe FeedsController, type: :controller do
           expect(InstagramPost.first.users).to include(@user)
         end
       end
-
       # ADD INVALID PARAMS
-
-    end
-  end
-
-end

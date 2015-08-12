@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
 
-  before :each do
-    request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:instagram]
-  end
 
   describe "GET #create" do
     context "logging in via instagram - valid params" do
+      before :each do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:instagram]
+      end
 
       it "redirects to root_path" do
         get :create, provider: :instagram
@@ -31,6 +31,47 @@ RSpec.describe SessionsController, type: :controller do
     context "logging in via instagram - invalid params" do
       let(:invalid_params) { {
         :provider => 'instagram',
+        :uid => '12345',
+        info: {email: "a@b.com", name: "Ada"},
+        credentials: { token: 'token' }
+      } }
+
+      it "does not create a user" do
+        get :create, invalid_params
+
+        expect {
+          get :create, invalid_params
+          }.to change(User, :count).by(0)
+      end
+    end
+
+    context "logging in via twitter - valid params" do
+      before :each do
+        request.env['omniauth.auth'] = OmniAuth.config.mock_auth[:twitter]
+      end
+
+      it "redirects to root_path" do
+        get :create, provider: :twitter
+
+        expect(response).to redirect_to root_path
+      end
+
+      it "creates a user" do
+        expect {
+          get :create, provider: :twitter
+          }.to change(User, :count).by(1)
+      end
+
+      it "sets user_id and access token" do
+        get :create, provider: :twitter
+        expect(session[:user_id]).to eq(1)
+        expect(session[:access_token]).to eq(ENV['INSTAGRAM_ACCESS_TOKEN'])
+      end
+    end
+
+    context "logging in via twitter - invalid params" do
+      let(:invalid_params) { {
+        :provider => 'twitter',
         :uid => '12345',
         info: {email: "a@b.com", name: "Ada"},
         credentials: { token: 'token' }
