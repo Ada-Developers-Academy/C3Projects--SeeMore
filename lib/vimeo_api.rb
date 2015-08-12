@@ -5,23 +5,23 @@ module FriendFaceAPIs
     # Vimeo public ---------------------------------------------------------------
     def self.vimeo_feed(feed_id)
       feed_id = feed_id.to_s
-      feed_url = vimeo_feed_uri(feed_id)
-      results = vimeo_json_request(feed_url)
+      feed_url = self.vimeo_feed_uri(feed_id)
+      results = self.vimeo_json_request(feed_url)
       raise
       return results["data"]
     end
 
     def self.vimeo_feed_info(feed_id)
       feed_id = feed_id.to_s
-      feed_url = vimeo_feed_base + feed_id
-      results = vimeo_json_request(feed_url)
+      feed_url = self.vimeo_feed_base + feed_id
+      results = self.vimeo_json_request(feed_url)
       return results
     end
 
     def self.vimeo_search(search_term)
       search_term.gsub!(/(\s+)/, "+")
-      search_url = vimeo_search_uri + search_term
-      results = vimeo_json_request(search_url)
+      search_url = self.vimeo_search_uri + search_term
+      results = self.vimeo_json_request(search_url)
       return results["data"]
     end
 
@@ -42,7 +42,7 @@ module FriendFaceAPIs
       end
 
       def self.vimeo_feed_uri(feed_id)
-        vimeo_feed_base + feed_id + "/videos?page=1&per_page=30"
+        self.vimeo_feed_base + feed_id + "/videos?page=1&per_page=30"
       end
 
       def self.vimeo_header
