@@ -29,16 +29,8 @@ class HomeController < ApplicationController
   def get_new_posts
     active_subscriptions = @current_user.subscriptions.active
 
-    active_subscriptions.each do |sub|
-      followee = sub.followee
-      source = followee.source
-
-      posts = Post.get_posts_from_API(followee)
-
-      if posts && posts.count > 0      
-        Post.create_from_API(posts, followee, source)
-        Followee.update_last_post_id!(posts, followee, source)
-      end
+    active_subscriptions.each do |subscription|
+      Post.process_new_posts(subscription)
     end
 
     redirect_to root_path
