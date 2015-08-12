@@ -5,12 +5,12 @@ class PostsController < ApplicationController
   end
 
   def update_feed
-    stalker = Stalker.find(session[:stalker_id])
-    prey = stalker.prey
+    prey = Stalker.find(session[:stalker_id]).prey
     prey.each do |prey|
-      prey.update_posts
+      # this checks to make sure that we don't call update_posts for
+      # prey who don't have any posts at all
+      prey.update_posts unless Post.find_by(prey_id: prey.id).nil?
     end
     redirect_to root_path
   end
-
 end
