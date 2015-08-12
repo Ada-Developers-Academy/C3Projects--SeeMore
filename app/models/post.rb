@@ -54,4 +54,14 @@ class Post < ActiveRecord::Base
 
     posts
   end
+
+  def self.create_from_API(posts, followee, source)
+    posts.each do |post|
+      post_hash = post_params(post, followee, source)
+      create(post_hash)
+    end
+
+    new_last_post_id = source == ApplicationController::TWITTER ? posts.first.id : posts.first["id"]
+    followee.update!(last_post_id: new_last_post_id)
+  end
 end

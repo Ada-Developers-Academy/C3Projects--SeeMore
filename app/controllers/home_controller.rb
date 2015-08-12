@@ -35,15 +35,7 @@ class HomeController < ApplicationController
 
       posts = Post.get_posts_from_API(followee)
 
-      if posts && posts.count > 0
-        posts.each do |post|
-          post_hash = Post.post_params(post, followee, source)
-          Post.create(post_hash)
-        end
-
-        new_last_post_id = source == TWITTER ? posts.first.id : posts.first["id"]
-        sub.followee.update!(last_post_id: new_last_post_id)
-      end
+      Post.create_from_API(posts, followee, source) if posts && posts.count > 0
     end
 
     redirect_to root_path
