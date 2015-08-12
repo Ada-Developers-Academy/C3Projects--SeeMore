@@ -1,5 +1,6 @@
 require 'twitter'
 require 'twitter_client'
+require 'instagram_api'
 require 'instagram'
 
 class ApplicationController < ActionController::Base
@@ -10,6 +11,8 @@ class ApplicationController < ActionController::Base
   before_action :current_user
   before_action :require_signin
   before_action :twitter_client
+
+  helper_method :twitter_client_just
 
   TWITTER = "twitter"
   INSTAGRAM = "instagram"
@@ -23,6 +26,10 @@ class ApplicationController < ActionController::Base
 
   def twitter_client
     @twitter_client ||= TwitterClient.new.client
+  end
+
+  def twitter_client_just
+    @twitter_client ||= TwitterClient.new
   end
 
   def current_user

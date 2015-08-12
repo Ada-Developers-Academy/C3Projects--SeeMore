@@ -1,5 +1,4 @@
 class FolloweesController < ApplicationController
-  INSTA_URI = "https://api.instagram.com/v1/users/search?"
   USER_COUNT = 3
 
   before_action :find, only: [:destroy]
@@ -33,8 +32,7 @@ class FolloweesController < ApplicationController
     @source = params[:source]
     case params[:source]
     when INSTAGRAM
-      response = HTTParty.get(INSTA_URI + "q=#{@query}" + "&count=" + USER_COUNT.to_s + "&access_token=#{ENV["INSTAGRAM_ACCESS_TOKEN"]}")
-      @results = response["data"]
+      @results = InstagramApi.new.user_search(@query, USER_COUNT)
     when TWITTER
       @results = @twitter_client.user_search(@query, { count: USER_COUNT })
     end
