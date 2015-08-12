@@ -39,9 +39,9 @@ gem 'httparty'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+  gem "webmock", groups: [:test]
+  gem "vcr", groups: [:test]
 group :development, :test do
-  gem "webmock"
-  gem "vcr"
   gem "better_errors" # These two are just for debugging
   gem "binding_of_caller"
   gem "rspec-rails"
