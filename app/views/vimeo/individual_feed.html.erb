@@ -15,7 +15,7 @@
       <small><%= post["created_time"] %></small>
     </h3>
     <div class= "center">
-      <%= resize_video_individual_feed(post).html_safe %>
+      <%= resize_video(post).html_safe %>
     </div>
     <p>
       <% if post["description"] %>
