@@ -23,5 +23,14 @@ RSpec.describe StalkersController, type: :controller do
       get :index, stalker_id: 1
       expect(response).to render_template :index
     end
+
+
+  before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:vimeo]}
+  let!(:stalker) {Stalker.find_or_create_from_auth_hash(OmniAuth.config.mock_auth[:vimeo])}
+  it "renders the dashboard_path if user is logged in via vimeo" do
+   session[:stalker_id] = 1
+    get :index, stalker_id: 1
+    expect(response).to render_template :index
   end
+end
 end
