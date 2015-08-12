@@ -1,9 +1,17 @@
 FactoryGirl.define do
   factory :feed do
-    name "Awesome name"
-    avatar "http://website.com"
+    name "Some feed"
+    avatar nil
     platform "Instagram"
     platform_feed_id 1
+  end
+
+  factory :user_instagram, class: Feed do
+    id 343005985
+    name "johngreenwritesbooks"
+    avatar nil
+    platform "Instagram"
+    platform_feed_id 343005985
   end
 
   factory :user_vimeo, class: Feed do
