@@ -71,10 +71,14 @@ class Post < ActiveRecord::Base
   def self.create_gram_params_from_api(gram)
     { uid: gram["id"],
       body: (gram["caption"]["text"] unless gram["caption"].nil?),
-      post_time: gram["created_time"],
+      post_time: convert_unix_to_datetime(gram["created_time"]),
       prey_id: Prey.find_by(uid: gram["user"]["id"]).id,
       url: gram["link"],
       provider: "instagram"
     }
+  end
+
+  def self.convert_unix_to_datetime(time)
+    Time.at(time.to_i).to_datetime
   end
 end
