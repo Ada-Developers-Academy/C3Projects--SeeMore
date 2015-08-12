@@ -1,7 +1,0 @@
-<%= form_for provider, url: url, html: { class: "form-inline" } do |f| %>
-  <p class="search"><%= f.label :username, "Search #{provider.to_s.titlecase} Users", class: "search" %></p>
-  <%= f.text_field :username, placeholder: "Search Users", class: "form-control form-group search" %>
-  <%= button_tag(type: 'submit', class: "btn btn-primary search") do %>
-    <span class="glyphicon glyphicon-search"></span>
-  <% end %>
-<% end %>

@@ -1,2 +1,0 @@
-module InstagramsHelper
-end
