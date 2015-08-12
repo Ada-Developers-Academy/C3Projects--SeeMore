@@ -4,9 +4,7 @@
   <% @prey.each do |prey| %>
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
-
-        <%= link_to(image_tag(prey[:photo_url], alt: "Profile Picture", size: "200x200"), prey[:profile_url]) %>
-
+        <%= link_to(image_tag(prey[:photo_url], alt: "Profile Picture" ), prey[:profile_url]) %>
         <div class="caption">
           <center>
             <h3>
