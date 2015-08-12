@@ -44,13 +44,13 @@
 
               <!-- Can 'unsubscribes' from user accounts you already follow -->
               <% elsif already_following?(user["id"]) %>
-                <%= link_to "Unsubscribe", "#", class: "btn btn-danger" %>
+                <%= link_to "Unsubscribe", "#", class: "btn btn-danger btn-sm" %>
 
               <!-- Can subscribe to public user accounts -->
               <% else %>
                 <%= form_tag subscriptions_path(user) do %>
                   <%= hidden_field_tag :source, "instagram" %>
-                  <%= submit_tag "Subscribe", class: "btn btn-success" %>
+                  <%= submit_tag "Subscribe", class: "btn btn-success btn-sm" %>
                 <% end %>
               <% end %>
             </li>
@@ -66,7 +66,7 @@
 
               <!-- Can 'unsubscribes' from user accounts you already follow -->
               <% if already_following?(user.id) %>
-                <%= link_to "Unsubscribe", "#", class: "btn btn-danger" %>
+                <%= link_to "Unsubscribe", "#", class: "btn btn-danger btn-sm" %>
 
               <!-- Can subscribe to public user accounts -->
               <% else %>
@@ -75,7 +75,7 @@
                   <%= hidden_field_tag :avatar_url, user.profile_image_url.to_s %>
                   <%= hidden_field_tag :username, user.screen_name %>
                   <%= hidden_field_tag :source, "twitter" %>
-                  <%= submit_tag "Subscribe", class: "btn btn-success" %>
+                  <%= submit_tag "Subscribe", class: "btn btn-success btn-sm" %>
                 <% end %>
               <% end %>
             </li>
