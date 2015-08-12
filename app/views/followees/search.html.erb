@@ -30,13 +30,24 @@
       <% @results.each do |user| %>
         <li>
           <%= link_to image_tag(user["profile_picture"], class: "img-thumbnail", size: "50x50") %>
-          <%= link_to "@#{user["username"]}" %>
-          <% unless private_user?(user["id"]) %>
+          <%= "@#{user["username"]}" %>
+
+          <!-- Cannot subscribe to private user accounts -->
+          <% if private_user?(user["id"]) %>
+            <%= link_to "Private User", root_path, class: "btn btn-default disabled"%>
+          
+          <!-- Can 'unsubscribes' from user accounts you already follow -->
+          <% elsif already_following?(user["id"]) %>
+            <%= link_to "Unsubscribe", "#", class: "btn btn-danger" %>
+
+          <!-- Can subscribe to public user accounts -->
+          <% else %>
             <%= form_tag subscriptions_path(user) do %>
               <%= hidden_field_tag :source, "instagram" %>
-              <%= submit_tag "Subscribe" %>
+              <%= submit_tag "Subscribe", class: "btn btn-success" %>
             <% end %>
           <% end %>
+
         </li>
       <% end %>
     </ul>
