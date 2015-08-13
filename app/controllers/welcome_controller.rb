@@ -28,7 +28,7 @@ class WelcomeController < ApplicationController
       redirect_to vimeo_results_path(search[:query])
     elsif search[:platform] == "Instagram" && search[:query].empty? == false
       redirect_to instagram_results_path(search[:query])
-    elsif search[:platform].nil? && (search[:query].nil? || search[:query] == "")
+    elsif search[:query].nil? || search[:query] == ""
       flash[:error] = "Please search for a user name."
       redirect_to :back
     else

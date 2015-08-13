@@ -1,5 +1,5 @@
 <h1 class="header search-header center">Search results for <%= @readable_search %>:</h1>
-<% if @results.empty? || @results.empty  %>
+<% if @dual_results.empty? || @dual_results.nil?  %>
 <div class="feed">
   <%= image_tag "kittyhug.gif", class: "center thumbnail" %>
   <p>
