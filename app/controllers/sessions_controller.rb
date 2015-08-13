@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-# skip_before_filter :verify_authenticity_token
+  # So the dev login works in testing & development environments.
+  skip_before_filter :verify_authenticity_token unless Rails.env.production?
 
   def create
     auth_hash = request.env['omniauth.auth']
@@ -25,6 +26,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
+    session[:access_token] = nil
 
     redirect_to root_path, notice: "You have fled from the beast!"
   end
