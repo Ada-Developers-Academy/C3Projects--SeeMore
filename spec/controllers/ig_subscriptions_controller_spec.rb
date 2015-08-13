@@ -63,6 +63,16 @@ RSpec.describe IgSubscriptionsController, type: :controller do
       end
     end
 
+    it "saves the 15 most recent posts for the subscription" do
+      VCR.use_cassette('instagram create method creates posts') do
+        log_in
+        expect(Post.count).to eq 0
+
+        post :create, instagram_id: "215892539"
+        expect(Post.count).to eq 15
+      end
+    end
+
     it "user can't subscribe to private IG user they don't follow IRL" do
       VCR.use_cassette('instagram cannot follow private user') do
         log_in

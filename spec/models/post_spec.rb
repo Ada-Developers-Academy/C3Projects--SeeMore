@@ -74,7 +74,6 @@ RSpec.describe Post, type: :model do
       # run rspec so VCR can record the response
       # then recomment out those two...
       it "takes array of HTTParty objects, and finds in db or creates new posts (* SEE COMMENTS ABOVE SPEC)" do
-
         VCR.use_cassette('instagram refresh create_all_instagram_posts') do
           INSTA_URI = "https://api.instagram.com/v1/users/"
           COUNT = 15
@@ -88,6 +87,13 @@ RSpec.describe Post, type: :model do
 
           expect(Post.count).to eq 15
         end
+      end
+
+      it "takes array of HTTParty objects, and finds in db or creates new posts (* SEE COMMENTS ABOVE SPEC)" do
+        array_of_httparty_objects = []
+        Post.create_all_instagram_posts(array_of_httparty_objects)
+
+        expect(Post.count).to eq 0
       end
     end
 
