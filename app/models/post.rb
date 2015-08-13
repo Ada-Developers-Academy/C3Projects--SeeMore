@@ -7,6 +7,9 @@ class Post < ActiveRecord::Base
   # Validations
   validates_presence_of :username, :posted_at, :content_id, :subscription_id
 
+  # Scopes
+  scope :sorted_order, -> { order(posted_at: :desc) }
+
   # Model Methods
 
   # Checks with the database to make sure all the posts don't already exist.

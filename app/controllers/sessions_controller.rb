@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
         session[:user_id] = @user.id
       end
 
-      redirect_to root_path
+      redirect_to refresh_ig_path
     else
       flash[:error] = "Failed to authenticate"
 
