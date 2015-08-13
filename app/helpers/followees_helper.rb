@@ -12,4 +12,13 @@ module FolloweesHelper
       return false
     end
   end
+
+  def find_subscription_id(native_id)
+    followee = find_followee(native_id)
+    subscription_id_to_unsubscribe = @current_user.subscriptions.active_for_this_followee(followee.id).first
+  end
+
+  def find_followee(native_id)
+    Followee.find_by(native_id: native_id)
+  end
 end
