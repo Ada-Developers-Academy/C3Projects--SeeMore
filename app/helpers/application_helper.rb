@@ -7,7 +7,7 @@ module ApplicationHelper
     TwUser.find(tweet.tw_user_id)
   end
 
-def following?(id)
+  def following?(id)
     our_user = User.find(session[:user_id])
 
     if params[:provider] == "instagram"

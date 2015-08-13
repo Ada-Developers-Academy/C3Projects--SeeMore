@@ -59,7 +59,7 @@ RSpec.describe Tweet, type: :model do
           user.tw_users << tw_user
           VCR.use_cassette 'controller/twitter_user_timeline_api_response' do
             Tweet.update_timeline(user)
-            expect(Tweet.all.count).to eq 5 #recent tweets instead? would be 5
+            expect(Tweet.all.count).to eq 5 
           end
         end
       end

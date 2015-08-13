@@ -36,8 +36,6 @@ class FeedsController < ApplicationController
     elsif params[:provider] == 'instagram'
       @results = @instagram_client.user_search(@search_term)
     else
-      # guard
-      # TODO: send flash notices
       redirect_to search_path(params[:provider])
     end
   end
@@ -54,7 +52,7 @@ class FeedsController < ApplicationController
   end
 
   def ig_follow
-    ig_account = params # hash of info
+    ig_account = params # Hash of info
     ig_account = @user.ig_follow(ig_account) # InstagramAccount obj
     redirect_to :back
   end
