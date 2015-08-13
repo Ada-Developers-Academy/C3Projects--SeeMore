@@ -29,8 +29,9 @@ RSpec.describe SubscriptionsController, type: :controller do
       expect(subscription.unsubscribe_date).to_not be_nil
     end
 
-    it "redirects to the subscriptions index" do
-      expect(response).to redirect_to subscriptions_path
+    it "redirects to the root_path" do
+      # for purpose of testing
+      expect(response).to redirect_to root_path
     end
   end
 
