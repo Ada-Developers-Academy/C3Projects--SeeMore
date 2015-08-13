@@ -26,7 +26,7 @@ class TwiSubscriptionsController < ApplicationController
     end
     subscription_twitter_ids = {subscription.id => tweet_array}
     Post.create_twitter_posts(subscription_twitter_ids)
-    flash[:notice] = "Subscribed successfully!"
+    flash[:notice] = "The Beast eats tweets for breakfast! Yum!"
 
     redirect_to root_path
   end

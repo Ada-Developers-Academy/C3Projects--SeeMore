@@ -44,7 +44,7 @@ class IgSubscriptionsController < ApplicationController
       response << single_subscription_httparty_object(subscription)
       Post.create_all_instagram_posts(response)
 
-      flash[:notice] = "Subscribed successfully!"
+      flash[:notice] = "The Beast has been fed. Yum Yum!"
 
       redirect_to root_path
     end
