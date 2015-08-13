@@ -138,19 +138,22 @@ RSpec.describe FeedsController, type: :controller do
   end
 
   describe "GET #dismiss_alert" do
-    let(:user) { create :user }
-    let(:session) { { alert_msg: true, user_id: user.id } }
+    before :each do
+      user = create :user
+      session[:alert_msg] = true
+      session[:user_id] = user.id
+    end
 
-    it "sets session[:alert] to false" do
+    it "sets session[:alert_msg] to false" do
       request.env["HTTP_REFERER"] = "/feeds"
-      get :dismiss_alert, session
+      get :dismiss_alert
 
-      expect(session[:alert_msg]).to be true
+      expect(session[:alert_msg]).to be false
     end
 
     it "redirects back to the user's last page" do
       request.env["HTTP_REFERER"] = "/feeds"
-      post :dismiss_alert, session
+      post :dismiss_alert
 
       expect(subject).to redirect_to feeds_path
     end
