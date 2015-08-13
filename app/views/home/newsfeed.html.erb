@@ -1,15 +1,13 @@
-<section class="newsfeed">
-  <h1 id="top">NewsFeed</h1>
+<h1 id="top">NewsFeed</h1>
 
-  <%= render partial: "shared/errors" %>
-  <%= link_to 'Search Users', search_path, class: "btn btn-default" %>
-  <%= link_to 'Update Feed', get_new_posts_path, method: :post, class: "btn btn-success" %>
+<%= render partial: "shared/errors" %>
+<%= link_to 'Search Users', search_path, class: "btn btn-default" %>
+<%= link_to 'Update Feed', get_new_posts_path, method: :post, class: "btn btn-success" %>
+<div class="center-posts">
+<% if @rev_posts %>
+  <%= render partial: "shared/update" %>
+<% end %>
+</div>
+<br>
 
-  <% if @rev_posts %>
-    <%= render partial: "shared/update" %>
-  <% end %>
-
-  <br>
-
-  <%= link_to "Back to top", "#top", class: "link-to-top" %>
-</section>
+<%= link_to "Back to top", "#top", class: "link-to-top" %>

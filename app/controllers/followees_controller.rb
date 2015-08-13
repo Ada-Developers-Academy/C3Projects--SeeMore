@@ -10,7 +10,7 @@ class FolloweesController < ApplicationController
     if params[:user].present?
       redirect_to search_results_path(params[:source], params[:user])
     else
-      flash[:errors] = "Please enter a username."
+      flash[:errors] = "Please enter a username to search."
       redirect_to search_path
     end
   end
@@ -19,7 +19,7 @@ class FolloweesController < ApplicationController
     if params[:user].present?
       redirect_to search_results_path(params[:source], params[:user])
     else
-      flash[:errors] = "Please enter a username."
+      flash[:errors] = "Please enter a username to search."
       redirect_to search_path
     end
   end

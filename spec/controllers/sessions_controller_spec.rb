@@ -9,7 +9,6 @@ RSpec.describe SessionsController, type: :controller do
         it "redirects to home page" do
           get :create, provider: :instagram
           expect(response).to redirect_to root_path
-          expect(flash[:notice]).to include("Signed in!")
         end
 
         it "creates a user" do

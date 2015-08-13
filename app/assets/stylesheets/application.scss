@@ -23,14 +23,14 @@
 
 .header {
   margin: 5px;
-  padding-top: 10px;
-  color: white;
+  color: black;
 }
 
 .header-img {
   background: image-url("Newspaper.jpg");
   background-size: contain;
   opacity: 0.8;
+  padding: 10px;
 }
 
 .button {
@@ -39,6 +39,12 @@
 
 .center {
   text-align: center;
+}
+
+.center-posts {
+  text-align: center;
+  padding-left: auto;
+  padding-right: auto;
 }
 
 .news-text, h1 {
@@ -70,8 +76,8 @@
   background-size: 100%;
 }
 
-.search-bkgd, .newsfeed {
-  background: image-url("coffee_table.jpg");
+body {
+  background-image: url("coffee_table.jpg");
   background-size: 100%;
 }
 
