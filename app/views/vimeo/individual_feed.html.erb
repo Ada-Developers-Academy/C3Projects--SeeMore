@@ -13,8 +13,10 @@
 <% if @internal %>
   <h2 class="text-center header">
     <%= @feed.name %>'s feed
-    <% if params[:feed_id] %>
-      <br />
+    <% if current_user.feeds.include? @feed %>
+      <%= link_to "Unsubscribe", vimeo_unsubscribe_path(@feed.platform_feed_id), method: "delete", class: "btn btn-warning btn-md",
+          data: { confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+    <% else %>
       <%= link_to "Subscribe", vimeo_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
     <% end %>
   </h2>
