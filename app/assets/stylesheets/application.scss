@@ -17,13 +17,36 @@ body {
   // Exactly 50px because first (top) navbar is exactly 50px according to Bootstrap.
   // Any more than 50px and there will be white space between the first and second navbars.
   padding-top: 50px;
-  background-color: #FFFFCC;
+  background-color: #4FD5D6;
+}
+
+.container-fluid {
+  width: 70%;
+  background-color:  #CDFFFF;
+  margin-top: -20px;
+  background-position: fixed no-repeat;
+}
+
+header {
+  background-color: #FF0000;
+}
+
+.header1 {
+  float: left;
+  width: 20%;
+  margin: 5px;
+  box-sizing: border-box;
+}
+
+.header1:hover {
+  content: image-url("tongue-out.png");
 }
 
 .jumbotron {
   text-align: center;
   background-color: #FF0000;
   color: #FFFFCC;
+  margin-top: 20px;
 }
 
 .beast-mode {
@@ -32,6 +55,7 @@ body {
 
 // Style of the navbar(s).
 .navbar {
+  padding-left: 0;
   background-color: #FF0000;
   border: none;
   // Default is rounded borders, which looks weird with two navbars.
@@ -40,7 +64,7 @@ body {
 
 .navbar-default .navbar-brand {
   font-family: 'Rock Salt', cursive;
-  color: #FFFFCC;
+  color: #CDFFFF;
 }
 
 .navbar-default .navbar-brand:hover {
@@ -48,7 +72,7 @@ body {
 }
 
 .navbar-default .navbar-text {
-  color: #FFFFCC;
+  color: #CDFFFF;
 }
 
 .navbar-brand {
@@ -57,7 +81,12 @@ body {
 
 // To adjust the height of the second navbar, so it's not MASSIVE.
 .navbar.navbar-static-top {
-  min-height: 30px;
+  margin-top: 5px;
+  min-height: 35px;
+}
+
+.navbar.navbar-static-top p {
+  margin-top: 20px;
 }
 
 //Style for the webpage subtitle.
@@ -81,8 +110,56 @@ p.navbar-text {
   border: none;
 }
 
-// Form gains a margin when shrinking window.
-// .navbar-form {
-//   margin-top: 1px;
-//   margin-bottom: 1px;
-// }
+.fa-refresh {
+  margin-right: 5px;
+}
+
+// Stuff for the feed!!!!!!!!!!!!!
+
+.thumbnail {
+  margin-top: 3rem;
+  width: 100%;
+}
+
+.user{
+  // padding-left: 20px;
+  margin-bottom: 10px;
+  border-bottom: solid 1px #CABCBC;
+}
+
+.prof-pic {
+  width: 50px;
+  margin: 5px;
+}
+
+.posted-at {
+  float: right;
+  margin-right: 10px;
+  margin-top: 20px;
+  color: #616161;
+}
+
+.fix-width {
+  width: 350px;
+}
+
+.caption {
+  margin: 0 60px 20px 60px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.img2 {
+  width: 50px;
+}
+
+
+footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+footer a{
+  float: right;
+}

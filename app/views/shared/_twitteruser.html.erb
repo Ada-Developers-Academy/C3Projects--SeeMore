@@ -1,0 +1,17 @@
+<% @response.each do |person| %>
+<tr>
+  <td><%= image_tag person.profile_image_url %></td>
+  <td><%= person.screen_name %></td>
+  <td><%= person.name %></td>
+  <% if @user.already_subscribed?(person.id) %>
+    <td><h5 class="btn btn-default">Already Fed!</h5></td>
+  <% else %>
+    <td><%= link_to "Feed the BEAST!", twi_subscriptions_path(
+      params: {
+      twitter_id: person.id,
+      profile_pic: person.as_json["profile_image_url"] }),
+      method: :post,
+      class: "btn btn-default" %>
+    </td>
+  <% end %>
+<% end %>

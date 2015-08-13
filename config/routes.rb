@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
   get '/search', to: 'home#search'
 
+  get '/refresh_ig', to: 'ig_subscriptions#refresh_ig'
+  get '/refresh_twi', to: 'twi_subscriptions#refresh_twi'
+
   post "/auth/:provider/callback", to: "sessions#create"
   get '/auth/:provider/callback', to: 'sessions#create'
 
@@ -16,11 +19,14 @@ Rails.application.routes.draw do
 
   resources :ig_subscriptions, path: "instagram_results"
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  get "posts/:id", to: "posts#show", as: "posts"
 
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  get 'home/subscriptions', to: 'home#subscriptions', as: "subscriptions"
+
+  delete 'home/subscription', to: 'home#unfollow', as: 'unfollow'
+
+
+
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

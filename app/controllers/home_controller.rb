@@ -1,34 +1,48 @@
 class HomeController < ApplicationController
 
-  # def index
-  #   if logged_in?
-  #     client = twitter_api_object
-  #     twitter_ids = @user.subscriptions.pluck(:twitter_id)
-
-  #     @sub_array_tweets = []
-
-  #     twitter_ids.each do |twitter_id|
-  #       client.user_timeline(twitter_id.to_i).each do |tweet|
-  #         @sub_array_tweets << tweet
-  #       end
-  #     end
-
-  #     @sub_array_tweets.sort! { |a,b| b.as_json["created_at"].to_time <=> a.as_json["created_at"].to_time }
-
-      # could transform tweets into our own "post" object...
-      # need to combine
-  #   end
-  # end
-
-  def search
-    if params[:website] == "twitter"
-      redirect_to twi_subscriptions_path(params: {twitter_search: params[:search]})
-    elsif params[:website] == "instagram"
-      redirect_to ig_subscriptions_path(params: {instagram_search: params[:search]})
-    else
-      flash[:error] = "Please search via the search box."
-      redirect_to root_path
+  def index
+    if logged_in?
+      @posts = @user.posts.sorted_order
     end
   end
 
+  def search
+    if params[:search].nil? || params[:search].empty?
+      flash[:error] = "Please enter text into the search box."
+      redirect_to root_path
+    elsif params[:website] == "twitter"
+      redirect_to twi_subscriptions_path(params: {twitter_search: params[:search]})
+    else
+      # when the website is instagram
+      redirect_to ig_subscriptions_path(params: {instagram_search: params[:search]})
+    end
+  end
+
+  # list of a user's subcriptions
+  def subscriptions
+    posts = @user.posts
+
+    sub_array = []
+
+    posts.each do |post|
+      sub_array << [post.subscription_id, post.username]
+    end
+
+    @sub_array = sub_array.uniq
+
+    @sub_array.each do |post|
+      id = post[0]
+      subscription = Subscription.find(id)
+      pic = subscription.profile_pic
+      post << pic
+    end
+  end
+
+  def unfollow
+    subscription = Subscription.find(params[:subscription_id])
+
+    @user.dissociate_subscription(subscription)
+
+    redirect_to subscriptions_path
+  end
 end

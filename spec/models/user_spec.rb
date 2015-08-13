@@ -7,6 +7,46 @@ RSpec.describe User, type: :model do
   let(:igsub)  { build(:ig_sub) }
   let(:post)   { build(:post) }
 
+  describe "model associations" do
+    it "a user has and belongs to a subscription from instagram" do
+      user.save
+      igsub.save
+      igsub.users << user
+
+      expect(igsub.users.first.uid).to eq "789"
+      expect(user.subscriptions.first.instagram_id).to eq "215892539"
+    end
+
+    it "a user has and belongs to a subscription from twitter" do
+      user.save
+      twisub.save
+      twisub.users << user
+
+      expect(twisub.users.first.uid).to eq "789"
+      expect(user.subscriptions.first.twitter_id).to eq "123456"
+    end
+
+    it "a user has posts through instagram subscriptions" do
+      user.save
+      igsub.save
+      igsub.users << user
+      post.save
+
+      expect(user.posts.count).to eq 1
+      expect(user.posts.first).to eq post
+    end
+
+    it "a user has posts through twitter subscriptions" do
+      user.save
+      twisub.save
+      twisub.users << user
+      post.save
+
+      expect(user.posts.count).to eq 1
+      expect(user.posts.first).to eq post
+    end
+  end
+
   describe "validations" do
 
     it "is valid with a provider and uid" do
@@ -71,7 +111,6 @@ RSpec.describe User, type: :model do
     it "when called on a user object associates the provided twitter subscription" do
       user.save
       twisub.save
-
       user.associate_subscription(twisub)
 
       expect(user.subscriptions.count).to eq 1
@@ -81,7 +120,6 @@ RSpec.describe User, type: :model do
     it "when called on a user object associates the provided instagram subscription" do
       user.save
       igsub.save
-
       user.associate_subscription(igsub)
 
       expect(user.subscriptions.count).to eq 1
@@ -89,43 +127,61 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "model associations" do
-    it "a user has and belongs to a subscription from instagram" do
-      user.save
-      igsub.save
-      igsub.users << user
+  describe "#dissociate_subscription" do
+    it "dissociates sub from user" do
+      user = create(:user)
+      igsub = create(:ig_sub)
+      twisub = create(:twi_sub)
 
-      expect(igsub.users.first.uid).to eq "789"
-      expect(user.subscriptions.first.instagram_id).to eq "123456"
+      user.subscriptions << [igsub, twisub]
+
+      user.dissociate_subscription(igsub)
+
+      expect(user.subscriptions.count).to eq 1
     end
+  end
 
-    it "a user has and belongs to a subscription from twitter" do
+  describe "#already subscribed" do
+    it "returns true if user is already subscribed to the twitter user" do
       user.save
       twisub.save
-      twisub.users << user
+      user.subscriptions << twisub
 
-      expect(twisub.users.first.uid).to eq "789"
-      expect(user.subscriptions.first.twitter_id).to eq "123456"
+      expect(user.already_subscribed?(twisub.twitter_id)).to eq true
     end
 
-    it "a user has posts through instagram subscriptions" do
+    it "returns true if user is already subscribed to the instagram user" do
       user.save
       igsub.save
-      igsub.users << user
-      post.save
+      user.subscriptions << igsub
 
-      expect(user.posts.count).to eq 1
-      expect(user.posts.first).to eq post
+      expect(user.already_subscribed?(igsub.instagram_id)).to eq true
     end
 
-    it "a user has posts through twitter subscriptions" do
+    it "returns nil if user is not subscribed to the twitter user" do
       user.save
       twisub.save
-      twisub.users << user
-      post.save
 
-      expect(user.posts.count).to eq 1
-      expect(user.posts.first).to eq post
+      expect(user.already_subscribed?(twisub.twitter_id)).to eq nil
+    end
+
+    it "returns nil if user is not subscribed to the instagram user" do
+      user.save
+      igsub.save
+
+      expect(user.already_subscribed?(igsub.instagram_id)).to eq nil
+    end
+  end
+
+  describe "#instagram_subscriptions" do
+    it "return a collection of only instagram subscriptions for a user" do
+      user.save
+      igsub.save
+      twisub.save
+      igsubtwo = create(:ig_sub, instagram_id: "9876543")
+      user.subscriptions << [igsub, igsubtwo, twisub]
+
+      expect(user.instagram_subscriptions.count).to eq 2
     end
   end
 end

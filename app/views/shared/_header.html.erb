@@ -1,7 +1,9 @@
-<div class="navbar navbar-default navbar-fixed-top">
+<header id="top">
+  <div class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
-      <%= link_to "BEAST MODE", root_path, class: "navbar-brand" %>
+      <%= image_tag("header-mouth.png", class: "header1") %>
+      <%= link_to "THE BEAST", root_path, class: "navbar-brand" %>
       <% if logged_in? %>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
@@ -15,6 +17,9 @@
     <% if logged_in? %>
       <div class="collapse navbar-collapse navbar-nav navbar-right" id="navbar-collapse">
         <%= form_tag(search_path, method: :get, class: "navbar-form navbar-left", role: "search") do %>
+        <%= link_to(
+          content_tag(:i, nil, class: 'fa fa-refresh fa-2x'),
+          refresh_ig_path) %>
           <%= text_field_tag :search, params[:search], placeholder: "Users on", class: "form-control" %>
           <%= select_tag :website, options_for_select([['Twitter', 'twitter'], ['Instagram', 'instagram']]), class: "form-control" %>
           <%= submit_tag "Search", class:"btn btn-default" %>
@@ -36,3 +41,5 @@
     </div>
   </div>
 </div>
+</header>
+

@@ -5,7 +5,6 @@ class Subscription < ActiveRecord::Base
 
   # Validations
   validate :twitter_xor_instagram_id
-  # would be good to write a validation that it has either a twitter_id OR an instagram_id
 
   private
     # validates that there is EITHER a twitter OR instagram id
@@ -21,31 +20,33 @@ class Subscription < ActiveRecord::Base
   # This is by design to make scopes chainable.
   # Thx scopes.
 
-
-  # Not sure if this id == @twitter_id is 100% failsafe
-  def self.find_id(id)
-    if id == @twitter_id
-      find_by(twitter_id: id)
-    else
-      find_by(instagram_id: id)
-    end
+  def self.find_twitter_id(id)
+    find_by(twitter_id: id)
   end
 
-  #
-  # Uses twitter_id passed in params from the link_to button from the search results.
+  def self.find_instagram_id(id)
+    find_by(instagram_id: id)
+  end
 
-  # Ideally would like to be able to pass in the profile_pic info as a parameter here as well. Not currently happening
   #So profile pic info not currently being stored.
-  def self.find_or_create_subscription(id)
-    subscription = find_id(id)
+
+  def self.find_or_create_twi_subscription(id)
+    subscription = find_twitter_id(id)
 
     # If there's not a subscription, will create one or return the subscription found.
     if subscription.nil?
-      unless :instagram_id == nil
-        return create(instagram_id: id)
-      else
-        return create(twitter_id: id)
-      end
+      return create(twitter_id: id)
+    else
+      return subscription
+    end
+  end
+
+  def self.find_or_create_ig_subscription(id)
+    subscription = find_instagram_id(id)
+
+    # If there's not a subscription, will create one or return the subscription found.
+    if subscription.nil?
+      return create(instagram_id: id)
     else
       return subscription
     end
