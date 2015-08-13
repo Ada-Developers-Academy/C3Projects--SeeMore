@@ -8,9 +8,7 @@
     </p>
     <%= image_tag "ohnopuppy.gif", class: "thumbnail center" %>
   </div>
-<% end %>
-
-<% if @internal %>
+<% elsif @internal %>
   <h2 class="text-center header">
     <%= @feed.name %>'s feed
     <% if current_user.feeds.include? @feed %>
