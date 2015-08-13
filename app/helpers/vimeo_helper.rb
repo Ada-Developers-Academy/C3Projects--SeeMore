@@ -11,7 +11,7 @@ module VimeoHelper
     return embed_code
   end
 
-  def user_already_vimeo?(platform_feed_id) # FIXME: test Jeri
+  def user_already_vimeo?(platform_feed_id)
     feed = Feed.find_by(platform_feed_id: platform_feed_id.to_i, platform: "Vimeo")
     if feed
       return feed.au_users.include? current_user
