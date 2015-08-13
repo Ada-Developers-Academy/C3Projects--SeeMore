@@ -9,8 +9,8 @@
 
   <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>
 <% else %>
-  <% unless @posts.nil? || @posts.empty? %>
-    <h2 class="text-center green">
+  <% if @posts.nil? || @posts.empty? %>
+    <h2 class="text-center header">
       <%= @feed_name %>'s feed
       <% if current_user.feeds.include?(params[:feed_id]) != true%>
         <%= link_to "Subscribe", vimeo_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>

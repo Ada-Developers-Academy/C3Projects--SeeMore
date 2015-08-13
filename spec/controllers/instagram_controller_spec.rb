@@ -60,19 +60,19 @@ RSpec.describe InstagramController, type: :controller do
         it "displays { FILL_ME_IN } results" # FIXME: how many results do we want to display?
       end
 
-      context "feed that doesn't have posts" do
-        it "sends an error message" do
-          # allow_any_instance_of(Feed).to receive(:populate_posts)
-
-          VCR.use_cassette("no_post") do
-            feed = create :no_post
-
-            get :individual_feed, feed_id: feed.id
-          end
-
-          expect(flash[:error]).not_to be_nil
-        end
-      end
+      # context "feed that doesn't have posts" do
+      #   it "sends an error message" do
+      #     # allow_any_instance_of(Feed).to receive(:populate_posts)
+      #
+      #     VCR.use_cassette("no_post") do
+      #       feed = create :no_post
+      #
+      #       get :individual_feed, feed_id: feed.id
+      #     end
+      #
+      #     expect(flash[:error]).not_to be_nil
+      #   end
+      # end
     end
 
     context "subscribe" do

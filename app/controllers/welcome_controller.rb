@@ -12,6 +12,28 @@ class WelcomeController < ApplicationController
     end
   end
 
+  def view_instagram_feed
+    if current_user
+      posts = current_user.posts
+      posts.Feed.instagram
+      @posts = posts.only_thirty
+      render :feed
+    else
+      render :login
+    end
+  end
+
+  def view_vimeo_feed
+    if current_user
+      posts = current_user.posts
+      posts.Feed.vimeo
+      @posts = posts.only_thirty
+      render :feed
+    else
+      render :login
+    end
+  end
+
   def page
     posts = current_user.posts.chronological
     start = (params[:page_number].to_i * 30) + 1

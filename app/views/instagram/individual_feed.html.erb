@@ -14,7 +14,7 @@
 
   <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>
 <% else %>
-  <h2 class="text-center green">
+  <h2 class="text-center header">
     <%= @feed_name %>'s feed
 
     <% if current_user.feeds.include? @feed %>
