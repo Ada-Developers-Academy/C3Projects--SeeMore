@@ -1,5 +1,7 @@
 class WelcomeController < ApplicationController
-  skip_before_action :require_login, only: [:index]
+  skip_before_action :require_login, only: [:index, :about]
+
+  def about; end
 
   def index
     #reset_session # TODO: remove this before final PR. keep until no more rake db:reset
@@ -32,7 +34,7 @@ class WelcomeController < ApplicationController
     end
   end
 
-  def page
+  def page # FIXME: delete if no paginate
     posts = current_user.posts.chronological
     start = (params[:page_number].to_i * 30) + 1
     @posts = posts[start, 30]
@@ -61,5 +63,9 @@ class WelcomeController < ApplicationController
     @instagram_posts = posts.select do |post|
       post.feed.platform == "Instagram"
     end
+  end
+
+  def all_feeds
+    @feeds = current_user.feeds.alphabetical
   end
 end

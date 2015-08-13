@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  # everybody routes -----------------------------------------------------------
   root "welcome#index"
+  get "/about" => "welcome#about"
 
   # authorization routes -------------------------------------------------------
   get "/auth/instagram/callback" => "sessions#create_instagram"
@@ -15,6 +17,8 @@ Rails.application.routes.draw do
   get "/vimeo/feed/:feed_id", to: "vimeo#individual_feed", as: "vimeo_feed"
   post "/vimeo/feed/:feed_id/subscribe", to: "vimeo#subscribe", as: "vimeo_subscribe"
   delete "/vimeo/feed/:feed_id/unsubscribe", to: "vimeo#unsubscribe", as: "vimeo_unsubscribe"
+  # summary
+  get "/feeds" => "welcome#all_feeds"
 
   # search routes --------------------------------------------------------------
   post "/search", to: "welcome#search", as: "search"

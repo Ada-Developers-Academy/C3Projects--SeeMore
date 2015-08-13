@@ -4,6 +4,6 @@
 # numbers below we'll be using 4 calls per minute for updating our cached feeds.
 # that leaves 79 for users of our site searching for new threads to subscribe to.
 
-every 12.hours do # for the purposes of this test, we're changing the time to 5 seconds and 9:45
+every 12.hours do
   rake "update_feeds:update"
 end

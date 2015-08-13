@@ -18,6 +18,7 @@ class Feed < ActiveRecord::Base
   scope :developer, -> { where(platform: "Developer") }
   scope :instagram, -> { where(platform: "Instagram") }
   scope :vimeo, -> { where(platform: "Vimeo") }
+  scope :alphabetical, -> { order("LOWER(name) ASC") }
 
   # Instance Methods -----------------------------------------------------------
 
