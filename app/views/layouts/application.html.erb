@@ -26,7 +26,8 @@
 
   <footer>
     <% if logged_in? %>
-    <a href="#top"><i class="fa fa-arrow-up fa-4x"></i></a>
+      <a href="#top"><i class="fa fa-arrow-up fa-4x"></i></a>
+      <%= link_to "See all subscriptions", subscriptions_path %>
     <% end %>
   </footer>
 </body>

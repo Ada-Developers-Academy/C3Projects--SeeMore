@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
     self.save
   end
 
+  def dissociate_subscription(subscription)
+    self.subscriptions.delete(subscription)
+  end
+
   def already_subscribed?(sub_id)
     subscriptions = self.subscriptions
 
