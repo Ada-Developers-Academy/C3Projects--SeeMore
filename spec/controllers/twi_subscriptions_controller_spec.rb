@@ -34,8 +34,6 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
         expect(assigns(:response)).to_not be_nil
       end
     end
-
-
   end
 
   describe "#create" do
