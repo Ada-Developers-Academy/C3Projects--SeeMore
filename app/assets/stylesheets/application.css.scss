@@ -78,7 +78,6 @@
 
 .feed:hover {
   background: rgba(255, 255, 255, 1);
-  border: 1px dotted #4cae4c;
   border-radius: 5px;
 }
 
@@ -122,6 +121,10 @@ h2 {
   margin-bottom: 15px;
   border: 1px solid #e6f3e6;
   border-radius: 20px;
+}
+
+.badge {
+  margin-left: 10px;
 }
 
 .left {
@@ -188,6 +191,7 @@ a:hover {
 
 .center{
   text-align: center;
+  margin: auto;
 }
 
 html, body {
