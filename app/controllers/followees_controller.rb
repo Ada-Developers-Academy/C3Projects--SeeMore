@@ -38,6 +38,7 @@ class FolloweesController < ApplicationController
   private
 
   def sanitize(input)
-    input.delete("#")
+    input.delete!("#")
+    input.gsub(" ", "%20")
   end
 end
