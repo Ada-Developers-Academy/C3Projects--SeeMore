@@ -55,12 +55,6 @@ RSpec.describe ApplicationHelper, type: :helper do
     expect(helper.tw_user_lookup(tweet)).to eq(tw_user)
   end
 
-  it "makes a datetime easier to read" do
-    tweet = create :tweet
-    time = tweet.created_time
-    expect(helper.tw_prettify(time)).to eq("Thu Aug  6 15:07:59 2015")
-  end
-
   context "there is a logged in user" do
     it "finds the logged in users username" do
       user = create :user

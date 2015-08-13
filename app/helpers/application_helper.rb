@@ -7,11 +7,6 @@ module ApplicationHelper
     TwUser.find(tweet.tw_user_id)
   end
 
-  def tw_prettify(time)
-    time = time.to_datetime
-    time.strftime ("%c")
-  end
-
 def following?(id)
     our_user = User.find(session[:user_id])
 
