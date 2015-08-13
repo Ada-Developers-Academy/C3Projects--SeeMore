@@ -20,7 +20,7 @@ RSpec.describe FeedsHelper, type: :helper do
       )
     }
 
-    it "returns JSON" do
+    it "returns a Twitter OEmbed response" do
       VCR.use_cassette 'helpers/twitter_oembed' do
         expect(helper.tweet_oembed(tweet)).to be_a_kind_of Twitter::OEmbed
       end
@@ -51,7 +51,7 @@ RSpec.describe FeedsHelper, type: :helper do
       )
     }
 
-    it "returns JSON" do
+    it "returns an HTTParty response" do
       VCR.use_cassette 'helpers/instagram_oembed' do
         expect(helper.gram_oembed(gram).class.to_s).to eq "HTTParty::Response"
       end
