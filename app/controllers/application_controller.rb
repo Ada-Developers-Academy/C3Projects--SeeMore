@@ -24,7 +24,9 @@ class ApplicationController < ActionController::Base
     redirect_to feeds_path if session[:user_id]
   end
 
-  # def client
-  # @client ||= User.find(session[:user_id]) if session[:user_id]
-  # end
+  def require_login
+    unless session[:user_id]
+      redirect_to root_path
+    end
+  end
 end
