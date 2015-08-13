@@ -1,9 +1,9 @@
 class InstagramUser < ActiveRecord::Base
-  #Associations
+  # Associations
   has_and_belongs_to_many :users
   has_many :grams
 
-# Methods ----------------------------------------------------------------------
+  # Methods 
   def self.first_or_create_account(ig_user)
     username = ig_user["username"]
     account = InstagramUser.where(username: username).first_or_initialize

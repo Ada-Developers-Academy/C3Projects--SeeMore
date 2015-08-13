@@ -1,5 +1,6 @@
 class FeedsController < ApplicationController
   before_action :set_user, only: [ :index, :tw_follow, :ig_follow ]
+  before_action :require_login
 
   def index
     # Upon refresh, fetch the latest Grams
@@ -35,8 +36,6 @@ class FeedsController < ApplicationController
     elsif params[:provider] == 'instagram'
       @results = @instagram_client.user_search(@search_term)
     else
-      # guard
-      # TODO: send flash notices
       redirect_to search_path(params[:provider])
     end
   end
@@ -45,7 +44,6 @@ class FeedsController < ApplicationController
   def tw_follow
     id = params[:tw_user]
     twitter_user = TwUser.find_or_create_by(tw_user_id_str: id)
-    # TODO: Refactor so these assignments happen in another method
 
     twitter_user.update(twitter_params)
 
@@ -54,7 +52,7 @@ class FeedsController < ApplicationController
   end
 
   def ig_follow
-    ig_account = params # hash of info
+    ig_account = params # Hash of info
     ig_account = @user.ig_follow(ig_account) # InstagramAccount obj
     redirect_to :back
   end
@@ -67,7 +65,7 @@ class FeedsController < ApplicationController
   private
 
   def set_user
-    @user = User.find(session[:user_id])
+    @user = User.find(session[:user_id]) unless session[:user_id] == nil
   end
 
   def twitter_params

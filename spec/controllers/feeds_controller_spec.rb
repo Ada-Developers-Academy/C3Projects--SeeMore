@@ -9,6 +9,7 @@ RSpec.describe FeedsController, type: :controller do
       session[:user_id] = user.id
       get :index
     end
+
     it "responds successfully" do
       expect(response).to be_success
       expect(response).to have_http_status(200)
@@ -21,6 +22,8 @@ RSpec.describe FeedsController, type: :controller do
 
   describe "GET feeds#search" do
     it "loads the search form" do
+      user = create :user
+      session[:user_id] = user.id
       get :search, provider: 'instagram'
       expect(response).to render_template(:search)
     end
@@ -37,6 +40,8 @@ RSpec.describe FeedsController, type: :controller do
 
     context "if search term is present" do
       it "redirects to the results page" do
+        user = create :user
+        session[:user_id] = user.id
         search_term = "donald trump"
         post :search_redirect, search_term: search_term
         expect(response).to redirect_to(search_results_path(search_term))
@@ -45,6 +50,8 @@ RSpec.describe FeedsController, type: :controller do
 
     context "if search term is not present" do
       it "redirects to the search form" do
+        user = create :user
+        session[:user_id] = user.id
         post :search_redirect, params_no_search
         expect(response).to redirect_to(search_path('instagram'))
       end
@@ -53,26 +60,36 @@ RSpec.describe FeedsController, type: :controller do
 
   describe "GET feeds#search_results" do
     let(:twitter_params){ { provider: 'twitter', search_term: 'donald trump' } }
-    # let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
-    #
-    # This test fails because of the instagram api
-    # it "queries the correct API" do
-    #   VCR.use_cassette 'controller/twitter_api_response' do
-    #     get :search_results, twitter_params
-    #     expect(assigns(:results).first.id).to eq(25073877)
-    #   end
-    #
-    #   VCR.use_cassette 'controller/instagram_api_search' do
-    #     get :search_results, instagram_params
-    #     expect(assigns(:results).first.id).to eq("1105876259")
-    #   end
-    # end
+    let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
+    let(:unknown_provider){ { provider: 'github', search_term: 'beyonce' } }
+
+    before :each do
+      user = create :user
+      session[:user_id] = user.id
+    end
+
+    it "queries the correct API" do
+      VCR.use_cassette 'controller/twitter_api_response' do
+        get :search_results, twitter_params
+        expect(assigns(:results).first.id).to eq(25073877)
+      end
+
+      VCR.use_cassette 'controller/instagram_api_search' do
+        get :search_results, instagram_params
+        expect(assigns(:results).first.id).to eq("1105876259")
+      end
+    end
 
     it "receives a response from the twitter api" do
       VCR.use_cassette 'controller/twitter_api_response' do
         get :search_results, twitter_params
         expect(assigns(:results).first.id).to eq(25073877)
       end
+    end
+
+    it "redirects to the search page if given an unknown :provider" do
+      get :search_results, unknown_provider
+      expect(subject).to redirect_to search_path(unknown_provider[:provider])
     end
   end
 
@@ -117,6 +134,28 @@ RSpec.describe FeedsController, type: :controller do
 
       post :ig_follow, instagram_user
       expect(user.instagram_users).to eq(InstagramUser.where(username: "Talking Rain"))
+    end
+  end
+
+  describe "GET #dismiss_alert" do
+    before :each do
+      user = create :user
+      session[:alert_msg] = true
+      session[:user_id] = user.id
+    end
+
+    it "sets session[:alert_msg] to false" do
+      request.env["HTTP_REFERER"] = "/feeds"
+      get :dismiss_alert
+
+      expect(session[:alert_msg]).to be false
+    end
+
+    it "redirects back to the user's last page" do
+      request.env["HTTP_REFERER"] = "/feeds"
+      post :dismiss_alert
+
+      expect(subject).to redirect_to feeds_path
     end
   end
 end
