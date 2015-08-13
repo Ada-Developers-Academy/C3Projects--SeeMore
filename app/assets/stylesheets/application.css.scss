@@ -32,7 +32,7 @@ $brand-font-stack: "Ubuntu", sans-serif;
 //--------- LOGIN PAGE -----------//
 .jumbotron {
   width: 100%;
-  background-image: url(<%= asset_path "background.png" %>);
+  background-image: image-url("background.png");
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -125,7 +125,7 @@ h2 {
 }
 
 html, body {
-  background-image: url(<%= asset_path "congruent.png" %>);
+  background-image: image-url("congruent.png");
 }
 
 .profile {
