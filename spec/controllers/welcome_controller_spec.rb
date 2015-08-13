@@ -42,18 +42,24 @@ RSpec.describe WelcomeController, type: :controller do
           post :search, search: { query: search_term, platform: "Vimeo" }
           expect(response).to redirect_to(vimeo_results_path(search_term))
         end
+
+        it "redirects to Dual Search results path for unspecified search" do
+          search_term = "potatoes"
+          post :search, search: { query: search_term }
+          expect(response).to redirect_to(dual_results_path(search_term))
+        end
       end
 
       context "invalid form input" do
         it "flashes an error message" do
           request.env["HTTP_REFERER"] = root_path
-          post :search, search: { platform: "bad input", query: "potatoes" }
+          post :search, search: { platform: nil, query: nil}
           expect(flash[:error]).not_to be_nil
         end
 
         it "redirects to the previous page" do
           request.env["HTTP_REFERER"] = instagram_results_path("cats")
-          post :search, search: { platform: "bad input", query: "potatoes" }
+          post :search, search: { platform: nil, query: nil }
           expect(response).to redirect_to(instagram_results_path("cats"))
         end
       end

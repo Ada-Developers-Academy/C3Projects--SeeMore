@@ -16,6 +16,18 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// widths
+$main-column-max-width: 700px;
+
+// colors
+$friendface-green: #008800;
+$light-gray-green: #4cae4c;
+$light-gray: #e6f3e6;
+$white-solid: rgba(255, 255, 255, 1);
+$white-transparent: rgba(255,255,255,0.75);
+
+// fonts
+$brand-font-stack: "Ubuntu", sans-serif;
 
 //--------- LOGIN PAGE -----------//
 .jumbotron {
@@ -39,8 +51,8 @@
 }
 
 #top.nav h2 a, p.friendface span {
-  background-color: #080; // dark green
-  color: #fff; // white
+  background-color: $friendface-green;
+  color: $white-solid;
   border-radius: 5px;
   font-size: 26px;
   margin: 2px;
@@ -75,22 +87,29 @@
   display: inline-block;
 }
 
-// p.friendface {
-//   margin: 30px;
-//   text-align: center;
-// }
-//
-// p.friendface span.smaller {
-//   font-size: 20px;
-// }
-//
-// p.friendface span.larger {
-//   font-size: 36px;
-// }
+//--------- ABOUT PAGE ---------//
+p.friendface {
+  margin: 30px;
+  text-align: center;
+}
+
+p.friendface span.smaller {
+  font-size: 20px;
+}
+
+p.friendface span.larger {
+  font-size: 36px;
+}
+
+.img-small {
+  text-align: center;
+  margin: auto;
+  max-width: 400px;
+}
 
 //--------- GLOBALS -----------//
 p, a {
-  font-family: 'Droid Sans', sans-serif;
+  font-family: $brand-font-stack;
 }
 
 a {
@@ -115,29 +134,23 @@ html, body {
 }
 
 .brand {
-  font-family: "Ubuntu", sans-serif;
+  font-family: $brand-font-stack;
 }
 
 .green {
-  color: #4cae4c;
+  color: $light-gray-green;
 }
 
 .header {
-  color: #4cae4c;
-  font-family: 'Ubuntu', sans-serif;
+  color: $light-gray-green;
+  font-family: $brand-font-stack;
   margin: auto;
   margin-top: 15px;
   padding: 10px;
-  max-width: 600px;
+  max-width: $main-column-max-width;
   background: rgba(255, 255, 255, 1);
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-}
-
-.img-small {
-  text-align: center;
-  margin: auto;
-  max-width: 400px;
 }
 
 .btn-sm {
@@ -153,26 +166,38 @@ html, body {
 .feed {
   margin: auto;
   padding: 10px;
-  max-width: 600px;
-  background: rgba(255,255,255,0.75);
-  border-top: 1px solid #fff;
-  border-left: 1px solid #e6f3e6;
-  border-right: 1px solid #e6f3e6;
-  border-bottom: 1px solid #e6f3e6;
+  max-width: $main-column-max-width;
+  background: $white-transparent;
+  border-top: 1px solid $white-solid;
+  border-left: 1px solid $light-gray;
+  border-right: 1px solid $light-gray;
+  border-bottom: 1px solid $light-gray;
   box-sizing: border-box;
 }
 
 .feed:hover {
-  background: rgba(255, 255, 255, 1);
+  background: $white-solid;
   border-radius: 5px;
+}
+
+.header {
+  color: $light-gray-green;
+  font-family: $brand-font-stack;
+  margin: auto;
+  margin-top: 15px;
+  padding: 10px;
+  max-width: $main-column-max-width;
+  background: $white-solid;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 .nav-tabs {
   padding: 10px;
-  background-color: #fff;
-  max-width: 600px;
-  color: #4cae4c;
-  font-family: 'Ubuntu', sans-serif;
+  background-color: $white-solid;
+  max-width: $main-column-max-width;
+  color: $light-gray-green;
+  font-family: $brand-font-stack;
   margin: auto;
 }
 
@@ -180,19 +205,19 @@ html, body {
 .search-header {
   margin-top: 15px;
   margin-bottom: 15px;
-  border: 1px solid #e6f3e6;
+  border: 1px solid $light-gray;
   border-radius: 20px;
 }
 
 .search-result {
   margin: 10px;
-  background: rgba(255,255,255,0.75);
+  background: $white-transparent;
   padding: 10px;
   border-radius: 10px;
 }
 
-.search_result:nth-child(3n+1){
-  clear:left;
+.search_result:nth-child(3n+1) {
+  clear: left;
 }
 
 //--------- FEED DISPLAY -----------//
@@ -202,10 +227,11 @@ html, body {
 
 .left {
   max-width: 50%;
+  width: 50%;
   float: left;
   display: inline-block;
   margin-bottom: 10px;
-  border: 2px solid #e6f3e6;
+  border: 2px solid $light-gray;
   border-radius: 10px;
   box-sizing: border-box;
 }
@@ -227,7 +253,7 @@ html, body {
 
 .right h3 {
   margin: 0;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: $brand-font-stack;
 }
 
 .date {

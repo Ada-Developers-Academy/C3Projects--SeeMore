@@ -1,6 +1,18 @@
 <h1 class="header search-header center">Search results for <%= @readable_search %>:</h1>
+<% if @dual_results.empty? || @dual_results.nil?  %>
+<div class="feed">
+  <%= image_tag "kittyhug.gif", class: "center thumbnail" %>
+  <p>
+    We're sorry, your search did not return any results. Don't worry it will all be ok.
+  </p>
+</div>
+<% end %>
 <% unless @dual_results.empty? %>
-    <% @dual_results.each do |result| %>
+<div class="row">
+  <% @dual_results.each_with_index do |result, index| %>
+    <% if index % 3 == 0 %>
+      </div><div class="row">
+    <% end %>
       <div class="col-sm-4">
         <div class="search-result">
           <% if result["platform"] == "Vimeo" %>
@@ -41,5 +53,6 @@
         </div>
       </div>
       <% end %>
+    </div>
     <% end %>
   </div>

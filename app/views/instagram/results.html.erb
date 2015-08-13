@@ -1,6 +1,20 @@
 <h1 class="header search-header center">Search results for <%= @query %>:</h1>
-  <% unless @results.empty? %>
-    <% @results.each do |result| %>
+
+<% if @results.empty? || @results.nil?  %>
+  <div class="feed">
+    <%= image_tag "kittyhug.gif", class: "thumbnail center" %>
+    <p>
+      We're sorry,your search did not return any results. Don't worry it will all be ok.
+    </p>
+  </div>
+<% end %>
+
+<% unless @results.empty? %>
+  <div class="row">
+    <% @results.each_with_index do |result, index| %>
+      <% if index % 3 == 0 %>
+        </div><div class="row">
+      <% end %>
       <div class="col-sm-4">
         <div class="search-result">
           <h3>
@@ -21,5 +35,5 @@
         </div>
       </div>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
