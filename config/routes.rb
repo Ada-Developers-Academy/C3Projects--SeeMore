@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  # everybody routes -----------------------------------------------------------
   root "welcome#index"
+  get "/about" => "welcome#about"
 
   # authorization routes -------------------------------------------------------
   get "/auth/instagram/callback" => "sessions#create_instagram"
