@@ -69,7 +69,7 @@ h1, h2, h3, h4, .page-links a,{
   width: 100%;
 }
 
-.navbar-inverse {
+.navbar-inverse, .error-message {
   background-color: rgba(0,0,0,.5);
   border: none;
   font-family: 'Orbitron', sans-serif;
@@ -169,8 +169,15 @@ h1, h2, h3, h4, .page-links a,{
 }
 
 .page-links {
-
   font-size: 1em;
+}
+
+.error-message {
+  max-width: 75%;
+  color: #F00;
+  border-radius: 10%;
+  margin: 0 auto;
+  letter-spacing: 2px;
 }
 
 /* accessing developer strategy in production env */
