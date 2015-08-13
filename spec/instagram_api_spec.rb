@@ -50,5 +50,36 @@ RSpec.describe InstagramApi do
     it "returns a script" do
       expect(@response[-7..-2]).to eq "script"
     end
-  end 
+  end
+
+  describe "#query_API_for_posts" do
+    context "last_post_id present" do
+      let(:followee) { create :followee, handle: "barrackobama", native_id: "10206720", last_post_id: "914665339329635845_10206720", source: "instagram" } # 3 back 
+
+      # the last post id was >= 3 back for the followee
+      it "returns posts when posts have been made since last_post_id" do
+        VCR.use_cassette 'instagram_api/query_API_for_posts_with_last_post_id' do
+          id = followee.native_id
+          last_post_id = followee.last_post_id
+          response = instagram_api.query_API_for_posts(id, last_post_id)
+
+          expect(response.count).to eq 3
+        end
+      end
+    end
+
+    context "last_post_id absent" do
+      let(:followee) { create :followee, handle: "barrackobama", native_id: "10206720", last_post_id: nil, source: "instagram" }
+      
+      it "returns 1 post" do
+        VCR.use_cassette 'instagram_api/query_API_for_posts_without_last_post_id' do
+          id = followee.native_id
+          last_post_id = followee.last_post_id
+          response = instagram_api.query_API_for_posts(id, last_post_id)
+
+          expect(response.count).to eq 1
+        end
+      end
+    end
+  end
 end
