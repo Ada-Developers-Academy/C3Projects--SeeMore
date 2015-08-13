@@ -7,9 +7,8 @@
   <div class="col-sm-4">
     <div class="search-result">
       <h3>
-        <%= link_to "Sad Kitty", instagram_feed_path(feed.platform_feed_id) %>
-        <%= link_to "Search", instagram_unsubscribe_path(feed.platform_feed_id),
-            class: "btn btn-success btn-md" %>
+        <%= link_to "Sad Kitty", instagram_results_path("sad+kitty") %><br />
+        <%= link_to "Search", instagram_results_path("sad+kitty"), class: "btn btn-success btn-md" %>
       </h3>
 
       <%= image_tag "sadcat.jpg", class: "profile" %>
@@ -19,9 +18,8 @@
   <div class="col-sm-4">
     <div class="search-result">
       <h3>
-        <%= link_to "The Friendface Team", instagram_feed_path(feed.platform_feed_id) %>
-        <%= link_to "Search", instagram_unsubscribe_path(feed.platform_feed_id),
-            class: "btn btn-success btn-md" %>
+        <%= link_to "The Friendface Team", dual_results_path("friendface") %><br />
+        <%= link_to "Search", dual_results_path("friendface"), class: "btn btn-success btn-md" %>
       </h3>
 
       <%= image_tag "vimeo-avatar.png", class: "profile" %>
@@ -31,8 +29,8 @@
   <div class="col-sm-4">
     <div class="search-result">
       <h3>
-        <%= link_to "The Friendface Team", instagram_feed_path(feed.platform_feed_id) %>
-        <%= link_to "Search", instagram_unsubscribe_path(feed.platform_feed_id),
+        <%= link_to "Sad Puppy", vimeo_results_path("sad+puppy") %><br />
+        <%= link_to "Search", vimeo_results_path("sad+puppy"),
             class: "btn btn-success btn-md" %>
       </h3>
 
