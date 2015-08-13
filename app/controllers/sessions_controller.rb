@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :require_login, only: [:create, :create_instagram, :create_vimeo]
+  skip_before_action :require_login, only: [:create_instagram, :create_vimeo]
 
   def destroy
     session[:user_id] = nil
