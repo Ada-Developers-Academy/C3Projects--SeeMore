@@ -22,13 +22,19 @@
         <div class="col-sm-5">
           <%= render partial: "shared/search_bar" %>
         </div>
+
         <div class="col-sm-4">
-          <% if current_user.name != "" %>
-            Welcome, <%= current_user.name %>.
-          <% else %>
-            Welcome, friend.
-          <% end %>
-          <%= link_to "Sign Out", logout_path, :method => :delete %>
+          <div class="pull-right">
+            <p>
+              <% if current_user.name != "" %>
+                Welcome, <%= current_user.name %>.
+              <% else %>
+                Welcome, friend.
+              <% end %>
+              | <%= link_to "Manage Feeds", feeds_path %>
+              | <%= link_to "Sign Out", logout_path, :method => :delete %>
+            </p>
+          </div>
         </div>
       <% end %>
       <!-- end logged in user content -->
