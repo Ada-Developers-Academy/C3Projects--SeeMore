@@ -128,6 +128,7 @@ class Feed < ActiveRecord::Base
       post_hash[:description] = post_data["caption"]["text"] if post_data["caption"]
       post_hash[:content]     = post_data["images"]["low_resolution"]["url"]
       post_hash[:likes]       = post_data["likes"]["count"]
+      post_hash[:name]        = post_data["nickname"]
       post_hash[:date_posted] = date_posted
       post_hash[:feed_id]     = feed_id # feed id from local feed object
       return post_hash
