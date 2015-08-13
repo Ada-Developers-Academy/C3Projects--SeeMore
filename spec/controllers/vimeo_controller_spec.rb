@@ -67,17 +67,6 @@ RSpec.describe VimeoController, type: :controller do
           expect(assigns(:posts).first["name"]).to eq "Light Therapy"
         end
       end
-
-      context "feed that doesn't have posts" do
-        let(:invalid_feed) { create :invalid_vimeo_feed }
-        it "sends an error message" do
-          VCR.use_cassette "/vimeo_error" do
-            get :individual_feed, feed_id: invalid_feed.id
-          end
-
-          expect(flash[:error]).not_to be_nil
-        end
-      end
     end
 
     context "subscribe" do

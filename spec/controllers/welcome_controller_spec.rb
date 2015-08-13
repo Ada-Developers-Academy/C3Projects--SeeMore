@@ -19,7 +19,7 @@ RSpec.describe WelcomeController, type: :controller do
       end
 
       it "assigns @posts" do
-        feed = create :feed
+        feed = create :user_instagram
         post = create :post, feed_id: feed.id
         @user.feeds << feed
 
