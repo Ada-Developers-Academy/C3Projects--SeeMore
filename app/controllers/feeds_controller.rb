@@ -67,7 +67,7 @@ class FeedsController < ApplicationController
   private
 
   def set_user
-    @user = User.find(session[:user_id])
+    @user = User.find(session[:user_id]) unless session[:user_id] == nil
   end
 
   def twitter_params
