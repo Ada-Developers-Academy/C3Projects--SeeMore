@@ -15,11 +15,13 @@ class InstagramMapper
 
   def self.format_params(post, followee)
     post_hash = {}
+    link = post["link"]
+    
     post_hash[:native_id] = post["id"]
     post_hash[:native_created_at] = convert_instagram_time(post["created_time"])
     post_hash[:followee_id] = followee.id
     post_hash[:source] = followee.source
-    post_hash[:embed_html] = InstagramApi.new.embed_html_with_js(post)
+    post_hash[:embed_html] = InstagramApi.new.embed_html_with_js(link)
 
     return post_hash
   end

@@ -21,10 +21,8 @@ class InstagramApi
     return privacy_boolean
   end
 
-  def embed_html_with_js(post)
-    link = post["link"]
+  def embed_html_with_js(link)
     response = HTTParty.get(INSTA_OEMBED_URI + link)
-
     return response["html"]
   end
 
