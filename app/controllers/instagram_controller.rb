@@ -47,7 +47,7 @@ class InstagramController < ApplicationController
   end
 
   def unsubscribe
-    feed_id = params[:feed_id].to_i
+    feed_id = params[:feed_id]
     feed = Feed.find_by(platform_feed_id: feed_id, platform: "Instagram")
     current_user.unsubscribe(feed.id)
     redirect_to :back
