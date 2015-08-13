@@ -63,7 +63,9 @@ class WelcomeController < ApplicationController
     @instagram_posts = posts.select do |post|
       post.feed.platform == "Instagram"
     end
+  end
 
   def all_feeds
     @feeds = current_user.feeds.alphabetical
   end
+end
