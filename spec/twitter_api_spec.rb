@@ -17,12 +17,20 @@ RSpec.describe TwitterApi do
   describe "#embed_html_without_js" do
     let(:tweet_id) { "630946246803361792" }
 
-    it "returns a blockquote" do
+    before :each do
       VCR.use_cassette 'twitter_api/embed_html_without_js' do
-        result = twitter_api.embed_html_without_js(tweet_id)
-        expect(result[1..10]).to eq "blockquote"
+        @result = twitter_api.embed_html_without_js(tweet_id)
       end
     end
+
+    it "returns a blockquote" do
+      expect(@result[1..10]).to eq "blockquote"
+    end
+
+    it "does not return a script" do
+      expect(@result[-7..-2]).to_not eq "script"
+    end
+
   end
 
   # def get_posts(id, last_post_id)
