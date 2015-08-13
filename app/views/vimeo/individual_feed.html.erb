@@ -28,7 +28,7 @@
         <h3 class="center">
           <%= link_to post["user"]["name"], vimeo_feed_path(params[:feed_id]) %>
           <br />
-          <small><%= post["created_time"] %></small>
+          <small><%= display_pacific_time(post["created_time"]) %></small>
         </h3>
         <div class= "center">
           <%= resize_video(post).html_safe %>
