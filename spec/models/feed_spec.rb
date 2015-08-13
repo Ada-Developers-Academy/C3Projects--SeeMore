@@ -100,6 +100,27 @@ RSpec.describe Feed, type: :model do
       expect(Feed.count).to eq 4
       expect(Feed.developer.count).to eq 1
     end
+
+    context ":alphabetical" do
+      it "shows feeds in alphabetical order by name" do
+        feed1 = create :feed, name: "apples"
+        feed2 = create :feed, name: "zoidberg"
+        feed3 = create :feed, name: "potatoes"
+        feed4 = create :feed, name: "aardvark"
+
+        expect(Feed.second.name).to eq("zoidberg")
+        expect(Feed.alphabetical.second.name).to eq("apples")
+      end
+
+      it "irrespective of capitalization" do
+        feed1 = create :feed, name: "apples"
+        feed2 = create :feed, name: "Zoidberg"
+        feed3 = create :feed, name: "zilch"
+
+        expect(Feed.order("name ASC").first.name).to eq("Zoidberg")
+        expect(Feed.alphabetical.first.name).to eq("apples")
+      end
+    end
   end
 
   describe 'populates posts after create method' do
