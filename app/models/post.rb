@@ -22,7 +22,7 @@ class Post < ActiveRecord::Base
     last_tweet_uid = Prey.last_post_uid(prey_uid)
 
     if last_tweet_uid.nil?
-      tweets = seed_tweets(prey_uid, prey_id)
+      tweets = TwitterClient.fetch_tweets(prey_uid)
     else
       tweets = TwitterClient.fetch_tweets(prey_uid, { since_id: last_tweet_uid })
     end
