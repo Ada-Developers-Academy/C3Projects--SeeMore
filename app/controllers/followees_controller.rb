@@ -2,10 +2,7 @@ class FolloweesController < ApplicationController
   USER_COUNT = 3
 
   helper_method :find_subscription_id
-
   include ActionView::Helpers::OutputSafetyHelper
-
-  USER_COUNT = 3
 
   def search; end   # this renders the search page
 
