@@ -1,4 +1,6 @@
 <% if session[:alert_msg] && (@user.instagram_users.count > 0  || @user.tw_users.count > 0) %>
+      <h1><span class="glyphicon glyphicon-sunglasses"></span> Creep Peep</h1>
+      <h3> Follow folks on the down-low</h3>
   <div class="alert alert-warning col-sm-6 center-block no-float" role="alert">
     <%= button_to [:dismiss_alert], class: 'close' do %>
       <span aria-hidden="true">&times;</span>
@@ -10,11 +12,17 @@
 
 <% unless @user.instagram_users.count == 0  && @user.tw_users.count == 0 %>
   <% @posts.each do |post| %>
+  <div class="not-following col-md-6 center-block no-float "> 
     <% if post.class == Tweet %>
-      <%= raw tweet_oembed(post).html %>
+    <div class="tweet">
+      <%= raw tweet_oembed(post).html %> 
+     </div> 
     <% elsif post.class == Gram %>
+    <div class="gram">
       <%= raw gram_oembed(post)["html"] %>
+    </div>
     <% end %>
+  </div>  
   <% end %>
 
 <% else %>
