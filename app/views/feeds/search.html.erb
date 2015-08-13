@@ -11,7 +11,9 @@
         provider: :tweet,
         url: search_twitter_url
         } %>
-
+  <% unless params[:instagram] || params[:tweet] %>
+    <%= image_tag("notso-2.png", class: "ninja")%>
+  <% end %>
 </div>
   <!-- Search Results -->
   <span class="search-results">
