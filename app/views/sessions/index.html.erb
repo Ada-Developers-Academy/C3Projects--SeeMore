@@ -7,7 +7,13 @@
   <% if Rails.env.development? %>
     <%= link_to "Sign in with OmniAuth Developer Strategy", login_path(:developer) %>
   <% end %>
-  <%= link_to(image_tag('sign-in-with-twitter-gray.png'), login_path(:twitter)) %>
-  <%= link_to(image_tag('Instagram_signin.png'), login_path(:instagram))%>
-  <%= link_to(image_tag('vimeo.png'), login_path(:vimeo)) %>
+  <div class="login-buttons">
+    <%= link_to(image_tag('sign-in-with-twitter-gray.png'), login_path(:twitter)) %>
+  </div>
+  <div class="login-buttons">
+    <%= link_to(image_tag('Instagram_signin.png'), login_path(:instagram))%>
+  </div>
+  <div class="login-buttons">
+    <%= link_to(image_tag('vimeo.png'), login_path(:vimeo)) %>
+  </div>
 </center>
