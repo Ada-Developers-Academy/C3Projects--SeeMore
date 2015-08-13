@@ -25,11 +25,17 @@ class FolloweesController < ApplicationController
 
   # this displays results on the search page
   def search_results
-    @query = params[:user]
+    raw_query = params[:user]
+    @query = htmlify(raw_query)
     @source = params[:source]
     @results = ApiHelper.user_search(@query, USER_COUNT, @source)
 
     render 'search'
   end
 
+  private
+
+  def htmlify(input)
+    input.gsub(" ", "%20")
+  end
 end
