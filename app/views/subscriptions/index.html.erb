@@ -1,19 +1,31 @@
-<h1 class="center"><%= @current_user.name.capitalize %>'s Subscriptions </h1>
+<div class="panel panel-default panel-change">
+  <div class="panel panel-heading">
+    <h1 class="center"><%= @current_user.name.capitalize %>'s Subscriptions</h1></div>
   <ul class="search-results">
+
+  <div id="flash">
   <% if !flash.empty? %>
     <%= flash[:notice] %>
     <% end %>
-
+  </div>
+<table class="table">
+  <tr>
+    <th>Media</th>
+    <th colspan="2" class="center">Handle</th>
+    <th></th>
+  </tr>
   <% @followees.each do |f| %>
-    <li>
+    <tr>
+      <td>
       <% if f.source == "instagram" %>
         <%= image_tag("insta.png", class: "img-thumbnail", size: "35x35") %>
       <% else %>
         <%= image_tag("tweet.png", class: "img-thumbnail", size: "35x35") %>
       <% end %>
-      <%= image_tag(f.avatar_url, class: "img-thumbnail", size: "50x50") %>
-      <%= f.handle %>
-      <%= link_to "Unsubscribe", unsubscribe_path(f.subscriptions.where( { user_id: @current_user.id, unsubscribe_date: nil } ).first.id), method: :put, class: "btn btn-danger btn-sm" %>
-    </li>
+      </td>
+      <td><%= image_tag(f.avatar_url, class: "img-thumbnail", size: "50x50") %></td>
+      <td><%= f.handle %></td>
+      <td><%= link_to "Unsubscribe", unsubscribe_path(f.subscriptions.where( { user_id: @current_user.id, unsubscribe_date: nil } ).first.id), method: :put, class: "btn btn-danger btn-sm" %></td>
   <% end %>
-  </ul>
+</table>
+</div>
