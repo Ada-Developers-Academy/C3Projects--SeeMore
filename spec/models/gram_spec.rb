@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Gram, type: :model do
+
+  describe "validations" do
+    context "ig_id" do
+      it "doesn't allow duplicates" do
+        create :gram, ig_id: "123"
+        copycat = build :gram, ig_id: "123"
+        copycat.valid?
+        expect(copycat.errors.keys).to include(:ig_id)
+      end
+    end
+  end
+
   describe "self.collect_latest_posts" do
     before :each do
       @user = create :user
