@@ -18,10 +18,9 @@ RSpec.describe HomeController, type: :controller do
     context "when logged in" do
       it "user has access to their posts" do
         log_in
-        sub = create(:ig_sub)
+        igsub = create(:ig_sub)
         post = create(:post)
-        @logged_user.subscriptions << sub
-
+        @logged_user.subscriptions << igsub
         get :index
 
         expect(@logged_user.posts).to include post

@@ -27,9 +27,7 @@ RSpec.describe IgSubscriptionsController, type: :controller do
     it "assigns @response if logged in" do
       VCR.use_cassette('instagram assigns response') do
         log_in
-
         get :index, instagram_search: "lilagrc"
-
 
         expect(assigns(:response)).to_not be_nil
       end
@@ -82,7 +80,6 @@ RSpec.describe IgSubscriptionsController, type: :controller do
         expect(flash[:error]).to be_present
       end
     end
-
   end
 
   describe "#refresh_ig" do
@@ -116,20 +113,4 @@ RSpec.describe IgSubscriptionsController, type: :controller do
       expect(response).to redirect_to refresh_twi_path
     end
   end
-
-  # describe "#single_subscription_httparty_object" do
-  #   it "DOES SOEMTHING" do
-  #     log_in
-  #     subscription = create :ig_sub
-  #     testing = IgSubscriptionsController.new
-  #
-  #     expect(testing.send(:single_subscription_httparty_object, subscription)).to eq HTTParty
-  #   end
-  # end
-
-  # will need to refactor using this setup for VCR use- only
-  # for tests that will hit the API
-  # VCR.use_cassette('whatever cassette name you want') do
-  #    # the body of the test would go here...
-  # end
 end

@@ -1,7 +1,6 @@
 require 'rails_helper'
 require 'support/vcr_setup'
 
-
 RSpec.describe TwiSubscriptionsController, type: :controller do
   let(:log_in) {
     @logged_user = create :user
@@ -73,7 +72,6 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
         @logged_user.subscriptions << (create :ig_sub)
 
         get :refresh_twi
-
         post = Post.last
 
         expect(post.subscription.id).to eq twi_sub.id
