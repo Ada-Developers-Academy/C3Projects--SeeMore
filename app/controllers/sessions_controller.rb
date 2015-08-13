@@ -22,15 +22,14 @@ class SessionsController < ApplicationController
       auth_hash = request.env['omniauth.auth']
       user = User.find_or_create_from_omniauth(auth_hash) #returns a user obj. or nil
     end
+
     session[:user_id] = user.id
+    session[:alert_msg] = true # disclaimer message on feeds :index view
 
     redirect_to feeds_path
   end
 
-
-
-  def show
-  end
+  def show; end
 
   def destroy
     reset_session

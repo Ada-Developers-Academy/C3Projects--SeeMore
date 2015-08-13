@@ -1,7 +1,30 @@
-<% @posts.each do |post| %>
-  <% if post.class == Tweet %>
-    <%= raw tweet_oembed(post).html %>
-  <% elsif post.class == Gram %>
-    <%= raw gram_oembed(post)["html"] %>
+<% if session[:alert_msg] && (@user.instagram_users.count > 0  || @user.tw_users.count > 0) %>
+  <div class="alert alert-warning col-sm-6 center-block no-float" role="alert">
+    <%= button_to [:dismiss_alert], class: 'close' do %>
+      <span aria-hidden="true">&times;</span>
+    <% end %>
+    <strong>Disclaimer!</strong> You're following these accounts on <em>Creep Peep</em>. <br>
+    Clicking 'follow' on these posts will follow the accounts IRL! Click carefully, creeper.
+  </div>
+<% end %>
+
+<% unless @user.instagram_users.count == 0  && @user.tw_users.count == 0 %>
+  <% @posts.each do |post| %>
+    <% if post.class == Tweet %>
+      <%= raw tweet_oembed(post).html %>
+    <% elsif post.class == Gram %>
+      <%= raw gram_oembed(post)["html"] %>
+    <% end %>
   <% end %>
+
+<% else %>
+  <div class="not-following col-sm-6 center-block no-float">
+    <h1 class="text-center">
+      Don't be shy.
+      <br><br>
+      Go ahead and creep on some
+      <%= link_to "Instagram users", search_path('instagram') %> or
+      <%= link_to "Twitter users", search_path('twitter') %>.
+    </h1>
+  </div>
 <% end %>
