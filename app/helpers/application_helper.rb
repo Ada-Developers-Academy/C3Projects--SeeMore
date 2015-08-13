@@ -1,6 +1,6 @@
 module ApplicationHelper
   def user_or_guest
-    session[:user_id] ? User.find(session[:user_id]).username : "guest"
+    session[:user_id] ? User.find(session[:user_id]).username : "Guest"
   end
 
   def tw_user_lookup(tweet)
