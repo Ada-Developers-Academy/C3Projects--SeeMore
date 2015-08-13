@@ -67,6 +67,7 @@ RSpec.describe HomeController, type: :controller do
 
   describe "user subscriptions view" do
     it "renders subscriptions view" do
+      log_in
       get :subscriptions
 
       expect(response).to render_template :subscriptions
