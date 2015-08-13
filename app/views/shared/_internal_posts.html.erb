@@ -42,7 +42,7 @@
         </span>
       <% end %>
     <div class="date">
-      <%= post.date_posted %>
+      <%= display_pacific_time(post.date_posted) %>
     </div>
   </div>
 <% end %>
