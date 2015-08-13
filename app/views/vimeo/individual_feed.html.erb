@@ -8,9 +8,12 @@
     </p>
     <%= image_tag "ohnopuppy.gif", class: "thumbnail center" %>
   </div>
-<% elsif @internal %>
+<% end %>
+
+<% if @internal %>
   <h2 class="text-center header">
-    <%= @feed_name %>'s feed
+    <%= @feed.name %>'s feed
+
     <% if params[:feed_id] %>
       <br />
       <%= link_to "Subscribe", vimeo_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
