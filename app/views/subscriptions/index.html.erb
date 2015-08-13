@@ -13,7 +13,7 @@
       <% end %>
       <%= image_tag(f.avatar_url, class: "img-thumbnail", size: "50x50") %>
       <%= f.handle %>
-      <%= link_to "Unsubscribe", unsubscribe_path(f.subscriptions.where(user_id: @current_user.id).first.id), method: :put, class: "btn btn-danger btn-sm" %>
+      <%= link_to "Unsubscribe", unsubscribe_path(f.subscriptions.where( { user_id: @current_user.id, unsubscribe_date: nil } ).first.id), method: :put, class: "btn btn-danger btn-sm" %>
     </li>
   <% end %>
   </ul>
