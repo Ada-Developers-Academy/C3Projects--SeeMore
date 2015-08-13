@@ -53,7 +53,49 @@ RSpec.describe Post, type: :model do
   end
 
   pending ".seed_tweets"
-  pending ".seed_grams"
+  # def self.seed_tweets(prey_uid, prey_id, count = SEED_COUNT)
+  #   tweets = TwitterClient.fetch_tweets(prey_uid, { count: count })
+  #   create_many_posts(tweets, prey_id)
+  # end
+
   pending ".update_tweets"
+  # def self.update_tweets(prey_uid, prey_id)
+  #   last_tweet_uid = Prey.last_post_uid(prey_uid)
+  #   tweets = TwitterClient.fetch_tweets(prey_uid, { since_id: last_tweet_uid })
+  #   create_many_posts(tweets, prey_id)
+  # end
+
+  pending ".seed_grams"
+  # def self.seed_grams(prey_uid, prey_id, count = SEED_COUNT)
+  #   grams = InstagramClient.seed_grams(prey_uid, count)
+  #   create_many_posts(grams, prey_id)
+  # end
+
   pending ".update_grams"
+  # def self.update_grams(prey_uid, prey_id)
+  #   last_gram_uid = Prey.last_post_uid(prey_uid)
+  #   grams = InstagramClient.update_grams(prey_uid, last_gram_uid)
+  #   create_many_posts(grams, prey_id)
+  # end
+
+  describe "private methods" do
+    pending ".create_many_posts"
+    # private
+    # def self.create_many_posts(posts, prey_id)
+    #   return if posts.nil?
+    #   posts.each do |post_hash|
+    #     media = post_hash[:media]
+    #     post_hash.delete(:media)
+
+    #     post = Post.new(post_hash)
+    #     post.prey_id = prey_id
+    #     post.save
+
+    #     media.each do |medium_url|
+    #       Medium.create(url: medium_url, post_id: post.id)
+    #     end
+    #   end
+    # end
+
+  end
 end

@@ -8,8 +8,7 @@ class Post < ActiveRecord::Base
   has_many :media
 
   validates :uid, :post_time, :prey_id, :url, :provider, presence: true
-  # tweet and gram uids should never be the same. they are formatted differently
-  validates :uid, uniqueness: true
+  validates :uid, uniqueness: true # tweet and gram uids are formatted differently
 
   # TWEETS --------------------------------------------------------------------
 
