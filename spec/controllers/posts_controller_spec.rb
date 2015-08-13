@@ -4,12 +4,13 @@ RSpec.describe PostsController, type: :controller do
   describe "posts#show" do
     let (:params) do
       {
-        id: "beastmaster"
+        id: "beastmaster",
+        username: "beastmaster"
       }
     end
 
     it "returns http success" do
-      get :show, :id => params[:id]
+      get :show, :id => params[:username]
       expect(response).to have_http_status(:success)
     end
 
@@ -17,7 +18,7 @@ RSpec.describe PostsController, type: :controller do
       @posts = Post.where(username: "beastmaster")
       create :post
 
-      get :show, :id => params[:id]
+      get :show, {:id => params[:id], username: params[:username]}
 
       expect(assigns(:posts)).to eq(@posts)
     end
