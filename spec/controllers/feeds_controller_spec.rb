@@ -56,7 +56,6 @@ RSpec.describe FeedsController, type: :controller do
     let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
     let(:unknown_provider){ { provider: 'github', search_term: 'beyonce' } }
 
-    # This test fails because of the instagram api
     it "queries the correct API" do
       VCR.use_cassette 'controller/twitter_api_response' do
         get :search_results, twitter_params
