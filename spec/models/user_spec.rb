@@ -129,6 +129,20 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#dissociate_subscription" do
+    it "dissociates sub from user" do
+      user = create(:user)
+      igsub = create(:ig_sub)
+      twisub = create(:twi_sub)
+
+      user.subscriptions << [igsub, twisub]
+
+      user.dissociate_subscription(igsub)
+
+      expect(user.subscriptions.count).to eq 1
+    end
+  end
+
   describe "#already subscribed" do
     it "returns true if user is already subscribed to the twitter user" do
       user.save
