@@ -41,7 +41,7 @@ module FriendFaceAPIs
       end
 
       def self.vimeo_feed_uri(feed_id)
-        self.vimeo_feed_base + feed_id + "/videos?page=1&per_page=30"
+        self.vimeo_feed_base + feed_id + "/videos?page=1&per_page=30&filter_embeddable=true"
       end
 
       def self.vimeo_header
