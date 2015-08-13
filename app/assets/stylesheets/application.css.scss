@@ -16,6 +16,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+
+//--------- LOGIN PAGE -----------//
 .jumbotron {
   width: 100%;
   background: url("background.png");
@@ -24,11 +26,13 @@
 }
 
 .panel-body {
+  margin-top: 75px;
   padding-top: 400px;
   padding-left: 200px;
   padding-right: 200px;
 }
 
+//--------- NAVBAR/SEARCH -----------//
 #top.nav {
   padding-top: 5px;
   margin-bottom: 5px;
@@ -42,25 +46,6 @@
   margin: 2px;
   padding: 15px;
   text-decoration: none;
-}
-
-p.friendface {
-  margin: 30px;
-  text-align: center;
-}
-
-p.friendface span.smaller {
-  font-size: 20px;
-}
-
-p.friendface span.larger {
-  font-size: 36px;
-}
-
-#top.nav h2 {
-  padding: 0;
-  margin: 0;
-  display: inline-block;
 }
 
 #top.nav h3 {
@@ -84,11 +69,87 @@ p.friendface span.larger {
   margin-top: 8px;
 }
 
+#top.nav h2 {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+// p.friendface {
+//   margin: 30px;
+//   text-align: center;
+// }
+//
+// p.friendface span.smaller {
+//   font-size: 20px;
+// }
+//
+// p.friendface span.larger {
+//   font-size: 36px;
+// }
+
+//--------- GLOBALS -----------//
+p, a {
+  font-family: 'Droid Sans', sans-serif;
+}
+
+a {
+  color: #080;
+}
+
+a:hover {
+  color: #66b766;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+html, body {
+  background: url('congruent.png');
+}
+
 .profile {
   height: 150px;
   width: 150px;
 }
 
+.brand {
+  font-family: "Ubuntu", sans-serif;
+}
+
+.green {
+  color: #4cae4c;
+}
+
+.header {
+  color: #4cae4c;
+  font-family: 'Ubuntu', sans-serif;
+  margin: auto;
+  margin-top: 15px;
+  padding: 10px;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 1);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.img-small {
+  text-align: center;
+  margin: auto;
+  max-width: 400px;
+}
+
+.btn-sm {
+  margin: 5px;
+}
+
+.center{
+  text-align: center;
+  margin: auto;
+}
+
+//--------- FEED PAGES -----------//
 .feed {
   margin: auto;
   padding: 10px;
@@ -106,21 +167,6 @@ p.friendface span.larger {
   border-radius: 5px;
 }
 
-.header {
-  color: #4cae4c;
-  font-family: 'Ubuntu', sans-serif;
-  margin: auto;
-  margin-top: 15px;
-  padding: 10px;
-  max-width: 600px;
-  background: rgba(255, 255, 255, 1);
-  // border-left: 1px solid #e6f3e6;
-  // border-right: 1px solid #e6f3e6;
-  // border-bottom: 1px solid #e6f3e6;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-}
-
 .nav-tabs {
   padding: 10px;
   background-color: #fff;
@@ -130,18 +176,7 @@ p.friendface span.larger {
   margin: auto;
 }
 
-h2 {
-  font-size: 40px;
-}
-
-.green {
-  color: #4cae4c;
-}
-
-.brand {
-  font-family: "Ubuntu", sans-serif;
-}
-
+//--------- RESULTS PAGES -----------//
 .search-header {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -149,6 +184,18 @@ h2 {
   border-radius: 20px;
 }
 
+.search-result {
+  margin: 10px;
+  background: rgba(255,255,255,0.75);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.search_result:nth-child(3n+1){
+  clear:left;
+}
+
+//--------- FEED DISPLAY -----------//
 .badge {
   margin-left: 10px;
 }
@@ -186,50 +233,4 @@ h2 {
 .date {
   clear: both;
   text-align: center;
-}
-
-.search-result {
-  margin: 10px;
-  background: rgba(255,255,255,0.75);
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.search_result:nth-child(3n+1){
-  clear:left;
-}
-
-.btn-sm {
-  margin: 5px;
-}
-
-.panel-body {
-  margin-top: 75px;
-}
-
-p, a {
-  font-family: 'Droid Sans', sans-serif;
-}
-
-a {
-  color: #080;
-}
-
-a:hover {
-  color: #66b766;
-}
-
-.center{
-  text-align: center;
-  margin: auto;
-}
-
-html, body {
-  background: url('congruent.png');
-}
-
-.img-small {
-  text-align: center;
-  margin: auto;
-  max-width: 400px;
 }
