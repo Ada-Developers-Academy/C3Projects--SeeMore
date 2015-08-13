@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  # rescue_from SQLite3::ConstraintException, with: :already_following unless Rails.env.production?
   before_filter :twit
 
   INSTAGRAM_URI = "https://api.instagram.com/v1/"
@@ -36,7 +35,4 @@ class ApplicationController < ActionController::Base
     flash.now[:error] = MESSAGES[:already_following_error]
     render "feeds/search"
   end
-
-
-
 end

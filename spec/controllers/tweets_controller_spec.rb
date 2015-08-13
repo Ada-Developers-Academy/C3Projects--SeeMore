@@ -1,7 +1,6 @@
 require 'rails_helper'
 require 'twit'
 
-
 RSpec.describe TweetsController, type: :controller do
   describe "POST #search" do
     context "valid params" do
@@ -28,7 +27,7 @@ RSpec.describe TweetsController, type: :controller do
       end
 
       it "redirects to search page" do
-        expect(response).to redirect_to("feeds/search")
+        expect(response).to redirect_to(search_path)
       end
 
       it "displays an error message" do
@@ -90,10 +89,6 @@ RSpec.describe TweetsController, type: :controller do
 
       it "does not create a tweet record" do
         expect(Tweet.count).to eq 0
-      end
-
-      it "renders the feeds/search view" do
-        expect(response).to render_template("feeds/search")
       end
     end
 

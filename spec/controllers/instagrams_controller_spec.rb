@@ -105,10 +105,6 @@ RSpec.describe InstagramsController, type: :controller do
       it "does not create a instagram record" do
         expect(Instagram.count).to eq 0
       end
-
-      it "renders the feeds/search view" do
-        expect(response).to render_template("feeds/search")
-      end
     end
   end # POST #create
 

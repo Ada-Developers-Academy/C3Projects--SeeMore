@@ -5,23 +5,25 @@ class TweetsController < ApplicationController
     if params[:tweet][:username].present?
       username = params[:tweet][:username]
       @users = @twitter.client.user_search(username)
+
       if @users.empty?
         return redirect_to search_path, flash: { error: MESSAGES[:no_username] }
       else
         return render "feeds/search"
       end
     else
-      redirect_to "feeds/search", flash: { error: MESSAGES[:no_username] }
+      redirect_to search_path, flash: { error: MESSAGES[:no_username] }
     end
   end
 
   def create
+    user = User.find(session[:user_id])
     @twitter_person = Tweet.find_or_create_by(tweet_params)
-    @twitter_person.users << User.find(session[:user_id])
-    if @twitter_person.save
-      return redirect_to root_path, flash: { alert: MESSAGES[:success] }
+    if @twitter_person.users.include?(user)
+      already_following
     else
-      return render "feeds/search", flash: { error: MESSAGES[:follow_error] }
+      @twitter_person.users << User.find(session[:user_id])
+      redirect_to root_path, flash: { alert: MESSAGES[:success] }
     end
   end
 

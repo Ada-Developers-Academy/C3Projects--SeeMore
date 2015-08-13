@@ -22,12 +22,13 @@ class InstagramsController < ApplicationController
   end
 
   def create
+    user = User.find(session[:user_id])
     @instagram_person = Instagram.find_or_create_by(instagram_params)
-    @instagram_person.users << User.find(session[:user_id])
-    if @instagram_person.save
-      return redirect_to root_path, flash: { alert: MESSAGES[:success] }
+    if @instagram_person.users.include?(user)
+      already_following
     else
-      return render "feeds/search", flash: { error: MESSAGES[:follow_error] }
+      @instagram_person.users << User.find(session[:user_id])
+      redirect_to root_path, flash: { alert: MESSAGES[:success] }
     end
   end
 
