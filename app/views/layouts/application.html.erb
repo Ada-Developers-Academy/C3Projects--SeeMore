@@ -27,9 +27,9 @@
           <div class="pull-right">
             <p>
               <% if current_user.name != "" %>
-                Welcome, <%= current_user.name %>.
+                Welcome, <%= current_user.name %>
               <% else %>
-                Welcome, friend.
+                Welcome, friend
               <% end %>
               | <%= link_to "Manage Feeds", feeds_path %>
               | <%= link_to "Sign Out", logout_path, :method => :delete %>

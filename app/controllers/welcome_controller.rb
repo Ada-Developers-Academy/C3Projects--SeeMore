@@ -25,8 +25,10 @@ class WelcomeController < ApplicationController
 
   def page # FIXME: delete if no paginate
     posts = current_user.posts.chronological
-    start = (params[:page_number].to_i * 30) + 1
+    page_number = params[:page_number].to_i
+    start = ((page_number - 1) * 30) + 1
     @posts = posts[start, 30]
+    @next_page = (posts.length > (page_number * 30)) ? true : false
   end
 
   def search
@@ -68,7 +70,7 @@ class WelcomeController < ApplicationController
   private
     def platform_check
       posts = current_user.posts.chronological
-      
+
       @vimeo_posts = posts.select do |post|
         post.feed.platform == "Vimeo"
       end
