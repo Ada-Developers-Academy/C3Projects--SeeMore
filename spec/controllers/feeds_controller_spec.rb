@@ -53,26 +53,31 @@ RSpec.describe FeedsController, type: :controller do
 
   describe "GET feeds#search_results" do
     let(:twitter_params){ { provider: 'twitter', search_term: 'donald trump' } }
-    # let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
-    #
-    # This test fails because of the instagram api
-    # it "queries the correct API" do
-    #   VCR.use_cassette 'controller/twitter_api_response' do
-    #     get :search_results, twitter_params
-    #     expect(assigns(:results).first.id).to eq(25073877)
-    #   end
-    #
-    #   VCR.use_cassette 'controller/instagram_api_search' do
-    #     get :search_results, instagram_params
-    #     expect(assigns(:results).first.id).to eq("1105876259")
-    #   end
-    # end
+    let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
+    let(:unknown_provider){ { provider: 'github', search_term: 'beyonce' } }
+
+    it "queries the correct API" do
+      VCR.use_cassette 'controller/twitter_api_response' do
+        get :search_results, twitter_params
+        expect(assigns(:results).first.id).to eq(25073877)
+      end
+
+      VCR.use_cassette 'controller/instagram_api_search' do
+        get :search_results, instagram_params
+        expect(assigns(:results).first.id).to eq("1105876259")
+      end
+    end
 
     it "receives a response from the twitter api" do
       VCR.use_cassette 'controller/twitter_api_response' do
         get :search_results, twitter_params
         expect(assigns(:results).first.id).to eq(25073877)
       end
+    end
+
+    it "redirects to the search page if given an unknown :provider" do
+      get :search_results, unknown_provider
+      expect(subject).to redirect_to search_path(unknown_provider[:provider])
     end
   end
 
@@ -117,6 +122,24 @@ RSpec.describe FeedsController, type: :controller do
 
       post :ig_follow, instagram_user
       expect(user.instagram_users).to eq(InstagramUser.where(username: "Talking Rain"))
+    end
+  end
+
+  describe "GET #dismiss_alert" do
+    let(:session) { { alert_msg: true } }
+
+    it "sets session[:alert] to false" do
+      request.env["HTTP_REFERER"] = "/feeds"
+      get :dismiss_alert, session
+
+      expect(session[:alert_msg]).to be true
+    end
+
+    it "redirects back to the user's last page" do
+      request.env["HTTP_REFERER"] = "/feeds"
+      get :dismiss_alert, session
+
+      expect(subject).to redirect_to feeds_path
     end
   end
 end
