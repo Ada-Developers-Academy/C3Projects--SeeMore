@@ -1,7 +1,6 @@
 class FolloweesController < ApplicationController
   USER_COUNT = 3
 
-  helper_method :find_subscription_id
   include ActionView::Helpers::OutputSafetyHelper
 
   def search; end   # this renders the search page
@@ -27,21 +26,18 @@ class FolloweesController < ApplicationController
   # this displays results on the search page
   def search_results
     @query = params[:user]
+    processed_query = sanitize(@query)
     @source = params[:source]
-    @results = ApiHelper.user_search(@query, USER_COUNT, @source)
+    @results = ApiHelper.user_search(processed_query, USER_COUNT, @source)
     if @results.count == 0
       flash[:notice] = "No users matching '#{@query}'."
     end
     render 'search'
   end
 
-  def find_subscription_id(native_id)
-    followee = find_followee(native_id)
-    subscription_id_to_unsubscribe = @current_user.subscriptions.active_for_this_followee(followee.id).first
-  end
+  private
 
-  def find_followee(native_id)
-    Followee.find_by(native_id: native_id)
+  def sanitize(input)
+    input.delete("#")
   end
-
 end
