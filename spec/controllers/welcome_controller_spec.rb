@@ -19,6 +19,7 @@ RSpec.describe WelcomeController, type: :controller do
       end
 
       it "assigns @posts" do
+        allow_any_instance_of(Feed).to receive(:populate_posts)
         feed = create :feed
         post = create :post, feed_id: feed.id
         @user.feeds << feed
