@@ -1,0 +1,17 @@
+<% @response.each do |person| %>
+  <tr>
+  <td><%= image_tag(person["profile_picture"]) %></td>
+  <td><%= person["username"] %></td>
+  <td><%= person["full_name"] %></td>
+
+  <% if @user.already_subscribed?(person["id"]) %>
+  <td><h5 class="btn btn-default">Already Fed!</h5></td>
+  <% else %>
+  <td><%= link_to "Feed the Beast!", ig_subscriptions_path(
+      params: {
+      instagram_id: person["id"],
+      profile_pic: person["profile_picture"] } ),
+      method: :post, class: "btn btn-default"  %></td>
+  </tr>
+  <% end %>
+<% end %>
