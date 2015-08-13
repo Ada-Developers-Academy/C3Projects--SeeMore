@@ -1,15 +1,17 @@
 class SessionsController < ApplicationController
-  skip_before_filter :verify_authenticity_token, :only => :create
+  skip_before_action :verify_authenticity_token, only: [:create]
+  skip_before_action :require_signin
 
   def create
-    @user = User.find_or_create_from_auth_hash(auth_hash)
+    @user = User.find_or_create_from_omniauth(auth_hash)
     session[:user_id] = @user.id
-    # raise
-    redirect_to '/'
+
+    redirect_to root_path
   end
 
-  def home
-    @current_user = User.find(session[:user_id])
+  def destroy
+    reset_session
+    redirect_to signin_path
   end
 
   private

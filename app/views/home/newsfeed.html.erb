@@ -1,0 +1,13 @@
+<h1 id="top">NewsFeed</h1>
+
+<%= render partial: "shared/errors" %>
+<%= link_to 'Search Users', search_path, class: "btn btn-default" %>
+<%= link_to 'Update Feed', root_path, method: :get, class: "btn btn-success" %>
+
+<% if @show_posts %>
+  <%= render partial: "shared/update" %>
+<% end %>
+
+<br>
+
+<%= link_to "Back to top", "#top", class: "link-to-top" %>

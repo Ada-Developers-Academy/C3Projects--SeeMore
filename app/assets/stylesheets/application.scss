@@ -16,3 +16,73 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+.panel-change {
+  opacity: 0.8;
+}
+
+.header {
+  margin: 5px;
+  color: black;
+}
+
+.header-img {
+  background: image-url("Newspaper.jpg") repeat;
+  background-size: contain;
+  opacity: 0.8;
+  padding: 10px;
+}
+
+.button {
+  margin: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.center-posts {
+  text-align: center;
+  padding-left: auto;
+  padding-right: auto;
+}
+
+.news-text, h1 {
+  font-family: Copperplate, "Copperplate Gothic Light", fantasy;
+  font-weight: bold;
+}
+
+.search-results,
+.twitter-results {
+  list-style-type: none;
+}
+
+.link-to-top {
+  color: white;
+  text-align: center;
+}
+
+.twitter-results img {
+  list-style-type: none;
+  border-radius: 10px;
+  border: 2px solid #3366CC;
+  padding: 2px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 5px;
+}
+
+.bkgd {
+  background: image-url("Coffee.jpg");
+  background-size: 100%;
+}
+
+body {
+  background: image-url("coffee_table.jpg");
+  background-size: 100%;
+}
+
+.search-results form,
+.twitter-results form {
+  display: inline-block;
+}

@@ -1,0 +1,21 @@
+<% unless current_page?("/signin") %>
+  <nav class="header">
+    <div class="navbar navbar-default header-img">
+      <div class="navbar-header">
+        <%= link_to "FeedMe", root_path, method: :get, class: "navbar-brand news-text" %>
+        <p class="news-text"> The news feed you actually care about</p>
+      </div>
+      <div class="nav navbar-nav navbar-right button">
+        <% if session[:user_id] %>
+        <p class="news-text">Logged in as: <%= @current_user.name %></p>
+          <% if current_page?("/subscriptions") %>
+            <%= link_to 'More Subscriptions', search_path, class: "btn btn-default btn-sm" %>
+          <% else %>
+            <%= link_to 'My Subscriptions', subscriptions_path, method: :get, class: "btn btn-primary btn-sm" %>
+          <% end %>
+          <%= link_to "Logout", signout_path, method: :delete, class: "btn btn-default btn-sm" %>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+<% end %>

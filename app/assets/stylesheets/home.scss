@@ -1,0 +1,29 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.sign-in-box {
+  padding-bottom: 20px;
+  padding-top: 10px;
+  margin-top: 250px;
+  margin-left: 150px;
+  height: 200px;
+  width: 500px;
+  background-color: white;
+  display: block;
+  text-align: center;
+  opacity: 0.9;
+  border-radius: 10px
+}
+
+.sign-in {
+   width: 100%;
+   text-align: center;
+   border-bottom: 0.5px solid #000;
+   line-height: 0.1em;
+   margin: 10px 0 20px;
+}
+
+.sign-line {
+    background:#fff;
+    padding:0 10px;
+}
