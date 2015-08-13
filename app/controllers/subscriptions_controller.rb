@@ -1,7 +1,4 @@
 class SubscriptionsController < ApplicationController
-  def new; end
-    # do we need this?
-
   def create
     followee = Followee.find_or_create_by(followee_params)
     Subscription.find_or_create_subscription(@current_user, followee)
