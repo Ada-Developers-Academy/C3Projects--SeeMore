@@ -1,7 +1,6 @@
 require 'rails_helper'
 require 'support/vcr_setup'
 
-
 RSpec.describe TwiSubscriptionsController, type: :controller do
   let(:log_in) {
     @logged_user = create :user
@@ -28,14 +27,11 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
     it "assigns @response if logged in" do
       VCR.use_cassette('twitter user search') do
         log_in
-
         get :index, twitter_search: "lolcats"
 
         expect(assigns(:response)).to_not be_nil
       end
     end
-
-
   end
 
   describe "#create" do
@@ -75,11 +71,17 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
         @logged_user.subscriptions << (create :ig_sub)
 
         get :refresh_twi
-
         post = Post.last
 
         expect(post.subscription.id).to eq twi_sub.id
       end
+    end
+
+    it "does not create new posts if not logged in" do
+      twi_sub = (create :twi_sub, twitter_id: "494335393")
+      get :refresh_twi
+
+      expect(Post.count).to eq 0
     end
   end
 end
