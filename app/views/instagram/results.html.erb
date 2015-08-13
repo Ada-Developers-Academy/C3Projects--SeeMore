@@ -6,7 +6,14 @@
           <h3>
             <%= link_to result["username"], instagram_feed_path(result["id"]) %>
             <br>
-            <%= link_to "Subscribe", instagram_subscribe_path(result["id"]), method: "post", class: "btn btn-success btn-sm" %>
+
+            <% if user_already_instagram? result["id"] %>
+              <%= link_to "Unsubscribe", instagram_unsubscribe_path(result["id"]), method: "delete", class: "btn btn-warning btn-md",
+                  data: { confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+            <% else %>
+              <%= link_to "Subscribe", instagram_subscribe_path(result["id"]), method: "post", class: "btn btn-success btn-md" %>
+            <% end %>
+
             <% unless result["full_name"].empty? %>
               <br />
               <small><%= result["full_name"] %></small>
@@ -14,8 +21,7 @@
           </h3>
           <%= image_tag result["profile_picture"], class: "profile" %>
         </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
