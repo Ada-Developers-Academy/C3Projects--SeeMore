@@ -25,13 +25,13 @@ class IgSubscriptionsController < ApplicationController
     access_token = session[:access_token]
 
     relationship_check = HTTParty.get(INSTA_URI + "#{params[:instagram_id]}/relationship?access_token=" + access_token)
+
     if relationship_check["data"]["target_user_is_private"] == true && relationship_check["data"]["outgoing_status"] == "none"
 
       flash[:error] = "This user is private and thus spared."
 
       redirect_to root_path
     else
-
       subscription = Subscription.find_or_create_ig_subscription(@instagram_id)
 
       assign_profile_pic(subscription)
@@ -39,7 +39,9 @@ class IgSubscriptionsController < ApplicationController
       @user.associate_subscription(subscription)
 
       response = []
+
       response << single_subscription_httparty_object(subscription)
+
       Post.create_all_instagram_posts(response)
 
       flash[:notice] = "The Beast likes delicious grams. Yum Yum!"
@@ -52,6 +54,7 @@ class IgSubscriptionsController < ApplicationController
     user_subs = @user.instagram_subscriptions
 
     response = multiple_subscription_httparty_objects(user_subs)
+
     Post.create_all_instagram_posts(response)
 
     redirect_to refresh_twi_path
@@ -77,9 +80,11 @@ class IgSubscriptionsController < ApplicationController
   # Returns an array with multiple subscription HTTParty objects (only for Instagram).
   def multiple_subscription_httparty_objects(array_of_subscriptions)
     responses = []
+
     array_of_subscriptions.each do |subscription|
       responses << single_subscription_httparty_object(subscription)
     end
+
     return responses # this is an array of HTTParty objects
   end
 end
