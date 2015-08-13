@@ -2,6 +2,7 @@ class Subscription < ActiveRecord::Base
   # Associations ------------------------
   belongs_to :user
   belongs_to :followee
+  has_many :posts, through: :followee
 
   # Validations -------------------------
   validates :user_id, :followee_id, presence: true
@@ -23,6 +24,10 @@ class Subscription < ActiveRecord::Base
     subscription.save
 
     return subscription
+  end
+
+  def rev_posts
+    posts.where("native_created_at >= ?", self.created_at)
   end
 
 end

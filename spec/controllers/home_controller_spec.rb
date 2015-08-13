@@ -24,28 +24,6 @@ RSpec.describe HomeController, type: :controller do
       end
     end
 
-
-    # it "finds the current user" do
-    #   binding.pry
-    #   expect(@current_user).to eq user
-    # end
-
-    # it "doesn't find the current user if none set" do
-    #   session[:user_id] = nil
-    #   expect(@current_user).to be_nil
-    # end
-
-  # describe "get_posts_from_API" do
-  #   let(:followee) { create :followee }
-
-  #   it "returns a collection of posts" do
-  #     VCR.use_cassette 'controller/home_controller/get_posts_from_API' do
-  #       posts = get_posts_from_API(followee)
-  #       expect(posts).to_not be_nil
-  #     end
-  #   end
-  # end
-
     context "updating feed for a new followee" do
       let(:followee_twitter) { create :followee, last_post_id: nil }
       let(:followee_instagram) { create :followee, handle: "badgalriri", source: "instagram", native_id: "25945306", last_post_id: nil }
@@ -73,10 +51,6 @@ RSpec.describe HomeController, type: :controller do
           get :newsfeed
         end
       end
-
-      # it "adds 2 Twitter posts to the database" do
-      #   expect(Post.where(source: "twitter").count).to eq 2
-      # end
 
       it "adds 2 Instagram posts to the database" do
         expect(Post.where(source: "instagram").count).to eq 2
