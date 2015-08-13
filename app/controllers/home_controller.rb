@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_action :require_signin, only: [:signin]
+  skip_before_action :require_signin, only: [:signin, :fire]
 
   include ActionView::Helpers::OutputSafetyHelper
 
