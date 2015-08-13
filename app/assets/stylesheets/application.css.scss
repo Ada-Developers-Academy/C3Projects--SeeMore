@@ -195,6 +195,10 @@ h2 {
   border-radius: 10px;
 }
 
+.search_result:nth-child(3n+1){
+  clear:left;
+}
+
 .btn-sm {
   margin: 5px;
 }

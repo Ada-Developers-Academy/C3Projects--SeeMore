@@ -67,6 +67,7 @@ class WelcomeController < ApplicationController
       instagram["platform"] = "Instagram"
     end
     @dual_results = (@instagram_results + @vimeo_results).sort_by {["name"]}
+    @readable_search = @query.gsub('+', ' ')
   end
 
   def platform_check
