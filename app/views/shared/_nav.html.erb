@@ -3,7 +3,7 @@
     <div class ="navbar-text navbar-left"><%= @user.username %></div>
   <% end %>
   <ul class="nav navbar-nav navbar-right">
-    <% if session[:user_id].nil? || !Rails.env.production? %>
+    <% if session[:user_id].nil? && !Rails.env.production? %>
       <li><%= link_to "Dev Login", login_path(provider: :developer) %></li>
     <% else %>
       <%# link_to "Refresh", root_path, class: "btn btn-default btn-feed" %>
