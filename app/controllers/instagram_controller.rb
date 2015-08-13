@@ -18,6 +18,7 @@ class InstagramController < ApplicationController
       @feed = feed
 
     else
+      binding.pry
       feed_info = InstagramAPI.instagram_feed_info(id)
       @feed_name = feed_info["username"]
       @posts = InstagramAPI.instagram_feed(id)
