@@ -4,6 +4,6 @@
 # numbers below we'll be using 4 calls per minute for updating our cached feeds.
 # that leaves 79 for users of our site searching for new threads to subscribe to.
 
-every 12.hours do
+every 12.hours do # TODO: run the heroku equivalent of this bash command: whenever --update-crontab
   rake "update_feeds:update"
 end
