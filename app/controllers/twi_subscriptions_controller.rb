@@ -5,7 +5,7 @@ class TwiSubscriptionsController < ApplicationController
   def index
     # Guard in case someone tries to access the URL without any search results.
     unless params[:twitter_search].nil?
-      @results = @client.user_search(params[:twitter_search])
+      @response = @client.user_search(params[:twitter_search])
     end
   end
 

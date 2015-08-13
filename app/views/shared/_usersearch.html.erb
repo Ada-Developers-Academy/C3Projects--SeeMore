@@ -1,0 +1,16 @@
+<table class="table table-hover">
+<% unless @response.empty? %>
+  <th>Pic</th>
+  <th>Username</th>
+  <th>Name</th>
+  <th>Subscribe</th>
+  <% if @response.first.class == Hash %>
+    <%= render 'shared/instauser' %>
+  <% else %>
+    <%= render 'shared/twitteruser' %>
+  <% end %>
+<% else %>
+  <h4><center>The beast could not find any friends to eat. Please search again!</h4>
+<% end %>
+    </tr>
+</table>
