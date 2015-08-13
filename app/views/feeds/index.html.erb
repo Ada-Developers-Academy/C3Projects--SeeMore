@@ -2,8 +2,8 @@
   <%= image_tag("notso-2.png", class: "ninja")%>
   <h1 class="header">NinjaPartay</h1>
     <% if session[:user_id].nil? %>
-      <h3 class="login-header">Choose Your Weapon</h3>
-        <div class="page-links"><%= link_to login_path(provider: :instagram) do %>
+      <h3 class="login-header weapon">Choose Your Weapon</h3>
+        <div class="page-links weapon"><%= link_to login_path(provider: :instagram) do %>
             <span class="fa fa-instagram fa-5x col-sm-1 center ig-icon" aria-hidden="true" data-toggle="tooltip" title="instagram login"></span>
         <% end %>
         <%= link_to login_path(provider: :twitter) do %>

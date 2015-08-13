@@ -50,7 +50,13 @@ h1 {
   font-size: 6em;
 }
 
-h1, h2, h3, h4, .search-header, .page-links a,
+h1, h2, h3, h4, .page-links a,{
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  color: #000;
+
+}
+
 .no-targets a, .navbar-default .navbar-text,
 .navbar-default .navbar-nav > li > a {
     font-family: 'Orbitron', sans-serif;
@@ -75,7 +81,11 @@ h1, h2, h3, h4, .search-header, .page-links a,
 }
 
 .search-header {
-  margin: 10px 0;
+  margin-top: 20px;
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  color: #000;
+  font-size: 1.5em;
 }
 
 .tweet-post a:hover {
@@ -146,10 +156,19 @@ h1, h2, h3, h4, .search-header, .page-links a,
   margin-right: 20px;
 }
 
+.twitter-icon {
+  margin-left: 10px;
+}
+
 .ig_image {
   width: 250px;
 }
 
-.twitter-icon {
-  margin-left: 10px;
+.login-header {
+  padding-top: 30px;
+}
+
+.page-links {
+
+  font-size: 1em;
 }
