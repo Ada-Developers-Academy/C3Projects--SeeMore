@@ -3,7 +3,7 @@
 class InstagramsController < ApplicationController
   before_action :require_login, only: [:create]
 
-  CALLBACK_URL = "http://localhost:3000/auth/instagram/callback"
+  CALLBACK_URL = "https://ninjaparty.herokuapp.com/auth/instagram/callback"
 
   def search
     if params[:instagram][:username].present?
