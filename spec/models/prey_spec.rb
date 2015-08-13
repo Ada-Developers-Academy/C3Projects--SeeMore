@@ -60,7 +60,7 @@ RSpec.describe Prey, type: :model do
   end
 
   describe "#seed_posts (using Twitter)" do
-    let(:prey_params_with_valid_uid) { { name: "Ashley Watkins",
+    let(:twitter_params_with_valid_uid) { { name: "Ashley Watkins",
       username: "catchingash",
       provider: "twitter",
       uid: "3037739230",
@@ -70,11 +70,7 @@ RSpec.describe Prey, type: :model do
 
     before :each do
       VCR.use_cassette('seeds_5_tweets') do
-        prey = Prey.create(prey_params_with_valid_uid)
-        # # ALT: if we did NOT want to seed posts on create:
-        # prey = Prey.new( [...] )
-        # allow(prey).to receive(:seed_posts).and_return(true)
-        # prey.save
+        Prey.create(twitter_params_with_valid_uid)
       end
     end
 
@@ -83,9 +79,47 @@ RSpec.describe Prey, type: :model do
     end
   end
 
-  pending "#seed_posts (using Instagram)"
+  describe "#seed_posts (using Instagram)" do
+    let(:instagram_params_with_valid_uid) { { name: "ada test",
+      username: "testada",
+      provider: "instagram",
+      uid: "1905138160",
+      photo_url: "https://igcdn-photos-g-a.akamaihd.net/hphotos-ak-xfa1/t51.2885-19/s150x150/11821730_1466159010375262_1430176978_a.jpg",
+      profile_url: "http://instagram.com/testada"
+    } }
 
-  pending ".last_post_uid"
+    before :each do
+      VCR.use_cassette('seeds_5_grams') do
+        Prey.create(instagram_params_with_valid_uid)
+      end
+    end
+
+    it "seeds 5 posts on create" do
+      expect(Post.count).to eq(5)
+    end
+  end
+
+  describe ".last_post_uid" do
+    let(:prey) do
+      prey = build(:prey)
+      allow(prey).to receive(:seed_posts).and_return(true)
+      prey.save && prey
+    end
+
+    let(:other_post) { create(:post, prey_id: prey.id, uid: "12345" ) }
+    let(:post) { create(:post, prey_id: prey.id, uid: "54321" ) }
+
+    it "returns largest uid" do
+      other_post && post # these posts need to exist in the db before the method call
+      expect(Prey.last_post_uid(prey.uid)).to eq(post.uid)
+    end
+
+    context "the prey has no posts" do
+      it "returns nil" do
+        expect(Prey.last_post_uid(prey.uid)).to eq(nil)
+      end
+    end
+  end
 
   pending "#update_posts"
   # def update_posts
