@@ -46,7 +46,6 @@ class FeedsController < ApplicationController
   def tw_follow
     id = params[:tw_user]
     twitter_user = TwUser.find_or_create_by(tw_user_id_str: id)
-    # TODO: Refactor so these assignments happen in another method
 
     twitter_user.update(twitter_params)
 

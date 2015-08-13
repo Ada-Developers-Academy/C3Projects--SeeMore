@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
     user.username = instagram.nil?   ? auth_hash["info"]["name"] : instagram["username"]
     user.avatar_url = instagram.nil? ? "nil" : instagram["profile_picture"]
 
-    # TODO: raise an error here instead of `nil`
     return user.save ? user : nil
   end
 

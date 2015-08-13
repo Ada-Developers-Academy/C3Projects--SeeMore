@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   get    '/about',           to: 'sessions#show',    as: 'about'
   delete '/logout',          to: 'sessions#destroy', as: 'logout'
 
-  # TODO: brownie points - add users#show, users#update
   resources :users, only: [:create, :destroy]
 
   resources :feeds, except: [:show, :destroy]
