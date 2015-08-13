@@ -24,21 +24,6 @@ RSpec.describe HomeController, type: :controller do
       end
     end
 
-    context "user has subscriptions" do
-      let!(:souly) { create :user, id: 20 }
-      let!(:buzz) { create :followee, id: 15 }
-      let!(:subscription) { create :subscription, followee_id: 15, user_id: 20, created_at: (Time.now - 10) }
-      let!(:post) { create :post, followee_id: 15, native_created_at: Time.now + 1 }
-      let!(:post1) { create :post, followee_id: 15, native_created_at: Time.now + 1 }
-
-      it "should have @rev_posts" do
-        session[:user_id] = souly.id
-        get :newsfeed
-        expect(assigns[:rev_posts].count).to eq(2)
-      end
-    end
-
-  end # newsfeed
 
     # it "finds the current user" do
     #   binding.pry
@@ -61,18 +46,16 @@ RSpec.describe HomeController, type: :controller do
   #   end
   # end
 
-  describe "POST #get_new_posts" do
-
     context "updating feed for a new followee" do
       let(:followee_twitter) { create :followee, last_post_id: nil }
       let(:followee_instagram) { create :followee, handle: "badgalriri", source: "instagram", native_id: "25945306", last_post_id: nil }
 
       it "adds posts to the database" do
-        VCR.use_cassette 'controller/home_controller/get_new_posts_last_post_id_absent' do
+        VCR.use_cassette 'controller/home_controller/get_newsfeed_last_post_id_absent' do
           create :subscription, followee_id: followee_twitter.id, user_id: user.id
           create :subscription, followee_id: followee_instagram.id, user_id: user.id
 
-          post :get_new_posts
+          get :newsfeed
           expect(Post.count).to eq 2
         end
       end
@@ -83,11 +66,11 @@ RSpec.describe HomeController, type: :controller do
       let(:followee_instagram) { create :followee, handle: "barrackobama", native_id: "10206720", last_post_id: "914665339329635845_10206720", source: "instagram" } # 3 back
 
       before(:each) do
-        VCR.use_cassette 'controller/home_controller/get_new_posts_last_post_id_present' do
+        VCR.use_cassette 'controller/home_controller/get_newsfeed_last_post_id_present' do
           create :subscription, followee_id: followee_twitter.id, user_id: user.id
           create :subscription, followee_id: followee_instagram.id, user_id: user.id
 
-          post :get_new_posts
+          get :newsfeed
         end
       end
 

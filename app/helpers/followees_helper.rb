@@ -10,6 +10,6 @@ module FolloweesHelper
       @current_user.subscriptions.active_for_this_followee(followee.id).empty? ? false : true
     else
       return false
-    end 
+    end
   end
 end

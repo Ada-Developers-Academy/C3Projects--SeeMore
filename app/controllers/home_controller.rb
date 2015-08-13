@@ -6,7 +6,9 @@ class HomeController < ApplicationController
   def signin; end
 
   def newsfeed
-      subscriptions = @current_user.subscriptions.active
+    subscriptions = @current_user.subscriptions.active
+    ApiHelper.process_new_posts(subscriptions)
+
     if subscriptions.count == 0
       flash[:errors] = "You have no subscriptions! Search users to subscribe to."
     else
@@ -26,16 +28,9 @@ class HomeController < ApplicationController
         @rev_posts << posts_per_sub
       end
       @rev_posts.flatten!
-      @rev_posts.delete_if { |post| post == nil }
       @rev_posts.sort_by! { |post| post.native_created_at }
       @rev_posts.reverse!
     end
   end
 
-  def get_new_posts
-    active_subscriptions = @current_user.subscriptions.active
-    ApiHelper.process_new_posts(active_subscriptions)
-
-    redirect_to root_path
-  end
 end
