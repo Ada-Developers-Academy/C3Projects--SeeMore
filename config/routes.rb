@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   # OmniAuth callback
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
 
+  if Rails.env.production?
+    get '/auth/developer', to: 'home#fire'
+  end
+
   # Search page
   get '/search', to: 'followees#search', as: 'search'
 
