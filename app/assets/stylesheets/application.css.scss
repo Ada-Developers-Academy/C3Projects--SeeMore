@@ -34,7 +34,7 @@
   margin-bottom: 5px;
 }
 
-#top.nav h2 a {
+#top.nav h2 a, p.friendface span {
   background-color: #080; // dark green
   color: #fff; // white
   border-radius: 5px;
@@ -42,6 +42,19 @@
   margin: 2px;
   padding: 15px;
   text-decoration: none;
+}
+
+p.friendface {
+  margin: 30px;
+  text-align: center;
+}
+
+p.friendface span.smaller {
+  font-size: 20px;
+}
+
+p.friendface span.larger {
+  font-size: 36px;
 }
 
 #top.nav h2 {
