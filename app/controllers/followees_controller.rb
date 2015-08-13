@@ -26,9 +26,16 @@ class FolloweesController < ApplicationController
   # this displays results on the search page
   def search_results
     @query = params[:user]
+    processed_query = sanitize(@query)
     @source = params[:source]
-    @results = ApiHelper.user_search(@query, USER_COUNT, @source)
+    @results = ApiHelper.user_search(processed_query, USER_COUNT, @source)
 
     render 'search'
+  end
+
+  private
+
+  def sanitize(input)
+    input.delete("#")
   end
 end
