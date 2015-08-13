@@ -66,8 +66,6 @@ RSpec.describe VimeoController, type: :controller do
         it "assigns @posts" do
           expect(assigns(:posts).first["name"]).to eq "Light Therapy"
         end
-
-        it "displays { FILL_ME_IN } results" # FIXME: how many results do we want to display?
       end
 
       context "feed that doesn't have posts" do
@@ -102,6 +100,50 @@ RSpec.describe VimeoController, type: :controller do
       it "redirects to the user's feed" do
         VCR.use_cassette("/subscribe") do
           post :subscribe, feed_id: feed.id
+          expect(response).to redirect_to(instagram_results_path("cats"))
+        end
+      end
+
+      it "doesn't add a new subscription if a user has already subcribed" do
+        VCR.use_cassette("/subscribe") do
+          post :subscribe, feed_id: feed.id
+          post :subscribe, feed_id: feed.id
+          post :subscribe, feed_id: feed.id
+          expect(@user.feeds).to include(feed)
+
+          matching_feeds = @user.feeds.select{ |f| f.id == feed.id }
+          expect(matching_feeds.count).to eq(1)
+        end
+      end
+    end
+
+    context "unsubscribe" do
+      let(:feed) { create :user_vimeo }
+
+      before(:each) do
+        request.env["HTTP_REFERER"] = instagram_results_path("cats")
+        @user.feeds << feed
+      end
+
+      it "removes association between the feed and the user" do
+        VCR.use_cassette("/subscribe") do
+          delete :unsubscribe, feed_id: feed.id
+          @user.reload
+          expect(@user.feeds).not_to include(feed)
+        end
+      end
+
+      it "destroys the feed if no other users are associated" do
+        VCR.use_cassette("/subscribe") do
+          delete :unsubscribe, feed_id: feed.id
+          @user.reload
+          expect{ feed.reload }.to raise_exception(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      it "redirects the user back from whence it came" do
+        VCR.use_cassette("/subscribe") do
+          delete :unsubscribe, feed_id: feed.id
           expect(response).to redirect_to(instagram_results_path("cats"))
         end
       end
