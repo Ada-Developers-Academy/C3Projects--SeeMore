@@ -10,8 +10,8 @@ RSpec.describe VimeoController, type: :controller do
       VCR.use_cassette "vimeo_query" do
         session[:user_id] = user.id
         get :results, query: query
-        expect(assigns(:results).first["name"]).to eq "Cupcake"
       end
+      expect(assigns(:results).first["name"]).to eq "Cupcake"
     end
   end
 
