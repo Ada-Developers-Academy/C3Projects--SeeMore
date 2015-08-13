@@ -68,11 +68,11 @@ RSpec.describe HomeController, type: :controller do
       let(:followee_instagram) { create :followee, handle: "badgalriri", source: "instagram", native_id: "25945306" }
 
       it "adds posts to the database" do
-        VCR.use_cassette 'controller/home_controller/get_new_posts_last_post_id_absent' do
+        VCR.use_cassette 'controller/home_controller/get_newsfeed_last_post_id_absent' do
           create :subscription, followee_id: followee_twitter.id, user_id: user.id
           create :subscription, followee_id: followee_instagram.id, user_id: user.id
 
-          post :get_new_posts
+          get :newsfeed
           expect(Post.count).to eq 2
         end
       end
@@ -83,11 +83,11 @@ RSpec.describe HomeController, type: :controller do
       let(:followee_instagram) { create :followee, handle: "barrackobama", native_id: "10206720", last_post_id: "914665339329635845_10206720", source: "instagram" } # 3 back
 
       before(:each) do
-        VCR.use_cassette 'controller/home_controller/get_new_posts_last_post_id_present' do
+        VCR.use_cassette 'controller/home_controller/get_newsfeed_last_post_id_present' do
           create :subscription, followee_id: followee_twitter.id, user_id: user.id
           create :subscription, followee_id: followee_instagram.id, user_id: user.id
 
-          post :get_new_posts
+          get :newsfeed
         end
       end
 
