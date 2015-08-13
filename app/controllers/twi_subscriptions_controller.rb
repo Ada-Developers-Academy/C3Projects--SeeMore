@@ -13,22 +13,27 @@ class TwiSubscriptionsController < ApplicationController
     # Calling find_or_create_subscription and associate_subscription model methods.
     @twitter_id = params[:twitter_id]
 
-    subscription = Subscription.find_or_create_twi_subscription(@twitter_id)
+    if @client.user(@twitter_id.to_i).protected
+      flash[:error] = "This user is private so they have been spared from the beast."
+      redirect_to root_path
+    else
+      subscription = Subscription.find_or_create_twi_subscription(@twitter_id)
 
-    assign_profile_pic(subscription)
+      assign_profile_pic(subscription)
 
-    @user.associate_subscription(subscription)
+      @user.associate_subscription(subscription)
 
-    tweet_array = []
+      tweet_array = []
 
-    @client.user_timeline(@twitter_id.to_i).each do |tweet|
-      tweet_array << tweet
+      @client.user_timeline(@twitter_id.to_i).each do |tweet|
+        tweet_array << tweet
+      end
+      subscription_twitter_ids = {subscription.id => tweet_array}
+      Post.create_twitter_posts(subscription_twitter_ids)
+      flash[:notice] = "The Beast eats tweets for breakfast! Yum!"
+
+      redirect_to root_path
     end
-    subscription_twitter_ids = {subscription.id => tweet_array}
-    Post.create_twitter_posts(subscription_twitter_ids)
-    flash[:notice] = "The Beast eats tweets for breakfast! Yum!"
-
-    redirect_to root_path
   end
 
   def refresh_twi
