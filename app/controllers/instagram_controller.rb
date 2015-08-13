@@ -15,6 +15,7 @@ class InstagramController < ApplicationController
       @internal = true
       @posts = feed.posts.only_thirty
       @feed = feed
+      @feed_name = @feed.name
 
     else
       feed_info = InstagramAPI.instagram_feed_info(id)

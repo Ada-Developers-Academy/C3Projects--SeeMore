@@ -16,6 +16,7 @@ class VimeoController < ApplicationController
       @posts = feed.posts.only_thirty
       @feed = feed
       @feed_name = @feed.name
+      
     else
       feed_info = VimeoAPI.vimeo_feed_info(id)
       @feed_name = feed_info["name"]
