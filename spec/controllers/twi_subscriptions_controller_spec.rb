@@ -45,6 +45,16 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
       end
     end
 
+    it "redirects with an error if user is private" do
+      VCR.use_cassette('twitter private subscription') do
+        log_in
+        post :create, twitter_id: "3110548712"
+
+        expect(subject).to redirect_to root_path
+        expect(flash[:error]).to be_present
+      end
+    end
+
     it "redirects to the home page if not logged in" do
       post :create, twitter_id: "494335393"
 
