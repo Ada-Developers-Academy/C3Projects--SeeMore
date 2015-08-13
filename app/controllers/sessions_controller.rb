@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-skip_before_filter :verify_authenticity_token
+# skip_before_filter :verify_authenticity_token
 
   def create
     auth_hash = request.env['omniauth.auth']
@@ -15,7 +15,7 @@ skip_before_filter :verify_authenticity_token
         session[:user_id] = @user.id
       end
 
-      redirect_to root_path
+      redirect_to refresh_ig_path
     else
       flash[:error] = "Failed to authenticate"
 

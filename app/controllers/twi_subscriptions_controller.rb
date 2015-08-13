@@ -1,4 +1,3 @@
-require 'pry'
 class TwiSubscriptionsController < ApplicationController
   before_action :redirect_if_not_allowed
   before_action :twitter_api_object
@@ -27,7 +26,7 @@ class TwiSubscriptionsController < ApplicationController
     end
     subscription_twitter_ids = {subscription.id => tweet_array}
     Post.create_twitter_posts(subscription_twitter_ids)
-    flash[:notice] = "Subscribed successfully!"
+    flash[:notice] = "The Beast eats tweets for breakfast! Yum!"
 
     redirect_to root_path
   end

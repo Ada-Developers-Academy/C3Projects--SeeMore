@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
-
   def show
-    name = params[:id]
-    @posts = Post.where(username: name)
+    name = params[:username]
+    @posts = Post.where(username: name).sorted_order
   end
 end

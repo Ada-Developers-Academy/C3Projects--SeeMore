@@ -11,7 +11,7 @@ RSpec.describe SessionsController, type: :controller do
         it "redirects to home page" do
           get :create, provider: :developer
 
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to refresh_ig_path
         end
 
         it "creates a user" do
@@ -33,7 +33,7 @@ RSpec.describe SessionsController, type: :controller do
         it "redirects to home page" do
           get :create, provider: :instagram
 
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to refresh_ig_path
         end
 
         it "creates a user" do

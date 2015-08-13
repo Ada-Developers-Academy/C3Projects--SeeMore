@@ -1,6 +1,5 @@
 require 'rails_helper'
 require 'support/vcr_setup'
-require 'pry'
 
 RSpec.describe IgSubscriptionsController, type: :controller do
   let(:log_in) {
@@ -61,6 +60,16 @@ RSpec.describe IgSubscriptionsController, type: :controller do
         post :create, instagram_id: "777"
 
         expect(assigns(:user).subscriptions).to include(Subscription.find_by(instagram_id: "777"))
+      end
+    end
+
+    it "saves the 15 most recent posts for the subscription" do
+      VCR.use_cassette('instagram create method creates posts') do
+        log_in
+        expect(Post.count).to eq 0
+
+        post :create, instagram_id: "215892539"
+        expect(Post.count).to eq 15
       end
     end
 
