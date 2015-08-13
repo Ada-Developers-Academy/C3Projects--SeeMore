@@ -28,7 +28,7 @@
 }
 
 .header-img {
-  background-image: url("Newspaper.jpg");
+  background: image-url("Newspaper.jpg");
   background-size: contain;
   opacity: 0.8;
 }
@@ -71,7 +71,7 @@
 }
 
 .search-bkgd, .newsfeed {
-  background-image: url("coffee_table.jpg");
+  background: image-url("coffee_table.jpg");
   background-size: 100%;
 }
 
