@@ -64,8 +64,8 @@ RSpec.describe HomeController, type: :controller do
   describe "POST #get_new_posts" do
 
     context "updating feed for a new followee" do
-      let(:followee_twitter) { create :followee }
-      let(:followee_instagram) { create :followee, handle: "badgalriri", source: "instagram", native_id: "25945306" }
+      let(:followee_twitter) { create :followee, last_post_id: nil }
+      let(:followee_instagram) { create :followee, handle: "badgalriri", source: "instagram", native_id: "25945306", last_post_id: nil }
 
       it "adds posts to the database" do
         VCR.use_cassette 'controller/home_controller/get_new_posts_last_post_id_absent' do
