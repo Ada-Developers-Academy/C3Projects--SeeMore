@@ -39,4 +39,20 @@ RSpec.describe SessionsController, type: :controller do
     # it "finds the correct user." do
     # end
   end
+
+  describe "DELETE #destroy" do
+    before(:each) do
+      @user = create :user
+      session[:user_id] = @user.id
+      delete :destroy
+    end
+
+    it "signs the user out" do
+      expect(session[:user_id]).to be(nil)
+    end
+
+    it "redirects to home page" do
+      expect(response).to redirect_to(root_path)
+    end
+  end
 end
