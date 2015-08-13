@@ -69,7 +69,6 @@ RSpec.describe InstagramsController, type: :controller do
         VCR.use_cassette 'instagram_create_response' do
           post :create, instagram: attributes_for(:instagram, provider_id: "31042754")
         end
-        binding.pry
       end
 
       it "creates an instagram record" do
