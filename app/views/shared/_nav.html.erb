@@ -3,20 +3,22 @@
     <div class ="navbar-text navbar-left"><%= @user.username %></div>
   <% end %>
   <ul class="nav navbar-nav navbar-right">
-    <% if session[:user_id].nil? && !Rails.env.production? %>
-      <li><%= link_to "Dev Login", login_path(provider: :developer) %></li>
-    <% else %>
-      <%# link_to "Refresh", root_path, class: "btn btn-default btn-feed" %>
-      <li><%= link_to root_path, class: "btn btn-feed" do %>
-        <i class="glyphicon glyphicon-repeat"></i>
-      <% end %></li>
-      <li><%= link_to "Stalk Targets", search_path %></li>
-      <li><%= link_to "Assasinate", people_path %></li>
-      <li><%= link_to "Go Home", root_path, method: :get %></li>
-      <li><%= link_to "Logout", logout_path, method: :delete %></li>
-      <% unless Rails.env.production? %>
+  <% if session[:user_id].nil? %>
+    <% unless Rails.env.production? %>
         <li><%= link_to "Dev Login", login_path(provider: :developer) %></li>
-      <% end %>
     <% end %>
+  <% else %>
+    <%# link_to "Refresh", root_path, class: "btn btn-default btn-feed" %>
+    <li><%= link_to root_path, class: "btn btn-feed" do %>
+      <i class="glyphicon glyphicon-repeat"></i>
+    <% end %></li>
+    <li><%= link_to "Stalk Targets", search_path %></li>
+    <li><%= link_to "Assasinate", people_path %></li>
+    <li><%= link_to "Go Home", root_path, method: :get %></li>
+    <li><%= link_to "Logout", logout_path, method: :delete %></li>
+    <% unless Rails.env.production? %>
+      <li><%= link_to "Dev Login", login_path(provider: :developer) %></li>
+    <% end %>
+  <% end %>
   </ul>
 </nav>
