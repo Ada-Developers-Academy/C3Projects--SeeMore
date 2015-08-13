@@ -9,6 +9,35 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
+  describe "GET #create_instragram" do
+    context "when using instagram authorization" do
+      context "is successful" do
+        # let(:params) {au_user: { provider: :vimeo, uid: 12345} }
+        before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:instagram] }
+
+        it "redirects to home page" do
+          get :create_instagram, ({provider: :instagram, uid: 1234})
+          expect(response).to have_http_status(302)
+        end
+
+        it "creates a user" do
+          expect { get :create_instagram }.to change(AuUser, :count).by(1)
+        end
+
+        it "assigns the @user var" do
+          get :create_instagram, provider: :instagram
+          expect(AuUser.first).to be_an_instance_of AuUser
+        end
+
+        it "assigns the session[:user_id]" do
+          get :create_instagram, provider: :instagram
+
+          expect(session[:user_id]).to eq (AuUser.first).id
+        end
+      end
+    end
+  end
+
   describe "GET #create_vimeo" do
     context "when using vimeo authorization" do
       context "is successful" do

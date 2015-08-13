@@ -1,4 +1,4 @@
-<h1 class ="green search-header">Search results for <%= @query %>:</h1>
+<h1 class ="header search-header">Search results for <%= @query %>:</h1>
 <% unless @results.empty? %>
     <% @results.each do |result| %>
       <div class="col-sm-4">
@@ -6,7 +6,14 @@
           <h3>
             <%= link_to result["name"], vimeo_feed_path(grab_id(result)) %>
             <br>
-            <%= link_to "Subscribe", vimeo_subscribe_path(grab_id(result)), method: "post", class: "btn btn-success btn-sm" %>
+
+            <% if user_already_vimeo? grab_id(result) %>
+              <%= link_to "Unsubscribe", vimeo_unsubscribe_path(grab_id(result)), method: "delete", class: "btn btn-warning btn-md",
+                  data: { confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+            <% else %>
+              <%= link_to "Subscribe", vimeo_subscribe_path(grab_id(result)), method: "post", class: "btn btn-success btn-md" %>
+            <% end %>
+
           </h3>
           <% if result["pictures"] %>
             <%= image_tag result["pictures"]["sizes"][3]["link"], class: "profile" %>

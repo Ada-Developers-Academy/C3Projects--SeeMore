@@ -1,20 +1,31 @@
+<br />
 
 <% if @internal %>
-  <h2 class="text-center green">
-    <%= @feed_name %>'s feed
-    <% if params[:feed_id] %>
-      <br />
+  <h2 class="text-center header">
+    <%= @feed.name %>'s feed
+
+    <% if current_user.feeds.include? @feed %>
+      <%= link_to "Unsubscribe", instagram_unsubscribe_path(@feed.platform_feed_id), method: "delete", class: "btn btn-warning btn-md",
+          data: { confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+    <% else %>
       <%= link_to "Subscribe", instagram_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
     <% end %>
   </h2>
 
   <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>
 <% else %>
+  <h2 class="text-center green">
+    <%= @feed_name %>'s feed
 
-  <% if @posts.nil? || @posts.empty? %>
-    <h2>This feed doesn't have any posts. ;_;</h2>
-  <% else %>
-    <br />
+    <% if current_user.feeds.include? @feed %>
+      <%= link_to "Unsubscribe", instagram_unsubscribe_path(@feed.platform_feed_id), method: "delete",
+          class: "btn btn-warning btn-md", data: { confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+    <% else %>
+      <%= link_to "Subscribe", instagram_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
+    <% end %>
+  </h2>
+
+  <% unless @posts.nil? || @posts.empty? %>
     <% @posts.each do |post| %>
       <div class="feed">
         <%= image_tag post["images"]["low_resolution"]["url"], class: "left" %>
