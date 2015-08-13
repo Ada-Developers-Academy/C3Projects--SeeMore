@@ -1,5 +1,5 @@
 <div class="container center">
-  <%= image_tag("notso-2.png", class: "ninja")%>
+  <%= link_to image_tag("notso-2.png", class: "ninja"), root_path %>
   <h1 class="header">NinjaPartay</h1>
     <% if session[:user_id].nil? %>
       <h3 class="login-header weapon">Choose Your Weapon</h3>

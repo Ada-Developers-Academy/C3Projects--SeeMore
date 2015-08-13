@@ -12,7 +12,7 @@
         url: search_twitter_url
         } %>
   <% unless params[:instagram] || params[:tweet] %>
-    <%= image_tag("notso-2.png", class: "ninja")%>
+    <%= link_to image_tag("notso-2.png", class: "ninja"), root_path %>
   <% end %>
 </div>
   <!-- Search Results -->
