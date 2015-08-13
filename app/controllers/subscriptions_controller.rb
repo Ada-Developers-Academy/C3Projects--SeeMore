@@ -5,6 +5,9 @@ class SubscriptionsController < ApplicationController
 
     # redirect_to root_path
     redirect_to :back
+
+  rescue
+    redirect_to root_path
   end
 
   def index
