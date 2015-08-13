@@ -14,10 +14,9 @@ class WelcomeController < ApplicationController
 
   def view_instagram_feed
     if current_user
-      posts = current_user.posts
-      posts.Feed.instagram
-      @posts = posts.only_thirty
-      render :feed
+      platform_check
+      @posts = @instagram_posts.take(30)
+      render :instagram_feed
     else
       render :login
     end
@@ -25,10 +24,9 @@ class WelcomeController < ApplicationController
 
   def view_vimeo_feed
     if current_user
-      posts = current_user.posts
-      posts.Feed.vimeo
-      @posts = posts.only_thirty
-      render :feed
+      platform_check
+      @posts = @vimeo_posts.take(30)
+      render :vimeo_feed
     else
       render :login
     end
@@ -52,6 +50,16 @@ class WelcomeController < ApplicationController
     else
       flash[:error] = "Please search for a user name."
       redirect_to :back
+    end
+  end
+
+  def platform_check
+    posts = current_user.posts.chronological
+    @vimeo_posts = posts.select do |post|
+      post.feed.platform == "Vimeo"
+    end
+    @instagram_posts = posts.select do |post|
+      post.feed.platform == "Instagram"
     end
   end
 end
