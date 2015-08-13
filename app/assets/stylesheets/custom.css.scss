@@ -1,3 +1,4 @@
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
@@ -42,9 +43,6 @@ body {
   padding: 10px 10px;
 }
 
-.ig_image {
-  width: 250px;
-}
 
 // typography
 
@@ -52,12 +50,13 @@ h1 {
   font-size: 6em;
 }
 
-h1, h2, h3, h4, .search-header, .search, .page-links a, .no-targets a, .navbar-default .navbar-text, .navbar-default .navbar-nav > li > a {
+h1, h2, h3, h4, .search-header, .page-links a,
+.no-targets a, .navbar-default .navbar-text,
+.navbar-default .navbar-nav > li > a {
     font-family: 'Orbitron', sans-serif;
     text-align: center;
     color: rgb(255,255,255);
-  }
-
+}
 
 .navbar {
   margin-bottom: 0;
@@ -88,16 +87,6 @@ h1, h2, h3, h4, .search-header, .search, .page-links a, .no-targets a, .navbar-d
   font-size: 0.7em;
   font-style: italic;
 }
-// buttons
-
-.ig-icon{
-  margin-right: 20px;
-}
-
-.twitter-icon {
-  margin-left: 10px;
-}
-
 
 // search results
 
@@ -114,6 +103,16 @@ h1, h2, h3, h4, .search-header, .search, .page-links a, .no-targets a, .navbar-d
   font-size: 14px;
   color: rgb(255,255,255);
 }
+
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+}
+
+// photos & icons
 
 .photo-size {
   width: 72px;
@@ -141,4 +140,16 @@ h1, h2, h3, h4, .search-header, .search, .page-links a, .no-targets a, .navbar-d
 
 .left {
   float: left;
+}
+
+.ig-icon{
+  margin-right: 20px;
+}
+
+.ig_image {
+  width: 250px;
+}
+
+.twitter-icon {
+  margin-left: 10px;
 }
