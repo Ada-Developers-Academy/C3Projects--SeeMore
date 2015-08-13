@@ -60,6 +60,11 @@ p.friendface span.larger {
 #top.nav h2 {
   padding: 0;
   margin: 0;
+  display: inline-block;
+}
+
+#top.nav h3 {
+  display: inline-block;
 }
 
 #top.nav input[type="radio"] {
@@ -121,6 +126,7 @@ h2 {
 .brand {
   font-family: "Ubuntu", sans-serif;
 }
+
 .search-header {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -198,7 +204,8 @@ html, body {
   background: url('congruent.png');
 }
 
-.img-center {
+.img-small {
   text-align: center;
   margin: auto;
+  max-width: 400px;
 }

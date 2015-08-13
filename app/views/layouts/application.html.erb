@@ -12,16 +12,17 @@
   </head>
   <body>
     <header id="top" class="nav navbar-default">
-      <div class="col-sm-2">
+      <div class="col-sm-3">
         <h2 class="brand"><%= link_to "Friendface", root_path %></h2>
+        <h3><%= link_to "About", about_path %></h3>
       </div>
 
       <!-- begin logged in user content -->
       <% if current_user %>
-        <div class="col-sm-7">
+        <div class="col-sm-5">
           <%= render partial: "shared/search_bar" %>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <% if current_user.name != "" %>
             Welcome, <%= current_user.name %>.
           <% else %>
