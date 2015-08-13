@@ -12,24 +12,21 @@ class HomeController < ApplicationController
     if subscriptions.count == 0
       flash[:errors] = "You have no subscriptions! Search users to subscribe to."
     else
-      @rev_posts = []
+      @show_posts = []
       subscriptions.each do |s|
-        start = s.created_at
-        posts = s.followee.posts
         posts_per_sub = []
-        posts.each do |p|
-          if p.native_created_at >= start
-            posts_per_sub << p
-          end
+        all_sub_posts = s.posts
+        sub_posts = s.rev_posts
+        if sub_posts.count == 0
+          posts_per_sub << all_sub_posts.last
         end
-        if posts_per_sub.count == 0
-          posts_per_sub << posts.last
-        end
-        @rev_posts << posts_per_sub
+      @show_posts << posts_per_sub
       end
-      @rev_posts.flatten!
-      @rev_posts.sort_by! { |post| post.native_created_at }
-      @rev_posts.reverse!
+    end
+    if @show_posts
+      @show_posts.flatten!
+      @show_posts.sort_by! { |p| p.native_created_at }
+      @show_posts.reverse!
     end
   end
 

@@ -1,8 +1,8 @@
 <section class="search-bkgd">
   <h1>Search</h1>
-
-  <%= render partial: "shared/errors" %>
-
+  <% unless flash[:notice] %>
+    <%= render partial: "shared/errors" %>
+  <% end %>
   <p>Search Twitter Users:</p>
   <%= form_tag twitter_users_redirect_path, options: {class: "form-inline", role:"form"} do %>
     <div class="form-group">
@@ -30,6 +30,8 @@
       <div class="panel panel-heading">
         <h1 class="center" id="top"><%= @source.capitalize %> results for "<%= @query %>"</h1>
       </div>
+
+      <%= render partial: "shared/errors" %>
 
       <% if params[:source] == "instagram" %>
         <ul class="search-results">

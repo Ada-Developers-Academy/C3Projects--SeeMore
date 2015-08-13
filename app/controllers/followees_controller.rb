@@ -29,7 +29,9 @@ class FolloweesController < ApplicationController
     processed_query = sanitize(@query)
     @source = params[:source]
     @results = ApiHelper.user_search(processed_query, USER_COUNT, @source)
-
+    if @results.count == 0
+      flash[:notice] = "No users matching '#{@query}'."
+    end
     render 'search'
   end
 

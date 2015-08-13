@@ -4,7 +4,7 @@
 <%= link_to 'Search Users', search_path, class: "btn btn-default" %>
 <%= link_to 'Update Feed', root_path, method: :get, class: "btn btn-success" %>
 
-<% if @rev_posts %>
+<% if @show_posts %>
   <%= render partial: "shared/update" %>
 <% end %>
 
