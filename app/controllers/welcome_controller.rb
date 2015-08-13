@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
   skip_before_action :require_login, only: [:index, :about]
+  before_action :platform_check, only: [:instagram_feed, :vimeo_feed]
 
   def about; end
 
@@ -14,24 +15,12 @@ class WelcomeController < ApplicationController
     end
   end
 
-  def view_instagram_feed
-    if current_user
-      platform_check
-      @posts = @instagram_posts.take(30)
-      render :instagram_feed
-    else
-      render :login
-    end
+  def instagram_feed
+    @posts = @instagram_posts.take(30)
   end
 
-  def view_vimeo_feed
-    if current_user
-      platform_check
-      @posts = @vimeo_posts.take(30)
-      render :vimeo_feed
-    else
-      render :login
-    end
+  def vimeo_feed
+    @posts = @vimeo_posts.take(30)
   end
 
   def page # FIXME: delete if no paginate
@@ -57,30 +46,35 @@ class WelcomeController < ApplicationController
 
   def dual_results
     @query = params[:query]
-    @vimeo_results = VimeoAPI.vimeo_search(@query)
-    @vimeo_results.each do |vimeo|
+    vimeo_results = VimeoAPI.vimeo_search(@query)
+    @vimeo_results = vimeo_results.each do |vimeo|
       vimeo["platform"] = "Vimeo"
     end
-    @instagram_results = InstagramAPI.instagram_search(@query)
-    @instagram_results = @instagram_results.each do |instagram|
+
+    instagram_results = InstagramAPI.instagram_search(@query)
+    @instagram_results = instagram_results.each do |instagram|
       instagram["name"] = instagram["username"]
       instagram["platform"] = "Instagram"
     end
+
     @dual_results = (@instagram_results + @vimeo_results).sort_by {["name"]}
     @readable_search = @query.gsub('+', ' ')
-  end
-
-  def platform_check
-    posts = current_user.posts.chronological
-    @vimeo_posts = posts.select do |post|
-      post.feed.platform == "Vimeo"
-    end
-    @instagram_posts = posts.select do |post|
-      post.feed.platform == "Instagram"
-    end
   end
 
   def all_feeds
     @feeds = current_user.feeds.alphabetical
   end
+
+  private
+    def platform_check
+      posts = current_user.posts.chronological
+      
+      @vimeo_posts = posts.select do |post|
+        post.feed.platform == "Vimeo"
+      end
+
+      @instagram_posts = posts.select do |post|
+        post.feed.platform == "Instagram"
+      end
+    end
 end
