@@ -17,6 +17,9 @@ class InstagramController < ApplicationController
       @posts = feed.posts.only_thirty
 
     else
+      feed_info = InstagramAPI.instagram_feed_info(id)
+      @feed_name = feed_info["username"]
+      @posts = InstagramAPI.instagram_feed(id)
       if @posts
         feed_info = InstagramAPI.instagram_feed_info(id)
         @feed_name = feed_info["username"]

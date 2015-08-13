@@ -1,6 +1,5 @@
-
 <% if @internal %>
-  <h2 class="text-center green">
+  <h2 class="text-center header">
     <%= @feed_name %>'s feed
     <% if params[:feed_id] %>
       <br />
@@ -11,10 +10,7 @@
   <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>
 <% else %>
 
-  <% if @posts.nil? || @posts.empty? %>
-    <h2>This feed doesn't have any posts. ;_;</h2>
-  <% else %>
-    <br />
+  <% unless @posts.nil? || @posts.empty? %>
     <% @posts.each do |post| %>
       <div class="feed">
         <%= image_tag post["images"]["low_resolution"]["url"], class: "left" %>
