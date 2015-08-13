@@ -27,7 +27,6 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
     it "assigns @response if logged in" do
       VCR.use_cassette('twitter user search') do
         log_in
-
         get :index, twitter_search: "lolcats"
 
         expect(assigns(:response)).to_not be_nil
@@ -76,6 +75,13 @@ RSpec.describe TwiSubscriptionsController, type: :controller do
 
         expect(post.subscription.id).to eq twi_sub.id
       end
+    end
+
+    it "does not create new posts if not logged in" do
+      twi_sub = (create :twi_sub, twitter_id: "494335393")
+      get :refresh_twi
+
+      expect(Post.count).to eq 0
     end
   end
 end
