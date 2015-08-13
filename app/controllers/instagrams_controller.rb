@@ -1,4 +1,4 @@
-# require 'httparty'
+require 'httparty'
 
 class InstagramsController < ApplicationController
   before_action :require_login, only: [:create]
@@ -24,8 +24,12 @@ class InstagramsController < ApplicationController
   def create
     user = User.find(session[:user_id])
     @instagram_person = Instagram.find_or_create_by(instagram_params)
+    response = HTTParty.get(INSTAGRAM_URI + "users/#{@instagram_person.provider_id}/media/recent?access_token=#{session[:access_token]}")
+
     if @instagram_person.users.include?(user)
       already_following
+    elsif response["meta"]["error_message"]
+      private_ig_user(response)
     else
       @instagram_person.users << User.find(session[:user_id])
       redirect_to root_path, flash: { alert: MESSAGES[:success] }

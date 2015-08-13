@@ -35,4 +35,18 @@ class ApplicationController < ActionController::Base
     flash.now[:error] = MESSAGES[:already_following_error]
     render "feeds/search"
   end
+
+  def private_ig_user(response)
+    params[:instagram] = nil
+
+    flash[:error] = "This user is private: " + response["meta"]["error_message"]
+    render "feeds/search"
+  end
+
+  def private_twitter_user(response)
+    params[:twitter] = nil
+
+    flash[:error] = "This user is private: " + response["meta"]["error_message"]
+    render "feeds/search"
+  end
 end

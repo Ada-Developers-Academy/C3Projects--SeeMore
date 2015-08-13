@@ -135,19 +135,16 @@ class FeedsController < ApplicationController
     user.instagrams.each do |gram|
       ig_user_posts = HTTParty.get(INSTAGRAM_URI + "users/#{gram.provider_id}/media/recent?count=15&access_token=#{session[:access_token]}")
 
-      if ig_user_posts["meta"]["error_message"]
-        flash[:error] = "This user is private: " + ig_user_posts["meta"]["error_message"]
-      else
-        all_post_ids = ig_user_posts["data"].each do |post|
-          @all_posts << {
-            ig_id: gram.id,
-            posted_at: Time.at(post["created_time"].to_i),
-            post_id: post["id"],
-            post_url: post["link"],
-            image_url: post["images"]["low_resolution"]["url"],
-            caption: post["caption"] ? post["caption"]["text"] : nil
-          }
-        end
+      all_post_ids = ig_user_posts["data"].each do |post|
+        @all_posts << {
+          ig_id: gram.id,
+          posted_at: Time.at(post["created_time"].to_i),
+          post_id: post["id"],
+          post_url: post["link"],
+          image_url: post["images"]["low_resolution"]["url"],
+          caption: post["caption"] ? post["caption"]["text"] : nil
+        }
+
       end
     end
     return @all_posts

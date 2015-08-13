@@ -5,7 +5,7 @@ class TweetsController < ApplicationController
     if params[:tweet][:username].present?
       username = params[:tweet][:username]
       @users = @twitter.client.user_search(username)
-
+      @users.select! { |user| !user.protected? }
       if @users.empty?
         return redirect_to search_path, flash: { error: MESSAGES[:no_username] }
       else
