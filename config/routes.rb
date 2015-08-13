@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get "/search", to: "feeds#search", as: "search"
   get "/people", to: "feeds#people", as: "people"
 
+
+  get "auth/developer" => "feeds#nope" if Rails.env.production?
+
   get "auth/:provider/callback" => 'sessions#create'
   # post is here for OmniAuth developer strategy
   post "auth/:provider/callback" => 'sessions#create'

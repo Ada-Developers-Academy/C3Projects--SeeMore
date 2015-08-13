@@ -150,4 +150,7 @@ class FeedsController < ApplicationController
     return @all_posts
   end
 
+  if Rails.env.production?
+    def nope; end
+  end
 end
