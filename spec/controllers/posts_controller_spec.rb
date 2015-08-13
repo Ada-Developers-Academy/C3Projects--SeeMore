@@ -15,7 +15,7 @@ RSpec.describe PostsController, type: :controller do
     end
 
     it "saves all posts that match the given username" do
-      @posts = Post.where(username: "beastmaster")
+      @posts = Post.where(username: "beastmaster").sorted_order
       create :post
 
       get :show, {:id => params[:id], username: params[:username]}
