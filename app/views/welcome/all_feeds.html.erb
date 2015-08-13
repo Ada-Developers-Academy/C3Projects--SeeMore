@@ -15,7 +15,7 @@
                   method: "delete", class: "btn btn-warning btn-md", data: {
                   confirm: "Are you sure you want to unsubscribe from this feed?" } %>
 
-            <% else %>
+            <% elsif feed.platform == "Vimeo" %>
               <%= link_to feed.name, vimeo_feed_path(feed.platform_feed_id) %>
               <br />
               <%= link_to "Unsubscribe", vimeo_unsubscribe_path(feed.platform_feed_id),
