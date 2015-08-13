@@ -5,7 +5,7 @@
 
   <% @sub_array.each do |sub| %>
     <tr>
-      <td><%= image_tag sub[2] %></td>
+      <td><%= image_tag(sub[2], class: "img-rounded img2") %></td>
       <td><%= sub[1] %></td>
       <td><%= link_to "Unfollow", unfollow_path(subscription_id: sub[0]), method: :delete, data: { confirm: "Are you sure you want unfollow" } %></td>
     </tr>

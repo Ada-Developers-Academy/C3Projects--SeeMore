@@ -40,7 +40,9 @@ class HomeController < ApplicationController
 
   def unfollow
     subscription = Subscription.find(params[:subscription_id])
+
     @user.dissociate_subscription(subscription)
+
     redirect_to subscriptions_path
   end
 end
