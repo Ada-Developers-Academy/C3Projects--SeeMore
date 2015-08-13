@@ -53,7 +53,7 @@ RSpec.describe Tweet, type: :model do
   describe "methods" do
     describe "self.update_timeline(user)" do
       context "user has newly followed the twitter user" do
-        it "save the last five most recent tweets" do
+        it "saves the last five most recent tweets" do
           user = create :user
           tw_user = TwUser.create({tw_user_id_str: "111868320"})
           user.tw_users << tw_user

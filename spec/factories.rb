@@ -38,7 +38,6 @@ FactoryGirl.define do
     ig_user_pic "photo.jpg"
     ig_user_id "12345678"
     ig_user_fullname "Talking Rain Sparkling H20"
-    user_id 1
   end
 
   factory :instagram_user do
