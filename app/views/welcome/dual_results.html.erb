@@ -1,4 +1,12 @@
 <h1 class="header search-header center">Search results for <%= @readable_search %>:</h1>
+<% if @results.empty? || @results.empty  %>
+<div class="feed">
+  <%= image_tag "kittyhug.gif", class: "center thumbnail" %>
+  <p>
+    We're sorry, your search did not return any results. Don't worry it will all be ok.
+  </p>
+</div>
+<% end %>
 <% unless @dual_results.empty? %>
     <% @dual_results.each do |result| %>
       <div class="col-sm-4">
