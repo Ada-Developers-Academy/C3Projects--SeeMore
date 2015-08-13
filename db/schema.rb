@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150812040657) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "password"
   end
 
   create_table "au_users_feeds", id: false, force: :cascade do |t|
