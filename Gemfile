@@ -4,6 +4,7 @@ gem 'dotenv-rails', :groups => [:development, :test]
 # Auth
 gem 'omniauth'
 gem 'omniauth-instagram'
+gem "omniauth-github"
 # reading APIs
 gem 'httparty'
 # Twitter API
@@ -65,6 +66,8 @@ group :development, :test do
 
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+  # for inspecting route usage
+  gem 'traceroute'
 end
 
 group :production do
