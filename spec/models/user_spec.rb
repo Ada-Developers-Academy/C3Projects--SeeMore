@@ -2,12 +2,7 @@ require 'spec_helper'
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { User.new(
-    username: "Ada",
-    avatar_url: "sikca.jpg",
-    uid:      "1234",
-    provider: "instagram")
-  }
+  let(:user) { create :user }
 
   describe "validations" do
     it "is valid" do

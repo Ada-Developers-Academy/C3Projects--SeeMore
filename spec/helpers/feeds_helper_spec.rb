@@ -2,16 +2,6 @@ require 'rails_helper'
 require 'support/vcr_setup'
 require 'twit_init'
 
-# Specs in this file have access to a helper object that includes
-# the FeedsHelper. For example:
-#
-# describe FeedsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe FeedsHelper, type: :helper do
 
   describe "#tweet_oembed(tweet)" do

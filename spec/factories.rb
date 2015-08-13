@@ -46,5 +46,4 @@ FactoryGirl.define do
     ig_user_id "12345678"
     fullname "Talking Rain Sparkling H20"
   end
-
 end

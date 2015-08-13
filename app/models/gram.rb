@@ -1,10 +1,11 @@
 class Gram < ActiveRecord::Base
-  #Validations-----------------------------------------------------------------
-  validates :ig_id, uniqueness: true
-  #Associations
+  # Associations
   belongs_to :instagram_user
 
-# Methods ----------------------------------------------------------------------
+  # Validations
+  validates :ig_id, uniqueness: true
+
+  # Methods
   def self.collect_latest_posts(user)
     followees = user.instagram_users
 
@@ -12,11 +13,11 @@ class Gram < ActiveRecord::Base
       last_post_id = account.grams.last.try :ig_id
       unless last_post_id == nil
         response = HTTParty.get("https://api.instagram.com/v1/users/#{account.ig_user_id}/media/recent/?min_id=#{last_post_id}&access_token=#{ENV['INSTAGRAM_ACCESS_TOKEN']}")
-      else # we have no posts of theirs on record
+      else # We have no posts of theirs on record
         response = HTTParty.get("https://api.instagram.com/v1/users/#{account.ig_user_id}/media/recent/?count=5&access_token=#{ENV['INSTAGRAM_ACCESS_TOKEN']}")
       end
-      posts = response["data"] #this is an array of hashes.
-      posts.reverse # changes it to ascending chronological order
+      posts = response["data"] # This is an array of hashes
+      posts.reverse # Changes it to ascending chronological order
       Gram.save_posts(posts)
     end
 
