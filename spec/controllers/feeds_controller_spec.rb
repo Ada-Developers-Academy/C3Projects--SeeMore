@@ -19,6 +19,7 @@ RSpec.describe FeedsController, type: :controller do
       end
     end
 
+    # NOT WORKING
     describe "GET #index" do
       context "people feed display" do
         it "renders the home page" do
