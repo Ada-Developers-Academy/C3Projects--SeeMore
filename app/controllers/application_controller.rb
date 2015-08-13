@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
     def redirect_if_not_allowed
       unless logged_in?
         flash[:error] = "You must be logged in to see that."
+
         redirect_to root_path
       end
     end
