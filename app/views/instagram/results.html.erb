@@ -1,25 +1,33 @@
 <h1 class="header search-header center">Search results for <%= @query %>:</h1>
-  <% unless @results.empty? %>
-    <% @results.each do |result| %>
-      <div class="col-sm-4">
-        <div class="search-result">
-          <h3>
-            <%= link_to result["username"], instagram_feed_path(result["id"]) %>
-            <br>
-            <% if user_already_instagram? result["id"] %>
-              <%= link_to "Unsubscribe", instagram_unsubscribe_path(result["id"]), method: "delete", class: "btn btn-warning btn-md",
-                  data: { confirm: "Are you sure you want to unsubscribe from this feed?" } %>
-            <% else %>
-              <%= link_to "Subscribe", instagram_subscribe_path(result["id"]), method: "post", class: "btn btn-success btn-md" %>
-            <% end %>
-            <% unless result["full_name"].empty? %>
-              <br />
-              <small><%= result["full_name"] %></small>
-            <% end %>
-          </h3>
-          <%= image_tag result["profile_picture"], class: "profile" %>
-        </div>
+<% if @results.empty? || @results.empty  %>
+<div class="feed">
+  <%= image_tag "kittyhug.gif", class: "thumbnail center" %>
+  <p>
+    We're sorry,your search did not return any results. Don't worry it will all be ok.
+  </p>
+</div>
+<% end %>
+<% unless @results.empty? %>
+  <% @results.each do |result| %>
+    <div class="col-sm-4">
+      <div class="search-result">
+        <h3>
+          <%= link_to result["username"], instagram_feed_path(result["id"]) %>
+          <br>
+          <% if user_already_instagram? result["id"] %>
+            <%= link_to "Unsubscribe", instagram_unsubscribe_path(result["id"]), method: "delete", class: "btn btn-warning btn-md",
+                data: { confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+          <% else %>
+            <%= link_to "Subscribe", instagram_subscribe_path(result["id"]), method: "post", class: "btn btn-success btn-md" %>
+          <% end %>
+          <% unless result["full_name"].empty? %>
+            <br />
+            <small><%= result["full_name"] %></small>
+          <% end %>
+        </h3>
+        <%= image_tag result["profile_picture"], class: "profile" %>
       </div>
-    <% end %>
+    </div>
   <% end %>
+<% end %>
 </div>
