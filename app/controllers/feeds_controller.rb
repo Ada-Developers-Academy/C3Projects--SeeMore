@@ -59,6 +59,11 @@ class FeedsController < ApplicationController
     redirect_to :back
   end
 
+  def dismiss_alert
+    session[:alert_msg] = false
+    redirect_to :back
+  end
+
   private
 
   def set_user
