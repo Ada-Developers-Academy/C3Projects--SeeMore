@@ -10,11 +10,17 @@
 
 <% unless @user.instagram_users.count == 0  && @user.tw_users.count == 0 %>
   <% @posts.each do |post| %>
+  <div class="feed col-md-8"> 
     <% if post.class == Tweet %>
-      <%= raw tweet_oembed(post).html %>
+    <div class="tweet">
+      <%= raw tweet_oembed(post).html %> 
+     </div> 
     <% elsif post.class == Gram %>
+    <div class="gram">
       <%= raw gram_oembed(post)["html"] %>
+    </div>
     <% end %>
+  </div>  
   <% end %>
 
 <% else %>
