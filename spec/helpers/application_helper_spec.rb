@@ -65,7 +65,7 @@ RSpec.describe ApplicationHelper, type: :helper do
 
   context "there is not a logged in user" do
     it "uses 'guest' as the user's name" do
-      expect(helper.user_or_guest).to eq("guest")
+      expect(helper.user_or_guest).to eq("Guest")
     end
   end
 end
