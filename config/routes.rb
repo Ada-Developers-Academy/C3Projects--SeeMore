@@ -24,4 +24,8 @@ Rails.application.routes.draw do
   post "/search", to: "welcome#search", as: "search"
   get "/instagram/:query", to: "instagram#results", as: "instagram_results"
   get "/vimeo/:query", to: "vimeo#results", as: "vimeo_results"
+
+  # search routes --------------------------------------------------------------
+  get "/instagram", to: "welcome#view_instagram_feed", as: "instagram"
+  get "/vimeo", to: "welcome#view_vimeo_feed", as: "vimeo"
 end

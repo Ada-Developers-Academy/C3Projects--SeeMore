@@ -14,6 +14,26 @@ class WelcomeController < ApplicationController
     end
   end
 
+  def view_instagram_feed
+    if current_user
+      platform_check
+      @posts = @instagram_posts.take(30)
+      render :instagram_feed
+    else
+      render :login
+    end
+  end
+
+  def view_vimeo_feed
+    if current_user
+      platform_check
+      @posts = @vimeo_posts.take(30)
+      render :vimeo_feed
+    else
+      render :login
+    end
+  end
+
   def page # FIXME: delete if no paginate
     posts = current_user.posts.chronological
     start = (params[:page_number].to_i * 30) + 1
@@ -32,6 +52,16 @@ class WelcomeController < ApplicationController
     else
       flash[:error] = "Please search for a user name."
       redirect_to :back
+    end
+  end
+
+  def platform_check
+    posts = current_user.posts.chronological
+    @vimeo_posts = posts.select do |post|
+      post.feed.platform == "Vimeo"
+    end
+    @instagram_posts = posts.select do |post|
+      post.feed.platform == "Instagram"
     end
   end
 

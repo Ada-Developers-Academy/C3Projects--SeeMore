@@ -1,6 +1,14 @@
-<br />
-
-<% if @internal %>
+<% if @posts.nil? || @posts.empty? %>
+  <h2 class = "header text-center">
+    <%= @feed_name %>'s feed
+  </h2>
+  <div class = "feed">
+    <p>
+      Oh no! This user does not appear to have any public posts.
+    </p>
+    <%= image_tag "ohnokitty.jpg", class: "thumbnail center" %>
+  </div>
+<% elsif @internal %>
   <h2 class="text-center header">
     <%= @feed.name %>'s feed
 
@@ -14,7 +22,7 @@
 
   <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>
 <% else %>
-  <h2 class="text-center green">
+  <h2 class="text-center header">
     <%= @feed_name %>'s feed
 
     <% if current_user.feeds.include? @feed %>

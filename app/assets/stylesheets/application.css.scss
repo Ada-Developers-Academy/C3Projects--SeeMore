@@ -103,7 +103,6 @@ p.friendface span.larger {
 
 .feed:hover {
   background: rgba(255, 255, 255, 1);
-  border: 1px dotted #4cae4c;
   border-radius: 5px;
 }
 
@@ -115,11 +114,20 @@ p.friendface span.larger {
   padding: 10px;
   max-width: 600px;
   background: rgba(255, 255, 255, 1);
-  border-left: 1px solid #e6f3e6;
-  border-right: 1px solid #e6f3e6;
-  border-bottom: 1px solid #e6f3e6;
+  // border-left: 1px solid #e6f3e6;
+  // border-right: 1px solid #e6f3e6;
+  // border-bottom: 1px solid #e6f3e6;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+}
+
+.nav-tabs {
+  padding: 10px;
+  background-color: #fff;
+  max-width: 600px;
+  color: #4cae4c;
+  font-family: 'Ubuntu', sans-serif;
+  margin: auto;
 }
 
 h2 {
@@ -139,6 +147,10 @@ h2 {
   margin-bottom: 15px;
   border: 1px solid #e6f3e6;
   border-radius: 20px;
+}
+
+.badge {
+  margin-left: 10px;
 }
 
 .left {
@@ -191,7 +203,7 @@ h2 {
   margin-top: 75px;
 }
 
-p {
+p, a {
   font-family: 'Droid Sans', sans-serif;
 }
 
@@ -205,6 +217,7 @@ a:hover {
 
 .center{
   text-align: center;
+  margin: auto;
 }
 
 html, body {

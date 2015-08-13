@@ -14,6 +14,9 @@
           </div>
         <% elsif post.feed.platform == "Vimeo" %>
           <%= link_to post.feed.name, vimeo_feed_path(post.feed.platform_feed_id) %>
+          <span class="badge">
+            <%= number_with_delimiter(post.likes, :delimiter => ',') %> likes
+          </span>
         <% end %>
       </h3>
       <% if post.feed.platform == "Instagram" %>
@@ -33,9 +36,11 @@
           <% end %>
         </p>
       <% end %>
-      <span class="badge">
-        <%= number_with_delimiter(post.likes, :delimiter => ',') %> likes
-      </span>
+      <% if post.feed.platform == "Instagram" %>
+        <span class="badge">
+          <%= number_with_delimiter(post.likes, :delimiter => ',') %> likes
+        </span>
+      <% end %>
     <div class="date">
       <%= post.date_posted %>
     </div>
