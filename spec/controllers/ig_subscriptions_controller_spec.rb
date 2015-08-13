@@ -52,7 +52,7 @@ RSpec.describe IgSubscriptionsController, type: :controller do
     end
 
     #associations method is adding the id to instragram, not twitter
-    it "associates the twitter subscription with user" do
+    it "associates the instagram subscription with user" do
       VCR.use_cassette('instagram #create associates sub with user') do
         log_in
         post :create, instagram_id: "777"
@@ -69,6 +69,12 @@ RSpec.describe IgSubscriptionsController, type: :controller do
         post :create, instagram_id: "215892539"
         expect(Post.count).to eq 15
       end
+    end
+
+    it "does not save any posts if not logged in" do
+      post :create, instagram_id: "215892539"
+
+      expect(Post.count).to eq 0
     end
 
     it "user can't subscribe to private IG user they don't follow IRL" do
