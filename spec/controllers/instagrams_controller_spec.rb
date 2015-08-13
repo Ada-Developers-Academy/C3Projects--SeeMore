@@ -66,10 +66,7 @@ RSpec.describe InstagramsController, type: :controller do
       before :each do
         @user = create :user
         session[:user_id] = @user.id
-        VCR.use_cassette 'instagram_create_response' do
-          post :create, instagram: attributes_for(:instagram, provider_id: "31042754")
-        end
-        binding.pry
+        post :create, instagram: attributes_for(:instagram)
       end
 
       it "creates an instagram record" do
@@ -82,14 +79,12 @@ RSpec.describe InstagramsController, type: :controller do
       end
 
       it "redirects to root_path" do
-        expect(response).to render_template(root_path)
-        expect(response).to have_http_status(200)
+        expect(response).to redirect_to(root_path)
+        expect(response).to have_http_status(302)
       end
 
       it "throws an error when trying re-follow the same person" do
-        VCR.use_cassette 'instagram_duplicate_response' do
-          post :create, instagram: attributes_for(:instagram)
-        end
+        post :create, instagram: attributes_for(:instagram)
         expect(flash[:error]).to_not be nil
       end
     end
@@ -98,9 +93,7 @@ RSpec.describe InstagramsController, type: :controller do
       before :each do
         user = create :user
         session[:user_id] = user.id
-        VCR.use_cassette 'instagram_create_fail_response' do
-          post :create, instagram: attributes_for(:instagram, username: nil)
-        end
+        post :create, instagram: attributes_for(:instagram, username: nil)
       end
 
       it "invalid attributes fail validations" do
