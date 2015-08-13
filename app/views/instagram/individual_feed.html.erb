@@ -40,6 +40,7 @@
         <div class="right">
           <h3>
             <%= link_to @feed_name, instagram_feed_path(params[:feed_id]) %>
+            <span class="badge"><%= number_with_delimiter(post["likes"]["count"], :delimiter => ',') %> likes</span><br />
           </h3>
           <p>
             <% if post["caption"] %>
@@ -48,7 +49,6 @@
               No description provided.
             <% end %>
           </p>
-          <span class="badge"><%= number_with_delimiter(post["likes"]["count"], :delimiter => ',') %> likes</span><br />
         </div>
         <div class="date">
           <%= display_pacific_time(Time.at(post["created_time"].to_i)) %>

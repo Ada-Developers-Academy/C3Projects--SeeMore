@@ -2,15 +2,15 @@
 <h2 class="text-center header"><%= current_user.name %>'s feed</h2>
 <ul class="nav nav-tabs">
   <li><%= link_to "All Feeds", root_url %></li>
-  <li class="active"><%= link_to "Instagram", instagram_path, :controller => "welcome", :action => "view_instagram_feed" %></li>
-  <li><%= link_to "Vimeo", vimeo_path, :controller => "welcome", :action => "view_vimeo_feed  " %></li>
+  <li class="active"><%= link_to "Instagram", instagram_path, :controller => "welcome", :action => "instagram_feed" %></li>
+  <li><%= link_to "Vimeo", vimeo_path, :controller => "welcome", :action => "vimeo_feed  " %></li>
 </ul>
 <% if @posts.nil? || @posts.empty? %>
   <div class = "feed">
     <%= image_tag "sadcat.jpg", class: "left" %>
     <div class = "right">
       <h3 class="green">
-        The Friend Face Team
+        The Friendface Team
       </h3>
       <p>
         You haven't subscribed to any Instagram feeds yet, lonely kitten will sit here and ponder the meaninglessness of our existence while she waits for more friends.

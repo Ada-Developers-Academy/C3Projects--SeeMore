@@ -16,6 +16,20 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// widths
+$main-column-max-width: 700px;
+
+// colors
+$friendface-green: #008800;
+$light-gray-green: #4cae4c;
+$light-gray: #e6f3e6;
+$white-solid: rgba(255, 255, 255, 1);
+$white-transparent: rgba(255,255,255,0.75);
+
+// fonts
+$brand-font-stack: "Ubuntu", sans-serif;
+
+//--------- LOGIN PAGE -----------//
 .jumbotron {
   width: 100%;
   background: url("background.png");
@@ -24,43 +38,26 @@
 }
 
 .panel-body {
+  margin-top: 75px;
   padding-top: 400px;
   padding-left: 200px;
   padding-right: 200px;
 }
 
+//--------- NAVBAR/SEARCH -----------//
 #top.nav {
   padding-top: 5px;
   margin-bottom: 5px;
 }
 
 #top.nav h2 a, p.friendface span {
-  background-color: #080; // dark green
-  color: #fff; // white
+  background-color: $friendface-green;
+  color: $white-solid;
   border-radius: 5px;
   font-size: 26px;
   margin: 2px;
   padding: 15px;
   text-decoration: none;
-}
-
-p.friendface {
-  margin: 30px;
-  text-align: center;
-}
-
-p.friendface span.smaller {
-  font-size: 20px;
-}
-
-p.friendface span.larger {
-  font-size: 36px;
-}
-
-#top.nav h2 {
-  padding: 0;
-  margin: 0;
-  display: inline-block;
 }
 
 #top.nav h3 {
@@ -84,81 +81,157 @@ p.friendface span.larger {
   margin-top: 8px;
 }
 
-.profile {
-  height: 150px;
-  width: 150px;
+#top.nav h2 {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
 }
 
-.feed {
+//--------- ABOUT PAGE ---------//
+p.friendface {
+  margin: 30px;
+  text-align: center;
+}
+
+p.friendface span.smaller {
+  font-size: 20px;
+}
+
+p.friendface span.larger {
+  font-size: 36px;
+}
+
+.img-small {
+  text-align: center;
   margin: auto;
-  padding: 10px;
-  max-width: 600px;
-  background: rgba(255,255,255,0.75);
-  border-top: 1px solid #fff;
-  border-left: 1px solid #e6f3e6;
-  border-right: 1px solid #e6f3e6;
-  border-bottom: 1px solid #e6f3e6;
-  box-sizing: border-box;
+  max-width: 400px;
 }
 
-.feed:hover {
-  background: rgba(255, 255, 255, 1);
-  border-radius: 5px;
+//--------- GLOBALS -----------//
+p, a {
+  font-family: $brand-font-stack;
 }
 
-.header {
-  color: #4cae4c;
-  font-family: 'Ubuntu', sans-serif;
-  margin: auto;
-  margin-top: 15px;
-  padding: 10px;
-  max-width: 600px;
-  background: rgba(255, 255, 255, 1);
-  // border-left: 1px solid #e6f3e6;
-  // border-right: 1px solid #e6f3e6;
-  // border-bottom: 1px solid #e6f3e6;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+a {
+  color: #080;
 }
 
-.nav-tabs {
-  padding: 10px;
-  background-color: #fff;
-  max-width: 600px;
-  color: #4cae4c;
-  font-family: 'Ubuntu', sans-serif;
-  margin: auto;
+a:hover {
+  color: #66b766;
 }
 
 h2 {
   font-size: 40px;
 }
 
-.green {
-  color: #4cae4c;
+html, body {
+  background: url('congruent.png');
+}
+
+.profile {
+  height: 150px;
+  width: 150px;
 }
 
 .brand {
-  font-family: "Ubuntu", sans-serif;
+  font-family: $brand-font-stack;
 }
 
+.green {
+  color: $light-gray-green;
+}
+
+.header {
+  color: $light-gray-green;
+  font-family: $brand-font-stack;
+  margin: auto;
+  margin-top: 15px;
+  padding: 10px;
+  max-width: $main-column-max-width;
+  background: rgba(255, 255, 255, 1);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.btn-sm {
+  margin: 5px;
+}
+
+.center{
+  text-align: center;
+  margin: auto;
+}
+
+//--------- FEED PAGES -----------//
+.feed {
+  margin: auto;
+  padding: 10px;
+  max-width: $main-column-max-width;
+  background: $white-transparent;
+  border-top: 1px solid $white-solid;
+  border-left: 1px solid $light-gray;
+  border-right: 1px solid $light-gray;
+  border-bottom: 1px solid $light-gray;
+  box-sizing: border-box;
+}
+
+.feed:hover {
+  background: $white-solid;
+  border-radius: 5px;
+}
+
+.header {
+  color: $light-gray-green;
+  font-family: $brand-font-stack;
+  margin: auto;
+  margin-top: 15px;
+  padding: 10px;
+  max-width: $main-column-max-width;
+  background: $white-solid;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.nav-tabs {
+  padding: 10px;
+  background-color: $white-solid;
+  max-width: $main-column-max-width;
+  color: $light-gray-green;
+  font-family: $brand-font-stack;
+  margin: auto;
+}
+
+//--------- RESULTS PAGES -----------//
 .search-header {
   margin-top: 15px;
   margin-bottom: 15px;
-  border: 1px solid #e6f3e6;
+  border: 1px solid $light-gray;
   border-radius: 20px;
 }
 
+.search-result {
+  margin: 10px;
+  background: $white-transparent;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.search_result:nth-child(3n+1) {
+  clear: left;
+}
+
+//--------- FEED DISPLAY -----------//
 .badge {
   margin-left: 10px;
 }
 
 .left {
   max-width: 50%;
+  width: 50%;
   float: left;
   display: inline-block;
   margin-bottom: 10px;
-  border: 2px solid #e6f3e6;
+  border: 2px solid $light-gray;
   border-radius: 10px;
   box-sizing: border-box;
 }
@@ -180,56 +253,10 @@ h2 {
 
 .right h3 {
   margin: 0;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: $brand-font-stack;
 }
 
 .date {
   clear: both;
   text-align: center;
-}
-
-.search-result {
-  margin: 10px;
-  background: rgba(255,255,255,0.75);
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.search_result:nth-child(3n+1){
-  clear:left;
-}
-
-.btn-sm {
-  margin: 5px;
-}
-
-.panel-body {
-  margin-top: 75px;
-}
-
-p, a {
-  font-family: 'Droid Sans', sans-serif;
-}
-
-a {
-  color: #080;
-}
-
-a:hover {
-  color: #66b766;
-}
-
-.center{
-  text-align: center;
-  margin: auto;
-}
-
-html, body {
-  background: url('congruent.png');
-}
-
-.img-small {
-  text-align: center;
-  margin: auto;
-  max-width: 400px;
 }

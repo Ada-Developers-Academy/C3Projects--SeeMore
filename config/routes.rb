@@ -10,14 +10,16 @@ Rails.application.routes.draw do
 
   # feed routes ----------------------------------------------------------------
   # instagram
+  get "/instagram", to: "welcome#instagram_feed", as: "instagram"
   get "/instagram/feed/:feed_id", to: "instagram#individual_feed", as: "instagram_feed"
   post "/instagram/feed/:feed_id/subscribe", to: "instagram#subscribe", as: "instagram_subscribe"
   delete "/instagram/feed/:feed_id/unsubscribe", to: "instagram#unsubscribe", as: "instagram_unsubscribe"
   # vimeo
+  get "/vimeo", to: "welcome#vimeo_feed", as: "vimeo"
   get "/vimeo/feed/:feed_id", to: "vimeo#individual_feed", as: "vimeo_feed"
   post "/vimeo/feed/:feed_id/subscribe", to: "vimeo#subscribe", as: "vimeo_subscribe"
   delete "/vimeo/feed/:feed_id/unsubscribe", to: "vimeo#unsubscribe", as: "vimeo_unsubscribe"
-  # summary
+  # feeds summary
   get "/feeds" => "welcome#all_feeds"
 
   # search routes --------------------------------------------------------------
@@ -25,8 +27,4 @@ Rails.application.routes.draw do
   get "/instagram/:query", to: "instagram#results", as: "instagram_results"
   get "/vimeo/:query", to: "vimeo#results", as: "vimeo_results"
   get "/search/:query", to: "welcome#dual_results", as: "dual_results"
-
-  # search routes --------------------------------------------------------------
-  get "/instagram", to: "welcome#view_instagram_feed", as: "instagram"
-  get "/vimeo", to: "welcome#view_vimeo_feed", as: "vimeo"
 end
