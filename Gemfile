@@ -4,6 +4,7 @@ gem 'dotenv-rails', :groups => [:development, :test]
 # Auth
 gem 'omniauth'
 gem 'omniauth-instagram'
+gem "omniauth-github"
 # reading APIs
 gem 'httparty'
 # Twitter API
