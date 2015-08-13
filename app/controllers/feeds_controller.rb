@@ -1,5 +1,6 @@
 class FeedsController < ApplicationController
   before_action :set_user, only: [ :index, :tw_follow, :ig_follow ]
+  before_action :require_login
 
   def index
     # Upon refresh, fetch the latest Grams
