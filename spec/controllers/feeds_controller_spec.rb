@@ -4,7 +4,19 @@ require 'support/vcr_setup'
 RSpec.describe FeedsController, type: :controller do
 
   describe "GET index" do
-    
+    before :each do
+      user = create :user
+      session[:user_id] = user.id
+      get :index
+    end
+    it "responds successfully" do
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
+    end
+
+    it "renders the index view" do
+      expect(response).to render_template(:index)
+    end
   end
 
   describe "GET feeds#search" do
@@ -41,19 +53,20 @@ RSpec.describe FeedsController, type: :controller do
 
   describe "GET feeds#search_results" do
     let(:twitter_params){ { provider: 'twitter', search_term: 'donald trump' } }
-  #   let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
-  #
-  #   it "queries the correct API" do
-  #     VCR.use_cassette 'controller/twitter_api_response' do
-  #       get :search_results, twitter_params
-  #       expect(assigns(:results).first.id).to eq(25073877)
-  #     end
-  #
-  #     VCR.use_cassette 'controller/instagram_api_search' do
-  #       get :search_results, instagram_params
-  #       expect(assigns(:results).first.id).to eq("1105876259")
-  #     end
-  #   end
+    # let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
+    #
+    # This test fails because of the instagram api
+    # it "queries the correct API" do
+    #   VCR.use_cassette 'controller/twitter_api_response' do
+    #     get :search_results, twitter_params
+    #     expect(assigns(:results).first.id).to eq(25073877)
+    #   end
+    #
+    #   VCR.use_cassette 'controller/instagram_api_search' do
+    #     get :search_results, instagram_params
+    #     expect(assigns(:results).first.id).to eq("1105876259")
+    #   end
+    # end
 
     it "receives a response from the twitter api" do
       VCR.use_cassette 'controller/twitter_api_response' do
@@ -64,7 +77,6 @@ RSpec.describe FeedsController, type: :controller do
   end
 
   describe "POST #tw_follow" do
-
     before(:each) do
       request.env["HTTP_REFERER"] = "/"
       @user = create :user
@@ -96,11 +108,15 @@ RSpec.describe FeedsController, type: :controller do
     end
   end
 
-  describe "#ig_follow" do
-    let(:user){create :user}
-    let(:instagram_user){create :instagram_user}
+  describe "POST #ig_follow" do
+    it "follows an instagram user" do
+      request.env["HTTP_REFERER"] = "/"
+      user = create :user
+      instagram_user = attributes_for(:instagram_user)
+      session[:user_id] = user.id
 
-    it "creates an association between user and IG account"do
+      post :ig_follow, instagram_user
+      expect(user.instagram_users).to eq(InstagramUser.where(username: "Talking Rain"))
     end
   end
 end
