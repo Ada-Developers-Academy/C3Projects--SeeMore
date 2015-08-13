@@ -22,14 +22,6 @@ class WelcomeController < ApplicationController
     @posts = @vimeo_posts.take(30)
   end
 
-  def page # FIXME: delete if no paginate
-    posts = current_user.posts.chronological
-    page_number = params[:page_number].to_i
-    start = ((page_number - 1) * 30) + 1
-    @posts = posts[start, 30]
-    @next_page = (posts.length > (page_number * 30)) ? true : false
-  end
-
   def search
     search = params.require(:search).permit(:query, :platform)
     if search[:platform] == "Vimeo" && search[:query].empty? == false
@@ -37,7 +29,6 @@ class WelcomeController < ApplicationController
     elsif search[:platform] == "Instagram" && search[:query].empty? == false
       redirect_to instagram_results_path(search[:query])
     elsif search[:platform] == nil
-      # flash[:error] = "Please select Instagram or Vimeo from the search options."
       redirect_to dual_results_path(search[:query])
     else
       flash[:error] = "Please search for a user name."

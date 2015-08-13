@@ -58,25 +58,19 @@ RSpec.describe InstagramController, type: :controller do
     end
 
     context "subscribe" do
-      it "associates the feed with the user" do
-
-        allow_any_instance_of(Feed).to receive(:populate_posts)
+      before :each do
         request.env["HTTP_REFERER"] = instagram_results_path("cats")
-
-        feed = create :feed
-        post :subscribe, feed_id: feed.id
-        expect(@user.feeds).to include(feed)
+        allow_any_instance_of(Feed).to receive(:populate_posts)
+        @feed = create :feed
       end
 
-      it "creates a new database entry if the feed is not found" # FIXME: add VCR here to mimic posts
+      it "associates the feed with the user" do
+        post :subscribe, feed_id: @feed.id
+        expect(@user.feeds).to include(@feed)
+      end
 
       it "redirects to the user's feed" do
-        request.env["HTTP_REFERER"] = instagram_results_path("cats")
-
-        allow_any_instance_of(Feed).to receive(:populate_posts)
-
-        feed = create :feed
-        post :subscribe, feed_id: feed.id
+        post :subscribe, feed_id: @feed.id
         expect(response).to redirect_to instagram_results_path("cats")
       end
     end
