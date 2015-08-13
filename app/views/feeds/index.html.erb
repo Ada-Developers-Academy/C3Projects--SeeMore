@@ -26,7 +26,7 @@
                     <span class="fa fa-twitter fa-lg icon" aria-hidden="true" data-toggle="tooltip"></span> <%= post.username %></h5>
                     <p class="tweet-post"><%=link_to "#{post.text}", post.link %></p>
                   <% end %>
-                  <span class="posted-at text-muted"><%= post.date_time.strftime("%a, %B %e, %Y at %I:%M%P %Z") %></span>
+                  <span class="posted-at text-muted"><%= "#{time_ago_in_words(post.date_time)} ago" %></span>
                 </div>
               </div>
             <% end %>
