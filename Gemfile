@@ -30,6 +30,10 @@ gem 'httparty'
 
 # OmniAuth Gems
 gem 'omniauth'
+gem 'omniauth-instagram'
+
+# OAuth
+gem 'twitter'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -73,4 +77,3 @@ end
 group :production do
   gem 'pg'
 end
-

@@ -1,13 +1,15 @@
 class User < ActiveRecord::Base
+  # Associations ----------------------------------------------
+  has_and_belongs_to_many :instagrams
+  has_and_belongs_to_many :tweets
+  has_many :instagram_posts, through: :instagrams
+
 
   # Validations ----------------------------------------------
-  # validates :email, presence: true
-  # validates :username, presence: true
-  validates :uid, presence: true
-  validates :provider, presence: true
+  validates :username, :uid, :provider, presence: true
+  validates :username, :uid, uniqueness: true
 
-
-  def self.find_or_create_from_omniauth_developer(auth_hash)
+  def self.find_or_create_from_omniauth(auth_hash)
     uid = auth_hash[:uid]
     provider = auth_hash[:provider]
 

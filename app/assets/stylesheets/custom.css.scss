@@ -1,2 +1,21 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.content {
+  padding-top: 35px;
+  // background: image-url("notso-2.png") no-repeat;
+}
+
+.center {
+  text-align: center;
+  margin: auto;
+  float: none;
+}
+
+.header {
+  font-size: 60px;
+}
+
+a:hover {
+  text-decoration: none;
+}
