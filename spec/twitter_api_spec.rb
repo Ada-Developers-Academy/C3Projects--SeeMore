@@ -48,7 +48,7 @@ RSpec.describe TwitterApi do
   #         id = followee.id
   #         last_post_id = followee.last_post_id
   #         @posts = twitter_api.get_posts(id, last_post_id)
-  #         expect(@posts.count).to_be > 0
+  #         expect(@posts.count).to be > 0
   #       end
   #     end
   #   end
