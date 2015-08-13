@@ -77,7 +77,6 @@ RSpec.describe FeedsController, type: :controller do
   end
 
   describe "POST #tw_follow" do
-
     before(:each) do
       request.env["HTTP_REFERER"] = "/"
       @user = create :user
@@ -109,11 +108,15 @@ RSpec.describe FeedsController, type: :controller do
     end
   end
 
-  describe "#ig_follow" do
-    let(:user){create :user}
-    let(:instagram_user){create :instagram_user}
+  describe "POST #ig_follow" do
+    it "follows an instagram user" do
+      request.env["HTTP_REFERER"] = "/"
+      user = create :user
+      instagram_user = attributes_for(:instagram_user)
+      session[:user_id] = user.id
 
-    it "creates an association between user and IG account"do
+      post :ig_follow, instagram_user
+      expect(user.instagram_users).to eq(InstagramUser.where(username: "Talking Rain"))
     end
   end
 end
