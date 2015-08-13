@@ -1,9 +1,11 @@
 class User < ActiveRecord::Base
+  # Associations
+  has_and_belongs_to_many :subscriptions
+  has_many :posts, through: :subscriptions
 
   # Validations
-  validates_presence_of :name, :uid, :provider
-  validates_uniqueness_of :name, :uid
-
+  validates_presence_of :uid, :provider
+  validates_uniqueness_of :uid
 
   def self.find_or_create_user(auth_hash)
     uid = auth_hash["uid"]
@@ -15,5 +17,11 @@ class User < ActiveRecord::Base
     user.image = auth_hash["info"]["image"]
 
     return user.save ? user : nil
+  end
+
+  # Adds the association between a new subscription and the user.
+  def associate_subscription(subscription)
+    self.subscriptions << subscription
+    self.save
   end
 end

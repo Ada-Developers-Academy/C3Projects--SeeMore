@@ -1,0 +1,27 @@
+<!-- This is broken if a person is signing in for the first time and doesn't already follow anyone.
+This is why the @user.subscriptions.blank? is a thing-->
+<!-- The .blank? I put in because everything kept breaking surrounding this code, so I purposefully made it so it would never be true and never try and display this code -->
+<% if logged_in? && @user.subscriptions.blank? %>
+  <% @sub_array_tweets.each do |tweet| %>
+    <%= tweet.user.screen_name %>
+    <%= tweet.text %>
+    <%= tweet.as_json["created_at"] %>
+    <% tweet.media.as_json.each do |media| %>
+      <%= image_tag(media["media_url_https"], height: '300' ) %>
+    <% end %>
+    <br>###<br>
+  <% end %>
+<% end %>
+
+<% unless logged_in? %>
+  <div class="jumbotron">
+    <h1>WELCOME TO <strong>BEAST MODE!</strong></h1>
+    <p class="beast-mode">You must to sign in to feed the beast.</p>
+    <p>
+      <%= link_to "Sign In via Developer", "/auth/developer", class: "btn btn-primary" %>
+    </p>
+    <p>
+      <%= link_to "Sign In via Instagram", "/auth/instagram", class: "btn btn-primary" %>
+    </p>
+  </div>
+<% end %>

@@ -3,10 +3,14 @@ source 'https://rubygems.org'
 # Authentication
 gem 'dotenv-rails', groups: [:development, :test]
 
+gem 'twitter'
+
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-instagram'
 gem 'omniauth-twitter'
+
+gem 'instagram'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
@@ -39,6 +43,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bootstrap-sass'
 
+gem 'httparty'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -58,6 +64,11 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'simplecov', require: false
+end
+
+group :test do
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do

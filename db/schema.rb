@@ -11,7 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804230914) do
+ActiveRecord::Schema.define(version: 20150808000102) do
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "username",        null: false
+    t.datetime "posted_at",       null: false
+    t.string   "text"
+    t.string   "image"
+    t.string   "content_id",      null: false
+    t.integer  "subscription_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "posts", ["subscription_id"], name: "index_posts_on_subscription_id"
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string   "twitter_id"
+    t.string   "instagram_id"
+    t.string   "profile_pic"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "subscriptions_users", force: :cascade do |t|
+    t.integer "user_id",         null: false
+    t.integer "subscription_id", null: false
+  end
+
+  add_index "subscriptions_users", ["subscription_id"], name: "index_subscriptions_users_on_subscription_id"
+  add_index "subscriptions_users", ["user_id"], name: "index_subscriptions_users_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "uid"
