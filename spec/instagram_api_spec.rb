@@ -35,10 +35,11 @@ RSpec.describe InstagramApi do
   end
 
   describe "#embed_html_with_js" do
+    let(:instagram_link) { "http://instagr.am/p/D/" }
+
     before :each do
       VCR.use_cassette 'instagram_api/embed_html_with_js' do
-        link = "http://instagr.am/p/D/"
-        @response = instagram_api.embed_html_with_js(link)
+        @response = instagram_api.embed_html_with_js(instagram_link)
       end
     end
 
