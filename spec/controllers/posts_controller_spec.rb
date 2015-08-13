@@ -11,6 +11,8 @@ RSpec.describe PostsController, type: :controller do
 
     context "when signed in" do
       let(:stalker) { create(:stalker) }
+      let(:prey) { create(:prey) }
+      let(:post) { create(:post) }
       before { session[:stalker_id] = stalker.id }
 
       it "assigns @stalker" do
@@ -19,15 +21,18 @@ RSpec.describe PostsController, type: :controller do
         expect(assigns(:stalker)).to be_a(Stalker)
       end
 
-      pending "assigns @posts"
-      # it "assigns @posts" do
-      #   get :index
+      it "assigns @posts" do
+        stalker.prey << prey
+        get :index
 
-      #   expect(assigns(:posts)).to #??
-      # end
+        expect(assigns(:posts)).to include post
+      end
 
-      # it "@posts excludes posts that belong to prey that the stalker is not subscribed to" do
-      # end
+      it "@posts excludes posts that belong to prey that the stalker is not subscribed to" do
+        get :index
+
+        expect(assigns(:posts)).to_not include post
+      end
 
       it "renders the index template" do
         get :index
