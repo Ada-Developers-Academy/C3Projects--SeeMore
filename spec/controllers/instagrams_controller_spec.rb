@@ -66,7 +66,9 @@ RSpec.describe InstagramsController, type: :controller do
       before :each do
         @user = create :user
         session[:user_id] = @user.id
-        post :create, instagram: attributes_for(:instagram)
+        VCR.use_cassette 'instagram_create_response' do
+          post :create, instagram: attributes_for(:instagram, provider_id: "31042754")
+        end
       end
 
       it "creates an instagram record" do

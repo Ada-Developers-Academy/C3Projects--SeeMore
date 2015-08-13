@@ -19,7 +19,6 @@ RSpec.describe FeedsController, type: :controller do
       end
     end
 
-    # NOT WORKING
     describe "GET #index" do
       context "people feed display" do
         it "renders the home page" do
@@ -83,7 +82,6 @@ RSpec.describe FeedsController, type: :controller do
       end
     end
 
-    # ADD INVALID PARAMS
   end
 
   context "Instagram Posts from API" do
@@ -122,6 +120,5 @@ RSpec.describe FeedsController, type: :controller do
         expect(InstagramPost.first.users).to include(@user)
       end
     end
-    # ADD INVALID PARAMS
   end
 end

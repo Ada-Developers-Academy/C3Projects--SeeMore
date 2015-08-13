@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     # NOTE: SM added. Gets the user's access_token from Instagram
     if @user.provider == "instagram"
       session[:access_token] = auth_hash[:credentials][:token]
-    elsif @user.provider == "twitter"
+    else 
       session[:access_token] = ENV['INSTAGRAM_ACCESS_TOKEN']
     end
 
