@@ -16,4 +16,21 @@ RSpec.describe InstagramApi do
     end
   end
 
+  describe "#private_user?" do
+    it "returns a truthy value for private user" do
+      VCR.use_cassette 'instagram_api/private_user' do
+        private_user_id = "184517457"
+        result = instagram_api.private_user?(private_user_id)
+        expect(result).to be_truthy
+      end
+    end
+
+    it "returns a falsy value for non-private user" do
+      VCR.use_cassette 'instagram_api/non_private_user' do
+        non_private_user_id = "9266829"
+        result = instagram_api.private_user?(non_private_user_id)
+        expect(result).to be_falsy
+      end
+    end
+  end
 end
