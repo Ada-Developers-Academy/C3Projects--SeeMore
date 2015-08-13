@@ -111,7 +111,6 @@ RSpec.describe User, type: :model do
     it "when called on a user object associates the provided twitter subscription" do
       user.save
       twisub.save
-
       user.associate_subscription(twisub)
 
       expect(user.subscriptions.count).to eq 1
@@ -121,11 +120,24 @@ RSpec.describe User, type: :model do
     it "when called on a user object associates the provided instagram subscription" do
       user.save
       igsub.save
-
       user.associate_subscription(igsub)
 
       expect(user.subscriptions.count).to eq 1
       expect(user.subscriptions).to include(igsub)
+    end
+  end
+
+  describe "#dissociate_subscription" do
+    it "dissociates sub from user" do
+      user = create(:user)
+      igsub = create(:ig_sub)
+      twisub = create(:twi_sub)
+
+      user.subscriptions << [igsub, twisub]
+
+      user.dissociate_subscription(igsub)
+
+      expect(user.subscriptions.count).to eq 1
     end
   end
 
@@ -172,5 +184,4 @@ RSpec.describe User, type: :model do
       expect(user.instagram_subscriptions.count).to eq 2
     end
   end
-
 end

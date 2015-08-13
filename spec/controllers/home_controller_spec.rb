@@ -18,10 +18,9 @@ RSpec.describe HomeController, type: :controller do
     context "when logged in" do
       it "user has access to their posts" do
         log_in
-        sub = create(:ig_sub)
+        igsub = create(:ig_sub)
         post = create(:post)
-        @logged_user.subscriptions << sub
-
+        @logged_user.subscriptions << igsub
         get :index
 
         expect(@logged_user.posts).to include post
@@ -62,6 +61,38 @@ RSpec.describe HomeController, type: :controller do
          expect(response).to redirect_to root_path
          expect(flash[:error]).to be_present
       end
+    end
+  end
+
+  describe "subscriptions" do
+    it "renders subscriptions view" do
+      log_in
+      get :subscriptions
+
+      expect(response).to render_template :subscriptions
+    end
+
+    it "returns an array of subscription_id, profile_pic, and username"do
+      log_in
+      sub = create(:ig_sub, id: 1, profile_pic: "pic")
+      post = create(:post)
+      @logged_user.subscriptions << sub
+      array = [1, "beastmaster", "pic"]
+      get :subscriptions
+
+      expect(assigns(:sub_array).first).to eq array
+    end
+  end
+
+  describe "unfollow" do
+    it "redirects to the subscriptions_path" do
+      log_in
+      sub = create(:ig_sub)
+      @logged_user.subscriptions << sub
+
+      get :unfollow, subscription_id: 1
+
+      expect(response).to redirect_to subscriptions_path
     end
   end
 end

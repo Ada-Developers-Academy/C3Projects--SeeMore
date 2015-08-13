@@ -21,11 +21,12 @@ Rails.application.routes.draw do
 
   get "posts/:id", to: "posts#show", as: "posts"
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  get 'home/subscriptions', to: 'home#subscriptions', as: "subscriptions"
 
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  delete 'home/subscription', to: 'home#unfollow', as: 'unfollow'
+
+
+
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
