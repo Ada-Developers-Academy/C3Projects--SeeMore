@@ -2,8 +2,6 @@ require 'simplecov'
 require 'factory_girl'
 
 # UNCOMMENT 'require webmock' (AND 'WebMock.allow_net_connect!' BELOW) IF YOU WANT model/post_spec.rb #create_all_instagram_posts TEST TO WORK!!
-# THEN COMMENT OUT AGAIN AFTER RUNNING RSPEC, SO YOU AREN'T ALLOWED TO CONNECT TO THE INTERNET FOR YOUR TESTS.
-# VCR WILL RECORD THE HTTP CALL ON THAT FIRST RSPEC CALL.
 
 # require 'webmock'
 
@@ -44,8 +42,6 @@ RSpec.configure do |config|
   end
 
   # UNCOMMENT 'WebMock.allow_net_connect!' (AND 'require webmock' AT TOP OF FILE) IF YOU WANT model/post_spec.rb #create_all_instagram_posts TEST TO WORK!!
-  # THEN COMMENT OUT AGAIN AFTER RUNNING RSPEC, SO YOU AREN'T ALLOWED TO CONNECT TO THE INTERNET FOR YOUR TESTS.
-  # VCR WILL RECORD THE HTTP CALL ON THAT FIRST RSPEC CALL.
 
   # WebMock.allow_net_connect!
 

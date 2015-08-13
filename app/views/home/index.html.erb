@@ -5,30 +5,7 @@
   to satiate the beast!</h4>
 
 <% elsif logged_in? %>
-  <% @posts.each do |post| %>
-    <div class="col-md-10 col-md-offset-1">
-      <div class="thumbnail">
-        <div class="user">
-        <%= image_tag(post.subscription.profile_pic, class: "img-circle prof-pic") %>
-        <p class="posted-at"> posted <%= time_ago_in_words(post.posted_at) %> ago </p>
-        <% if post.subscription.twitter_id.present? %>
-            <i class="fa fa-twitter"></i>
-          <% else %>
-            <i class="fa fa-instagram"></i>
-          <% end %>
-        <%= link_to "#{post.username}", posts_path(post.username, username: post.username) %>
-        </div>
-      <% unless post.image.empty? %>
-        <% post.image.each do |image| %>
-          <%= image_tag(image, class: "img-rounded fix-width") %>
-        <% end %>
-      <% end %>
-      <div class="caption text-center">
-        <%= post.text %>
-      </div>
-    </div>
-  </div>
-<% end %>
+  <%= render 'shared/postthumbnail' %>
 
 <% else %>
   <div class="jumbotron">
