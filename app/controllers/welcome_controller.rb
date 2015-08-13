@@ -38,6 +38,6 @@ class WelcomeController < ApplicationController
   end
 
   def all_feeds
-    @feeds = current_user.feeds
+    @feeds = current_user.feeds.alphabetical
   end
 end
