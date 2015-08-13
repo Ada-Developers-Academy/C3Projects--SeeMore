@@ -51,7 +51,7 @@
           <span class="badge"><%= number_with_delimiter(post["likes"]["count"], :delimiter => ',') %> likes</span><br />
         </div>
         <div class="date">
-          <%= Time.at(post["created_time"].to_i) %>
+          <%= display_pacific_time(Time.at(post["created_time"].to_i)) %>
         </div>
       </div>
     <% end %>
