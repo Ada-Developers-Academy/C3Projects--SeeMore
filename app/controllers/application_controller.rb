@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
 
   def require_login
     if session[:stalker_id].nil?
-      flash[:error] = { login_required: "Please log in to see that page!" }
       redirect_to landing_path unless session[:stalker_id]
     end
   end

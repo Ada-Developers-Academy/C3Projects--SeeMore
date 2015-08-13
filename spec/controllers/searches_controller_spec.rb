@@ -11,7 +11,6 @@ RSpec.describe SearchesController, type: :controller do
       session[:stalker_id] = nil
       post :search, search_twitter: valid_search
 
-      expect(flash[:error]).to include(:login_required)
       expect(response).to redirect_to(landing_path)
     end
 
@@ -45,32 +44,41 @@ RSpec.describe SearchesController, type: :controller do
       session[:stalker_id] = nil
       get :show, client: "twitter", search_term: "search"
 
-      expect(flash[:error]).to include(:login_required)
       expect(response).to redirect_to(landing_path)
     end
 
     context "searching for a Twitter user" do
-      pending "responds with a 202 code"
-      # it "responds successfully with an HTTP 200 status code" do
-      #   get :show, client: "twitter", search_term: "search"
+      before :each do
+        VCR.use_cassette('search_twitter_users') do
+          get :show, client: "twitter", search_term: "search"
+        end
+      end
 
-      #   expect(response).to be_success
-      #   expect(response).to have_http_status(200)
-      # end
+      it "responds successfully with an HTTP 200 status code" do
+        expect(response).to be_success
+        expect(response).to have_http_status(200)
+      end
 
-      pending "renders the show template"
-      # it "renders the show template" do
-      #   get :show, client: "twitter", search_term: "search"
+      it "renders the show template" do
+        expect(response).to render_template("show")
+      end
+    end
 
-      #   expect(response).to render_template("show")
-      # end
+    context "searching for an Instagram user" do
+      before :each do
+        VCR.use_cassette('search_instagram_users') do
+          get :show, client: "instagram", search_term: "search"
+        end
+      end
 
-      # it 'returns an array of Twitter users' do
-      #   uri = URI('https://api.twitter.com')
-      #
-      #   response = Net::HTTP.get(uri)
-      #   expect(response).to be_an_instance_of(Array)
-      # end
+      it "responds successfully with an HTTP 200 status code" do
+        expect(response).to be_success
+        expect(response).to have_http_status(200)
+      end
+
+      it "renders the show template" do
+        expect(response).to render_template("show")
+      end
     end
   end
 end

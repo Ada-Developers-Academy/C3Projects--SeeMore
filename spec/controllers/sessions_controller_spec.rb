@@ -208,13 +208,22 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe "#destroy" do
-    pending "fill in additional sessions#destroy tests"
+    let(:stalker) { create(:stalker) }
+    before(:each) do
+      session[:stalker_id] = stalker.id
+      delete :destroy
+    end
+
+    it "sets flash[:message]" do
+      expect(flash[:message]).to_not be nil
+      expect(flash[:message]).to include :success
+    end
+
+    it "sets session[:stalker_id] to nil" do
+      expect(session[:stalker_id]).to be nil
+    end
 
     it "requires login" do
-      session[:stalker_id] = nil
-      delete :destroy
-
-      expect(flash[:error]).to include(:login_required)
       expect(response).to redirect_to(landing_path)
     end
   end
