@@ -52,7 +52,7 @@ h1 {
   font-size: 6em;
 }
 
-h1, h2, h3, h4, .search-header, .page-links a, .no-targets a, .navbar-default .navbar-text, .navbar-default .navbar-nav > li > a {
+h1, h2, h3, h4, .search-header, .search, .page-links a, .no-targets a, .navbar-default .navbar-text, .navbar-default .navbar-nav > li > a {
     font-family: 'Orbitron', sans-serif;
     text-align: center;
     color: rgb(255,255,255);
@@ -75,11 +75,9 @@ h1, h2, h3, h4, .search-header, .page-links a, .no-targets a, .navbar-default .n
   color: #F00;
 }
 
-.search {
-  margin-top: 10px;
-  font-family: 'Orbitron', sans-serif;
+.search-header {
+  margin: 10px 0;
 }
-
 
 .tweet-post a:hover {
   color: #F00;
@@ -102,6 +100,10 @@ h1, h2, h3, h4, .search-header, .page-links a, .no-targets a, .navbar-default .n
 
 
 // search results
+
+.search-results {
+  padding-top: 30px;
+}
 
 .well {
   background-color: rgba(0,0,0,.7);
