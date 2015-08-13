@@ -5,12 +5,10 @@ class PostsController < ApplicationController
   end
 
   def update_feed
-    stalker = Stalker.find(session[:stalker_id])
-    prey = stalker.prey
+    prey = Stalker.find(session[:stalker_id]).prey
     prey.each do |prey|
       prey.update_posts
     end
     redirect_to root_path
   end
-
 end
