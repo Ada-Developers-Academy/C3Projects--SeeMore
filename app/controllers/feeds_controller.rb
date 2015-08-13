@@ -10,19 +10,12 @@ class FeedsController < ApplicationController
 
   def index
     @user = User.find_by(id: session[:user_id])
-
     @ig_feed = []
-    if @user && @user.instagrams
-      @user.instagram_posts.each do |post|
-        @ig_feed << post
-      end
-    end
-
     @tweet_feed = []
-    if @user && @user.tweets
-      @user.tweet_posts.each do |user_tweet|
-        @tweet_feed << user_tweet
-      end
+
+    if @user
+      @ig_feed = populate(@ig_feed, @user.instagrams, @user.instagram_posts)
+      @tweet_feed = populate(@tweet_feed, @user.tweets, @user.tweet_posts)
     end
 
     Struct.new("Ninja", :username, :media_url, :text, :date_time, :avatar, :provider, :link)
@@ -53,6 +46,15 @@ class FeedsController < ApplicationController
 
     @all_posts.sort_by! { |each_post| each_post.date_time.strftime("%Y-%m-%d %H:%M:%S") }
     @all_posts.reverse!
+  end
+
+  def populate(feed, social_media_user, posts)
+    feed = []
+    if social_media_user
+      posts.each do |post|
+        feed << post
+      end
+    end
   end
 
   def people
