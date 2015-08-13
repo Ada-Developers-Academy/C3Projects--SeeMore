@@ -33,4 +33,21 @@ RSpec.describe InstagramApi do
       end
     end
   end
+
+  describe "#embed_html_with_js" do
+    before :each do
+      VCR.use_cassette 'instagram_api/embed_html_with_js' do
+        link = "http://instagr.am/p/D/"
+        @response = instagram_api.embed_html_with_js(link)
+      end
+    end
+
+    it "returns a blockquote" do
+      expect(@response[1..10]).to eq "blockquote"
+    end
+
+    it "returns a script" do
+      expect(@response[-7..-2]).to eq "script"
+    end
+  end 
 end
