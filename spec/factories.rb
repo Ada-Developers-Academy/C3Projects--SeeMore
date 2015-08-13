@@ -6,17 +6,12 @@ FactoryGirl.define do
     name 'Zynthia'
   end
 
-  # factory :followee do
-  #   handle "handled"
-  #   source "instagram"
-  #   native_id "12345abcde"
-  # end
-
   factory :followee do
-    handle "rihanna" 
+    handle "beyonce" 
     source "twitter" 
-    avatar_url "http://pbs.twimg.com/profile_images/582747937958076418/ZrNhtrD2_normal.jpg"
-    native_id 79293791
+    avatar_url "http://pbs.twimg.com/profile_images/582395896593170432/pw_jGziR_normal.jpg"
+    native_id 31239408
+    last_post_id "369486010280706048"
   end
 
   factory :subscription do
