@@ -119,4 +119,22 @@ RSpec.describe FeedsController, type: :controller do
       expect(user.instagram_users).to eq(InstagramUser.where(username: "Talking Rain"))
     end
   end
+
+  describe "GET #dismiss_alert" do
+    let(:session) { { alert_msg: true } }
+
+    it "sets session[:alert] to false" do
+      request.env["HTTP_REFERER"] = "/feeds"
+      get :dismiss_alert, session
+
+      expect(session[:alert_msg]).to be true
+    end
+
+    it "redirects back to the user's last page" do
+      request.env["HTTP_REFERER"] = "/feeds"
+      get :dismiss_alert, session
+
+      expect(subject).to redirect_to feeds_path
+    end
+  end
 end
