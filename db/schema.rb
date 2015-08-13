@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 20150812182809) do
   create_table "grams", force: :cascade do |t|
     t.string   "tags"
     t.string   "media_type"
-    t.datetime "created_time"
     t.string   "link"
     t.integer  "likes"
     t.string   "image_url"
@@ -29,6 +28,7 @@ ActiveRecord::Schema.define(version: 20150812182809) do
     t.integer  "instagram_user_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.datetime "created_time"
   end
 
   create_table "instagram_users", force: :cascade do |t|
@@ -68,13 +68,13 @@ ActiveRecord::Schema.define(version: 20150812182809) do
   create_table "tweets", force: :cascade do |t|
     t.string   "tw_id_str"
     t.string   "tw_text"
-    t.datetime "created_time"
     t.integer  "tw_retweet_count"
     t.integer  "tw_favorite_count"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.string   "tw_user_id_str"
     t.integer  "tw_user_id"
+    t.datetime "created_time"
   end
 
   create_table "users", force: :cascade do |t|
