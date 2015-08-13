@@ -3,32 +3,71 @@
   <small>Here are all your subscribed feeds.</small>
 </h1>
 
-<% unless @feeds.empty? %>
-    <% @feeds.each do |feed| %>
-      <div class="col-sm-4">
-        <div class="search-result">
-          <h3>
-            <% if feed.platform == "Instagram" %>
-              <%= link_to feed.name, instagram_feed_path(feed.platform_feed_id) %>
-              <br />
-              <%= link_to "Unsubscribe", instagram_unsubscribe_path(feed.platform_feed_id),
-                  method: "delete", class: "btn btn-warning btn-md", data: {
-                  confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+<% if @feeds.empty? %>
+  <div class="col-sm-4">
+    <div class="search-result">
+      <h3>
+        <%= link_to "Sad Kitty", instagram_feed_path(feed.platform_feed_id) %>
+        <%= link_to "Search", instagram_unsubscribe_path(feed.platform_feed_id),
+            class: "btn btn-success btn-md" %>
+      </h3>
 
-            <% elsif feed.platform == "Vimeo" %>
-              <%= link_to feed.name, vimeo_feed_path(feed.platform_feed_id) %>
-              <br />
-              <%= link_to "Unsubscribe", vimeo_unsubscribe_path(feed.platform_feed_id),
-                  method: "delete", class: "btn btn-warning btn-md", data: {
-                  confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+      <%= image_tag "sadcat.jpg", class: "profile" %>
+    </div>
+  </div>
 
-            <% end %>
-          </h3>
-          <% if feed.avatar %>
-            <%= image_tag feed.avatar, class: "profile" %>
-          <% else %>
-            <%= image_tag "vimeo-avatar.png", class: "profile" %>
+  <div class="col-sm-4">
+    <div class="search-result">
+      <h3>
+        <%= link_to "The Friendface Team", instagram_feed_path(feed.platform_feed_id) %>
+        <%= link_to "Search", instagram_unsubscribe_path(feed.platform_feed_id),
+            class: "btn btn-success btn-md" %>
+      </h3>
+
+      <%= image_tag "vimeo-avatar.png", class: "profile" %>
+    </div>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="search-result">
+      <h3>
+        <%= link_to "The Friendface Team", instagram_feed_path(feed.platform_feed_id) %>
+        <%= link_to "Search", instagram_unsubscribe_path(feed.platform_feed_id),
+            class: "btn btn-success btn-md" %>
+      </h3>
+
+      <%= image_tag "sadpuppy.gif", class: "profile" %>
+    </div>
+  </div>
+
+
+<% else %>
+  <% @feeds.each do |feed| %>
+    <div class="col-sm-4">
+      <div class="search-result">
+        <h3>
+          <% if feed.platform == "Instagram" %>
+            <%= link_to feed.name, instagram_feed_path(feed.platform_feed_id) %>
+            <br />
+            <%= link_to "Unsubscribe", instagram_unsubscribe_path(feed.platform_feed_id),
+                method: "delete", class: "btn btn-warning btn-md", data: {
+                confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+
+          <% elsif feed.platform == "Vimeo" %>
+            <%= link_to feed.name, vimeo_feed_path(feed.platform_feed_id) %>
+            <br />
+            <%= link_to "Unsubscribe", vimeo_unsubscribe_path(feed.platform_feed_id),
+                method: "delete", class: "btn btn-warning btn-md", data: {
+                confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+
           <% end %>
+        </h3>
+
+        <% if feed.avatar %>
+          <%= image_tag feed.avatar, class: "profile" %>
+        <% else %>
+          <%= image_tag "vimeo-avatar.png", class: "profile" %>
+        <% end %>
       </div>
     </div>
   <% end %>
