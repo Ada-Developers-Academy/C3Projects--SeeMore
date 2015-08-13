@@ -19,7 +19,7 @@ class VimeoController < ApplicationController
 
     else
       feed_info = VimeoAPI.vimeo_feed_info(id)
-      @feed_name = feed_info["username"]
+      @feed_name = feed_info["name"]
       @posts = VimeoAPI.vimeo_feed(id)
     end
   end

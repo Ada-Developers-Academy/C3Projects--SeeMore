@@ -18,6 +18,13 @@ RSpec.describe Feed, type: :model do
       expect(@feed.posts.count).to eq 2
     end
 
+    it "destroys all posts when it is destroyed" do
+      post1 = create :post
+      post2 = create :post
+      @feed.destroy
+      expect{ post1.reload }.to raise_exception(ActiveRecord::RecordNotFound)
+    end
+
     it "has_and_belongs_to_many au_users" do
       user1 = create :au_user
       user2 = create :au_user, uid: 2
