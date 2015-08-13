@@ -1,9 +1,8 @@
 <br>
-<h2 class="text-center green"><%= current_user.name %>'s feed</h2>
+<h2 class="text-center header"><%= current_user.name %>'s feed</h2>
 <% if @posts.nil? || @posts.empty? %>
-  <p>
-    You haven't subscribed to any feeds yet. Find some interesting feeds to
-    follow by searching Instagram or Vimeo users with the above search box!
+  <p class="feed">
+    You haven't subscribed to any feeds yet. Find some interesting feeds to follow by searching Instagram or Vimeo users with the above search box!
   </p>
 <% else %>
   <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>

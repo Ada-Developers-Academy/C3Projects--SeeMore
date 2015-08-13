@@ -1,7 +1,7 @@
 <br />
 
 <% if @internal %>
-  <h2 class="text-center green">
+  <h2 class="text-center header">
     <%= @feed.name %>'s feed
 
     <% if current_user.feeds.include? @feed %>
@@ -25,9 +25,7 @@
     <% end %>
   </h2>
 
-  <% if @posts.nil? || @posts.empty? %>
-    <h2>This feed doesn't have any posts. ;_;</h2>
-  <% else %>
+  <% unless @posts.nil? || @posts.empty? %>
     <% @posts.each do |post| %>
       <div class="feed">
         <%= image_tag post["images"]["low_resolution"]["url"], class: "left" %>

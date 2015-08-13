@@ -20,9 +20,15 @@ class InstagramController < ApplicationController
     else
       feed_info = InstagramAPI.instagram_feed_info(id)
       @feed_name = feed_info["username"]
-
       @posts = InstagramAPI.instagram_feed(id)
-      flash.now[:error] = "This feed does not have any public posts." unless @posts
+      if @posts
+        feed_info = InstagramAPI.instagram_feed_info(id)
+        @feed_name = feed_info["username"]
+
+        @posts = InstagramAPI.instagram_feed(id)
+      else
+        flash.now[:error] = "This feed does not have any public posts."
+      end
     end
   end
 

@@ -1,6 +1,10 @@
+<% content_for :style_sheet do %>
+  <%= stylesheet_link_tag 'welcome' %>
+<% end %>
+
 <div class="jumbotron">
   <div class="panel-body">
-    <%= link_to "Login with Instagram", "/auth/instagram/", class:"btn btn-block btn-success" %>
-    <%= link_to "Login with Vimeo", "/auth/vimeo/", class:"btn btn-block btn-danger" %>
+    <%= link_to "Login with Instagram", "/auth/instagram/", class:"btn btn-block btn-primary btn-lg" %>
+    <%= link_to "Login with Vimeo", "/auth/vimeo/", class:"btn btn-block btn-info btn-lg" %>
   </div>
 </div>
