@@ -31,6 +31,7 @@ RSpec.describe AuUser, type: :model do
       let(:feed) { create :feed }
       let(:post) { create :post }
       it "authorized users have many feeds" do
+        allow_any_instance_of(Feed).to receive(:populate_posts)
         au_user.feeds << feed
         expect(au_user.feeds).to include(feed)
       end
