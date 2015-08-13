@@ -12,10 +12,11 @@ class VimeoController < ApplicationController
     feed = Feed.find_by(platform_feed_id: id, platform: "Vimeo")
 
     if feed
-      feed.update_feed
       @internal = true
       @posts = feed.posts.only_thirty
       @feed = feed
+      @feed_name = @feed.name
+      
     else
       feed_info = VimeoAPI.vimeo_feed_info(id)
       @feed_name = feed_info["name"]

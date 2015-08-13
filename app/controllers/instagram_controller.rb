@@ -12,10 +12,10 @@ class InstagramController < ApplicationController
     feed = Feed.find_by(platform_feed_id: id, platform: "Instagram")
 
     if feed
-      feed.update_feed
       @internal = true
       @posts = feed.posts.only_thirty
       @feed = feed
+      @feed_name = @feed.name
 
     else
       feed_info = InstagramAPI.instagram_feed_info(id)
