@@ -53,26 +53,32 @@ RSpec.describe FeedsController, type: :controller do
 
   describe "GET feeds#search_results" do
     let(:twitter_params){ { provider: 'twitter', search_term: 'donald trump' } }
-    # let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
-    #
+    let(:instagram_params){ { provider: 'instagram', search_term: 'baby' } }
+    let(:unknown_provider){ { provider: 'github', search_term: 'beyonce' } }
+
     # This test fails because of the instagram api
-    # it "queries the correct API" do
-    #   VCR.use_cassette 'controller/twitter_api_response' do
-    #     get :search_results, twitter_params
-    #     expect(assigns(:results).first.id).to eq(25073877)
-    #   end
-    #
-    #   VCR.use_cassette 'controller/instagram_api_search' do
-    #     get :search_results, instagram_params
-    #     expect(assigns(:results).first.id).to eq("1105876259")
-    #   end
-    # end
+    it "queries the correct API" do
+      VCR.use_cassette 'controller/twitter_api_response' do
+        get :search_results, twitter_params
+        expect(assigns(:results).first.id).to eq(25073877)
+      end
+
+      VCR.use_cassette 'controller/instagram_api_search' do
+        get :search_results, instagram_params
+        expect(assigns(:results).first.id).to eq("1105876259")
+      end
+    end
 
     it "receives a response from the twitter api" do
       VCR.use_cassette 'controller/twitter_api_response' do
         get :search_results, twitter_params
         expect(assigns(:results).first.id).to eq(25073877)
       end
+    end
+
+    it "redirects to the search page if given an unknown :provider" do
+      get :search_results, unknown_provider
+      expect(subject).to redirect_to search_path(unknown_provider[:provider])
     end
   end
 
