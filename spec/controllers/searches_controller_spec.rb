@@ -11,7 +11,6 @@ RSpec.describe SearchesController, type: :controller do
       session[:stalker_id] = nil
       post :search, search_twitter: valid_search
 
-      expect(flash[:error]).to include(:login_required)
       expect(response).to redirect_to(landing_path)
     end
 
@@ -45,7 +44,6 @@ RSpec.describe SearchesController, type: :controller do
       session[:stalker_id] = nil
       get :show, client: "twitter", search_term: "search"
 
-      expect(flash[:error]).to include(:login_required)
       expect(response).to redirect_to(landing_path)
     end
 

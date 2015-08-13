@@ -6,7 +6,6 @@ RSpec.describe PostsController, type: :controller do
       session[:stalker_id] = nil
       get :index
 
-      expect(flash[:error]).to include(:login_required)
       expect(response).to redirect_to(landing_path)
     end
 

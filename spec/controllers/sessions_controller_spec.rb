@@ -214,7 +214,6 @@ RSpec.describe SessionsController, type: :controller do
       session[:stalker_id] = nil
       delete :destroy
 
-      expect(flash[:error]).to include(:login_required)
       expect(response).to redirect_to(landing_path)
     end
   end
