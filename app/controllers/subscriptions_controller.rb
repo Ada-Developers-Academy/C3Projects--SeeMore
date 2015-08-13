@@ -3,10 +3,10 @@ class SubscriptionsController < ApplicationController
     followee = Followee.find_or_create_by(followee_params)
     Subscription.find_or_create_subscription(@current_user, followee)
 
-    redirect_to :back
+    redirect_to :back, notice: "You have successfully subscribed to '@#{followee.handle}'!"
 
-  rescue
-    redirect_to root_path, notice: "You have successfully subscribed to '@#{followee.handle}'!"
+    rescue
+      redirect_to root_path
   end
 
   def index
@@ -24,6 +24,9 @@ class SubscriptionsController < ApplicationController
     subscription = Subscription.find(params[:id])
     subscription.update!(unsubscribe_date: Time.now)
     redirect_to :back, notice: "You have successfully unsubscribed from @#{subscription.followee.handle}."
+
+    rescue
+      redirect_to root_path
   end
 
   private
