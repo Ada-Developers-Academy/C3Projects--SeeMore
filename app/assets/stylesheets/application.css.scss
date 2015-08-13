@@ -16,6 +16,19 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// widths
+$main-column-max-width: 800px;
+
+// colors
+$friendface-green: #008800;
+$light-gray-green: #4cae4c;
+$light-gray: #e6f3e6;
+$white-solid: rgba(255, 255, 255, 1);
+$white-transparent: rgba(255,255,255,0.75);
+
+// fonts
+$brand-font-stack: "Ubuntu", sans-serif;
+
 .jumbotron {
   width: 100%;
   background: url("background.png");
@@ -35,8 +48,8 @@
 }
 
 #top.nav h2 a, p.friendface span {
-  background-color: #080; // dark green
-  color: #fff; // white
+  background-color: $friendface-green; // dark green
+  color: $white-solid;
   border-radius: 5px;
   font-size: 26px;
   margin: 2px;
@@ -92,41 +105,41 @@ p.friendface span.larger {
 .feed {
   margin: auto;
   padding: 10px;
-  max-width: 600px;
-  background: rgba(255,255,255,0.75);
-  border-top: 1px solid #fff;
-  border-left: 1px solid #e6f3e6;
-  border-right: 1px solid #e6f3e6;
-  border-bottom: 1px solid #e6f3e6;
+  max-width: $main-column-max-width;
+  background: $white-transparent;
+  border-top: 1px solid $white-solid;
+  border-left: 1px solid $light-gray;
+  border-right: 1px solid $light-gray;
+  border-bottom: 1px solid $light-gray;
   box-sizing: border-box;
 }
 
 .feed:hover {
-  background: rgba(255, 255, 255, 1);
+  background: $white-solid;
   border-radius: 5px;
 }
 
 .header {
-  color: #4cae4c;
-  font-family: 'Ubuntu', sans-serif;
+  color: $light-gray-green;
+  font-family: $brand-font-stack;
   margin: auto;
   margin-top: 15px;
   padding: 10px;
-  max-width: 600px;
-  background: rgba(255, 255, 255, 1);
-  // border-left: 1px solid #e6f3e6;
-  // border-right: 1px solid #e6f3e6;
-  // border-bottom: 1px solid #e6f3e6;
+  max-width: $main-column-max-width;
+  background: $white-solid;
+  // border-left: 1px solid $light-gray;
+  // border-right: 1px solid $light-gray;
+  // border-bottom: 1px solid $light-gray;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
 
 .nav-tabs {
   padding: 10px;
-  background-color: #fff;
-  max-width: 600px;
-  color: #4cae4c;
-  font-family: 'Ubuntu', sans-serif;
+  background-color: $white-solid;
+  max-width: $main-column-max-width;
+  color: $light-gray-green;
+  font-family: $brand-font-stack;
   margin: auto;
 }
 
@@ -135,17 +148,17 @@ h2 {
 }
 
 .green {
-  color: #4cae4c;
+  color: $light-gray-green;
 }
 
 .brand {
-  font-family: "Ubuntu", sans-serif;
+  font-family: $brand-font-stack;
 }
 
 .search-header {
   margin-top: 15px;
   margin-bottom: 15px;
-  border: 1px solid #e6f3e6;
+  border: 1px solid $light-gray;
   border-radius: 20px;
 }
 
@@ -155,10 +168,11 @@ h2 {
 
 .left {
   max-width: 50%;
+  width: 50%;
   float: left;
   display: inline-block;
   margin-bottom: 10px;
-  border: 2px solid #e6f3e6;
+  border: 2px solid $light-gray;
   border-radius: 10px;
   box-sizing: border-box;
 }
@@ -180,7 +194,7 @@ h2 {
 
 .right h3 {
   margin: 0;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: $brand-font-stack;
 }
 
 .date {
@@ -190,13 +204,13 @@ h2 {
 
 .search-result {
   margin: 10px;
-  background: rgba(255,255,255,0.75);
+  background: $white-transparent;
   padding: 10px;
   border-radius: 10px;
 }
 
 .search_result:nth-child(3n+1){
-  clear:left;
+  clear: left;
 }
 
 .btn-sm {
@@ -212,7 +226,7 @@ p, a {
 }
 
 a {
-  color: #080;
+  color: $friendface-green;
 }
 
 a:hover {
