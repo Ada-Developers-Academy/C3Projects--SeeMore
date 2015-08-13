@@ -73,7 +73,7 @@ RSpec.describe HomeController, type: :controller do
           create :subscription, followee_id: followee_instagram.id, user_id: user.id
 
           post :get_new_posts
-          expect(Post.count).to eq 10
+          expect(Post.count).to eq 2
         end
       end
     end

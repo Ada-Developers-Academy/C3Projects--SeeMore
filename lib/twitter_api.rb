@@ -3,7 +3,7 @@ class TwitterApi
 
   # the number of posts to get
   # the first time you update your feed after following someone
-  FIRST_POSTS = 5
+  FIRST_POSTS = 1
 
   def initialize
     @client = Twitter::REST::Client.new do |config|
@@ -14,7 +14,6 @@ class TwitterApi
     end
   end
 
-  # these three stay in Api class
   def user_search(user, count=3)
     client.user_search(user, options = {count: count})
   end
@@ -24,10 +23,12 @@ class TwitterApi
   end
 
   def get_posts(id, last_post_id)
-    posts = client.user_timeline(id, timeline_options(last_post_id))
+    client.user_timeline(id, timeline_options(last_post_id))
   end
 
-  # put in TwitterMapper
+  private
+  ### we're leaving this method here because it is called by #get_posts above
+  ### and we don't want to create a dependency in this class on the TwitterMapper class
   def timeline_options(last_post_id)
     last_post_id ? { since_id: last_post_id.to_i } : { count: FIRST_POSTS }
   end

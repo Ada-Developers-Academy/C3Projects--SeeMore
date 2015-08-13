@@ -17,16 +17,15 @@
   <% @followees.each do |f| %>
     <tr>
       <td>
-        <% if f.source == "instagram" %>
-          <%= image_tag("insta.png", class: "img-thumbnail", size: "35x35") %>
-        <% else %>
-          <%= image_tag("tweet.png", class: "img-thumbnail", size: "35x35") %>
-        <% end %>
+      <% if f.source == "instagram" %>
+        <%= image_tag("insta.png", class: "img-thumbnail", size: "35x35") %>
+      <% else %>
+        <%= image_tag("tweet.png", class: "img-thumbnail", size: "35x35") %>
+      <% end %>
       </td>
       <td><%= image_tag(f.avatar_url, class: "img-thumbnail", size: "50x50") %></td>
       <td><%= f.handle %></td>
-      <td><%= link_to "Unsubscribe", unsubscribe_path(f.subscriptions.where(user_id: @current_user.id).first.id), method: :put, class: "btn btn-danger btn-sm" %></td>
-    </tr>
+      <td><%= link_to "Unsubscribe", unsubscribe_path(f.subscriptions.where( { user_id: @current_user.id, unsubscribe_date: nil } ).first.id), method: :put, class: "btn btn-danger btn-sm" %></td>
   <% end %>
 </table>
 </div>

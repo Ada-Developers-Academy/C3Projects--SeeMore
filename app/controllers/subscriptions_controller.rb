@@ -1,7 +1,4 @@
 class SubscriptionsController < ApplicationController
-  def new; end
-    # do we need this?
-
   def create
     followee = Followee.find_or_create_by(followee_params)
     Subscription.find_or_create_subscription(@current_user, followee)
@@ -23,7 +20,7 @@ class SubscriptionsController < ApplicationController
     # adds current time to unsubscribe_date
     subscription = Subscription.find(params[:id])
     subscription.update!(unsubscribe_date: Time.now)
-    redirect_to subscriptions_path, notice: "You have successfully unsubscribed from @#{subscription.followee.handle}."
+    redirect_to :back, notice: "You have successfully unsubscribed from @#{subscription.followee.handle}."
   end
 
   private

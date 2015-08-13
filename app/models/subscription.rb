@@ -8,6 +8,7 @@ class Subscription < ActiveRecord::Base
 
   # Scopes ------------------------------
   scope :active, -> { where(unsubscribe_date: nil) }
+  scope :active_for_this_followee, -> (followee_id) { where( { followee_id: followee_id, unsubscribe_date: nil}) }
 
   def self.find_or_create_subscription(current_user, followee)
     subscription = self.find_or_initialize_by(
