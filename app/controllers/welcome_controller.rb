@@ -47,12 +47,26 @@ class WelcomeController < ApplicationController
     elsif search[:platform] == "Instagram" && search[:query].empty? == false
       redirect_to instagram_results_path(search[:query])
     elsif search[:platform] == nil
-      flash[:error] = "Please select Instagram or Vimeo from the search options."
-      redirect_to :back
+      # flash[:error] = "Please select Instagram or Vimeo from the search options."
+      redirect_to dual_results_path(search[:query])
     else
       flash[:error] = "Please search for a user name."
       redirect_to :back
     end
+  end
+
+  def dual_results
+    @query = params[:query]
+    @vimeo_results = VimeoAPI.vimeo_search(@query)
+    @vimeo_results.each do |vimeo|
+      vimeo["platform"] = "Vimeo"
+    end
+    @instagram_results = InstagramAPI.instagram_search(@query)
+    @instagram_results = @instagram_results.each do |instagram|
+      instagram["name"] = instagram["username"]
+      instagram["platform"] = "Instagram"
+    end
+    @dual_results = (@instagram_results + @vimeo_results).sort_by {["name"]}
   end
 
   def platform_check
