@@ -24,21 +24,6 @@ RSpec.describe HomeController, type: :controller do
       end
     end
 
-    context "user has subscriptions" do
-      let!(:souly) { create :user, id: 20 }
-      let!(:buzz) { create :followee, id: 15 }
-      let!(:subscription) { create :subscription, followee_id: 15, user_id: 20, created_at: (Time.now - 10) }
-      let!(:post) { create :post, followee_id: 15, native_created_at: Time.now + 1 }
-      let!(:post1) { create :post, followee_id: 15, native_created_at: Time.now + 1 }
-
-      it "should have @rev_posts" do
-        session[:user_id] = souly.id
-        get :newsfeed
-        expect(assigns[:rev_posts].count).to eq(2)
-      end
-    end
-
-  end # newsfeed
 
     # it "finds the current user" do
     #   binding.pry
@@ -60,8 +45,6 @@ RSpec.describe HomeController, type: :controller do
   #     end
   #   end
   # end
-
-  describe "POST #get_new_posts" do
 
     context "updating feed for a new followee" do
       let(:followee_twitter) { create :followee }
