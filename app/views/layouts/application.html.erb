@@ -21,24 +21,35 @@
             <%= link_to(image_tag('home.png'), root_path, class: "navbar-brand") %>
           </div>
 
-          <%= form_tag search_path, method: :post, class: "navbar-form navbar-left" do %>
-            <%= text_field_tag :search, params[:search], placeholder: "Search Twitter Users" %>
-            <%= hidden_field_tag :client, 'twitter' %>
-            <%= submit_tag "Search", class: "btn btn-default" %>
-          <% end %>
+          <div class="dropdown navbar-btn navbar-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Settings
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><%= link_to "Subscriptions", dashboard_path(session[:stalker_id]) %></li>
+              <li><%= link_to "Sign Out", logout_path, method: :delete %></li>
+            </ul>
+          </div>
 
-          <%= form_tag search_path, method: :post, class: "navbar-form navbar-left" do %>
-            <%= text_field_tag :search, params[:search], placeholder: "Search Instagram Users" %>
-            <%= hidden_field_tag :client, 'instagram' %>
-            <%= submit_tag "Search", class: "btn btn-default" %>
-          <% end %>
+          <%= form_tag search_path, method: :post, class: "navbar-form navbar-right" do %>
+            <%= text_field_tag :search, params[:search], placeholder: " Search Users" %>
 
-          <%= link_to "Sign Out", logout_path, method: :delete, class: "btn btn-success navbar-btn navbar-right" %>
-          <%= link_to "Dashboard", dashboard_path(session[:stalker_id]), class: "btn btn-default navbar-btn navbar-right" %>
+            <%= submit_tag "Search", class: "btn btn-default btn-search" %>
+
+            <div class="radio-group">
+              <%= radio_button_tag(:client, "twitter", checked: true) %>
+              <%= label_tag(:client_twitter, "Twitter") %>
+
+              <%= radio_button_tag(:client, "instagram") %>
+              <%= label_tag(:client_instagram, "Instagram") %>
+            </div>
+          <% end %>
         </nav>
-      <div class="text-right">
-        <h5>Welcome, <%= stalker_username(session[:stalker_id]) %>!</h5>
-      </div>
+
+        <div class="text-right">
+          <h5>Welcome, <%= stalker_username(session[:stalker_id]) %>!</h5>
+        </div>
       <% end %>
     </header>
 
@@ -54,7 +65,6 @@
 
     <% if flash[:error] %>
       <% flash[:error].each do |key, value| %>
-
         <h5 class="alert alert-warning">
           <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
           <%= key.to_s.titlecase %>: <%= value %>
@@ -63,6 +73,6 @@
     <% end %>
 
     <%= yield %>
-</div>
+  </div>
 </body>
 </html>
