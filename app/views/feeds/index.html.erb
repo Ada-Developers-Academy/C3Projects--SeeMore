@@ -14,7 +14,6 @@
       <%= raw tweet_oembed(post).html %>
     <% elsif post.class == Gram %>
       <%= raw gram_oembed(post)["html"] %>
-      <% raise %>
     <% end %>
   <% end %>
 
