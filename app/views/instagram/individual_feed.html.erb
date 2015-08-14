@@ -1,0 +1,59 @@
+<% if @posts.nil? || @posts.empty? %>
+  <h2 class = "header text-center">
+    <%= @feed_name %>'s feed
+  </h2>
+  <div class = "feed">
+    <p>
+      Oh no! This user does not appear to have any public posts.
+    </p>
+    <%= image_tag "ohnokitty.jpg", class: "thumbnail center" %>
+  </div>
+<% elsif @internal %>
+  <h2 class="text-center header">
+    <%= @feed.name %>'s feed
+
+    <% if current_user.feeds.include? @feed %>
+      <%= link_to "Unsubscribe", instagram_unsubscribe_path(@feed.platform_feed_id), method: "delete", class: "btn btn-warning btn-md",
+          data: { confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+    <% else %>
+      <%= link_to "Subscribe", instagram_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
+    <% end %>
+  </h2>
+
+  <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>
+<% else %>
+  <h2 class="text-center header">
+    <%= @feed_name %>'s feed
+
+    <% if current_user.feeds.include? @feed %>
+      <%= link_to "Unsubscribe", instagram_unsubscribe_path(@feed.platform_feed_id), method: "delete",
+          class: "btn btn-warning btn-md", data: { confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+    <% else %>
+      <%= link_to "Subscribe", instagram_subscribe_path(params[:feed_id]), method: "post", class: "btn btn-success btn-md" %>
+    <% end %>
+  </h2>
+
+  <% unless @posts.nil? || @posts.empty? %>
+    <% @posts.each do |post| %>
+      <div class="feed">
+        <%= image_tag post["images"]["low_resolution"]["url"], class: "left" %>
+        <div class="right">
+          <h3>
+            <%= link_to @feed_name, instagram_feed_path(params[:feed_id]) %>
+            <span class="badge"><%= number_with_delimiter(post["likes"]["count"], :delimiter => ',') %> likes</span><br />
+          </h3>
+          <p>
+            <% if post["caption"] %>
+              <%= post["caption"]["text"] %>
+            <% else %>
+              No description provided.
+            <% end %>
+          </p>
+        </div>
+        <div class="date">
+          <%= display_pacific_time(Time.at(post["created_time"].to_i)) %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

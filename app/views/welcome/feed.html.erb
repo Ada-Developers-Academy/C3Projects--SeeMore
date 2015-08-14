@@ -1,0 +1,25 @@
+<br>
+<h2 class="text-center header"><%= current_user.name %>'s feed</h2>
+<ul class="nav nav-tabs">
+  <li class="active"><%= link_to "All Feeds", root_url %></li>
+  <li><%= link_to "Instagram", instagram_path, :controller => "welcome", :action => "instagram_feed" %></li>
+  <li><%= link_to "Vimeo", vimeo_path, :controller => "welcome", :action => "vimeo_feed  " %></li>
+</ul>
+<% if @posts.nil? || @posts.empty? %>
+  <div class="feed">
+    <div class = "center">
+      <iframe width="400" height="315" src="https://www.youtube.com/embed/6rNgCnY1lPg" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <h3 class = "green">
+      The Friendface Team
+      <span class="badge">
+         13,379,001 likes
+      </span>
+    </h3>
+    <p>
+      You haven't subscribed to any feeds yet. Find some interesting feeds to follow by searching Instagram or Vimeo users with the above search box!
+    </p>
+  </div>
+<% else %>
+  <%= render partial: "shared/internal_posts", locals: { posts: @posts } %>
+<% end %>

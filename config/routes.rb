@@ -1,58 +1,30 @@
 Rails.application.routes.draw do
-  post "/auth/developer/callback", to: "sessions#create"
+  # everybody routes -----------------------------------------------------------
+  root "welcome#index"
+  get "/about" => "welcome#about"
+
+  # authorization routes -------------------------------------------------------
+  get "/auth/instagram/callback" => "sessions#create_instagram"
+  get "/auth/vimeo/callback" => "sessions#create_vimeo"
   delete "/logout", to: "sessions#destroy", as: "logout"
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  # feed routes ----------------------------------------------------------------
+  # instagram
+  get "/instagram", to: "welcome#instagram_feed", as: "instagram"
+  get "/instagram/feed/:feed_id", to: "instagram#individual_feed", as: "instagram_feed"
+  post "/instagram/feed/:feed_id/subscribe", to: "instagram#subscribe", as: "instagram_subscribe"
+  delete "/instagram/feed/:feed_id/unsubscribe", to: "instagram#unsubscribe", as: "instagram_unsubscribe"
+  # vimeo
+  get "/vimeo", to: "welcome#vimeo_feed", as: "vimeo"
+  get "/vimeo/feed/:feed_id", to: "vimeo#individual_feed", as: "vimeo_feed"
+  post "/vimeo/feed/:feed_id/subscribe", to: "vimeo#subscribe", as: "vimeo_subscribe"
+  delete "/vimeo/feed/:feed_id/unsubscribe", to: "vimeo#unsubscribe", as: "vimeo_unsubscribe"
+  # feeds summary
+  get "/feeds" => "welcome#all_feeds"
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  # search routes --------------------------------------------------------------
+  post "/search", to: "welcome#search", as: "search"
+  get "/instagram/:query", to: "instagram#results", as: "instagram_results"
+  get "/vimeo/:query", to: "vimeo#results", as: "vimeo_results"
+  get "/search/:query", to: "welcome#dual_results", as: "dual_results"
 end

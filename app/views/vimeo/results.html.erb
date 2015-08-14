@@ -1,0 +1,40 @@
+<h1 class="header search-header center">Search results for <%= @query %>:</h1>
+<% if @results.empty? || @results.nil?  %>
+<div class="feed">
+  <%= image_tag "kittyhug.gif", class: "thumbnail center" %>
+  <p>
+    We're sorry,your search did not return any results. Don't worry it will all be ok.
+  </p>
+</div>
+<% end %>
+  <% unless @results.empty? %>
+  <div class="row">
+    <% @results.each_with_index do |result, index| %>
+      <% if index % 3 == 0 %>
+        </div><div class="row">
+      <% end %>
+        <div class="col-sm-4">
+          <div class="search-result">
+            <h3>
+              <%= link_to result["name"], vimeo_feed_path(grab_id(result)) %>
+              <br>
+
+              <% if user_already_vimeo? grab_id(result) %>
+                <%= link_to "Unsubscribe", vimeo_unsubscribe_path(grab_id(result)), method: "delete", class: "btn btn-warning btn-md",
+                    data: { confirm: "Are you sure you want to unsubscribe from this feed?" } %>
+              <% else %>
+                <%= link_to "Subscribe", vimeo_subscribe_path(grab_id(result)), method: "post", class: "btn btn-success btn-md" %>
+              <% end %>
+
+            </h3>
+            <% if result["pictures"] %>
+              <%= image_tag result["pictures"]["sizes"][3]["link"], class: "profile" %>
+            <% else %>
+              <%= image_tag "vimeo-avatar.png", class: "profile" %>
+            <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <% end %>
+</div>
