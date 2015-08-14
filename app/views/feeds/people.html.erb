@@ -1,13 +1,32 @@
 <!-- List of all people user follows with options to delete and add more -->
-<h2>Assassinate</h2>
+<div class="container">
+
+<h2>Assassinate!</h2>
 
 <% unless session[:user_id].nil? %>
-  <h3>Targets</h3>
-  <% @people.each do |person| %>
-  <p>
-    <%= person.username %>
-    <%= image_tag(person.image_url) %>
-    <%= link_to "X", polymorphic_path(person.class.name.downcase, id: person.id), method: :delete, class: "btn btn-danger" %>
-  </p>
-  <% end %>
-<% end  %>
+    <h3>Targets</h3>
+    <% if !@user.instagrams.empty? || !@user.tweets.empty? %>
+      <div class="container">
+        <div class="row row-centered">
+          <% @people.each do |person| %>
+            <div class="col-md-3 col-centered well">
+              <% if person.class == Instagram %>
+                  <span class="fa fa-instagram fa-lg icon" aria-hidden="true" data-toggle="tooltip"></span>
+              <% else %>
+                  <span class="fa fa-twitter fa-lg icon" aria-hidden="true" data-toggle="tooltip"></span>
+              <% end %>
+              <%= person.username %><br><br>
+              <%= image_tag(person.image_url, class: "photo-size") %><br><br>
+              <%= link_to "X", polymorphic_path(person.class.name.downcase, id: person.id), method: :delete, class: "btn btn-danger" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+    <%= link_to image_tag("notso-2.png", class: "ninja"), root_path %>
+      <div class="feed col-sm-4 center">
+        <h4 class="no-targets"><%= link_to "Add targets. Currently tracking no one", search_path %></h4>
+      </div>
+    <%end%>
+<% end %>
+</div>

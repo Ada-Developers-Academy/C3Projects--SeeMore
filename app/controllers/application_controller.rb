@@ -1,4 +1,3 @@
-require 'twitter'
 require 'twit'
 
 class ApplicationController < ActionController::Base
@@ -12,16 +11,42 @@ class ApplicationController < ActionController::Base
     no_username: "There's no user by that name. Search again.",
     success: "Success!",
     follow_error: "Oops. Something went wrong.",
-    login_required: "You have to be logged in to do that!"
+    login_required: "You have to be logged in to do that!",
+    target_eliminated: "Target eliminated!",
+    already_following_error: "Oops! You are already following that person."
   }
 
   def twit
     @twitter ||= Twit.new
   end
 
+  private
+
   def require_login
     unless session[:user_id]
       redirect_to root_path, flash: { error: MESSAGES[:login_required] }
     end
+  end
+
+  def already_following
+    params[:instagram] = nil
+    params[:tweet] = nil
+
+    flash.now[:error] = MESSAGES[:already_following_error]
+    render "feeds/search"
+  end
+
+  def private_ig_user(response)
+    params[:instagram] = nil
+
+    flash[:error] = "This user is private: " + response["meta"]["error_message"]
+    render "feeds/search"
+  end
+
+  def private_twitter_user(response)
+    params[:twitter] = nil
+
+    flash[:error] = "This user is private: " + response["meta"]["error_message"]
+    render "feeds/search"
   end
 end

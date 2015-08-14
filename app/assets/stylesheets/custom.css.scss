@@ -1,9 +1,28 @@
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// body
+
+  // .jumbotron {
+  //     background: image-url("notso-2.png") no-repeat;
+  //     padding-bottom: 150px;
+  //     margin-bottom: 100px;
+  // }
+
+body {
+    background: image-url("bamboo.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-size: 16px;
+    height: 100%;
+    vertical-align: middle;
+}
+
 .content {
   padding-top: 35px;
-  // background: image-url("notso-2.png") no-repeat;
 }
 
 .center {
@@ -12,10 +31,180 @@
   float: none;
 }
 
-.header {
-  font-size: 60px;
+.container {
+  height: 100%;
 }
 
-a:hover {
+.feed {
+  margin: 20px auto;
+  background-color: rgba(0,0,0,.7);
+  background-repeat: repeat;
+  width: 500px;
+  padding: 10px 10px;
+}
+
+
+// typography
+
+h1 {
+  font-size: 6em;
+}
+
+h1, h2, h3, h4, .page-links a,{
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  color: #000;
+
+}
+
+.no-targets a, .navbar-default .navbar-text,
+.navbar-default .navbar-nav > li > a {
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    color: rgb(255,255,255);
+}
+
+.navbar {
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.navbar-inverse, .error-message {
+  background-color: rgba(0,0,0,.5);
+  border: none;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.page-links a:hover, .no-targets a:hover {
   text-decoration: none;
+  color: #F00;
+}
+
+.search-header {
+  margin-top: 20px;
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  color: #000;
+  font-size: 1.5em;
+}
+
+.tweet-post a:hover {
+  color: #F00;
+  text-decoration: none;
+}
+
+.posted-at {
+  font-size: 0.7em;
+  font-style: italic;
+}
+
+// search results
+
+.search-results {
+  padding-top: 30px;
+}
+
+.well {
+  background-color: rgba(0,0,0,.7);
+  text-align: center;
+  padding: 5px;
+  width: 240px;
+  margin: 10px;
+  font-size: 14px;
+  color: rgb(255,255,255);
+}
+
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+}
+
+// photos & icons
+
+.photo-size {
+  width: 72px;
+}
+
+.ninja {
+  position: fixed;
+  left: 50px;
+  bottom: 100px;
+}
+
+.avatar {
+  width: 50px;
+  padding-top: 0;
+  float: left;
+}
+
+.shift-left {
+  padding-right: 70px;
+}
+
+.twitter {
+  margin-top: 10px;
+}
+
+.left {
+  float: left;
+}
+
+.ig-icon{
+  margin-right: 20px;
+}
+
+.twitter-icon {
+  margin-left: 10px;
+}
+
+.ig_image {
+  width: 250px;
+}
+
+.login-header {
+  padding-top: 30px;
+}
+
+.page-links {
+  font-size: 1em;
+}
+
+.error-message {
+  max-width: 75%;
+  color: #F00;
+  border-radius: 10%;
+  margin: 0 auto;
+  letter-spacing: 2px;
+}
+
+/* accessing developer strategy in production env */
+.animated {
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+}
+
+@-webkit-keyframes hinge {
+    0% { -webkit-transform: rotate(0); -webkit-transform-origin: top left; -webkit-animation-timing-function: ease-in-out; }
+    20%, 60% { -webkit-transform: rotate(80deg); -webkit-transform-origin: top left; -webkit-animation-timing-function: ease-in-out; }
+    40% { -webkit-transform: rotate(60deg); -webkit-transform-origin: top left; -webkit-animation-timing-function: ease-in-out; }
+    80% { -webkit-transform: rotate(60deg) translateY(0); opacity: 1; -webkit-transform-origin: top left; -webkit-animation-timing-function: ease-in-out; }
+    100% { -webkit-transform: translateY(700px); opacity: 0; }
+}
+@keyframes hinge {
+    0% { transform: rotate(0); transform-origin: top left; animation-timing-function: ease-in-out; }
+    20%, 60% { transform: rotate(80deg); transform-origin: top left; animation-timing-function: ease-in-out; }
+    40% { transform: rotate(60deg); transform-origin: top left; animation-timing-function: ease-in-out; }
+    80% { transform: rotate(60deg) translateY(0); opacity: 1; transform-origin: top left; animation-timing-function: ease-in-out; }
+    100% { transform: translateY(700px); opacity: 0; }
+}
+.hinge {
+    -webkit-animation-name: hinge;
+    animation-name: hinge;
 }

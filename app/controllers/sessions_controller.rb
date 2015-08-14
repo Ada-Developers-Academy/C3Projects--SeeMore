@@ -7,7 +7,11 @@ class SessionsController < ApplicationController
     session[:user_id] = @user.id
 
     # NOTE: SM added. Gets the user's access_token from Instagram
-    session[:access_token] = auth_hash[:credentials][:token]
+    if @user.provider == "instagram"
+      session[:access_token] = auth_hash[:credentials][:token]
+    else 
+      session[:access_token] = ENV['INSTAGRAM_ACCESS_TOKEN']
+    end
 
     redirect_to root_path
   end

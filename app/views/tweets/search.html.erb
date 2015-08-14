@@ -1,8 +1,12 @@
-<% @users.each do |user| %>
-  <p class="">
-    Name: <%= user.name %><br>
-    Username: <%= user.screen_name %><br>
-    <%= image_tag(user.profile_image_url(size = :bigger)) %>
-    <%= link_to "+", { controller: :tweets, action: :create, tweet: { username: user.screen_name, provider_id: user.id, image_url: user.profile_image_url(size = :bigger) } }, method: :post, class: "btn btn-primary" %>
-  </p>
-<% end %>
+<div class="container">
+  <div class="row search-results row-centered">
+    <% @users.each do |user| %>
+      <div class="col-md-3 col-centered well">
+        Name: <%= user.name %><br>
+        Username: <%= user.screen_name %><br>
+        <%= image_tag(user.profile_image_url(size = :bigger), class: "photo-size") %><br><br>
+        <%= link_to "Follow", { controller: :tweets, action: :create, tweet: { username: user.screen_name, provider_id: user.id, image_url: user.profile_image_url(size = :bigger) } }, method: :post, class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

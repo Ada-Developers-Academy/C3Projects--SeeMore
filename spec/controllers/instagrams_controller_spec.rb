@@ -1,14 +1,74 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe InstagramsController, type: :controller do
+  describe "POST #search" do
+    context "valid params" do
+      before :each do
+        VCR.use_cassette 'instagram_response' do
+          post :search, instagram: { username: "acmei" }
+        end
+      end
+
+      it 'searches users in Instagram API' do
+        expect(assigns(:users).first["username"]).to eq("acmei")
+      end
+
+      it "renders search template" do
+        expect(response).to render_template("feeds/search")
+      end
+    end
+
+    context "invalid params" do
+      before :each do
+        VCR.use_cassette 'instagram_response' do
+          post :search, instagram: { username: nil }
+        end
+      end
+
+      it "redirects to search page" do
+        expect(response).to redirect_to(search_path)
+      end
+
+      it "displays an error message" do
+        expect(flash[:error]).to_not be nil
+      end
+    end
+
+    context "params not found" do
+      before :each do
+        VCR.use_cassette 'instagram_no_response' do
+          post :search, instagram: { username: "xisoweze" }
+        end
+      end
+
+      it "displays an error message" do
+        expect(flash[:error]).to_not be nil
+      end
+
+      it "redirects to the search page" do
+        expect(response).to redirect_to(search_path)
+      end
+    end
+  end # POST #search
 
   describe "POST #create" do
+    context "login required" do
+      it "doesn't create instagram record" do
+        session[:user_id] = nil
+
+        post :create, instagram: attributes_for(:instagram)
+        expect(Instagram.count).to eq(0)
+        expect(flash[:error]).to_not be nil
+      end
+    end
+
     context "valid params" do
       before :each do
         @user = create :user
         session[:user_id] = @user.id
-        post :create, instagram: attributes_for(:instagram)
+        VCR.use_cassette 'instagram_create_response' do
+          post :create, instagram: attributes_for(:instagram, provider_id: "31042754")
+        end
       end
 
       it "creates an instagram record" do
@@ -25,7 +85,10 @@ RSpec.describe InstagramsController, type: :controller do
         expect(response).to have_http_status(302)
       end
 
-
+      it "throws an error when trying re-follow the same person" do
+        post :create, instagram: attributes_for(:instagram)
+        expect(flash[:error]).to_not be nil
+      end
     end
 
     context "invalid params" do
@@ -44,13 +107,28 @@ RSpec.describe InstagramsController, type: :controller do
       it "does not create a instagram record" do
         expect(Instagram.count).to eq 0
       end
+    end
+  end # POST #create
 
-      it "renders the feeds/search view" do
-        expect(response).to render_template("feeds/search")
+  describe "DELETE #destroy" do
+    context "valid params" do
+      before :each do
+        @user = create :user
+        session[:user_id] = @user.id
+        @instagrammer = create :instagram
+      end
+
+      it "unfollows an instagrammer" do
+        delete :destroy, id: @instagrammer.id
+
+        expect(@user.instagrams.count).to eq(0)
+      end
+
+      it "redirects to the people page" do
+        delete :destroy, id: @instagrammer.id
+        expect(subject).to redirect_to(people_path)
       end
     end
+  end # DELETE #destroy
 
-
-  end# post create
-
-end# controller
+end # controller spec

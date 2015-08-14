@@ -1,7 +1,52 @@
 require 'rails_helper'
+require 'twit'
 
 RSpec.describe TweetsController, type: :controller do
+  describe "POST #search" do
+    context "valid params" do
+      before :each do
+        VCR.use_cassette 'twitter_response' do
+          post :search, tweet: { username: "acmei" }
+        end
+      end
+
+      it 'searches users in Twitter API' do
+        expect(assigns(:users).first["username"]).to eq("acmei")
+      end
+
+      it "renders search template" do
+        expect(response).to render_template("feeds/search")
+      end
+    end
+
+    context "invalid params" do
+      before :each do
+        VCR.use_cassette 'twitter_response' do
+          post :search, tweet: { username: nil }
+        end
+      end
+
+      it "redirects to search page" do
+        expect(response).to redirect_to(search_path)
+      end
+
+      it "displays an error message" do
+        expect(flash[:error]).to_not be nil
+      end
+    end
+  end # POST #search
+
   describe "POST #create" do
+    context "login required" do
+      it "doesn't create twitter record" do
+        session[:user_id] = nil
+
+        post :create, tweet: attributes_for(:tweet)
+        expect(Tweet.count).to eq(0)
+        expect(flash[:error]).to_not be nil
+      end
+    end
+
     context "valid params" do
       before :each do
         @user = create :user
@@ -11,7 +56,7 @@ RSpec.describe TweetsController, type: :controller do
 
       it "creates a twitter record" do
         expect(Tweet.count).to eq(1)
-        expect(Tweet.first.username).to eq("Ada")
+        expect(Tweet.first.username).to eq("adaninjaparty")
       end
 
       it "associates with a user" do
@@ -21,6 +66,11 @@ RSpec.describe TweetsController, type: :controller do
       it "redirects to root_path" do
         expect(response).to redirect_to(root_path)
         expect(response).to have_http_status(302)
+      end
+
+      it "throws an error when trying re-follow the same person" do
+        post :create, tweet: attributes_for(:tweet)
+        expect(flash[:error]).to_not be nil
       end
     end
 
@@ -40,10 +90,44 @@ RSpec.describe TweetsController, type: :controller do
       it "does not create a tweet record" do
         expect(Tweet.count).to eq 0
       end
+    end
 
-      it "renders the feeds/search view" do
-        expect(response).to render_template("feeds/search")
+    context "params not found" do
+      before :each do
+        VCR.use_cassette 'tweet_no_response' do
+          post :search, tweet: { username: "xisoweze" }
+        end
+      end
+
+      it "displays an error message" do
+        expect(flash[:error]).to_not be nil
+      end
+
+      it "redirects to the search page" do
+        expect(response).to redirect_to(search_path)
       end
     end
   end
+
+  describe "DELETE #destroy" do
+    context "valid params" do
+      before :each do
+        @user = create :user
+        session[:user_id] = @user.id
+        @tweeter = create :tweet
+      end
+
+      it "unfollows a tweeter" do
+        delete :destroy, id: @tweeter.id
+
+        expect(@user.tweets.count).to eq(0)
+      end
+
+      it "redirects to the people page" do
+        delete :destroy, id: @tweeter.id
+        expect(subject).to redirect_to(people_path)
+      end
+    end
+  end # DELETE #destroy
+
 end

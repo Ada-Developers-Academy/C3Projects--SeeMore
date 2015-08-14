@@ -3,44 +3,48 @@ require 'httparty'
 class InstagramsController < ApplicationController
   before_action :require_login, only: [:create]
 
-  CALLBACK_URL = "http://localhost:3000/auth/instagram/callback"
+  CALLBACK_URL = "https://ninjaparty.herokuapp.com/auth/instagram/callback"
 
   def search
-    if params[:instagram].present?
+    if params[:instagram][:username].present?
       instagram_search = params[:instagram][:username]
       response = HTTParty.get(INSTAGRAM_URI + "users/search?q=#{instagram_search}&client_id=#{ENV["INSTAGRAM_ID"]}")
-
       @users = response["data"]
 
-      return render "feeds/search"
+      if @users.empty?
+        return redirect_to search_path, flash: { error: MESSAGES[:no_username] }
+      else
+        return render "feeds/search"
+      end
     else
-      redirect_to root_path, flash: { error: MESSAGES[:no_username] }
+      redirect_to search_path, flash: { error: MESSAGES[:no_username] }
     end
   end
 
   def create
+    user = User.find(session[:user_id])
     @instagram_person = Instagram.find_or_create_by(instagram_params)
-    @person = @instagram_person.username
-    @instagram_person.users << User.find(session[:user_id])
+    response = HTTParty.get(INSTAGRAM_URI + "users/#{@instagram_person.provider_id}/media/recent?access_token=#{session[:access_token]}")
 
-    if @instagram_person.save
-      return redirect_to root_path, flash: { alert: MESSAGES[:success] }
+    if @instagram_person.users.include?(user)
+      already_following
+    elsif response["meta"]["error_message"]
+      private_ig_user(response)
     else
-      return render "feeds/search", flash: { error: MESSAGES[:follow_error] }
+      @instagram_person.users << User.find(session[:user_id])
+      redirect_to root_path, flash: { alert: MESSAGES[:success] }
     end
-    redirect_to search_path
-    # add flash: no search results were found for 'username'
   end
 
   def destroy
     user = User.find_by(id: session[:user_id])
     instagramer = Instagram.find(params[:id])
-
     if instagramer
        user.instagrams.destroy(instagramer)
+       instagramer.users.destroy(user)
     end
 
-    redirect_to people_path, flash: { alert: MESSAGES[:success] }
+    redirect_to people_path, flash: { alert: MESSAGES[:target_eliminated] }
   end
 
   private

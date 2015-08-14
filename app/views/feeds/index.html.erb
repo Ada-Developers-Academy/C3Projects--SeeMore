@@ -1,49 +1,41 @@
 <div class="container center">
+  <%= link_to image_tag("notso-2.png", class: "ninja"), root_path %>
   <h1 class="header">NinjaPartay</h1>
     <% if session[:user_id].nil? %>
-      <h3>Choose Your Weapon</h3>
-        <%= link_to login_path(provider: :instagram) do %>
-            <span class="fa fa-instagram fa-5x col-sm-1 center social-icon" aria-hidden="true" data-toggle="tooltip" title="instagram login"></span>
+      <h3 class="login-header weapon">Choose Your Weapon</h3>
+        <div class="page-links weapon"><%= link_to login_path(provider: :instagram) do %>
+            <span class="fa fa-instagram fa-5x col-sm-1 center ig-icon" aria-hidden="true" data-toggle="tooltip" title="instagram login"></span>
         <% end %>
         <%= link_to login_path(provider: :twitter) do %>
-            <span class="fa fa-twitter fa-5x col-sm-1 center social-icon" aria-hidden="true" data-toggle="tooltip" title="twitter login"></span>
+            <span class="fa fa-twitter fa-5x col-sm-1 center twitter-icon" aria-hidden="true" data-toggle="tooltip" title="twitter login"></span>
         <% end %>
-      <% else %>
-        <% if @user %>
-          <h2><%= @user.username %></h2>
-        <% end %>
-        <%= link_to "Follow People", search_path, class: "btn btn-primary" %>
-        <!-- Manage feed button -->
-        <%= link_to "Assasinate", people_path, class: "btn btn-primary" %>
-
-        <%= render partial: "instagrams/refresh_feed" %>
-        <!-- Instagram Actual Feed here -->
-        <% if @posts %>
-          <% @posts.each do |post| %>
-            <div class="row">
-              <div class="col-sm-4 center">
-                <div class="thumbnail">
-                  <%= link_to image_tag(post["data"]["images"]["standard_resolution"]["url"]), post["data"]["link"] %>
-                  <div class="caption">
-                    <h5>Posted by: <%= post["data"]["user"]["username"] %></h5>
-                    <% unless post["data"]["caption"].nil? %>
-                      <p><%= post["data"]["caption"]["text"] %></p>
-                    <% end %>
-                    <em><%= Time.at(post["data"]["created_time"].to_i).strftime("%m/%d/%Y at %I:%M%p") %></em>
-                  </div>
+        </div>
+    <% else %>
+        <!-- Feed -->
+        <% if @all_posts && !@all_posts.empty? %>
+          <div class="feed col-sm-4 center">
+            <% @all_posts.each do |post| %>
+              <div class="thumbnail">
+                <div class="caption">
+                  <% if post.provider == "Instagram" %>
+                    <%= link_to image_tag(post.media_url, class: "ig_image"), post.link %>
+                    <h5><span class="fa fa-instagram fa-lg icon" aria-hidden="true" data-toggle="tooltip"></span> <%= post.username %></h5>
+                    <p><%= post.text %></p>
+                  <% else %>
+                    <h5 class="shift-left"><%= image_tag(post.avatar, class: "avatar") %>
+                    <span class="fa fa-twitter fa-lg icon" aria-hidden="true" data-toggle="tooltip"></span> <%= post.username %></h5>
+                    <p class="tweet-post"><%=link_to "#{post.text}", post.link %></p>
+                  <% end %>
+                  <span class="posted-at text-muted"><%= "#{time_ago_in_words(post.date_time)} ago" %></span>
                 </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+            <h3 class="page-links"><%= link_to "Back to top", root_path %></h3>
+          </div>
+        <% else %>
+          <div class="feed col-sm-4 center">
+            <h4 class="no-targets"><%= link_to "Add targets. Currently tracking no one", search_path %></h4>
+          </div>
         <% end %>
-      <% end %>
-
-    <!-- Actual Feed here -->
-    <% if @user %>
-      <% @feed.each do |tweet| %>
-        <p><%= tweet.text %>
-        <%= tweet.created_at %></p>
-      <% end  %>
     <% end %>
-
 </div>

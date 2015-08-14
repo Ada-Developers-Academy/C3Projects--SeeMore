@@ -1,8 +1,12 @@
-<% @users.each do |user| %>
-  <p class="">
-    Name: <%= user["full_name"] %><br>
-    Username: <%= user["username"] %><br>
-    <%= image_tag(user["profile_picture"]) %>
-    <%= link_to "+", { controller: :instagrams, action: :create, instagram: { username: user["username"], provider_id: user["id"], image_url: user["profile_picture"] } }, method: :post, class: "btn btn-primary" %>
-  </p>
-<% end %>
+<div class="container">
+  <div class="row search-results row-centered">
+    <% @users.each do |user| %>
+      <div class="col-md-3 col-centered well">
+        Name: <%= user["full_name"] %><br>
+        Username: <%= user["username"] %><br>
+        <%= image_tag(user["profile_picture"], class: "photo-size") %><br><br>
+        <%= link_to "Follow", { controller: :instagrams, action: :create, instagram: { username: user["username"], provider_id: user["id"], image_url: user["profile_picture"] } }, method: :post, class: "btn btn-primary" %>
+      </div>
+      <% end %>
+  </div>
+</div>

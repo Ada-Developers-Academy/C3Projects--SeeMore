@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get "/search", to: "feeds#search", as: "search"
   get "/people", to: "feeds#people", as: "people"
 
+
+  get "auth/developer" => "feeds#nope" if Rails.env.production?
+
   get "auth/:provider/callback" => 'sessions#create'
   # post is here for OmniAuth developer strategy
   post "auth/:provider/callback" => 'sessions#create'
@@ -20,7 +23,9 @@ Rails.application.routes.draw do
 
   resources :instagrams, only: [:create, :destroy]
   resources :tweets, only: [:create, :destroy]
-  resources :instagram_posts, only: [:create]
 
+  match '/404', to: 'errors#file_not_found', via: :all
+  match '/422', to: 'errors#unprocessable', via: :all
+  match '/500', to: 'errors#internal_server_error', via: :all
 
 end
