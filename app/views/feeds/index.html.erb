@@ -12,17 +12,17 @@
 
 <% unless @user.instagram_users.count == 0  && @user.tw_users.count == 0 %>
   <% @posts.each do |post| %>
-  <div class="not-following col-md-6 center-block no-float "> 
+  <div class="not-following col-md-6 center-block no-float ">
     <% if post.class == Tweet %>
-    <div class="tweet">
-      <%= raw tweet_oembed(post).html %> 
-     </div> 
+    <div class="tw-post">
+      <%= raw tweet_oembed(post).html %>
+     </div>
     <% elsif post.class == Gram %>
-    <div class="gram">
+    <div class="ig-post">
       <%= raw gram_oembed(post)["html"] %>
     </div>
     <% end %>
-  </div>  
+  </div>
   <% end %>
 
 <% else %>
