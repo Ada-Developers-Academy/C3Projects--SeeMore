@@ -2,21 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .not-following {
-  margin-top: 85px;
-}
-
-.tw-post {
-  padding: 35px;
-  margin-bottom: 60px;
-  border-radius: 25px;
-  border: 2px solid #5ba0c2;
-}
-
-.ig-post {
-  padding: 25px;
-  margin-bottom: 60px;
-  border-radius: 25px;
-  border: 2px solid #d1721f;
+  margin-top: 80px;
 }
 
 .search-wrapper {
@@ -40,6 +26,20 @@
   transform: translate(-50%, -50%);
 }
 
-// .feed {
-//   margin: 0 auto;
-// }
+.feed {
+  margin: 0 auto;
+}
+
+.tweet {
+  padding: 35px;
+  margin-bottom: 60px;
+  border-radius: 25px;
+  border: 2px solid #5ba0c2;
+}
+
+.gram {
+  padding: 25px;
+  margin-bottom: 60px;
+  border-radius: 25px;
+  border: 2px solid #d1721f;
+}

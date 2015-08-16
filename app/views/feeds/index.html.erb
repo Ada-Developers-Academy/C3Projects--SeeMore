@@ -14,11 +14,11 @@
   <% @posts.each do |post| %>
   <div class="not-following col-md-6 center-block no-float ">
     <% if post.class == Tweet %>
-    <div class="tw-post">
+    <div class="tweet">
       <%= raw tweet_oembed(post).html %>
      </div>
     <% elsif post.class == Gram %>
-    <div class="ig-post">
+    <div class="gram">
       <%= raw gram_oembed(post)["html"] %>
     </div>
     <% end %>
