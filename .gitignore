@@ -19,3 +19,8 @@
 /coverage
 .env
 .DS_Store
+
+# The recording of our API contains info we don't want on github
+spec/vcr/*
+
+/db/migrate/20150812174826_rename_tw_created_at_to_created_time.rb

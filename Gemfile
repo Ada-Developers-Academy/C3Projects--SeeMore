@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.2.2'
 
 gem 'dotenv-rails', '~> 2.0.2', groups: [:development, :test]
 
@@ -32,8 +33,11 @@ gem 'httparty'
 gem 'omniauth', '~> 1.2.2'
 gem 'omniauth-instagram', '~> 1.0.1'
 
+gem 'instagram', '~> 1.1.5'
+gem 'twitter'
+
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+# gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -61,6 +65,13 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'awesome_print'
+end
+
+group :test do
+  # API testing
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :production do

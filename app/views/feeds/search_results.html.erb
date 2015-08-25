@@ -1,0 +1,34 @@
+<h1>Creepah!!</h1>
+<% @results.each do |user| %>
+  <div class="col-sm-6 col-md-4">
+
+    <% if params[:provider] == 'twitter' %>
+      <div class="thumbnail">
+        <p><%= link_to user.screen_name, "http://twitter.com/#{user.screen_name}" %></p>
+
+        <p><%= image_tag(user.profile_image_url) %></p>
+
+        <% if following?(user.id) %>
+          <p>Following!</p>
+        <% else %>
+          <p><%= button_to "Follow", tw_follow_path(user.id), params: { profile_image_url: user.profile_image_url,
+          screen_name: user.screen_name, user_name: user.name}, class: "btn btn-success" %></p>
+        <% end %>
+      </div>
+
+    <% elsif params[:provider] == 'instagram' %>
+      <div class="thumbnail">
+        <p><%= link_to user.username,"http://www.instagram.com/#{user.username}" %></p>
+
+        <p><%= image_tag(user.profile_picture) %></p>
+
+        <% if following?(user.id) %>
+          <p>Following!</p>
+        <% else %>
+          <p><%= link_to "Follow", ig_follow_path(user), class: "btn btn-success"%></p>
+        <% end %>
+      </div>
+    <% end %>
+    
+  </div>
+<% end %>

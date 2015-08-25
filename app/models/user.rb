@@ -1,19 +1,33 @@
 class User < ActiveRecord::Base
-  #Validations
-  validates :username,:email,  presence: true
+  # Associations
+  has_many :tweets
+  has_many :grams, through: :instagram_users
+  has_many :tweets, through: :tw_users
+  has_and_belongs_to_many :instagram_users
+  has_and_belongs_to_many :tw_users
 
- #Methods
+  # Validations
+  validates :avatar_url,:uid,:provider,  presence: true
+  validates :username, presence: true, uniqueness: true
 
-  #  def self.find_or_create_from_omniauth(auth_hash)
+  # Methods
+  def self.find_or_create_from_omniauth(auth_hash)
+    instagram = auth_hash["user"]
+    auth_uid = instagram.nil? ? "nil" : instagram["id"]
+    auth_provider = instagram.nil? ? "developer" : "instagram"
 
-  #   auth_uid = auth_hash["uid"]
-  #   auth_provider = auth_hash["provider"]
+    user = User.where(uid: auth_uid, provider: auth_provider).first_or_initialize
+    user.uid      = instagram.nil?   ? "nil" : instagram["id"]
+    user.provider = instagram.nil?   ? "developer" : "instagram"
+    user.username = instagram.nil?   ? auth_hash["info"]["name"] : instagram["username"]
+    user.avatar_url = instagram.nil? ? "nil" : instagram["profile_picture"]
 
-  #   user = User.where(uid: auth_uid, provider: auth_provider).first_or_initialize
-  #   user.email = auth_hash["info"]["email"]
-  #   user.username = auth_hash["info"]["username"]
+    return user.save ? user : nil
+  end
 
-  #   return user.save ? user : nil #(could also raise an error here)
-  # end
-
+  def ig_follow(ig_user)
+    ig_user = InstagramUser.first_or_create_account(ig_user)
+    self.instagram_users << ig_user
+    ig_user
+  end
 end

@@ -1,59 +1,26 @@
 Rails.application.routes.draw do
-   get  "/auth/developer", to: 'sessions#create'
-   delete "/logout", to: 'sessions#destroy', as: 'logout'
-   
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  root 'users#index'
+  root 'sessions#index'
 
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  get    '/auth/:provider',  to: 'sessions#new',     as: 'auth'
+  get    '/auth/:provider/callback', to: 'sessions#create', as: 'callback'
+  post   '/auth/:provider/callback', to: 'sessions#create' # dev strategy
+  get    '/about',           to: 'sessions#show',    as: 'about'
+  delete '/logout',          to: 'sessions#destroy', as: 'logout'
 
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  resources :users, only: [:create, :destroy]
 
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  resources :feeds, except: [:show, :destroy]
+  get  '/feeds/dismiss_alert',    to: 'feeds#dismiss_alert',   as: 'dismiss_alert'
+  post '/feeds/dismiss_alert',    to: 'feeds#dismiss_alert'
+  get  '/feeds/:provider/search', to: 'feeds#search',          as: 'search'
+  post '/search_redirect',        to: 'feeds#search_redirect', as: 'search_redirect'
+  get  '/results/:search_term',   to: 'feeds#search_results',  as: 'search_results'
 
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
 
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+  post '/tw_follow/:tw_user',      to: 'feeds#tw_follow',      as: 'tw_follow'
 
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
+  get '/instagram_follow',        to: 'feeds#ig_follow' #fake
+  post '/instagram_follow',       to: 'feeds#ig_follow',       as:  'ig_follow'
 
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end
