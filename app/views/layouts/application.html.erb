@@ -5,25 +5,73 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <%= favicon_link_tag 'favicon.ico' %>
 </head>
 <body>
+
+  <div class="welcome-image">
+    <%= image_tag "search.jpg", class: "welcome_image" %>
+  </div>
+
   <div class="container">
     <header>
       <% if session[:stalker_id] %>
         <nav class="navbar navbar-default">
-            <%= form_tag search_path, method: :post, class: "navbar-form navbar-left" do %>
-              <%= text_field_tag :search_twitter, params[:search_twitter], placeholder: "Search Twitter Users" %>
-              <%= submit_tag "Search", class: "btn btn-default" %>
-            <% end %>
+          <div class="navbar-header">
+            <%= link_to(image_tag('home.png'), root_path, class: "navbar-brand") %>
+          </div>
 
-            <%= form_tag search_path, method: :post, class: "navbar-form navbar-left" do %>
-              <%= text_field_tag :search_instagram, params[:search_instagram], placeholder: "Search Instagram Users" %>
-              <%= submit_tag "Search", class: "btn btn-default" %>
-            <% end %>
-            <%= link_to "Sign Out", logout_path, method: :delete, class: "btn btn-success navbar-btn navbar-right" %>
+          <div class="dropdown navbar-btn navbar-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              Settings
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><%= link_to "Subscriptions", dashboard_path(session[:stalker_id]) %></li>
+              <li><%= link_to "Sign Out", logout_path, method: :delete %></li>
+            </ul>
+          </div>
+
+          <%= form_tag search_path, method: :post, class: "navbar-form navbar-right" do %>
+            <%= text_field_tag :search, params[:search], placeholder: " Search Users" %>
+
+            <%= submit_tag "Search", class: "btn btn-default btn-search" %>
+
+            <div class="radio-group">
+              <%= radio_button_tag(:client, "twitter", checked: true) %>
+              <%= label_tag(:client_twitter, "Twitter") %>
+
+              <%= radio_button_tag(:client, "instagram") %>
+              <%= label_tag(:client_instagram, "Instagram") %>
+            </div>
+          <% end %>
         </nav>
+
+        <div class="text-right">
+          <h5>Welcome, <%= stalker_username(session[:stalker_id]) %>!</h5>
+        </div>
       <% end %>
     </header>
+
+
+    <% if flash[:message] %>
+      <% flash[:message].each do |key, value| %>
+        <h5 class="alert alert-success">
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+          <%= key.to_s.titlecase %>: <%= value %>
+        </h5>
+      <% end %>
+    <% end %>
+
+    <% if flash[:error] %>
+      <% flash[:error].each do |key, value| %>
+        <h5 class="alert alert-warning">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <%= key.to_s.titlecase %>: <%= value %>
+        </h5>
+      <% end %>
+    <% end %>
 
     <%= yield %>
   </div>

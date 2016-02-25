@@ -11,17 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150807214223) do
+ActiveRecord::Schema.define(version: 20150810203835) do
 
-  create_table "grams", force: :cascade do |t|
-    t.string   "uid",        null: false
-    t.string   "body"
-    t.string   "photo_url",  null: false
-    t.datetime "gram_time",  null: false
-    t.integer  "prey_id",    null: false
+  create_table "media", force: :cascade do |t|
+    t.string   "url",        null: false
+    t.integer  "post_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "media", ["post_id"], name: "index_media_on_post_id"
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "uid",        null: false
+    t.string   "body"
+    t.datetime "post_time",  null: false
+    t.integer  "prey_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "url",        null: false
+    t.string   "provider",   null: false
+  end
+
+  add_index "posts", ["prey_id"], name: "index_posts_on_prey_id"
 
   create_table "prey", force: :cascade do |t|
     t.string   "name"
@@ -46,15 +58,6 @@ ActiveRecord::Schema.define(version: 20150807214223) do
     t.string   "username",   null: false
     t.string   "uid",        null: false
     t.string   "provider",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tweets", force: :cascade do |t|
-    t.string   "uid",        null: false
-    t.string   "body"
-    t.datetime "tweet_time", null: false
-    t.integer  "prey_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

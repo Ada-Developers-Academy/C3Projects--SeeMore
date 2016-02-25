@@ -1,7 +1,34 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
+  before { session[:stalker_id] = 1 }
+
+  describe "GET #index" do
+    it "does not require login" do
+      session[:stalker_id] = nil
+      get :index
+
+      expect(flash[:error]).to be_nil
+      expect(response).not_to redirect_to(landing_path)
+    end
+
+    it "renders the index template" do
+      get :index
+
+      expect(response).to render_template("index")
+    end
+  end
+
   describe "GET #create" do
+    it "does not require login" do
+      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter]
+      session[:stalker_id] = nil
+      get :create, provider: :twitter
+
+      expect(flash[:error]).to be_nil
+      expect(response).not_to redirect_to(landing_path)
+    end
+
     context "when using twitter authentication" do
       context "is successful" do
         before { request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:twitter] }
@@ -55,7 +82,7 @@ RSpec.describe SessionsController, type: :controller do
        it "redirects to home with flash error" do
          get :create, provider: :twitter
 
-         expect(response).to redirect_to root_path
+         expect(response).to redirect_to landing_path
          expect(flash[:error]).to_not be nil
        end
       end
@@ -114,7 +141,7 @@ RSpec.describe SessionsController, type: :controller do
        it "redirects to home with flash error" do
          get :create, provider: :vimeo
 
-         expect(response).to redirect_to root_path
+         expect(response).to redirect_to landing_path
          expect(flash[:error]).to_not be nil
        end
       end
@@ -173,11 +200,31 @@ RSpec.describe SessionsController, type: :controller do
        it "redirects to home with flash error" do
          get :create, provider: :instagram
 
-         expect(response).to redirect_to root_path
+         expect(response).to redirect_to landing_path
          expect(flash[:error]).to_not be nil
        end
       end
     end
   end
 
+  describe "#destroy" do
+    let(:stalker) { create(:stalker) }
+    before(:each) do
+      session[:stalker_id] = stalker.id
+      delete :destroy
+    end
+
+    it "sets flash[:message]" do
+      expect(flash[:message]).to_not be nil
+      expect(flash[:message]).to include :success
+    end
+
+    it "sets session[:stalker_id] to nil" do
+      expect(session[:stalker_id]).to be nil
+    end
+
+    it "requires login" do
+      expect(response).to redirect_to(landing_path)
+    end
+  end
 end

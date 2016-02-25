@@ -16,6 +16,27 @@
  @import "bootstrap-sprockets";
  @import "bootstrap";
 
+.navbar-form {
+  font-size: 1em;
+}
+
+.btn-search {
+  font-size: .9em;
+  padding: .2em;
+  float: right;
+  margin-left: .1em;
+}
+
+.radio-group {
+  font-size: .8em;
+}
+
+input[type=radio] {
+  width: 1em;
+  margin-left: .8em;
+  margin-right: .4em;
+}
+
 .navbar-right {
   margin-right: 10px;
 }
@@ -24,8 +45,74 @@
   padding: 15px;
 }
 
-.thumbnail img {
+.thumbnail a img {
   width: 200px;
   height: 200px;
   overflow: hidden;
+}
+
+.post_img {
+  display: block;
+  height: 252px;
+  width: 505px;
+  overflow: hidden;
+  position: relative;
+  vertical-align: middle;
+  border-radius: 5px;
+}
+
+.post-img img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+nav a {
+  margin-left: 5px;
+}
+
+.welcome_image {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+.home_icon {
+  float: left;
+}
+
+.media-object {
+  height: 48px;
+  width: 48px;
+}
+
+.post {
+  border: 1px rgb(178, 178, 178) solid;
+  border-radius: 50px;
+  padding: 35px;
+  margin: 30px;
+  background-color: rgba(255, 255, 255, .7);
+}
+
+.post p {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.time-ago {
+  font-style: italic;
+}
+
+.profile-image-thumbnail {
+  height: 50px;
+  width: 50px;
+}
+
+.post-header {
+  margin-bottom: 15px;
+}
+
+.login-buttons {
+  margin: 10px;
 }
